@@ -1,14 +1,47 @@
 
 package edu.arhs.team1100.ultimateascent;
 
-import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
+import edu.arhs.team1100.ultimateascent.input.AttackThree;
+import edu.wpi.first.wpilibj.Joystick;
 
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+    
+    private final int LEFT_JOYSTICK_CHANNEL = 1;
+    private final int RIGHT_JOYSTICK_CHANNEL = 2;
+    private final int CONTROLLER_CHANNEL = 3;
+    
+    private static OI instance;
+    
+    private AttackThree leftJoystick;
+    private AttackThree rightJoystick;
+       
+    public static OI getInstance(){
+        if(instance == null){
+            instance = new OI();
+        }
+        return instance;
+    }
+    
+    public OI(){
+        leftJoystick = new AttackThree(LEFT_JOYSTICK_CHANNEL);
+        rightJoystick = new AttackThree(RIGHT_JOYSTICK_CHANNEL);
+   
+        //bind buttons to commands HERE
+    }
+    
+    public Joystick getLeftJoystick(){
+        return leftJoystick;
+    }
+    
+    public Joystick getRightJoystick(){
+        return rightJoystick;        
+    }
+    
+    
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
     // You create one by telling it which joystick it's on and which button
