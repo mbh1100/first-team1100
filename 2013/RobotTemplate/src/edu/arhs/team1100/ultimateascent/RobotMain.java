@@ -22,7 +22,7 @@ import edu.arhs.team1100.ultimateascent.commands.ExampleCommand;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class RobotTemplate extends IterativeRobot {
+public class RobotMain extends IterativeRobot {
 
     Command autonomousCommand;
 
