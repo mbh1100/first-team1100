@@ -1,5 +1,5 @@
 
-package edu.arhs.team1100.ultimateascent;
+package edu.arhs.first1100.ultimateascent;
 
 import edu.arhs.team1100.ultimateascent.input.AttackThree;
 import edu.wpi.first.wpilibj.Joystick;
@@ -16,7 +16,7 @@ public class OI {
     
     private static OI instance;
     
-    private AttackThree leftJoystick;
+    private AttackThree leftJoystick = new AttackThree(LEFT_JOYSTICK_CHANNEL);
     private AttackThree rightJoystick;
        
     public static OI getInstance(){

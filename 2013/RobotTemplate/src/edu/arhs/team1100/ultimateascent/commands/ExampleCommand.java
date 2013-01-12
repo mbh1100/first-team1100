@@ -1,5 +1,5 @@
 
-package edu.arhs.team1100.ultimateascent.commands;
+package edu.arhs.first1100.ultimateascent.commands;
 
 /**
  *
