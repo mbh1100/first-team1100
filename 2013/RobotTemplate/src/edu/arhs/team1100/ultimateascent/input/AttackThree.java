@@ -7,7 +7,7 @@ public class AttackThree extends Joystick {
 
     // private JoystickAxis x;
     // private JoystickAxis y;
-    //private JoystickAxis z;
+    // private JoystickAxis z;
     private JoystickButton button1;
     private JoystickButton button2;
     private JoystickButton button3;

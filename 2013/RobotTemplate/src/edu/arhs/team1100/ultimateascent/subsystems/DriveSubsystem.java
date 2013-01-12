@@ -52,11 +52,12 @@ public class DriveSubsystem extends Subsystem {
     }
     
     public void mecanumDrive(){
-        double controlM = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
+        double rotation = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
         double controlX = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
         double controlY = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
         double angle = Math.toDegrees(MathUtils.atan2(controlY, controlX));
-        drive.mecanumDrive_Polar(controlM, angle, 0);
+        double magnitude = Math.sqrt(((controlX)*(controlX)) + ((controlY)*(controlY)));
+        drive.mecanumDrive_Polar(magnitude, angle, rotation);
     }
     
     /*
