@@ -1,4 +1,4 @@
-package edu.arhs.first1100.ultimateascent;
+package edu.arhs.team1100.ultimateascent;
 
 import edu.wpi.first.wpilibj.Talon;
 

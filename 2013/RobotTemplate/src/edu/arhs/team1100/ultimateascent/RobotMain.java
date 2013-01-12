@@ -5,11 +5,11 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package edu.arhs.first1100.ultimateascent;
+package edu.arhs.team1100.ultimateascent;
 
 
-import edu.arhs.first1100.ultimateascent.commands.CommandBase;
-import edu.arhs.first1100.ultimateascent.commands.ExampleCommand;
+import edu.arhs.team1100.ultimateascent.commands.CommandBase;
+import edu.arhs.team1100.ultimateascent.commands.ExampleCommand;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;

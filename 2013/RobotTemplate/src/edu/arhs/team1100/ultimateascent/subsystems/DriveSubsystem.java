@@ -2,11 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.arhs.first1100.ultimateascent.subsystems;
+package edu.arhs.team1100.ultimateascent.subsystems;
 
-import edu.arhs.first1100.ultimateascent.OI;
-import edu.arhs.first1100.ultimateascent.RobotMap;
-import edu.arhs.first1100.ultimateascent.commands.MecanumCommand;
+import edu.arhs.team1100.ultimateascent.OI;
+import edu.arhs.team1100.ultimateascent.RobotMap;
+import edu.arhs.team1100.ultimateascent.commands.MecanumCommand;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
