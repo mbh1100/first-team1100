@@ -5,7 +5,7 @@ import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
 import edu.arhs.team1100.ultimateascent.sensors.Camera;
 /**
  *
- * @author Ryan
+ * @author FITE
  * Testing with Imaging
  */
 public class AutoTarget extends CommandBase {
