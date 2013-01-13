@@ -24,11 +24,11 @@ public class RobotMap {
     public static final int D_TALON_FRONT_LEFT_CHANNEL = 1;
     
     public static final int D_TALON_FRONT_RIGHT_SLOT = 1;
-    public static final int D_TALON_FRONT_RIGHT_CHANNEL = 1;
+    public static final int D_TALON_FRONT_RIGHT_CHANNEL = 2;
     
     public static final int D_TALON_BACK_LEFT_SLOT = 1;
-    public static final int D_TALON_BACK_LEFT_CHANNEL = 1;
+    public static final int D_TALON_BACK_LEFT_CHANNEL = 3;
     
     public static final int D_TALON_BACK_RIGHT_SLOT = 1;
-    public static final int D_TALON_BACK_RIGHT_CHANNEL = 1;
+    public static final int D_TALON_BACK_RIGHT_CHANNEL = 4;
 }

@@ -23,7 +23,7 @@ public class AutoTarget extends CommandBase {
     }
 
     protected void execute() {
-    
+    /*
     DriveSubsystem drive = new DriveSubsystem();
     Camera cam = new Camera();
     boolean shouldStop = false;
@@ -46,7 +46,7 @@ public class AutoTarget extends CommandBase {
         else if(cam.getCenterY() < 0)angle = 180;
         
         drive.drive(speed, angle, rotation);
-    }
+    }*/
         
     }
 

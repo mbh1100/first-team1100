@@ -15,10 +15,13 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class MecanumCommand extends CommandBase {
     
-    
+    public MecanumCommand(){
+        System.out.println("MecanumCommand Constructor");
+        requires(DriveSubsystem.getInstance());
+    }
 
     protected void initialize() {
-        requires(DriveSubsystem.getInstance());     
+       // requires(DriveSubsystem.getInstance());     
     }
 
     protected void execute() {

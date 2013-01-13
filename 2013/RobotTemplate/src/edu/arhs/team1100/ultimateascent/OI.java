@@ -16,7 +16,7 @@ public class OI {
     
     private static OI instance;
     
-    private AttackThree leftJoystick = new AttackThree(LEFT_JOYSTICK_CHANNEL);
+    private AttackThree leftJoystick;
     private AttackThree rightJoystick;
        
     public static OI getInstance(){
