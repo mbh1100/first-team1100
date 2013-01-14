@@ -38,10 +38,10 @@ public class DriveSubsystem extends Subsystem {
     
     public DriveSubsystem() {
         System.out.println("DriveSubsystem Constructor");
-        frontLeftTalon = new Talon(RobotMap.D_TALON_FRONT_LEFT_SLOT, RobotMap.D_TALON_FRONT_LEFT_CHANNEL);
-        frontRightTalon = new Talon(RobotMap.D_TALON_FRONT_RIGHT_SLOT, RobotMap.D_TALON_FRONT_RIGHT_CHANNEL);
-        backLeftTalon = new Talon(RobotMap.D_TALON_BACK_LEFT_SLOT, RobotMap.D_TALON_BACK_LEFT_CHANNEL);
-        backRightTalon = new Talon(RobotMap.D_TALON_BACK_RIGHT_SLOT, RobotMap.D_TALON_BACK_RIGHT_CHANNEL);    
+        frontLeftTalon = new Talon(RobotMap.D_TALON_FRONT_LEFT_CHANNEL);
+        frontRightTalon = new Talon(RobotMap.D_TALON_FRONT_RIGHT_CHANNEL);
+        backLeftTalon = new Talon(RobotMap.D_TALON_BACK_LEFT_CHANNEL);
+        backRightTalon = new Talon(RobotMap.D_TALON_BACK_RIGHT_CHANNEL);    
         drive = new RobotDrive(
                 frontLeftTalon,
                 frontRightTalon,
@@ -52,7 +52,6 @@ public class DriveSubsystem extends Subsystem {
     }
     
     public void mecanumDrive(){
-        //System.out.println("mecanumDrive");
         double rotation = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
         double controlX = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
         double controlY = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
