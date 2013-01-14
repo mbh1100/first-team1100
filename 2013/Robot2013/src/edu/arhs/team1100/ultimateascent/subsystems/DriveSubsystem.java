@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import com.sun.squawk.util.MathUtils;
+import edu.arhs.team1100.ultimateascent.util.Log;
 
 /**
  *
@@ -37,7 +38,6 @@ public class DriveSubsystem extends Subsystem {
     }
     
     public DriveSubsystem() {
-        System.out.println("DriveSubsystem Constructor");
         frontLeftTalon = new Talon(RobotMap.D_TALON_FRONT_LEFT_CHANNEL);
         frontRightTalon = new Talon(RobotMap.D_TALON_FRONT_RIGHT_CHANNEL);
         backLeftTalon = new Talon(RobotMap.D_TALON_BACK_LEFT_CHANNEL);
@@ -57,6 +57,7 @@ public class DriveSubsystem extends Subsystem {
         double controlY = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
         double angle = Math.toDegrees(MathUtils.atan2(controlY, controlX));
         double magnitude = Math.sqrt(((controlX)*(controlX)) + ((controlY)*(controlY)));      
+        Log.log(this, "mecanumDrive("+magnitude+","+angle+","+rotation+")", Log.LEVEL_DEBUG);
         drive.mecanumDrive_Polar(magnitude, angle, rotation);
     }
     

@@ -10,6 +10,8 @@ package edu.arhs.team1100.ultimateascent;
 
 import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.commands.ExampleCommand;
+import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
+import edu.arhs.team1100.ultimateascent.util.Log;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -31,6 +33,13 @@ public class RobotMain extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
+        //initialize the Log utility
+        Log.init();
+        Log.setMaxLevel(Log.LEVEL_DEBUG);
+        //add all logging classes
+        Log.addClass(RobotMain.class, Log.LEVEL_DEBUG);
+        Log.addClass(DriveSubsystem.class, Log.LEVEL_DEBUG);
+        
         // instantiate the command used for the autonomous period
         autonomousCommand = new ExampleCommand();
 
