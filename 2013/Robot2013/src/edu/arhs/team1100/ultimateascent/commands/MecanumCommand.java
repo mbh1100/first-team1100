@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj.command.Command;
 public class MecanumCommand extends CommandBase {
     
     public MecanumCommand(){
-        System.out.println("MecanumCommand Constructor");
         requires(DriveSubsystem.getInstance());
     }
 
