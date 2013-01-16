@@ -1,0 +1,15 @@
+C:\Users\Jason\Documents\VSProjects\KinectTest\SkeletonTest\bin\Debug\SkeletonTest.exe.config
+C:\Users\Jason\Documents\VSProjects\KinectTest\SkeletonTest\bin\Debug\SkeletonTest.exe
+C:\Users\Jason\Documents\VSProjects\KinectTest\SkeletonTest\bin\Debug\SkeletonTest.pdb
+C:\Users\Jason\Documents\VSProjects\KinectTest\SkeletonTest\obj\Debug\SkeletonTest.csprojResolveAssemblyReference.cache
+C:\Users\Jason\Documents\VSProjects\KinectTest\SkeletonTest\obj\Debug\MainWindow.baml
+C:\Users\Jason\Documents\VSProjects\KinectTest\SkeletonTest\obj\Debug\MainWindow.g.cs
+C:\Users\Jason\Documents\VSProjects\KinectTest\SkeletonTest\obj\Debug\App.g.cs
+C:\Users\Jason\Documents\VSProjects\KinectTest\SkeletonTest\obj\Debug\SkeletonTest_MarkupCompile.cache
+C:\Users\Jason\Documents\VSProjects\KinectTest\SkeletonTest\obj\Debug\SkeletonTest.g.resources
+C:\Users\Jason\Documents\VSProjects\KinectTest\SkeletonTest\obj\Debug\SkeletonTest.Properties.Resources.resources
+C:\Users\Jason\Documents\VSProjects\KinectTest\SkeletonTest\obj\Debug\SkeletonTest.csproj.GenerateResource.Cache
+C:\Users\Jason\Documents\VSProjects\KinectTest\SkeletonTest\obj\Debug\SkeletonTest.exe
+C:\Users\Jason\Documents\VSProjects\KinectTest\SkeletonTest\obj\Debug\SkeletonTest.pdb
+C:\Users\Jason\Documents\VSProjects\KinectTest\SkeletonTest\bin\Debug\SwipeGestureTest.exe
+C:\Users\Jason\Documents\VSProjects\KinectTest\SkeletonTest\bin\Debug\SwipeGestureTest.pdb
