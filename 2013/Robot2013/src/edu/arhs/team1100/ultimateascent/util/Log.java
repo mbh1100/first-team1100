@@ -36,14 +36,19 @@ public class Log {
         System.out.println("added "+c.getName()+ " "+level);
     }
     
-    public static void log(Object source, String message, int level){
-        int cIndex = classes.indexOf(source.getClass());      
-        if(cIndex == -1){
+    public static void log(Object source, String message, int level)
+    {
+        LogClass lc = null;
+        for(int i=0; i<classes.size(); i++) {
+            if(classes.elementAt(i).equals(source.getClass())) {
+                lc = (LogClass)classes.elementAt(i);
+            }
+        }
+        if(lc == null){
             return;
-        }  
-        LogClass lc = (LogClass)classes.elementAt(cIndex);
-        System.out.println("logtest "+level+" "+lc.maxLevel + " "+maxLevel);
-        if(level >= lc.maxLevel && level >= maxLevel){
+        }
+        if(level >= lc.maxLevel && level >= maxLevel)
+        {
             System.out.println("["+lc.mClass+"] "+message);
         }               
     }    
@@ -60,9 +65,10 @@ class LogClass{
     }
    
     public boolean equals(Object c){
-        System.out.println((Class.class.getName()) + " vs "+mClass);
-        return c.equals(mClass);        
+        if(c == mClass) {
+            return true;
+        }
+        return false;
     }
     
 }
-
