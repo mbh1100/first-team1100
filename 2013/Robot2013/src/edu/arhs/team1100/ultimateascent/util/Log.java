@@ -37,7 +37,9 @@ public class Log {
     
     public static void log(Object source, String message, int level){
         int cIndex = classes.indexOf(source.getClass());      
-        if(cIndex == -1)return;
+        if(cIndex == -1){
+            return;
+        }  
         LogClass lc = (LogClass)classes.elementAt(cIndex);
         if(level >= lc.maxLevel && level >= maxLevel){
             System.out.println("["+lc.mClass.getName()+"] "+message);

@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import com.sun.squawk.util.MathUtils;
 import edu.arhs.team1100.ultimateascent.util.Log;
 import edu.wpi.first.wpilibj.DriverStationEnhancedIO;
+import edu.wpi.first.wpilibj.Gyro;
 
 /**
  *
@@ -24,6 +25,8 @@ public class DriveSubsystem extends Subsystem {
     static DriveSubsystem instance;
 
     private RobotDrive drive;
+    
+    private Gyro driveGyro;
 
     private Talon frontLeftTalon;
     private Talon frontRightTalon;
@@ -39,6 +42,7 @@ public class DriveSubsystem extends Subsystem {
     }
 
     public DriveSubsystem() {
+        Log.log(this, "Constructor", Log.LEVEL_DEBUG);
         frontLeftTalon = new Talon(RobotMap.D_TALON_FRONT_LEFT_CHANNEL);
         frontRightTalon = new Talon(RobotMap.D_TALON_FRONT_RIGHT_CHANNEL);
         backLeftTalon = new Talon(RobotMap.D_TALON_BACK_LEFT_CHANNEL);
@@ -49,14 +53,15 @@ public class DriveSubsystem extends Subsystem {
                 backLeftTalon,
                 backRightTalon
         );
+        driveGyro = new Gyro(RobotMap.D_GYRO_CHANNEL);
 
     }
 
     public void mecanumDrive(){
-
-        double rotation = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
-        double controlX = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
-        double controlY = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
+        Log.log(this, driveGyro.getAngle()+"", Log.LEVEL_DEBUG);
+        double rotation = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
+        double controlX = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
+        double controlY = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
         double degrees = Math.toDegrees(MathUtils.atan2(-controlX, controlY));
         double magnitude = Math.sqrt(((controlX)*(controlX)) + ((controlY)*(controlY)));
 
@@ -74,7 +79,7 @@ public class DriveSubsystem extends Subsystem {
         * */
         //Log.log(this, "mecanumDrive("+magnitude+", "+angle+", "+rotation+")", Log.LEVEL_DEBUG);
         if (magnitude != 0)
-            System.out.println("m, d, r" + magnitude + ", " + degrees + ", " + rotation);
+            //Log.log(this, "m, d, r" + magnitude + ", " + degrees + ", " + rotation, Log.LEVEL_DEBUG);
         drive.mecanumDrive_Polar(magnitude, degrees, rotation);
     }
 
