@@ -32,7 +32,8 @@ public class Log {
     }
     
     public static void addClass(Class c, int level){
-        classes.addElement(new LogClass(c, level));        
+        classes.addElement(new LogClass(c.getName(), level)); 
+        System.out.println("added "+c.getName()+ " "+level);
     }
     
     public static void log(Object source, String message, int level){
@@ -41,24 +42,26 @@ public class Log {
             return;
         }  
         LogClass lc = (LogClass)classes.elementAt(cIndex);
+        System.out.println("logtest "+level+" "+lc.maxLevel + " "+maxLevel);
         if(level >= lc.maxLevel && level >= maxLevel){
-            System.out.println("["+lc.mClass.getName()+"] "+message);
+            System.out.println("["+lc.mClass+"] "+message);
         }               
     }    
 }
 
 class LogClass{
     
-    public Class mClass;
+    public String mClass;
     public int maxLevel;
     
-    public LogClass(Class c, int l){
+    public LogClass(String c, int l){
         mClass = c;
         maxLevel = l;
     }
    
     public boolean equals(Object c){
-        return c == mClass;        
+        System.out.println((Class.class.getName()) + " vs "+mClass);
+        return c.equals(mClass);        
     }
     
 }

@@ -65,21 +65,9 @@ public class DriveSubsystem extends Subsystem {
         double degrees = Math.toDegrees(MathUtils.atan2(-controlX, controlY));
         double magnitude = Math.sqrt(((controlX)*(controlX)) + ((controlY)*(controlY)));
 
-        /*
-        double magnitude = OI.getInstance().getLeftJoystick().getY();
-        double degrees = 0;
-        try
-        {
-            degrees = edu.wpi.first.wpilibj.DriverStation.getInstance().getEnhancedIO().getAnalogIn(1) * 125;
-        }
-        catch (DriverStationEnhancedIO.EnhancedIOException x)
-        {
-        }
-        double rotation = 0;
-        * */
         //Log.log(this, "mecanumDrive("+magnitude+", "+angle+", "+rotation+")", Log.LEVEL_DEBUG);
-        if (magnitude != 0)
-            //Log.log(this, "m, d, r" + magnitude + ", " + degrees + ", " + rotation, Log.LEVEL_DEBUG);
+       
+        Log.log(this, "m, d, r" + magnitude + ", " + degrees + ", " + rotation, Log.LEVEL_DEBUG);
         drive.mecanumDrive_Polar(magnitude, degrees, rotation);
     }
 
