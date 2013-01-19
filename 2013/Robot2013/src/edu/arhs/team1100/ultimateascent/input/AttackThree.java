@@ -19,8 +19,10 @@ public class AttackThree extends Joystick {
     private JoystickButton button9;
     private JoystickButton button10;
     private JoystickButton button11;
+    
+    private double joystickDeadband = 0.1;
 
-    public AttackThree(int channel) {
+    public AttackThree(int channel, double joystickDeadband) {
         super(channel);
 
         //x = new JoystickAxis(js, Joystick.AxisType.kX);
@@ -37,6 +39,8 @@ public class AttackThree extends Joystick {
         button9 = new JoystickButton(this, 9);
         button10 = new JoystickButton(this, 10);
         button11 = new JoystickButton(this, 11);
+        
+        this.joystickDeadband = joystickDeadband;
     }
 
     public JoystickButton getButton1() {
@@ -77,5 +81,14 @@ public class AttackThree extends Joystick {
 
     public JoystickButton getButton11() {
         return button11;
+    }
+
+    public double getAxis(AxisType axis) {
+        double val = super.getAxis(axis);
+        if(Math.abs(val) <= joystickDeadband) {
+            val = 0.0;
+        }
+        
+        return val;
     }
 }

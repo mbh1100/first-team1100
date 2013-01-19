@@ -27,8 +27,8 @@ public class OI {
     }
     
     public OI(){
-        leftJoystick = new AttackThree(LEFT_JOYSTICK_CHANNEL);
-        rightJoystick = new AttackThree(RIGHT_JOYSTICK_CHANNEL);
+        leftJoystick = new AttackThree(LEFT_JOYSTICK_CHANNEL, 0.1);
+        rightJoystick = new AttackThree(RIGHT_JOYSTICK_CHANNEL, 0.1);
    
         //bind buttons to commands HERE
     }
