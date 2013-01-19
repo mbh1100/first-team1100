@@ -43,7 +43,7 @@ public class Log {
             return;
         }
         if (level >= lc.maxLevel && level >= maxLevel) {
-            System.out.println("[" + lc.mClass + "] " + message);
+            System.out.println("[" + lc.mClass.getName().substring(lc.mClass.getName().lastIndexOf('.')) + "] " + message);
         }
     }
 }
