@@ -10,6 +10,7 @@ package edu.arhs.team1100.ultimateascent;
 
 import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.commands.ExampleCommand;
+import edu.arhs.team1100.ultimateascent.commands.MecanumCommand;
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
 import edu.arhs.team1100.ultimateascent.util.Log;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -39,7 +40,7 @@ public class RobotMain extends IterativeRobot {
         //add all logging classes
         Log.addClass(RobotMain.class, Log.LEVEL_DEBUG);
         Log.addClass(DriveSubsystem.class, Log.LEVEL_DEBUG);
-        
+
         // instantiate the command used for the autonomous period
         autonomousCommand = new ExampleCommand();
 
@@ -61,10 +62,11 @@ public class RobotMain extends IterativeRobot {
 
     public void teleopInit() {
 	// This makes sure that the autonomous stops running when
-        // teleop starts running. If you want the autonomous to 
+        // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
         autonomousCommand.cancel();
+        Scheduler.getInstance().enable();
     }
 
     /**
@@ -73,11 +75,17 @@ public class RobotMain extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
     }
-    
+
     /**
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
         LiveWindow.run();
+    }
+
+    public void disabledInit()
+    {
+        Scheduler.getInstance().removeAll();
+        Scheduler.getInstance().disable();
     }
 }
