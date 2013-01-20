@@ -73,7 +73,7 @@ public class Server extends Thread implements ActionListener {
                 newClient.setSoTimeout(0);
                 String newClientID = new DataInputStream(newClient.getInputStream()).readUTF();
                 
-                if(clientList.keySet().contains(newClientID)){
+                if(clientList.keySet().contains(newClientID) || newClientID.equals("")){
                     //reject client because name already exists
                     new DataOutputStream(newClient.getOutputStream()).writeUTF("NAME");
                     continue connectClients;
