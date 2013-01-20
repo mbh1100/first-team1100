@@ -58,23 +58,27 @@ public class DriveSubsystem extends Subsystem {
     }
 
     public void mecanumDrive(){
-        Log.log(this, driveGyro.getAngle()+"", Log.LEVEL_DEBUG);
+        Log.log(this, "Gyro angle: "+Log.round(driveGyro.getAngle(), 2)+"", Log.LEVEL_DEBUG);
         double rotation = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
         double controlX = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
         double controlY = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
-        double degrees = Math.toDegrees(MathUtils.atan2(-controlX, controlY));
-        double magnitude = Math.sqrt(((controlX)*(controlX)) + ((controlY)*(controlY)));
-
-        //Log.log(this, "mecanumDrive("+magnitude+", "+angle+", "+rotation+")", Log.LEVEL_DEBUG);
-       
+        
+        /*double degrees = Math.toDegrees(MathUtils.atan2(-controlX, controlY));
+        double magnitude = Math.sqrt(((controlX)*(controlX)) + ((controlY)*(controlY)));       
         Log.log(this, "m, d, r" + magnitude + ", " + degrees + ", " + rotation, Log.LEVEL_DEBUG);
-        drive.mecanumDrive_Polar(magnitude, degrees, rotation);
+        drive.mecanumDrive_Polar(magnitude, degrees, rotation);*/
+        
+        drive.mecanumDrive_Cartesian(controlX, controlY, rotation, driveGyro.getAngle());
     }
 
-    public void drive(int magnitude, int angle, int rotation)
-    {
+    public void drive(int magnitude, int angle, int rotation) {
         drive.mecanumDrive_Polar(magnitude, angle, rotation);
     }
+    
+    public void calibrateGyro(){
+        driveGyro.reset();     
+    }
+    
 
 
     public Talon getFrontLeftTalon(){

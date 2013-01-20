@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public abstract class CommandBase extends Command {
 
     public static void init() {
-        // This MUST be here. If the OI crxeates Commands (which it very likely
+        // This MUST be here. If the OI creates Commands (which it very likely
         // will), constructing it during the construction of CommandBase (from
         // which commands extend), subsystems are not guaranteed to be
         // yet. Thus, their requires() statements may grab null pointers. Bad

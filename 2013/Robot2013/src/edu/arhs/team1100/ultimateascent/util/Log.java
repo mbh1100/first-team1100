@@ -4,7 +4,9 @@
  */
 package edu.arhs.team1100.ultimateascent.util;
 
+import com.sun.squawk.util.MathUtils;
 import java.util.Vector;
+
 
 /**
  *
@@ -16,16 +18,16 @@ public class Log {
     public final static int LEVEL_WARN = 1;
     public final static int LEVEL_ERROR = 2;
     public final static int LEVEL_OFF = 3;
-    private static int maxLevel;
+    private static int minLevel;
     private static Vector classes;
 
     public static void init() {
         classes = new Vector();
-        maxLevel = LEVEL_DEBUG;
+        minLevel = LEVEL_DEBUG;
     }
 
-    public static void setMaxLevel(int mlvl) {
-        maxLevel = mlvl;
+    public static void setMinLevel(int mlvl) {
+        minLevel = mlvl;
     }
 
     public static void addClass(Class c, int level) {
@@ -42,9 +44,18 @@ public class Log {
         if (lc == null) {
             return;
         }
-        if (level >= lc.maxLevel && level >= maxLevel) {
-            System.out.println("[" + lc.mClass.getName().substring(lc.mClass.getName().lastIndexOf('.')) + "] " + message);
+        if (level >= lc.maxLevel && level >= minLevel) {
+            System.out.println("[" + simpleClassName(lc) + "] " + message);
         }
+    }
+    
+    public static String round(double num, int places){        
+        String snum = MathUtils.round(num*MathUtils.pow(10, places))+"";
+        return snum.substring(0, snum.length()-places)+snum.substring( snum.length()-places);
+    }
+    
+    private static String simpleClassName(LogClass c){
+        return c.mClass.getName().substring(c.mClass.getName().lastIndexOf('.')+1);
     }
 }
 

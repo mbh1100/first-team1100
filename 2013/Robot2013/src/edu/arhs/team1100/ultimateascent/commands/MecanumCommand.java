@@ -25,7 +25,6 @@ public class MecanumCommand extends CommandBase {
     }
 
     protected void execute() {
-        Log.log(this, "mechcom", Log.LEVEL_DEBUG);
         DriveSubsystem.getInstance().mecanumDrive();        
     }
 
