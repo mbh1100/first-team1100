@@ -1,6 +1,6 @@
 package displaygrid;
 
-import displaygrid.log.ILogOutput;
+import displaygrid.log.ILogOutput; 
 import displaygrid.log.Log;
 import displaygrid.log.LogFrame;
 import java.awt.event.ActionEvent;
