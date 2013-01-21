@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import com.sun.squawk.util.MathUtils;
+import edu.arhs.team1100.ultimateascent.util.DSLog;
 import edu.arhs.team1100.ultimateascent.util.Log;
 import edu.wpi.first.wpilibj.DriverStationEnhancedIO;
 import edu.wpi.first.wpilibj.Gyro;
@@ -58,7 +59,8 @@ public class DriveSubsystem extends Subsystem {
     }
 
     public void mecanumDrive(){
-        Log.log(this, "Gyro angle: "+Log.round(driveGyro.getAngle(), 2)+"", Log.LEVEL_DEBUG);
+        //Log.log(this, "Gyro angle: "+Log.round(driveGyro.getAngle(), 2), Log.LEVEL_DEBUG);
+        DSLog.log(1, "Gyro angle: "+Log.round(driveGyro.getAngle(), 2));
         double rotation = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
         double controlX = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
         double controlY = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);

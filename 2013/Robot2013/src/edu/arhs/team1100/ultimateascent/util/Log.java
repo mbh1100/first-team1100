@@ -49,9 +49,8 @@ public class Log {
         }
     }
     
-    public static String round(double num, int places){        
-        String snum = MathUtils.round(num*MathUtils.pow(10, places))+"";
-        return snum.substring(0, snum.length()-places)+snum.substring( snum.length()-places);
+    public static String round(double num, int places){   
+        return MathUtils.round(num*MathUtils.pow(10, places))/MathUtils.pow(10, places) + "";
     }
     
     private static String simpleClassName(LogClass c){
