@@ -1,6 +1,7 @@
 
 package edu.arhs.team1100.ultimateascent;
 
+import autonomous.DriveInASquareCommandGroup;
 import edu.arhs.team1100.ultimateascent.commands.CalibrateDirectionCommand;
 import edu.arhs.team1100.ultimateascent.input.AttackThree;
 import edu.wpi.first.wpilibj.Joystick;
@@ -32,6 +33,7 @@ public class OI {
         rightJoystick = new AttackThree(RIGHT_JOYSTICK_CHANNEL, 0.1);
    
         //bind buttons to commands HERE
+        leftJoystick.getButton3().whenPressed(new DriveInASquareCommandGroup(.2, 12));
         rightJoystick.getButton3().whenPressed(new CalibrateDirectionCommand());
     }
     

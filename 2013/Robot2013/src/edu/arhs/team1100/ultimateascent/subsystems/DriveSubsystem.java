@@ -11,10 +11,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import com.sun.squawk.util.MathUtils;
 import edu.arhs.team1100.ultimateascent.util.DSLog;
 import edu.arhs.team1100.ultimateascent.util.Log;
-import edu.wpi.first.wpilibj.DriverStationEnhancedIO;
 import edu.wpi.first.wpilibj.Gyro;
 
 /**
@@ -22,6 +20,11 @@ import edu.wpi.first.wpilibj.Gyro;
  * @author Team 1100
  */
 public class DriveSubsystem extends Subsystem {
+    
+    public static final double DIRECTION_FORWARD = 0;
+    public static final double DIRECTION_BACK    = 180;
+    public static final double DIRECTION_LEFT    = 270;
+    public static final double DIRECTION_RIGHT   = 90;
 
     static DriveSubsystem instance;
 
@@ -37,7 +40,7 @@ public class DriveSubsystem extends Subsystem {
     public static DriveSubsystem getInstance(){
         if(instance == null){
             instance = new DriveSubsystem();
-            //instance.initDefaultCommand();
+            instance.initDefaultCommand();
         }
         return instance;
     }
@@ -73,8 +76,12 @@ public class DriveSubsystem extends Subsystem {
         drive.mecanumDrive_Cartesian(controlX, controlY, rotation, driveGyro.getAngle());
     }
 
-    public void drive(int magnitude, int angle, int rotation) {
+    public void drive(double magnitude, double angle, double rotation) {
         drive.mecanumDrive_Polar(magnitude, angle, rotation);
+    }
+    
+    public void stop(){
+        drive(0,0,0);    
     }
     
     public void calibrateGyro(){

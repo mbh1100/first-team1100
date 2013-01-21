@@ -4,11 +4,7 @@
  */
 package edu.arhs.team1100.ultimateascent.commands;
 
-import edu.arhs.team1100.ultimateascent.OI;
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
-import edu.arhs.team1100.ultimateascent.util.Log;
-import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
@@ -33,9 +29,11 @@ public class MecanumCommand extends CommandBase {
     }
 
     protected void end() {
+        DriveSubsystem.getInstance().stop();
     }
 
     protected void interrupted() {
+        end();
     }
     
 }
