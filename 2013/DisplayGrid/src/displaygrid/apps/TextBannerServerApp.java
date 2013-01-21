@@ -6,17 +6,15 @@ package displaygrid.apps;
 
 import displaygrid.ServerApp;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 /**
  *
  * @author Akshay
  */
 public class TextBannerServerApp extends ServerApp {
-    
-    private final float MIN_X = 0.0f;
-    private final float MIN_Y = 0.0f;
-    private final float MAX_X = 1.0f;
-    private final float MAX_y = 1.0f;
     
     static final String APPNAME = "Text Banner";
     
@@ -26,23 +24,31 @@ public class TextBannerServerApp extends ServerApp {
     
     private Color bgColor;
     private Color textColor;
+
+    private float x;
     
-    private float x,y;
+    private double messageWidth;
+    
+    private int lastClientWidth = 0;
 
     @Override
     public void init() {
         bgColor = new Color(150, 0, 0);
         textColor = new Color(255, 255, 255);
         x = 0f;
-        y = 0f;
         commonCmd = "";
+        
+        BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+        Graphics g = image.getGraphics();
+        g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 50));
+        messageWidth = g.getFontMetrics().getStringBounds(message, g).getWidth();
     }
 
     @Override
     public void update() {
-        x -= 0.01;
-        if(x < -1.0f){
-            x = 1.0f;
+        x += 0.01;  
+        if(x > (clients.size()) + (messageWidth / lastClientWidth)){
+            x = 0.0f;
         }
         commonCmd = "";
         commonCmd += "msg#"+message+":";
@@ -54,17 +60,6 @@ public class TextBannerServerApp extends ServerApp {
         return c.getRed()+","+c.getGreen()+","+c.getBlue();
     }
     
-    /**
-     * Command Structure:
-     * command send changed variables, split by ":"
-     * vars: msg(string to display), bg(background color), txt(text color), pos(position, float relative to client)
-     * each subcommand is formatted var| values
-     * example:
-     * msg|"go team1100!": bgcolor|255| 255| 255:txtcolor|163|0|255:pos|.63|.23
-     * command will contain any combinations of commands in any order
-     * @param id
-     * @return 
-     */
     @Override
     public String getCommand(String id) {      
         
@@ -75,17 +70,22 @@ public class TextBannerServerApp extends ServerApp {
         
         String cmd = commonCmd;
         
-        float windowSize = MAX_X/clients.size();
-        float minx = i*windowSize;
-        float maxx = (i+1)*windowSize;
-        float relativeX = (x-minx)/(maxx-minx);        
-        cmd += "pos#"+relativeX+","+y;
+        cmd += "pos#"+x+":";
+        cmd += "clientID#"+clients.indexOf(id) + ":";
         return cmd;    
     }
 
     @Override
     public void commandRecieved(String id, String command) {
-        return;
+        if(clients.indexOf(id) == clients.size()-1) //If last Client
+        {
+            String[] cmdSegment = command.split("#");
+            switch(cmdSegment[0]){
+                case "resX":
+                    lastClientWidth = Integer.parseInt(cmdSegment[1]);
+                    break;
+            }
+        }
     }
 
     @Override
