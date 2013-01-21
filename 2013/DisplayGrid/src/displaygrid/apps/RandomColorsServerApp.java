@@ -56,9 +56,8 @@ public class RandomColorsServerApp extends ServerApp {
     
     public void end(){};
 
-
     @Override
-    public String getServerName() {
+    public String toString() {
         return APPNAME;
     }
     

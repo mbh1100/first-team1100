@@ -31,7 +31,7 @@ public class DisplayGrid  extends JFrame implements ActionListener {
         for(int i = 0; i < Config.serverAppClasses.length; i++){
             System.out.println();
             try {
-            Config.appNames[i] = ((ServerApp)(Config.serverAppClasses[i].newInstance())).getServerName(); 
+            Config.appNames[i] = (Config.serverAppClasses[i].newInstance()).toString(); 
             } catch (Exception e){
                 System.out.println(e.getMessage());
                 Config.appNames[i] = "App "+i;
@@ -57,8 +57,6 @@ public class DisplayGrid  extends JFrame implements ActionListener {
         panel.add(server);
         panel.add(client);		
         pack();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
         setVisible(true);
     }
     
@@ -69,11 +67,9 @@ public class DisplayGrid  extends JFrame implements ActionListener {
 
         if(e.getSource() == server){
             new Server().start();
-            this.dispose();
         }
         else if (e.getSource() == client){
-            new Client().start();            
-            this.dispose();
+            new Client().start();
         }
 		
     }
@@ -107,7 +103,7 @@ public class DisplayGrid  extends JFrame implements ActionListener {
         for(int i = 0; i < Config.serverAppClasses.length; i++){
             try{
                 ServerApp app = (ServerApp)Config.serverAppClasses[i].newInstance();
-                if(appName.equals(app.getServerName())){
+                if(appName.equals(app.toString())){
                     app.setClients(clients);
                     return app;
                 }

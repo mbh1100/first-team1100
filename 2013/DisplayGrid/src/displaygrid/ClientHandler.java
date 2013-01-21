@@ -38,12 +38,10 @@ public class ClientHandler extends Thread {
     public void run(){
         isRunning = true;
         while (isRunning) {
-            System.out.println("r");
             if(app != null && hasApp){
-                System.out.println("a");
                 try {
                     String recieved = in.readUTF();
-                    System.out.println(clientID+" read \""+recieved+"\"");
+                    //System.out.println(clientID+" read \""+recieved+"\"");
                     if(!recieved.equals(" ")){ 
                         
                         app.commandRecieved(clientID, recieved);  
@@ -52,7 +50,7 @@ public class ClientHandler extends Thread {
                     if(outCmd == null){
                         outCmd = " ";
                     }
-                    System.out.println(clientID+" write \""+outCmd+"\"");
+                    //System.out.println(clientID+" write \""+outCmd+"\"");
                     out.writeUTF(outCmd);                    
 
                 } catch (Exception e) {
@@ -63,8 +61,9 @@ public class ClientHandler extends Thread {
                     }
                 }
             } else {
-                System.out.print("n");
+                System.out.print("");
                 try{
+                    //out.writeUTF(" ");
                 } catch(Exception e){
                     if(e == null || e.getMessage() == null){
                         server.disconnectClient(clientID);
@@ -83,7 +82,7 @@ public class ClientHandler extends Thread {
         try{            
             app = a;
             hasApp = true;
-            out.writeUTF("APP:"+app.getServerName());
+            out.writeUTF("APP:"+app.toString());
         } catch (Exception e){
             System.out.println(e.getMessage());
         }

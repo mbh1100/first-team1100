@@ -1,8 +1,5 @@
 package displaygrid;
 
-import displaygrid.log.ILogOutput; 
-import displaygrid.log.Log;
-import displaygrid.log.LogFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.DataInputStream;
@@ -19,7 +16,7 @@ public class Client extends Thread implements ActionListener {
     
     //lazy error handling
     //if the error has the word connection, I'll just assume that the connection was lost
-    private static final String ERROR_CONNECTION_RESET = "connection";
+    private static final String ERROR_CONNECTION_RESET = "Connection";
     
     //if there is no app, only check for a new one 10 times a second
     static final int CHECK_RATE = 100;
@@ -36,15 +33,14 @@ public class Client extends Thread implements ActionListener {
     
     private boolean isRunning = false;
     
-    public Client(){
-        Log.setLogOutput(new LogFrame().logPanel);
-    }
+    public Client(){}
     
     @Override
     public void run(){
         isRunning = true;
         ClientSetupDialog setup = new ClientSetupDialog();
-        boolean connected = false;
+        boolean connected = false;   
+
         
         do {            
             int setupResult = JOptionPane.showConfirmDialog(new JFrame(), setup, "Setup", JOptionPane.OK_CANCEL_OPTION);
@@ -69,13 +65,12 @@ public class Client extends Thread implements ActionListener {
                     } else {                    
                         connected = true;
                     }
+                    System.out.println("Connected to "+serverName+" as "+ID);
                 }catch(Exception e){
                     if (e.getMessage().equalsIgnoreCase(ERROR_CONNECTION_RESET)) {
                         disconnect();
                     }
-                    
                     //could not connect, ask to try setup again
-                    Log.log("Could not connect to server \""+serverName+"\".");
                     int result = JOptionPane.showConfirmDialog(new JFrame(), "Could not connect to server \""+serverName+"\". Client Name may already be in use or Server Address may be incorrect. Retry?", "Error", JOptionPane.YES_NO_OPTION);
                     if(result != JOptionPane.OK_OPTION){
                         System.exit(0);
@@ -83,8 +78,6 @@ public class Client extends Thread implements ActionListener {
                 }
             }
         } while(!connected);
-        
-        Log.log("Connected to "+serverName+" as "+ID);
         
         try {           
             server.setSoTimeout(0);
@@ -110,14 +103,14 @@ public class Client extends Thread implements ActionListener {
                     readUTF();
                 }
 
-            }catch(Exception e){  
+            }catch(Exception e){
                 if(e == null || e.getMessage() == null)continue;
-                Log.log(e.getMessage());
-                if(e.getMessage().equalsIgnoreCase(ERROR_CONNECTION_RESET)){
+                if(e.getMessage().contains(ERROR_CONNECTION_RESET)){
                     disconnect();
                 }
             }       
         }   
+        System.exit(0);
     }
     
     /**
@@ -129,6 +122,7 @@ public class Client extends Thread implements ActionListener {
     private String readUTF(){
         try {
             String cmd =  in.readUTF();
+            //System.out.println("Read \""+cmd+"\"");
             if(cmd.split(":")[0].equals("APP") && app == null){
                 startApp(cmd.split(":")[1]);
             } else if (cmd.equals("END")){
@@ -149,13 +143,12 @@ public class Client extends Thread implements ActionListener {
     private void startApp(String appname){
         app = DisplayGrid.getClientApp(appname);
         if(app != null){
-            Log.log("Started APP \""+app.toString()+"\"");
+            System.out.println("Started APP \""+app.toString()+"\"");
             app.start();
         }        
     }
 
-    private void endApp(){  
-        Log.log("Stopping APP \""+app.toString()+"\"");
+    private void endApp(){        
         try {
             app.finish();
             app.join();
@@ -169,9 +162,9 @@ public class Client extends Thread implements ActionListener {
         try{
         server.close();
         } catch(Exception e){
-            Log.log(e.getMessage());
-        }        
-        Log.log("DISCONNECTED");
+            System.out.println(e.getMessage());
+        }
+        
     }
     
     @Override

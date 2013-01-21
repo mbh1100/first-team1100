@@ -26,14 +26,13 @@ public class Config {
         BlackScreenClientApp.class,
         RandomColorsClientApp.class,
         BallBounceClientApp.class,
-        TextBannerClientApp.class,
-            
+        TextBannerClientApp.class
     };
     
     static final Class[] serverAppClasses = {
         BlackScreenServerApp.class,
         RandomColorsServerApp.class,
-        BallBounceServerApp.class ,
+        BallBounceServerApp.class,
         TextBannerServerApp.class
     };
     

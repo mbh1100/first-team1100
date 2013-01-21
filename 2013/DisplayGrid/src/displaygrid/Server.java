@@ -1,6 +1,6 @@
 package displaygrid;
 
-import displaygrid.log.Log;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.DataInputStream;
@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -22,7 +21,8 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Akshay
  */
-public class Server extends Thread implements ActionListener {    
+public class Server extends Thread implements ActionListener {
+    
     
     private ServerFrame window;
     private DefaultTableModel clientTableModel;
@@ -44,11 +44,6 @@ public class Server extends Thread implements ActionListener {
         activeServerApps = new ArrayList<>();
         clientList = new HashMap<>();
         window = new ServerFrame();
-        
-        //attach singleton Log to the LogOutput for this instance of the program
-        Log.setLogOutput(window.logPanel);
-        
-        window.setLocationRelativeTo(null);
         try { 
             window.setTitle(InetAddress.getLocalHost().toString());
         } catch(Exception e){
@@ -73,10 +68,6 @@ public class Server extends Thread implements ActionListener {
                 newClient.setSoTimeout(0);
                 String newClientID = new DataInputStream(newClient.getInputStream()).readUTF();
                 
-                if(newClientID.equals("")) {
-                    newClientID = "Anonymous";
-                }
-                
                 if(clientList.keySet().contains(newClientID)){
                     //reject client because name already exists
                     new DataOutputStream(newClient.getOutputStream()).writeUTF("NAME");
@@ -90,7 +81,7 @@ public class Server extends Thread implements ActionListener {
                 newClientHandler.start();
             } catch(Exception e){
                 //JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                Log.log(e.getMessage());
+                System.out.println(e.getMessage());
 
             }
         }
@@ -118,10 +109,10 @@ public class Server extends Thread implements ActionListener {
                 try {
                     app.join();
                 } catch (Exception ex) {
-                    Log.log(ex.getMessage());
+                    System.out.println(ex.getMessage());
                 }
                 i.remove();
-                Log.log("remove "+app.toString());
+                System.out.println("remove "+app.toString());
             }
         }
 
@@ -142,20 +133,12 @@ public class Server extends Thread implements ActionListener {
             return;
         }
         ServerApp newApp = DisplayGrid.getServerApp(appName, selectedClients);
-        
-        //Get specific app number, so that different instances of the same app can be idetified
-        int appNum = 0;
-        for(ServerApp sa:activeServerApps){
-            if(newApp.getClass() == sa.getClass()) appNum++;
-        }
-        newApp.setNumber(appNum);
-        
         activeServerApps.add(newApp);
         newApp.start();
         for (String o : selectedClients) {
             ClientHandler clientHandle = clientList.get(o);
             clientHandle.setApp(newApp);
-            window.renameTableApp(newApp, o);
+            window.renameTableApp(appName, o);
         }
         
     }
@@ -170,7 +153,7 @@ public class Server extends Thread implements ActionListener {
         for (int i = 0; i < selectedRows.length; i++) {
             String client = (String) clientTableModel.getValueAt(selectedRows[i], ServerFrame.CLIENT_ID_COL);
             selectedClients.add(client);
-            window.renameTableApp(null, client);
+            window.renameTableApp("", client);
         }
 
         for (String c : selectedClients) {
@@ -178,7 +161,7 @@ public class Server extends Thread implements ActionListener {
                 clientList.get(c).getApp().removeClient(c);
                 clientList.get(c).exitCurrentApp();
             } catch(Exception e){
-                Log.log(e.getMessage());
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -194,7 +177,7 @@ public class Server extends Thread implements ActionListener {
             for (ClientHandler c : ch) {
                 if (c.getApp() == a) {
                     c.exitCurrentApp();
-                    window.renameTableApp(null, c.getClientID());
+                    window.renameTableApp("", c.getClientID());
 
                 }
             }
@@ -231,9 +214,12 @@ public class Server extends Thread implements ActionListener {
         try {
             h.join();
         } catch (Exception e){
-            Log.log(e.getMessage());
+            System.out.println(e.getMessage());
         }
         window.removeClient(c);
         clientList.remove(c);       
     }
+    
+
+
 }

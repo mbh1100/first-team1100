@@ -33,26 +33,20 @@ public class TextBannerClientApp extends ClientApp {
     
     private Color bgColor = Color.BLACK;
     private Color textColor = Color.WHITE;
-    
-    private long lastFrame = 0;
-    
-    private char leftEnd = ' ';
-    private char rightEnd = ' ';
 
     @Override
     public void init() {
         frame = new JFrame();
         panel = new JPanel();
         frame.add(panel);
-        //frame.setResizable(false);
-       // frame.setUndecorated(true);
-       // Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-       // frame.setSize(d);
-        frame.setSize(200,200);
+        frame.setResizable(false);
+        frame.setUndecorated(true);
+        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setSize(d);
         panel.setDoubleBuffered(true);
         
         //init font
-        //font = new Font(Font.MONOSPACED, Font.PLAIN, d.height/2);
+        font = new Font(Font.MONOSPACED, Font.PLAIN, d.height/2);
         
         frame.setVisible(true);
     }
@@ -60,8 +54,6 @@ public class TextBannerClientApp extends ClientApp {
     @Override
     public void update() {
         //draw
-        
-        font = new Font(Font.MONOSPACED, Font.PLAIN, panel.getHeight()/2);
         Graphics2D g = (Graphics2D)panel.getGraphics();
         g.setFont(font);
         g.setColor(bgColor);
@@ -73,10 +65,6 @@ public class TextBannerClientApp extends ClientApp {
         int tx = (int)(posX * panel.getWidth());
         int cy =  (target.height) - (int)(target.height-text.getHeight())/2 - target.height/5;
         g.drawString(message,tx, cy );
-        
-        leftEnd = (tx < 0)?'-':'+';
-        rightEnd = (tx+text.getWidth() < 0)?'-':'+';
-        
     }
     
     public Color stringToColor(String s){
@@ -101,13 +89,17 @@ public class TextBannerClientApp extends ClientApp {
 
     @Override
     public void commandRecieved(String command) {
+        System.out.println("recieved "+command);
         String[] cmdTokens = command.split(":");
         for(int i = 0; i < cmdTokens.length; i++){
+            System.out.println(cmdTokens[i]);
             String[] cmdSegment = cmdTokens[i].split("#");
             if(cmdSegment.length < 2)continue;
+            System.out.println(cmdSegment[0]);
             switch(cmdSegment[0]){
                 case "msg":
                     message = cmdSegment[1];
+                    System.out.println(message);
                     break;
                 case "bg":
                     bgColor = stringToColor(cmdSegment[1]);
@@ -124,7 +116,7 @@ public class TextBannerClientApp extends ClientApp {
 
     @Override
     public String getCommand() {
-        return leftEnd+""+rightEnd;
+        return null;
     }
 
     @Override

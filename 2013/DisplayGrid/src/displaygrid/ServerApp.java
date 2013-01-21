@@ -11,8 +11,6 @@ import java.util.ArrayList;
  * @author Akshay
  */
 public abstract class ServerApp extends Thread {
-    
-    private String name;
         
     protected ArrayList<String> clients;
     
@@ -29,6 +27,7 @@ public abstract class ServerApp extends Thread {
         while(isRunning){
             update();
             try{
+                //the servr app will run the simulation at twice the framerate as the client
                 Thread.sleep(Config.TARGET_DELTA);
             } catch (Exception e){
                 System.out.println(e.getMessage());
@@ -67,9 +66,7 @@ public abstract class ServerApp extends Thread {
      * get the app name
      * @return app name
      */
-    public final String toString(){
-        return name;
-    }
+    public abstract String toString();
     
     public final void finish(){
         isRunning = false;
@@ -95,10 +92,4 @@ public abstract class ServerApp extends Thread {
     public final int getClientCount(){
         return clients.size();
     }
-    
-    public final void setNumber(int n){
-        name = getServerName()+" "+n;
-    }
-    
-    public abstract String getServerName();
 }

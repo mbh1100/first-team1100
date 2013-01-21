@@ -32,13 +32,7 @@ public class RandomColorsClientApp extends ClientApp {
         color = Color.BLACK;  
         
         window = new JFrame();
-        panel = new JPanel(){
-            public void paint(Graphics g){
-                g.setColor(color);                
-                g.fillRect(0, 0, getWidth(), getHeight());
-                
-            }
-        };
+        panel = new JPanel();
         window.add(panel);
         window.setResizable(false);
         window.setUndecorated(true);
@@ -56,8 +50,7 @@ public class RandomColorsClientApp extends ClientApp {
     
     @Override
     public void update() {
-        window.repaint();
-        //draw();
+        draw();
     }
     
     @Override

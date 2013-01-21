@@ -49,7 +49,6 @@ public class ServerFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         activeAppList = new javax.swing.JList();
         appStopButton = new javax.swing.JButton();
-        logPanel = new displaygrid.log.LogPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Display Grid Server");
@@ -197,7 +196,6 @@ public class ServerFrame extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("ActiveApps", jPanel2);
-        jTabbedPane1.addTab("Log", logPanel);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -251,14 +249,12 @@ public class ServerFrame extends javax.swing.JFrame {
         appSelection.setModel(new javax.swing.DefaultComboBoxModel(apps));       
     }
     
-    public void renameTableApp(ServerApp newApp, Object client){
-        
+    public void renameTableApp(Object newApp, Object client){
         DefaultTableModel m = (DefaultTableModel)clientTable.getModel();
         int rows = m.getRowCount();
         for(int i = 0; i < rows; i++){
             if(m.getValueAt(i, CLIENT_ID_COL).equals(client)){
-                String name = (newApp == null)?"":newApp.getServerName();
-                m.setValueAt(name, i, CLIENT_APP_COL);
+                m.setValueAt(newApp, i, CLIENT_APP_COL);
                 return;
             }
         }
@@ -343,7 +339,6 @@ public class ServerFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    public displaygrid.log.LogPanel logPanel;
     public javax.swing.JList pendingAppClientList;
     private javax.swing.JButton removeFromListButton;
     public javax.swing.JButton startButton;
