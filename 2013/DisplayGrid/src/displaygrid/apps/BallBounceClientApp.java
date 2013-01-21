@@ -33,7 +33,12 @@ public class BallBounceClientApp extends ClientApp {
         y = 0;
         
         screenWindow = new JFrame();
-        screen = new JPanel();
+        screen = new JPanel(){
+            @Override
+            public void paint(Graphics g){
+                paintPanel(g);
+            }
+        };
         screenWindow.add(screen);
         screenWindow.setResizable(false);
         screenWindow.setUndecorated(true);
@@ -46,19 +51,20 @@ public class BallBounceClientApp extends ClientApp {
 
     @Override
     public void update() {
-        Graphics g = screen.getGraphics();
+        screenWindow.repaint();      
+    }
+    
+    public void paintPanel(Graphics g){
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, screen.getWidth(), screen.getHeight());
         g.setColor(Color.WHITE);
-        g.fillOval(x-radius, y-radius, radius*2, radius*2);
-        
+        g.fillOval(x-radius, y-radius, radius*2, radius*2);        
         //FPS
         
         long elapsed = System.currentTimeMillis() - lastFrame;
         int fps = (int) (1000/elapsed);
         g.drawString("FPS: "+fps, 50, 80);
         lastFrame = System.currentTimeMillis();
-        
     }
 
     @Override

@@ -43,7 +43,7 @@ public class ClientHandler extends Thread {
                 System.out.println("a");
                 try {
                     String recieved = in.readUTF();
-                    //System.out.println(clientID+" read \""+recieved+"\"");
+                    System.out.println(clientID+" read \""+recieved+"\"");
                     if(!recieved.equals(" ")){ 
                         
                         app.commandRecieved(clientID, recieved);  
