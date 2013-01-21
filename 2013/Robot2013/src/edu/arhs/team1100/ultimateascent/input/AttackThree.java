@@ -5,9 +5,6 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class AttackThree extends Joystick {
 
-    // private JoystickAxis x;
-    // private JoystickAxis y;
-    // private JoystickAxis z;
     private JoystickButton button1;
     private JoystickButton button2;
     private JoystickButton button3;
@@ -24,10 +21,7 @@ public class AttackThree extends Joystick {
 
     public AttackThree(int channel, double joystickDeadband) {
         super(channel);
-
-        //x = new JoystickAxis(js, Joystick.AxisType.kX);
-        //y = new JoystickAxis(js, Joystick.AxisType.kY);
-        //z = new JoystickAxis(js, Joystick.AxisType.kZ);
+        
         button1 = new JoystickButton(this, 1);
         button2 = new JoystickButton(this, 2);
         button3 = new JoystickButton(this, 3);
@@ -62,6 +56,10 @@ public class AttackThree extends Joystick {
     public JoystickButton getButton5() {
         return button5;
     }
+    
+    public JoystickButton getButton6(){
+        return button6;
+    }
 
     public JoystickButton getButton7() {
         return button7;
@@ -87,8 +85,7 @@ public class AttackThree extends Joystick {
         double val = super.getAxis(axis);
         if(Math.abs(val) <= joystickDeadband) {
             val = 0.0;
-        }
-        
+        }        
         return val;
     }
 }

@@ -4,8 +4,10 @@
  */
 package autonomous;
 
+import edu.arhs.team1100.ultimateascent.OI;
 import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
+import edu.wpi.first.wpilibj.Joystick;
 
 /**
  *
@@ -15,15 +17,18 @@ public class DriveInALineCommand extends CommandBase {
     
     private double speed = 0.0;
     private double direction = 0.0;
+    private double duration = 0;
     
     public DriveInALineCommand(double speed, double direction, double duration){
         requires(DriveSubsystem.getInstance());  
+        System.out.println("line speed "+speed);
         this.speed = speed;
-        this.direction = direction;
-        setTimeout(duration);              
+        this.direction = direction;    
+        this.duration = duration;
     }  
 
-    protected void initialize() {
+    protected void initialize() {        
+        setTimeout(duration);  
     }
 
     protected void execute() {

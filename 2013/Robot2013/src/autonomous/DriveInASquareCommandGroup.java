@@ -4,6 +4,7 @@
  */
 package autonomous;
 
+import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -13,10 +14,13 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class DriveInASquareCommandGroup extends CommandGroup {
     
     public DriveInASquareCommandGroup(double speed, double duration){
-        this.addSequential(new DriveInALineCommand(speed, 270, duration/4));
-        this.addSequential(new DriveInALineCommand(speed, 0, duration/4));
-        this.addSequential(new DriveInALineCommand(speed, 90, duration/4));
-        this.addSequential(new DriveInALineCommand(speed, 180, duration/4));
+        addSequential(new DriveInALineCommand(speed, DriveSubsystem.DIRECTION_LEFT, duration/4));
+        addSequential(new StopDriveCommand(0.5));
+        addSequential(new DriveInALineCommand(speed, 0, duration/4));
+        addSequential(new StopDriveCommand(0.5));
+        addSequential(new DriveInALineCommand(speed, DriveSubsystem.DIRECTION_RIGHT, duration/4));
+        addSequential(new StopDriveCommand(0.5));
+        addSequential(new DriveInALineCommand(speed, 180, duration/4));
     }
     
 }

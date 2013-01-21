@@ -1,9 +1,12 @@
 
 package edu.arhs.team1100.ultimateascent;
 
+import autonomous.DriveInALineCommand;
 import autonomous.DriveInASquareCommandGroup;
 import edu.arhs.team1100.ultimateascent.commands.CalibrateDirectionCommand;
 import edu.arhs.team1100.ultimateascent.input.AttackThree;
+import edu.arhs.team1100.ultimateascent.input.XboxController;
+import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 
 /**
@@ -14,12 +17,13 @@ public class OI {
     
     private final int LEFT_JOYSTICK_CHANNEL = 1;
     private final int RIGHT_JOYSTICK_CHANNEL = 2;
-    private final int CONTROLLER_CHANNEL = 3;
+    private final int XBOX_CONTROLLER_CHANNEL = 3;
     
     private static OI instance;
     
     private AttackThree leftJoystick;
     private AttackThree rightJoystick;
+    private XboxController xbox;
        
     public static OI getInstance(){
         if(instance == null){
@@ -31,18 +35,24 @@ public class OI {
     public OI(){
         leftJoystick = new AttackThree(LEFT_JOYSTICK_CHANNEL, 0.1);
         rightJoystick = new AttackThree(RIGHT_JOYSTICK_CHANNEL, 0.1);
-   
+        xbox = new XboxController(XBOX_CONTROLLER_CHANNEL, 0.1);
+        
         //bind buttons to commands HERE
-        leftJoystick.getButton3().whenPressed(new DriveInASquareCommandGroup(.2, 12));
+        leftJoystick.getButton3().whenPressed(new DriveInASquareCommandGroup(1-OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kZ), 8));
+        leftJoystick.getButton2().whenPressed(new DriveInALineCommand(1-OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kZ), DriveSubsystem.DIRECTION_FORWARD, 2.0));
         rightJoystick.getButton3().whenPressed(new CalibrateDirectionCommand());
     }
     
-    public Joystick getLeftJoystick(){
+    public AttackThree getLeftJoystick(){
         return leftJoystick;
     }
     
-    public Joystick getRightJoystick(){
+    public AttackThree getRightJoystick(){
         return rightJoystick;        
+    }
+    
+    public XboxController getXboxController(){
+        return xbox;
     }
     
     
