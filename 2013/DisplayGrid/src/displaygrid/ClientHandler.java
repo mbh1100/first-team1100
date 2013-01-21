@@ -82,7 +82,7 @@ public class ClientHandler extends Thread {
         try{            
             app = a;
             hasApp = true;
-            out.writeUTF("APP:"+app.toString());
+            out.writeUTF("APP:"+app.getServerName());
         } catch (Exception e){
             System.out.println(e.getMessage());
         }

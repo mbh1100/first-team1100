@@ -32,7 +32,7 @@ public class BallBounceServerApp extends ServerApp{
 
     @Override
     public void init() {
-        frame = new JFrame("Ball Bounce ServerApp");
+        frame = new JFrame(this.toString());
         panel = new JPanel();
         frame.add(panel);
         frame.setSize(400,400);
@@ -106,7 +106,7 @@ public class BallBounceServerApp extends ServerApp{
     }
 
     @Override
-    public String toString() {
+    public String getServerName() {
         return APPNAME;
     }
     

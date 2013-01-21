@@ -133,12 +133,20 @@ public class Server extends Thread implements ActionListener {
             return;
         }
         ServerApp newApp = DisplayGrid.getServerApp(appName, selectedClients);
+        
+        //Get specific app number, so that different instances of the same app can be idetified
+        int appNum = 0;
+        for(ServerApp sa:activeServerApps){
+            if(newApp.getClass() == sa.getClass()) appNum++;
+        }
+        newApp.setNumber(appNum);
+        
         activeServerApps.add(newApp);
         newApp.start();
         for (String o : selectedClients) {
             ClientHandler clientHandle = clientList.get(o);
             clientHandle.setApp(newApp);
-            window.renameTableApp(appName, o);
+            window.renameTableApp(newApp.toString(), o);
         }
         
     }

@@ -22,7 +22,7 @@ public class RandomColorsClientApp extends ClientApp {
     
     private Color color; 
     
-    private JFrame window;
+    private JFrame frame;
     private JPanel panel;
     
            
@@ -31,31 +31,34 @@ public class RandomColorsClientApp extends ClientApp {
     public void init(){
         color = Color.BLACK;  
         
-        window = new JFrame();
-        panel = new JPanel();
-        window.add(panel);
-        window.setResizable(false);
-        window.setUndecorated(true);
+        frame = new JFrame();
+        panel = new JPanel(){
+            public void paint(Graphics g){
+                paintPanel(g);
+            }
+        };
+        frame.add(panel);
+        frame.setResizable(false);
+        frame.setUndecorated(true);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        window.setSize(d.width, d.height);
-        window.setVisible(true);
+        frame.setSize(d.width, d.height);
+        frame.setVisible(true);
         
     }
     
-    private void draw(){
-        Graphics g = panel.getGraphics();
+    public void paintPanel(Graphics g){
         g.setColor(color);
         g.fillRect(0, 0, panel.getWidth(), panel.getHeight());
     }
     
     @Override
     public void update() {
-        draw();
+        frame.repaint();
     }
     
     @Override
     public void end(){
-        window.setVisible(false);
+        frame.setVisible(false);
     }
 
     @Override

@@ -20,6 +20,7 @@ public class ServerFrame extends javax.swing.JFrame {
      */
     public ServerFrame() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -254,6 +255,8 @@ public class ServerFrame extends javax.swing.JFrame {
         int rows = m.getRowCount();
         for(int i = 0; i < rows; i++){
             if(m.getValueAt(i, CLIENT_ID_COL).equals(client)){
+                String name = (newApp == null)?"":newApp.toString();
+                        
                 m.setValueAt(newApp, i, CLIENT_APP_COL);
                 return;
             }

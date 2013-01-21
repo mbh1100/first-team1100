@@ -20,7 +20,7 @@ public class BallBounceClientApp extends ClientApp {
     
     static final String APPNAME = BallBounceServerApp.APPNAME;
     
-    private JFrame screenWindow;
+    private JFrame frame;
     private JPanel screen;
     
     private int x,y, radius;
@@ -32,33 +32,40 @@ public class BallBounceClientApp extends ClientApp {
         x = 0; 
         y = 0;
         
-        screenWindow = new JFrame();
-        screen = new JPanel();
-        screenWindow.add(screen);
-        screenWindow.setResizable(false);
-        screenWindow.setUndecorated(true);
+        frame = new JFrame();
+        screen = new JPanel(){
+            public void paint(Graphics g){
+                paintPanel(g);
+            }
+        };
+        frame.add(screen);
+        frame.setResizable(false);
+        frame.setUndecorated(true);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         radius = d.width/20;
-        screenWindow.setSize(d);
+        frame.setSize(d);
         screen.setDoubleBuffered(true);
-        screenWindow.setVisible(true);
+        frame.setVisible(true);
     }
 
     @Override
     public void update() {
-        Graphics g = screen.getGraphics();
+        frame.repaint();        
+    }
+    
+    public void paintPanel(Graphics g){
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, screen.getWidth(), screen.getHeight());
         g.setColor(Color.WHITE);
-        g.fillOval(x-radius, y-radius, radius*2, radius*2);
+        g.fillOval(x-radius, y-radius, radius*2, radius*2);    
         
         //FPS
-        /*
+        
         long elapsed = System.currentTimeMillis() - lastFrame;
         int fps = (int) (1000/elapsed);
         g.drawString("FPS: "+fps, 50, 80);
         lastFrame = System.currentTimeMillis();
-        */
+        
     }
 
     @Override
@@ -76,7 +83,7 @@ public class BallBounceClientApp extends ClientApp {
 
     @Override
     public void end() {
-        screenWindow.setVisible(false);
+        frame.setVisible(false);
         
     }
 

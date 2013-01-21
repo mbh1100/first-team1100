@@ -94,7 +94,7 @@ public class TextBannerServerApp extends ServerApp {
     }
 
     @Override
-    public String toString() {
+    public String getServerName() {
         return APPNAME;
     }
 }

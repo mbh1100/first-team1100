@@ -14,6 +14,8 @@ public abstract class ServerApp extends Thread {
         
     protected ArrayList<String> clients;
     
+    private String name;
+    
     private boolean isRunning = false;
     
     public ServerApp(){
@@ -62,11 +64,15 @@ public abstract class ServerApp extends Thread {
     
     public abstract void end();
     
+    
+    
     /**
      * get the app name
      * @return app name
      */
-    public abstract String toString();
+    public final String toString(){
+        return name;
+    }
     
     public final void finish(){
         isRunning = false;
@@ -92,4 +98,10 @@ public abstract class ServerApp extends Thread {
     public final int getClientCount(){
         return clients.size();
     }
+    
+    public final void setNumber(int n){
+        name = getServerName() + " " + n;
+    }
+    
+    public abstract String getServerName();
 }

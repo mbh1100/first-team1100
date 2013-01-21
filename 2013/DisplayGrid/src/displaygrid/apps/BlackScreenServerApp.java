@@ -34,7 +34,7 @@ public class BlackScreenServerApp extends ServerApp {
     public void end(){};
 
     @Override
-    public String toString() {
+    public String getServerName() {
         return APPNAME;
     }
     
