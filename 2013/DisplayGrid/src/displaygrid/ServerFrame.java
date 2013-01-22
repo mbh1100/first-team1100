@@ -274,9 +274,11 @@ public class ServerFrame extends javax.swing.JFrame {
                 break tableRemove;
             }
         }
+        clientTable.setModel(m);
         //remove from pending app client list
         DefaultListModel pModel = ((DefaultListModel)pendingAppClientList.getModel());
         pModel.removeElement(client);
+        pendingAppClientList.setModel(pModel);
     }
     
     public ArrayList<String> getAllPendingAppClients(){

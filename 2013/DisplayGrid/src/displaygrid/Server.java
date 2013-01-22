@@ -170,7 +170,6 @@ public class Server extends Thread implements ActionListener {
 
         for (String c : selectedClients) {
             try {
-                clientList.get(c).getApp().removeClient(c);
                 clientList.get(c).exitCurrentApp();
             } catch(Exception e){
                 System.out.println(e.getMessage());
@@ -219,9 +218,9 @@ public class Server extends Thread implements ActionListener {
      */
     public void disconnectClient(String c){
         ClientHandler h = clientList.get(c);
-        if(h.hasApp()){
-            h.getApp().removeClient(c);
-        }
+//        if(h.hasApp()){ //not needed, ClientHandler.finish() does this
+//            h.getApp().removeClient(c);
+//        }
         h.finish();
         try {
             h.join();

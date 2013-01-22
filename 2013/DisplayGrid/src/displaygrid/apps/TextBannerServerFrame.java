@@ -1,9 +1,19 @@
 package displaygrid.apps;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
+import javax.swing.JPanel;
+
 public class TextBannerServerFrame extends javax.swing.JFrame {
 
     public TextBannerServerFrame() {
         initComponents();
+        font = new Font(Font.MONOSPACED, Font.BOLD, panel.getHeight()/2);
+        setVisible(true);
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -11,7 +21,11 @@ public class TextBannerServerFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jColorChooser1 = new javax.swing.JColorChooser();
-        panel = new javax.swing.JPanel();
+        panel = new JPanel(){
+            public void paint(Graphics g){
+                paintPanel(g);
+            }
+        };
         messageField = new javax.swing.JTextField();
         bgcolorButton = new javax.swing.JButton();
         textcolorButton = new javax.swing.JButton();
@@ -89,6 +103,36 @@ public class TextBannerServerFrame extends javax.swing.JFrame {
     private void bgcolorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bgcolorButtonActionPerformed
     }//GEN-LAST:event_bgcolorButtonActionPerformed
 
+    public void paintPanel(Graphics g){
+        g.setColor(bgColor);
+        g.fillRect(0,0,panel.getWidth(), panel.getHeight());
+        g.setColor(textColor);
+        g.setFont(font);
+        Rectangle target = new Rectangle(0, 0, panel.getWidth(), panel.getHeight());
+        Rectangle2D text = g.getFontMetrics().getStringBounds(message, g);
+        
+        int tx = (int) ((target.width-text.getWidth())/2);        
+        int cy = (target.height) - (int) (target.height - text.getHeight()) / 2 - target.height / 5;
+        g.drawString(message, tx, cy);
+    }
+    
+    public void setPanelDisplay(String m, Color bg, Color text){
+        message = m;
+        font = scaleFont(message, panel.getBounds(), panel.getGraphics(), font);
+        bgColor = bg;
+        textColor = text;
+    }
+    
+    public Font scaleFont(String text, Rectangle rect, Graphics g, Font pFont) {
+        float fontSize = 20.0f;
+        Font font = pFont;
+
+        font = g.getFont().deriveFont(fontSize);
+        int width = g.getFontMetrics(font).stringWidth(text);
+        fontSize = (rect.width / width ) * fontSize;
+        return g.getFont().deriveFont(fontSize);
+    }
+    
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -117,6 +161,12 @@ public class TextBannerServerFrame extends javax.swing.JFrame {
             }
         });
     }
+    
+    private String message = "";
+    private Font font;
+    private Color bgColor;
+    private Color textColor;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton bgcolorButton;
     private javax.swing.JColorChooser jColorChooser1;

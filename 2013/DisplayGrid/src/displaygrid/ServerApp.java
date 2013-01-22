@@ -29,7 +29,6 @@ public abstract class ServerApp extends Thread {
         while(isRunning){
             update();
             try{
-                //the servr app will run the simulation at twice the framerate as the client
                 Thread.sleep(Config.TARGET_DELTA);
             } catch (Exception e){
                 System.out.println(e.getMessage());

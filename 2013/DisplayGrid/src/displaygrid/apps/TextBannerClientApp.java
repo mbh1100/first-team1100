@@ -25,12 +25,19 @@ public class TextBannerClientApp extends ClientApp {
     static final String APPNAME = TextBannerServerApp.APPNAME;
     private JFrame frame;
     private JPanel panel;
+    
     private String message = "";
     private float posX = 0.0f;
+    
     private Font font;
     private Color bgColor = Color.BLACK;
     private Color textColor = Color.WHITE;
+    
     private int clientID;
+    
+    
+    private boolean textVisible = false;
+    
 
     @Override
     public void init() {
@@ -40,25 +47,27 @@ public class TextBannerClientApp extends ClientApp {
             @Override
             public void paint(Graphics g) {
                 super.paint(g);
-                paintText((Graphics2D) g);
+                paintPanel((Graphics2D) g);
             }
         };
         frame.add(panel);
-        frame.setResizable(false);
+        frame.setResizable(true);
        // frame.setUndecorated(true);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setSize(d);
         frame.setSize(400,200);
-        
+        frame.setTitle(getName());
         panel.setDoubleBuffered(true);
-
-        //init font
-        font = new Font(Font.MONOSPACED, Font.PLAIN, 50);
-
         frame.setVisible(true);
+        
+        
+        //init font
+        font = new Font(Font.MONOSPACED, Font.BOLD, panel.getHeight()/2);
     }
 
-    private void paintText(Graphics2D g) {
+    private void paintPanel(Graphics2D g) {
+        font = new Font(Font.MONOSPACED, Font.BOLD, panel.getHeight()/2);
+
         g.setFont(font);
         g.setColor(bgColor);
         g.fillRect(0, 0, panel.getWidth(), panel.getHeight());
@@ -67,11 +76,15 @@ public class TextBannerClientApp extends ClientApp {
         Rectangle target = new Rectangle(0, 0, panel.getWidth(), panel.getHeight());
         Rectangle2D text = g.getFontMetrics().getStringBounds(message, g);
         int tx = panel.getWidth();
-        if ((int) posX == clientID || (int) posX == clientID + 1) {
+        /*if ((int) posX == clientID || (int) posX == clientID + 1) {
             tx = (int) ((1 - (posX - clientID)) * panel.getWidth());
-        }
+        }*/
+        
+        tx = (int)(posX * panel.getWidth());
+        
         int cy = (target.height) - (int) (target.height - text.getHeight()) / 2 - target.height / 5;
         g.drawString(message, tx, cy);
+        textVisible = tx+text.getWidth() > 0;
     }
 
     @Override
@@ -95,11 +108,12 @@ public class TextBannerClientApp extends ClientApp {
 
     public void setPosition(String s) {
         posX = Float.parseFloat(s);
+        //System.out.println(posX);
     }
 
     @Override
     public void commandRecieved(String command) {
-        System.out.println("Command: " + command);
+        //System.out.println("Command: " + command);
         String[] cmdTokens = command.split(":");
         for (int i = 0; i < cmdTokens.length; i++) {
             String[] cmdSegment = cmdTokens[i].split("#");
@@ -128,10 +142,7 @@ public class TextBannerClientApp extends ClientApp {
 
     @Override
     public String getCommand() {
-        String cmdMsg = "";
-        cmdMsg += "resX#" + panel.getWidth();
-
-        return cmdMsg;
+        return (textVisible)?"1":"0";
     }
 
     @Override

@@ -16,7 +16,7 @@ public class Client extends Thread implements ActionListener {
     
     //lazy error handling
     //if the error has the word connection, I'll just assume that the connection was lost
-    private static final String ERROR_CONNECTION_RESET = "Connection";
+    private static final String ERROR_CONNECTION_RESET = "connection";
     
     //if there is no app, only check for a new one 10 times a second
     static final int CHECK_RATE = 100;
@@ -71,8 +71,10 @@ public class Client extends Thread implements ActionListener {
                     }
                     System.out.println("Connected to "+serverName+" as "+ID);
                 }catch(Exception e){
-                    if (e.getMessage().equalsIgnoreCase(ERROR_CONNECTION_RESET)) {
-                        disconnect();
+                    if(e.getMessage() != null){
+                        if (e.getMessage().toLowerCase().contains(ERROR_CONNECTION_RESET)) {
+                            disconnect();
+                        }
                     }
                     //could not connect, ask to try setup again
                     int result = JOptionPane.showConfirmDialog(new JFrame(), "Could not connect to server \""+serverName+"\". Client Name may already be in use or Server Address may be incorrect. Retry?", "Error", JOptionPane.YES_NO_OPTION);
@@ -146,6 +148,7 @@ public class Client extends Thread implements ActionListener {
     
     private void startApp(String appname){
         app = DisplayGrid.getClientApp(appname);
+        app.setName(ID);
         if(app != null){
             System.out.println("Started APP \""+app.toString()+"\"");
             app.start();
