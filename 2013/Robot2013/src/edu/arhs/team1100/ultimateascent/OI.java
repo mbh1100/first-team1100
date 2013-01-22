@@ -1,8 +1,8 @@
 
 package edu.arhs.team1100.ultimateascent;
 
-import autonomous.DriveInALineCommand;
-import autonomous.DriveInASquareCommandGroup;
+import edu.arhs.team1100.ultimateascent.autonomous.DriveInALineCommand;
+import edu.arhs.team1100.ultimateascent.autonomous.DriveInASquareCommandGroup;
 import edu.arhs.team1100.ultimateascent.commands.CalibrateDirectionCommand;
 import edu.arhs.team1100.ultimateascent.input.AttackThree;
 import edu.arhs.team1100.ultimateascent.input.XboxController;
