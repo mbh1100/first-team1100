@@ -75,10 +75,10 @@ public class DriveSubsystem extends Subsystem {
         
         drive.mecanumDrive_Cartesian(controlX, controlY, rotation, driveGyro.getAngle());
         Log.log(this, "SPEEDS:"+
-                frontLeftTalon.get()+", "+
-                frontRightTalon.get()+", "+
-                backLeftTalon.get()+", "+
-                backRightTalon.get(),
+                Log.round(frontLeftTalon.get() ,2) +", "+
+                Log.round(frontRightTalon.get(),2) +", "+
+                Log.round(backLeftTalon.get()  ,2) +", "+
+                Log.round(backRightTalon.get() ,2) , 
                 Log.LEVEL_DEBUG
                 );
     }
