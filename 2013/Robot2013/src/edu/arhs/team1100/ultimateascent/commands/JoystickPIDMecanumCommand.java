@@ -8,20 +8,21 @@ import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
 
 /**
  *
- * @author Team 1100
+ * @author Akshay
  */
-public class MecanumCommand extends CommandBase {
-    
-    public MecanumCommand(){
+public class JoystickPIDMecanumCommand extends CommandBase {
+
+    public JoystickPIDMecanumCommand(){
         requires(DriveSubsystem.getInstance());
     }
-
+    
     protected void initialize() {
-       // requires(DriveSubsystem.getInstance());     
+        DriveSubsystem.getInstance().setSetpoint(0.0); //desired difference between desired and actual angle
+        DriveSubsystem.getInstance().enable(); //PID enable        
     }
 
     protected void execute() {
-        DriveSubsystem.getInstance().mecanumDrive();        
+        //nothing to do here
     }
 
     protected boolean isFinished() {
@@ -29,11 +30,12 @@ public class MecanumCommand extends CommandBase {
     }
 
     protected void end() {
-        DriveSubsystem.getInstance().stop();
+        DriveSubsystem.getInstance().disable(); // PID disable        
     }
 
     protected void interrupted() {
         end();
     }
+    
     
 }
