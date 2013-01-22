@@ -13,9 +13,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class DriveInACircleCommandGroup extends CommandGroup {
     
-    public DriveInACircleCommandGroup(double speed, double duration){
-        
-        int rotations = 8;
+    public DriveInACircleCommandGroup(double speed, double duration, double rotations){
         
         for(int angle = 0; angle <=360; angle+=360/rotations )
         addSequential(new DriveInALineCommand(speed, angle, duration/rotations));
