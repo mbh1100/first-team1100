@@ -62,8 +62,12 @@ public class Client extends Thread implements ActionListener {
                     if(result.equals("NAME")){
                         server = null;
                         throw new Exception();
-                    } else {                    
+                    } else {
+                        ID = result;
                         connected = true;
+                        if(serverName.equals("")){
+                            serverName = server.getInetAddress().getHostName();
+                        }
                     }
                     System.out.println("Connected to "+serverName+" as "+ID);
                 }catch(Exception e){

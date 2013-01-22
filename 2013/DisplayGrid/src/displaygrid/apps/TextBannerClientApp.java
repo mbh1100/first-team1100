@@ -45,9 +45,11 @@ public class TextBannerClientApp extends ClientApp {
         };
         frame.add(panel);
         frame.setResizable(false);
-        frame.setUndecorated(true);
+       // frame.setUndecorated(true);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setSize(d);
+        frame.setSize(400,200);
+        
         panel.setDoubleBuffered(true);
 
         //init font
@@ -64,7 +66,7 @@ public class TextBannerClientApp extends ClientApp {
 
         Rectangle target = new Rectangle(0, 0, panel.getWidth(), panel.getHeight());
         Rectangle2D text = g.getFontMetrics().getStringBounds(message, g);
-        int tx = 1 * panel.getWidth();
+        int tx = panel.getWidth();
         if ((int) posX == clientID || (int) posX == clientID + 1) {
             tx = (int) ((1 - (posX - clientID)) * panel.getWidth());
         }
