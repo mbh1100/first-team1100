@@ -15,8 +15,10 @@ public class DriveInACircleCommandGroup extends CommandGroup {
     
     public DriveInACircleCommandGroup(double speed, double duration){
         
-        for(int angle = 0; angle <=360; angle+=45 )
-        addSequential(new DriveInALineCommand(speed, angle, duration/8));
+        int rotations = 8;
+        
+        for(int angle = 0; angle <=360; angle+=360/rotations )
+        addSequential(new DriveInALineCommand(speed, angle, duration/rotations));
         addSequential(new StopDriveCommand(0.5));
         
     }
