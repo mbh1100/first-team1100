@@ -117,7 +117,7 @@ public class DriveSubsystem extends PIDSubsystem {
         
         double error = Math.abs(joystickAngle - gyroAngle);
         if(error > 180){
-            error = -1 * (360 - error);
+            error -= 360;
         }
         
         boolean isCloseEnough = (Math.abs(error) < ROTATION_ACCURACY);
