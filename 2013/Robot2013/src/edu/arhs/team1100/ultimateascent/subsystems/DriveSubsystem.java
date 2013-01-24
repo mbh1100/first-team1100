@@ -7,7 +7,7 @@ package edu.arhs.team1100.ultimateascent.subsystems;
 import com.sun.squawk.util.MathUtils;
 import edu.arhs.team1100.ultimateascent.OI;
 import edu.arhs.team1100.ultimateascent.RobotMap;
-import edu.arhs.team1100.ultimateascent.commands.JoystickMecanumCommand;
+import edu.arhs.team1100.ultimateascent.commands.JoystickPIDMecanumCommand;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
@@ -26,10 +26,13 @@ public class DriveSubsystem extends PIDSubsystem {
     public static final double DIRECTION_BACK    = 180;
     public static final double DIRECTION_LEFT    = 270;
     public static final double DIRECTION_RIGHT   = 90;
+    
+    private static final double MAGNITUDE_DEADBAND = 0.3;
+    private static final double ROTATION_ACCURACY = 10;
 
-    private static final int P = 0;
-    private static final int I = 0;
-    private static final int D = 0;
+    private static final double P = 0.001;
+    private static final double I = 0.0001;
+    private static final double D = 0.001;
     
     static DriveSubsystem instance;
 
@@ -101,24 +104,31 @@ public class DriveSubsystem extends PIDSubsystem {
     
     protected double returnPIDInput() {
         //return smallest angle difference between gyro and joystick angle   
-        double gyroAngle = driveGyro.getAngle()%360;
-        if(gyroAngle < 0){
+        double gyroAngle = driveGyro.getAngle();
+        while(gyroAngle < 0){
             gyroAngle += 360;
-        }
+        }        
+        gyroAngle %= 360;
         
-        double controlX = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
-        double controlY = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
+        double controlX = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
+        double controlY = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
+        double joystickMagnitude = Math.sqrt((controlX*controlX)+(controlY*controlY));
         double joystickAngle = Math.toDegrees(MathUtils.atan2(-controlX, controlY));
         
-        double error = joystickAngle - gyroAngle;
-        if(Math.abs(error) > 180){
+        double error = Math.abs(joystickAngle - gyroAngle);
+        if(error > 180){
             error = -1 * (360 - error);
         }
         
+        boolean isCloseEnough = (Math.abs(error) < ROTATION_ACCURACY);
+        
         Log.log(this, "gyro: "+Log.round(gyroAngle, 2)+"\njoystick: "+Log.round(joystickAngle, 2)+"\nerror: "+error+"\n", Log.LEVEL_DEBUG);
         
-        return error;
-        
+        if(joystickMagnitude > MAGNITUDE_DEADBAND && !isCloseEnough){
+            return error;        
+        } else {
+            return 0.0;
+        }
     }
 
     protected void usePIDOutput(double rotationSpeed) {
@@ -132,8 +142,6 @@ public class DriveSubsystem extends PIDSubsystem {
         driveGyro.reset();     
     }
     
-
-
     public Talon getFrontLeftTalon(){
         return frontLeftTalon;
     }
@@ -150,10 +158,8 @@ public class DriveSubsystem extends PIDSubsystem {
         return backRightTalon;
     }
 
-
-
     protected void initDefaultCommand() {
-        setDefaultCommand(new JoystickMecanumCommand());
+        setDefaultCommand(new JoystickPIDMecanumCommand());
     }
 
 
