@@ -38,8 +38,8 @@ public class OI {
         xbox = new XboxController(XBOX_CONTROLLER_CHANNEL, 0.1);
         
         //bind buttons to commands HERE
-        leftJoystick.getButton3().whenPressed(new DriveInASquareCommandGroup(1-OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kZ), 8));
-        leftJoystick.getButton2().whenPressed(new DriveInALineCommand(1-OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kZ), DriveSubsystem.DIRECTION_FORWARD, 2.0));
+        leftJoystick.getButton3().whenPressed(new DriveInASquareCommandGroup(1-leftJoystick.getAxis(Joystick.AxisType.kZ), 8));
+        leftJoystick.getButton2().whenPressed(new DriveInALineCommand(1-leftJoystick.getAxis(Joystick.AxisType.kZ), DriveSubsystem.DIRECTION_FORWARD, 2.0));
         rightJoystick.getButton3().whenPressed(new CalibrateDirectionCommand());
     }
     
