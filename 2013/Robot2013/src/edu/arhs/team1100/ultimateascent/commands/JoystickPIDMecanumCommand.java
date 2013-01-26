@@ -4,7 +4,10 @@
  */
 package edu.arhs.team1100.ultimateascent.commands;
 
+import com.sun.squawk.util.MathUtils;
+import edu.arhs.team1100.ultimateascent.OI;
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
+import edu.wpi.first.wpilibj.Joystick;
 
 /**
  *
@@ -12,17 +15,27 @@ import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
  */
 public class JoystickPIDMecanumCommand extends CommandBase {
 
+    private static final double MAGNITUDE_DEADBAND = 0.3;
+
     public JoystickPIDMecanumCommand(){
         requires(DriveSubsystem.getInstance());
     }
-    
+
     protected void initialize() {
         DriveSubsystem.getInstance().setSetpoint(0.0); //desired difference between desired and actual angle
-        DriveSubsystem.getInstance().enable(); //PID enable        
+        DriveSubsystem.getInstance().enable(); //PID enable
     }
 
     protected void execute() {
-        //nothing to do here
+
+        double controlX = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
+        double controlY = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
+        double joystickMagnitude = Math.sqrt((controlX*controlX)+(controlY*controlY));
+        double joystickAngle = Math.toDegrees(MathUtils.atan2(-controlX, controlY));
+
+        if (joystickMagnitude > MAGNITUDE_DEADBAND) {
+            DriveSubsystem.getInstance().setSetpoint(joystickAngle);
+        }
     }
 
     protected boolean isFinished() {
@@ -30,12 +43,12 @@ public class JoystickPIDMecanumCommand extends CommandBase {
     }
 
     protected void end() {
-        DriveSubsystem.getInstance().disable(); // PID disable        
+        DriveSubsystem.getInstance().disable(); // PID disable
     }
 
     protected void interrupted() {
         end();
     }
-    
-    
+
+
 }

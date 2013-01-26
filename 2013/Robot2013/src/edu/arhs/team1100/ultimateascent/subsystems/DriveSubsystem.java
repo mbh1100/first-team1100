@@ -21,23 +21,22 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
  * @author Team 1100
  */
 public class DriveSubsystem extends PIDSubsystem {
-    
+
     public static final double DIRECTION_FORWARD = 0;
     public static final double DIRECTION_BACK    = 180;
     public static final double DIRECTION_LEFT    = 270;
     public static final double DIRECTION_RIGHT   = 90;
-    
-    private static final double MAGNITUDE_DEADBAND = 0.3;
+
     private static final double ROTATION_ACCURACY = 10;
 
-    private static final double P = 0.001;
+    private static final double P = 0.01;
     private static final double I = 0.0001;
-    private static final double D = 0.001;
-    
+    private static final double D = 0.000;
+
     static DriveSubsystem instance;
 
     private RobotDrive drive;
-    
+
     private Gyro driveGyro;
 
     private Talon frontLeftTalon;
@@ -76,72 +75,52 @@ public class DriveSubsystem extends PIDSubsystem {
         double rotation = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
         double controlX = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
         double controlY = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
-        
+
         /*double degrees = Math.toDegrees(MathUtils.atan2(-controlX, controlY));
-        double magnitude = Math.sqrt(((controlX)*(controlX)) + ((controlY)*(controlY)));       
+        double magnitude = Math.sqrt(((controlX)*(controlX)) + ((controlY)*(controlY)));
         Log.log(this, "m, d, r" + magnitude + ", " + degrees + ", " + rotation, Log.LEVEL_DEBUG);
         drive.mecanumDrive_Polar(magnitude, degrees, rotation);*/
-        
+
         drive.mecanumDrive_Cartesian(controlX, controlY, rotation, driveGyro.getAngle());
         Log.log(this, "SPEEDS:"+
                 Log.round(frontLeftTalon.get() ,2) +", "+
                 Log.round(frontRightTalon.get(),2) +", "+
                 Log.round(backLeftTalon.get()  ,2) +", "+
-                Log.round(backRightTalon.get() ,2) , 
+                Log.round(backRightTalon.get() ,2) ,
                 Log.LEVEL_DEBUG
         );
     }
 
-    public void drive(double magnitude, double angle, double rotation) {  
-        
+    public void drive(double magnitude, double angle, double rotation) {
+
         drive.mecanumDrive_Cartesian((Math.sin(Math.toRadians(angle)) * magnitude), (Math.cos(Math.toRadians(angle)) * magnitude), rotation, driveGyro.getAngle());
     }
-    
+
     public void stop(){
-        drive(0,0,0);    
+        drive(0,0,0);
     }
-    
-    
+
+
     protected double returnPIDInput() {
-        //return smallest angle difference between gyro and joystick angle   
+        //return smallest angle difference between gyro and joystick angle
         double gyroAngle = driveGyro.getAngle();
-        while(gyroAngle < 0){
-            gyroAngle += 360;
-        }        
         gyroAngle %= 360;
-        
-        double controlX = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
-        double controlY = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
-        double joystickMagnitude = Math.sqrt((controlX*controlX)+(controlY*controlY));
-        double joystickAngle = Math.toDegrees(MathUtils.atan2(-controlX, controlY));
-        
-        double error = Math.abs(joystickAngle - gyroAngle);
-        if(error > 180){
-            error -= 360;
-        }
-        
-        boolean isCloseEnough = (Math.abs(error) < ROTATION_ACCURACY);
-        
-        Log.log(this, "gyro: "+Log.round(gyroAngle, 2)+"\njoystick: "+Log.round(joystickAngle, 2)+"\nerror: "+error+"\n", Log.LEVEL_DEBUG);
-        
-        if(joystickMagnitude > MAGNITUDE_DEADBAND && !isCloseEnough){
-            return error;        
-        } else {
-            return 0.0;
-        }
-    }
+
+        Log.log(this, "gyro: "+Log.round(gyroAngle, 2)+" setpoint: "+getSetpoint(), Log.LEVEL_DEBUG);
+        return -gyroAngle;
+     }
 
     protected void usePIDOutput(double rotationSpeed) {
         double controlX = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
         double controlY = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
-        
+
         drive.mecanumDrive_Cartesian(controlX, controlY, rotationSpeed, driveGyro.getAngle());
     }
-    
+
     public void calibrateGyro(){
-        driveGyro.reset();     
+        driveGyro.reset();
     }
-    
+
     public Talon getFrontLeftTalon(){
         return frontLeftTalon;
     }
