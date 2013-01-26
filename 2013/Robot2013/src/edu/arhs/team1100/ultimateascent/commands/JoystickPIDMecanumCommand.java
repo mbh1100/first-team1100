@@ -7,6 +7,7 @@ package edu.arhs.team1100.ultimateascent.commands;
 import com.sun.squawk.util.MathUtils;
 import edu.arhs.team1100.ultimateascent.OI;
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
+import edu.arhs.team1100.ultimateascent.util.Log;
 import edu.wpi.first.wpilibj.Joystick;
 
 /**
@@ -27,15 +28,8 @@ public class JoystickPIDMecanumCommand extends CommandBase {
     }
 
     protected void execute() {
+        //nothing to do
 
-        double controlX = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
-        double controlY = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
-        double joystickMagnitude = Math.sqrt((controlX*controlX)+(controlY*controlY));
-        double joystickAngle = Math.toDegrees(MathUtils.atan2(-controlX, controlY));
-
-        if (joystickMagnitude > MAGNITUDE_DEADBAND) {
-            DriveSubsystem.getInstance().setSetpoint(joystickAngle);
-        }
     }
 
     protected boolean isFinished() {

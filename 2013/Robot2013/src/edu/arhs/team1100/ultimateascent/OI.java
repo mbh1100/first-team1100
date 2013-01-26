@@ -4,6 +4,7 @@ package edu.arhs.team1100.ultimateascent;
 import edu.arhs.team1100.ultimateascent.autonomous.DriveInALineCommand;
 import edu.arhs.team1100.ultimateascent.autonomous.DriveInASquareCommandGroup;
 import edu.arhs.team1100.ultimateascent.commands.CalibrateDirectionCommand;
+import edu.arhs.team1100.ultimateascent.commands.JoystickPIDMecanumCommand;
 import edu.arhs.team1100.ultimateascent.input.AttackThree;
 import edu.arhs.team1100.ultimateascent.input.XboxController;
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
@@ -41,6 +42,7 @@ public class OI {
         leftJoystick.getButton3().whenPressed(new DriveInASquareCommandGroup(1-leftJoystick.getAxis(Joystick.AxisType.kZ), 8));
         leftJoystick.getButton2().whenPressed(new DriveInALineCommand(1-leftJoystick.getAxis(Joystick.AxisType.kZ), DriveSubsystem.DIRECTION_FORWARD, 2.0));
         rightJoystick.getButton3().whenPressed(new CalibrateDirectionCommand());
+        rightJoystick.getButton1().whileHeld(new JoystickPIDMecanumCommand());
     }
     
     public AttackThree getLeftJoystick(){

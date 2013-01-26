@@ -10,6 +10,7 @@ package edu.arhs.team1100.ultimateascent;
 
 import edu.arhs.team1100.ultimateascent.commands.CalibrateDirectionCommand;
 import edu.arhs.team1100.ultimateascent.commands.CommandBase;
+import edu.arhs.team1100.ultimateascent.commands.JoystickPIDMecanumCommand;
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
 import edu.arhs.team1100.ultimateascent.util.Log;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -40,6 +41,7 @@ public class RobotMain extends IterativeRobot {
         Log.addClass(RobotMain.class, Log.LEVEL_DEBUG);
         Log.addClass(DriveSubsystem.class, Log.LEVEL_DEBUG);
         Log.addClass(CalibrateDirectionCommand.class, Log.LEVEL_DEBUG);
+        Log.addClass(JoystickPIDMecanumCommand.class, Log.LEVEL_DEBUG);
 
         // instantiate the command used for the autonomous period
         

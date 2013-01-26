@@ -37,6 +37,10 @@ public class AttackThree extends Joystick {
         this.joystickDeadband = joystickDeadband;
     }
 
+    /**
+     * AttackThree Trigger Button
+     * @return trigger button
+     */
     public JoystickButton getButton1() {
         return button1;
     }
