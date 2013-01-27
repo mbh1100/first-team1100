@@ -5,10 +5,10 @@ import edu.arhs.team1100.ultimateascent.autonomous.DriveInALineCommand;
 import edu.arhs.team1100.ultimateascent.autonomous.DriveInASquareCommandGroup;
 import edu.arhs.team1100.ultimateascent.commands.CalibrateDirectionCommand;
 import edu.arhs.team1100.ultimateascent.commands.JoystickPIDMecanumCommand;
+import edu.arhs.team1100.ultimateascent.commands.ShootFrisbeeCommand;
 import edu.arhs.team1100.ultimateascent.input.AttackThree;
 import edu.arhs.team1100.ultimateascent.input.XboxController;
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
-import edu.wpi.first.wpilibj.Joystick;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -39,10 +39,12 @@ public class OI {
         xbox = new XboxController(XBOX_CONTROLLER_CHANNEL, 0.1);
         
         //bind buttons to commands HERE
-        leftJoystick.getButton3().whenPressed(new DriveInASquareCommandGroup(1-leftJoystick.getAxis(Joystick.AxisType.kZ), 8));
-        leftJoystick.getButton2().whenPressed(new DriveInALineCommand(1-leftJoystick.getAxis(Joystick.AxisType.kZ), DriveSubsystem.DIRECTION_FORWARD, 2.0));
+        leftJoystick.getButton3().whenPressed(new DriveInASquareCommandGroup(1-leftJoystick.getAxis(AttackThree.AxisType.kZ), 8));
+        leftJoystick.getButton2().whenPressed(new DriveInALineCommand(1-leftJoystick.getAxis(AttackThree.AxisType.kZ), DriveSubsystem.DIRECTION_FORWARD, 2.0));
         rightJoystick.getButton3().whenPressed(new CalibrateDirectionCommand());
         rightJoystick.getButton1().whileHeld(new JoystickPIDMecanumCommand());
+        
+        xbox.getButtonRightBumper().whileHeld(new ShootFrisbeeCommand());
     }
     
     public AttackThree getLeftJoystick(){
@@ -56,8 +58,7 @@ public class OI {
     public XboxController getXboxController(){
         return xbox;
     }
-    
-    
+        
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
     // You create one by telling it which joystick it's on and which button

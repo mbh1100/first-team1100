@@ -31,7 +31,10 @@ public class RobotMap {
     
     public static final int D_TALON_BACK_RIGHT_SLOT = 1;
     public static final int D_TALON_BACK_RIGHT_CHANNEL = 4;
-    
+       
     public static final int D_GYRO_SLOT = 1;
     public static final int D_GYRO_CHANNEL = 1;
+    
+    public static final int S_SHOOTER_CONTROLLER_SLOT = 1;
+    public static final int S_SHOOTER_CONTROLLER_CHANNEL = 5;
 }

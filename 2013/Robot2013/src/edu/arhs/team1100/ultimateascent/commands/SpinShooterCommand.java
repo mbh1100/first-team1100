@@ -5,27 +5,24 @@
 package edu.arhs.team1100.ultimateascent.commands;
 
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
+import edu.arhs.team1100.ultimateascent.subsystems.ShooterSubsystem;
 
 /**
  *
- * @author Akshay
+ * @author Jason
  */
-public class JoystickPIDMecanumCommand extends CommandBase {
-
-    private static final double MAGNITUDE_DEADBAND = 0.3;
-
-    public JoystickPIDMecanumCommand(){
-        requires(DriveSubsystem.getInstance());
+public class SpinShooterCommand  extends CommandBase{
+    public SpinShooterCommand(){
+        requires(ShooterSubsystem.getInstance());
     }
 
     protected void initialize() {
-        DriveSubsystem.getInstance().setSetpoint(0.0); //desired difference between desired and actual angle
-        DriveSubsystem.getInstance().enable(); //PID enable
+        ShooterSubsystem.getInstance().setSetpoint(0.0);
+        ShooterSubsystem.getInstance().enable();
     }
 
     protected void execute() {
-        //nothing to do
-
+       
     }
 
     protected boolean isFinished() {
@@ -33,12 +30,10 @@ public class JoystickPIDMecanumCommand extends CommandBase {
     }
 
     protected void end() {
-        DriveSubsystem.getInstance().disable(); // PID disable
+        DriveSubsystem.getInstance().disable();
     }
 
     protected void interrupted() {
         end();
     }
-
-
 }
