@@ -17,8 +17,6 @@ public class SpinShooterCommand  extends CommandBase{
     }
 
     protected void initialize() {
-        ShooterSubsystem.getInstance().setSetpoint(0.0);
-        ShooterSubsystem.getInstance().enable();
     }
 
     protected void execute() {
