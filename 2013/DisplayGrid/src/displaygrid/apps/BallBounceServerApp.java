@@ -18,7 +18,7 @@ public class BallBounceServerApp extends ServerApp{
     
     static final String APPNAME = "Ball Bounce";
     
-    public static final float MAX_X = 1.0f;
+    public static final float MAX_X = 2.0f;
     public static final float MAX_Y = 1.0f;
     public static final float MIN_X = 0.0f;
     public static final float MIN_Y = 0.0f;
