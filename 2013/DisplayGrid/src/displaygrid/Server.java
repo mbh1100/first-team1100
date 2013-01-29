@@ -95,7 +95,6 @@ public class Server extends Thread implements ActionListener {
         if(e.getSource() == window.startButton){
             appStarted();             
         } else if (e.getSource() == window.clientStopButton) {
-            System.out.println("client stop button");
             clientsStopped();
         } else if (e.getSource() == window.appStopButton){
             appsStopped();           
@@ -117,7 +116,6 @@ public class Server extends Thread implements ActionListener {
                     System.out.println(ex.getMessage());
                 }
                 i.remove();
-                System.out.println("remove "+app.toString());
             }
         }
 
@@ -161,19 +159,16 @@ public class Server extends Thread implements ActionListener {
      * Removes clients from apps, but apps are still running of other clients are connected
      */
     private void clientsStopped() {
-        System.out.println("clients stopped");
         int[] selectedRows = window.clientTable.getSelectedRows();
         ArrayList<String> selectedClients = new ArrayList<>();
         for (int i = 0; i < selectedRows.length; i++) {
             String client = (String) clientTableModel.getValueAt(selectedRows[i], ServerFrame.CLIENT_ID_COL);
             selectedClients.add(client);
-            System.out.println("add to list "+client);
             window.renameTableApp("", client);
         }
 
         for (String c : selectedClients) {
             try {                
-                System.out.println("EXITAPP: "+clientList.get(c).getClientID());
                 clientList.get(c).exitCurrentApp();
             } catch(Exception e){
                 System.out.println(e.getMessage());
@@ -231,7 +226,7 @@ public class Server extends Thread implements ActionListener {
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
-        System.out.println("disconnect "+c);
+        System.out.println("Disconnected "+c);
         window.removeClient(c);
         clientList.remove(c);       
     }
