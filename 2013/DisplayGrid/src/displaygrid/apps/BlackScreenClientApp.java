@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 public class BlackScreenClientApp extends ClientApp{
 
     static final String APPNAME = "Black Screen";
+    static final long TARGET_DELTA = 1000;
     
     private JFrame blackScreen;
     
@@ -49,6 +50,11 @@ public class BlackScreenClientApp extends ClientApp{
     @Override
     public String getCommand() {
         return null;
+    }
+    
+    @Override
+    public long getTargetDelta(){
+        return TARGET_DELTA;
     }
 
     @Override

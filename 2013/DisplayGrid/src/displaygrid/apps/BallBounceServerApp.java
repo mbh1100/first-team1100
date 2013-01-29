@@ -18,10 +18,10 @@ public class BallBounceServerApp extends ServerApp{
     
     static final String APPNAME = "Ball Bounce";
     
-    private final float MAX_X = 1.0f;
-    private final float MAX_Y = 1.0f;
-    private final float MIN_X = 0.0f;
-    private final float MIN_Y = 0.0f;
+    public static final float MAX_X = 1.0f;
+    public static final float MAX_Y = 1.0f;
+    public static final float MIN_X = 0.0f;
+    public static final float MIN_Y = 0.0f;
     
     private JFrame frame;
     private JPanel panel;
@@ -33,7 +33,12 @@ public class BallBounceServerApp extends ServerApp{
     @Override
     public void init() {
         frame = new JFrame(this.toString());
-        panel = new JPanel();
+        panel = new JPanel(){
+            @Override
+            public void paint(Graphics g){
+                paintPanel(g);                
+            }
+        };
         frame.add(panel);
         frame.setSize(400,400);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -64,38 +69,43 @@ public class BallBounceServerApp extends ServerApp{
         } else if (y < MIN_Y){
             y = MIN_Y;
             dy *= -1;
-        } 
-        
-        Graphics g = panel.getGraphics();
-        if(g != null){
-            //background
-            g.setColor(Color.BLACK);
-            g.fillRect(0,0, panel.getWidth(), panel.getHeight());
-            //ball
-            g.setColor(Color.WHITE);            
-            int radius = panel.getWidth()/20;
-            g.fillOval((int)(x*panel.getWidth()), (int)(y*panel.getHeight()), (int)radius, (int)radius);
-            //draw lines & clientID text to represent client windows
-            int spacing = panel.getWidth()/clients.size();
-            for(int i = 0; i < clients.size(); i++){
-                g.drawLine(i*spacing, 0, i*spacing, panel.getHeight());
-                g.drawString(clients.get(i), i*spacing+10, 20);
-            }
+        }  
+        frame.repaint();
+    }
+    
+    public void paintPanel(Graphics g){
+        //background
+        g.setColor(Color.BLACK);
+        g.fillRect(0,0, panel.getWidth(), panel.getHeight());
+        //ball
+        g.setColor(Color.WHITE);            
+        int radius = panel.getWidth()/20;
+        g.fillOval((int)(x*panel.getWidth()), (int)(y*panel.getHeight()), (int)radius, (int)radius);
+        //draw lines & clientID text to represent client windows
+        int spacing = panel.getWidth()/clients.size();
+        for(int i = 0; i < clients.size(); i++){
+            g.drawLine(i*spacing, 0, i*spacing, panel.getHeight());
+            g.drawString(clients.get(i), i*spacing+10, 20);
         }
+        
     }
 
     @Override
     public String getCommand(String id) {
         int i = clients.indexOf(id);
+        
         if(i == -1) {
             return null;
         }
+        String cmd = "";
+        cmd += i+",";
+        cmd += clients.size()+",";
+        cmd += x+",";
+        cmd += y+",";
+        cmd += dx+",";
+        cmd += dy;
         
-        float windowSize = MAX_X/clients.size();
-        float minx = i*windowSize;
-        float maxx = (i+1)*windowSize;
-        float cx = (x-minx)/(maxx-minx);
-        return cx+","+y;
+        return cmd;
     }
 
     @Override

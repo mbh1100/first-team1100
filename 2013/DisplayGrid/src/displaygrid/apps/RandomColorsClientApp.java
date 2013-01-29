@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 public class RandomColorsClientApp extends ClientApp {
     
     static final String APPNAME = RandomColorsServerApp.APPNAME;
+    static final long TARGET_DELTA = 1000/5;
     
     private Color color; 
     
@@ -32,6 +33,7 @@ public class RandomColorsClientApp extends ClientApp {
         color = Color.BLACK;  
         
         frame = new JFrame();
+        frame.setTitle(this.getName());
         panel = new JPanel(){
             @Override
             public void paint(Graphics g){
@@ -77,7 +79,12 @@ public class RandomColorsClientApp extends ClientApp {
     public String getCommand() {
         return null;
     }
-
+    
+    @Override
+    public long getTargetDelta(){
+        return TARGET_DELTA;
+    }
+    
     @Override
     public String toString() {
         return APPNAME;
