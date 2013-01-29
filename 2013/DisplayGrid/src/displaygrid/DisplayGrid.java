@@ -29,7 +29,6 @@ public class DisplayGrid  extends JFrame implements ActionListener {
         //get list of app names
         Config.appNames = new String[Config.serverAppClasses.length];
         for(int i = 0; i < Config.serverAppClasses.length; i++){
-            System.out.println();
             try {
             Config.appNames[i] = Config.appNames[i] = ((ServerApp)(Config.serverAppClasses[i].newInstance())).getServerName();  
             } catch (Exception e){

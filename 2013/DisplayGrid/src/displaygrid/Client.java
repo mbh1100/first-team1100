@@ -16,11 +16,12 @@ public class Client extends Thread {
     //if the error has the word connection, just assume that the connection was lost
     private static final String ERROR_CONNECTION_RESET = "connection";
     
-    //if there is no app, only check for a new one 10 times a second
-    static final int CHECK_RATE = 100;
+    private final int TIMEOUT = 100;
+    private final long SLEEP_TIME = 500;
     
     //the client app for the server app this client is connected to
     private ClientApp app;
+    private long targetDelta;
     
     private String ID;
     
@@ -30,11 +31,12 @@ public class Client extends Thread {
     private DataOutputStream out;
     
     private boolean isRunning = false;
-    
+        
     public Client(){}
     
     @Override
     public void run(){
+        targetDelta = Config.TARGET_DELTA;
         isRunning = true;
         ClientSetupDialog setup = new ClientSetupDialog();
         boolean connected = false;   
@@ -87,7 +89,7 @@ public class Client extends Thread {
             server.setSoTimeout(0);
         } catch(Exception e){}
         
-        while(isRunning){                
+        while(isRunning){            
             try{
                 if (app != null) {
                     String outCmd = app.getCommand();
@@ -97,12 +99,16 @@ public class Client extends Thread {
                     
                     out.writeUTF(outCmd);
 
-                    String cmd = readUTF();
+                    String cmd = readUTF(false);
                     if (cmd != null) {
                         app.commandRecieved(cmd);
                     }
+                    
+                    Thread.sleep(targetDelta);                
+                    
                 } else {
-                    readUTF();
+                    readUTF(true);
+                    Thread.sleep(SLEEP_TIME);
                 }
 
             }catch(Exception e){
@@ -123,9 +129,14 @@ public class Client extends Thread {
      * if it is an app command, it passes it back for the app to handle
      * @return 
      */
-    private String readUTF(){
+    private String readUTF(boolean useTimeout){
+        
         try {
+            if(useTimeout){
+                server.setSoTimeout(TIMEOUT);
+            }
             String cmd =  in.readUTF();
+            server.setSoTimeout(0);
             if(cmd.split(":")[0].equals("APP") && app == null){
                 startApp(cmd.split(":")[1]);
             } else if (cmd.equals("END")){
@@ -144,11 +155,13 @@ public class Client extends Thread {
     }
     
     private void startApp(String appname){
+        endApp();
         app = DisplayGrid.getClientApp(appname);        
         if(app != null){
             app.setName(ID);
-            System.out.println("Started APP \""+app.toString()+"\"");
             app.start();
+            targetDelta = app.getTargetDelta();
+            System.out.println("Started APP \""+app.toString()+"\"");
         }        
     }
 
@@ -158,6 +171,7 @@ public class Client extends Thread {
             app.join();
         } catch(Exception e){}
         app = null;
+        targetDelta = Config.TARGET_DELTA;
     }
     
     private void disconnect(){

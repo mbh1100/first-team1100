@@ -47,7 +47,7 @@ public class BallBounceServerApp extends ServerApp{
 
     @Override
     public void update() {
-        x += dx;
+        x += dx/clients.size();
         y += dy;
         
         if(x > MAX_X){

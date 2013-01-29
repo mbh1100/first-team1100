@@ -58,7 +58,7 @@ public class ClientHandler extends Thread {
             } else {
                 System.out.print("");
                 try{
-                    //out.writeUTF(" ");
+                    Thread.sleep(Config.TARGET_DELTA);
                 } catch(Exception e){
                     if(e == null || e.getMessage() == null){
                         server.disconnectClient(clientID);

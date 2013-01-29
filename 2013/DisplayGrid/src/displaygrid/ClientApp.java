@@ -56,6 +56,15 @@ public abstract class ClientApp extends Thread {
     public abstract String getCommand();
     
     /**
+     * Returns the target delta time for this app. Apps should override this method to set 
+     * a custom delta
+     * @return default delta, Config.TARGET_DELTA
+     */
+    public long getTargetDelta(){
+        return Config.TARGET_DELTA;
+    }
+    
+    /**
      * Called when the app has finished
      */
     public abstract void end();
