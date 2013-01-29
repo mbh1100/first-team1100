@@ -87,7 +87,9 @@ public class BallBounceServerApp extends ServerApp{
     @Override
     public String getCommand(String id) {
         int i = clients.indexOf(id);
-        if(i == -1)return null;
+        if(i == -1) {
+            return null;
+        }
         
         float windowSize = MAX_X/clients.size();
         float minx = i*windowSize;
@@ -97,10 +99,9 @@ public class BallBounceServerApp extends ServerApp{
     }
 
     @Override
-    public void commandRecieved(String id, String command) {
-        return;
-    }
+    public void commandRecieved(String id, String command) {}
     
+    @Override
     public void end(){
         frame.setVisible(false);
     }

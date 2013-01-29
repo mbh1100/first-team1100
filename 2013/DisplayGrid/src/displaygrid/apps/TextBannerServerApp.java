@@ -32,18 +32,17 @@ public class TextBannerServerApp extends ServerApp implements ActionListener {
     private Color textColor;
     
     private float x;
-    private double messageWidth;
-    private int wrapStartIdx = 0;
     
     private TextBannerServerFrame frame;
 
     @Override
     public void init() {
         bgColor = new Color(150, 0, 0);
-        textColor = new Color(255, 255, 255);
+        textColor = new Color(255, 255, 255);        
         x = clients.size();
+        
         commonCmd = "";
-        commonCommandPending = new ArrayList<String>();
+        commonCommandPending = new ArrayList<>();
 
         frame = new TextBannerServerFrame();
         frame.setPanelDisplay(message, bgColor, textColor);
@@ -51,26 +50,16 @@ public class TextBannerServerApp extends ServerApp implements ActionListener {
         frame.textcolorButton.addActionListener(this);
         frame.messageField.addActionListener(this);
         frame.setTitle(this.toString());
-
-        BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
-        Graphics g = image.getGraphics();
-        g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 100/2));
-        messageWidth = (g.getFontMetrics().getStringBounds(message, g).getWidth());
-        System.out.println(messageWidth);
-
+        
         updateCommonCommand();
     }
 
     @Override
-    public void update() {
-        
+    public void update() {        
         x -= 0.01;
-        
-        System.out.println(wrapStartIdx);
-        if(x < 0 && wrapStartIdx == 0){
-            //x = clients.size();
-            x = clients.size()+x;
-            wrapStartIdx = Integer.MAX_VALUE;
+        if(x < 0){
+            x = 1;
+            clients.add(0, clients.remove(clients.size()-1)); //moves client at back to front            
         }
         
         frame.repaint();
@@ -102,7 +91,6 @@ public class TextBannerServerApp extends ServerApp implements ActionListener {
             return null;
         }
         
-
         String cmd = "";
         if (commonCommandPending.contains(id)) {
             commonCommandPending.remove(id);
@@ -110,29 +98,17 @@ public class TextBannerServerApp extends ServerApp implements ActionListener {
         }
         
         float pos = x-i;
-        if(x < 0 && wrapStartIdx <= i){
-            pos = x-(-clients.size()+i);
-        }
 
-        cmd += "pos#" + pos + ":";
-        cmd += "clientID#" + clients.indexOf(id) + ":";
+        cmd += "pos#" + pos;
         return cmd;
     }
 
     @Override
-    public void commandRecieved(String id, String command) {
-        if(command.equals("0")){            
-            wrapStartIdx = Math.min(clients.indexOf(id), wrapStartIdx);            
-        } else if(clients.indexOf(id) == 0){
-            wrapStartIdx = 1;
-        }
-
-    }
+    public  void commandRecieved(String id, String command) {}
 
     @Override
     public void end() {
         frame.setVisible(false);
-        frame.dispose();
     }
 
     @Override

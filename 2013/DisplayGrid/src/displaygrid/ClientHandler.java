@@ -11,7 +11,7 @@ import java.net.Socket;
 public class ClientHandler extends Thread {
     
     
-    private static final String ERROR_CONNECTION_RESET = "connection reset";
+    private static final String ERROR_CONNECTION_RESET = "connection";
     
     //the server that created this handler
     private Server server;
@@ -40,22 +40,17 @@ public class ClientHandler extends Thread {
         while (isRunning) {
             if(app != null && hasApp){
                 try {
-                    String recieved = in.readUTF();
-                    //System.out.println(clientID+" read \""+recieved+"\"");
-                    if(!recieved.equals(" ")){ 
-                        
+                    String recieved = in.readUTF(); 
+                    if(!recieved.equals(" ")){                         
                         app.commandRecieved(clientID, recieved);  
                     }  
                     String outCmd = app.getCommand(clientID);
                     if(outCmd == null){
                         outCmd = " ";
                     }
-                    //System.out.println(clientID+" write \""+outCmd+"\"");
                     out.writeUTF(outCmd);                    
 
                 } catch (Exception e) {
-                    //e.printStackTrace();                            
-                    System.out.println(e.getMessage());
                     if (e.getMessage().toLowerCase().contains(ERROR_CONNECTION_RESET)) {
                         server.disconnectClient(clientID);
                     }
@@ -97,7 +92,6 @@ public class ClientHandler extends Thread {
     }
     
     public void exitCurrentApp(){
-        System.out.println(app);
         if(app == null){
             return;
         } else {
@@ -117,7 +111,7 @@ public class ClientHandler extends Thread {
             out.writeUTF("DISCONNECT");
             client.close();
         } catch (Exception e){
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
         isRunning = false;
         

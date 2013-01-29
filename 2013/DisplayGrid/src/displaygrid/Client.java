@@ -1,7 +1,5 @@
 package displaygrid;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
@@ -12,10 +10,10 @@ import javax.swing.JOptionPane;
  *
  * @author Akshay
  */
-public class Client extends Thread implements ActionListener {
+public class Client extends Thread {
     
     //lazy error handling
-    //if the error has the word connection, I'll just assume that the connection was lost
+    //if the error has the word connection, just assume that the connection was lost
     private static final String ERROR_CONNECTION_RESET = "connection";
     
     //if there is no app, only check for a new one 10 times a second
@@ -91,18 +89,16 @@ public class Client extends Thread implements ActionListener {
         
         while(isRunning){                
             try{
-                //server.setSoTimeout(CHECK_RATE);
-                //first send either a pending command or a reqest ping to server
                 if (app != null) {
                     String outCmd = app.getCommand();
                     if (outCmd == null) {
                         outCmd = " ";
                     }
-                    //System.out.println("Write \"" + outCmd + "\"");
+                    
                     out.writeUTF(outCmd);
 
                     String cmd = readUTF();
-                    if (!cmd.equals("")) {
+                    if (cmd != null) {
                         app.commandRecieved(cmd);
                     }
                 } else {
@@ -110,8 +106,10 @@ public class Client extends Thread implements ActionListener {
                 }
 
             }catch(Exception e){
-                if(e == null || e.getMessage() == null)continue;
-                if(e.getMessage().contains(ERROR_CONNECTION_RESET)){
+                if(e == null || e.getMessage() == null) {
+                    continue;
+                }
+                if(e.getMessage().toLowerCase().contains(ERROR_CONNECTION_RESET)){
                     disconnect();
                 }
             }       
@@ -128,7 +126,6 @@ public class Client extends Thread implements ActionListener {
     private String readUTF(){
         try {
             String cmd =  in.readUTF();
-            //System.out.println("Read \""+cmd+"\"");
             if(cmd.split(":")[0].equals("APP") && app == null){
                 startApp(cmd.split(":")[1]);
             } else if (cmd.equals("END")){
@@ -143,13 +140,13 @@ public class Client extends Thread implements ActionListener {
                 disconnect();
             }
         }
-        return "";
+        return null;
     }
     
     private void startApp(String appname){
-        app = DisplayGrid.getClientApp(appname);
-        app.setName(ID);
+        app = DisplayGrid.getClientApp(appname);        
         if(app != null){
+            app.setName(ID);
             System.out.println("Started APP \""+app.toString()+"\"");
             app.start();
         }        
@@ -170,11 +167,6 @@ public class Client extends Thread implements ActionListener {
         server.close();
         } catch(Exception e){
             System.out.println(e.getMessage());
-        }
-        
-    }
-    
-    @Override
-    public void actionPerformed(ActionEvent e) {
+        }            
     }
 }

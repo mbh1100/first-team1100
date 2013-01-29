@@ -16,6 +16,7 @@ public abstract class ClientApp extends Thread {
         
     }
     
+    @Override
     public final void run(){
         isRunning = true;
         init();

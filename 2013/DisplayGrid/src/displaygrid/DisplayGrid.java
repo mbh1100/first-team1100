@@ -15,8 +15,8 @@ import javax.swing.UIManager;
 public class DisplayGrid  extends JFrame implements ActionListener {
     
     JButton server, client;
-
-    /**
+    
+     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
@@ -39,7 +39,7 @@ public class DisplayGrid  extends JFrame implements ActionListener {
         }
 
         try {
-                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+               UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -49,6 +49,7 @@ public class DisplayGrid  extends JFrame implements ActionListener {
 
         JPanel panel = new JPanel();
         add(panel);
+        
 
         server = new JButton("Start as Server");
         client = new JButton("Start as Client");
@@ -61,6 +62,7 @@ public class DisplayGrid  extends JFrame implements ActionListener {
         setVisible(true);
     }
     
+    @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == server || e.getSource() == client){            
                 this.setVisible(false);

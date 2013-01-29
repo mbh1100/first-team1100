@@ -69,6 +69,7 @@ public abstract class ServerApp extends Thread {
      * get the app name
      * @return app name
      */
+    @Override
     public final String toString(){
         return name;
     }

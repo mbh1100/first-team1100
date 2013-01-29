@@ -31,6 +31,7 @@ public class BlackScreenServerApp extends ServerApp {
     public void commandRecieved(String id, String command) {
     }
     
+    @Override
     public void end(){};
 
     @Override

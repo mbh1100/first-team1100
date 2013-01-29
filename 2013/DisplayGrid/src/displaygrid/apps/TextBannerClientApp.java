@@ -30,61 +30,50 @@ public class TextBannerClientApp extends ClientApp {
     private float posX = 0.0f;
     
     private Font font;
+    private boolean fontSet = false;
     private Color bgColor = Color.BLACK;
     private Color textColor = Color.WHITE;
-    
-    private int clientID;
-    
-    
-    private boolean textVisible = false;
-    
 
     @Override
     public void init() {
-        System.out.println("Init");
         frame = new JFrame();
+        
         panel = new JPanel() {
             @Override
             public void paint(Graphics g) {
-                super.paint(g);
                 paintPanel((Graphics2D) g);
             }
         };
+        
         frame.add(panel);
         frame.setResizable(true);
-       // frame.setUndecorated(true);
+        frame.setUndecorated(true);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setSize(d);
-        frame.setSize(400,200);
         frame.setTitle(getName());
         panel.setDoubleBuffered(true);
         frame.setVisible(true);
         
-        
-        //init font
-        font = new Font(Font.MONOSPACED, Font.BOLD, panel.getHeight()/2);
     }
 
     private void paintPanel(Graphics2D g) {
-        font = new Font(Font.MONOSPACED, Font.BOLD, panel.getHeight()/2);
-
-        g.setFont(font);
+        
+        if(!fontSet){
+            font = new Font(Font.MONOSPACED, Font.BOLD, panel.getHeight()/2);
+            g.setFont(font);
+        }
+        
         g.setColor(bgColor);
         g.fillRect(0, 0, panel.getWidth(), panel.getHeight());
         g.setColor(textColor);
 
         Rectangle target = new Rectangle(0, 0, panel.getWidth(), panel.getHeight());
         Rectangle2D text = g.getFontMetrics().getStringBounds(message, g);
-        int tx = panel.getWidth();
-        /*if ((int) posX == clientID || (int) posX == clientID + 1) {
-            tx = (int) ((1 - (posX - clientID)) * panel.getWidth());
-        }*/
         
-        tx = (int)(posX * panel.getWidth());
+        int textX = (int)(posX * panel.getWidth());
         
-        int cy = (target.height) - (int) (target.height - text.getHeight()) / 2 - target.height / 5;
-        g.drawString(message, tx, cy);
-        textVisible = tx+text.getWidth() > 0;
+        int centerY = (target.height) - (int) (target.height - text.getHeight()) / 2 - target.height / 5;
+        g.drawString(message, textX, centerY);
     }
 
     @Override
@@ -108,7 +97,6 @@ public class TextBannerClientApp extends ClientApp {
 
     public void setPosition(String s) {
         posX = Float.parseFloat(s);
-        //System.out.println(posX);
     }
 
     @Override
@@ -133,22 +121,18 @@ public class TextBannerClientApp extends ClientApp {
                 case "pos":
                     setPosition(cmdSegment[1]);
                     break;
-                case "clientID":
-                    clientID = Integer.parseInt(cmdSegment[1]);
-                    break;
             }
         }
     }
 
     @Override
     public String getCommand() {
-        return (textVisible)?"1":"0";
+        return null;
     }
 
     @Override
     public void end() {
         frame.setVisible(false);
-        frame.dispose();
     }
 
     @Override

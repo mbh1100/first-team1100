@@ -34,6 +34,7 @@ public class BallBounceClientApp extends ClientApp {
         
         frame = new JFrame();
         screen = new JPanel(){
+            @Override
             public void paint(Graphics g){
                 paintPanel(g);
             }
@@ -71,7 +72,9 @@ public class BallBounceClientApp extends ClientApp {
     @Override
     public void commandRecieved(String command) {
         String[] coords = command.split(",");
-        if(coords.length < 2) return;
+        if(coords.length < 2) {
+            return;
+        }
         x = (int)(screen.getWidth()*Float.parseFloat(coords[0]));
         y = (int)(screen.getHeight()*Float.parseFloat(coords[1]));
     }

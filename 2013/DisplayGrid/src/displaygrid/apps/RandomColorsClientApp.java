@@ -33,6 +33,7 @@ public class RandomColorsClientApp extends ClientApp {
         
         frame = new JFrame();
         panel = new JPanel(){
+            @Override
             public void paint(Graphics g){
                 paintPanel(g);
             }
