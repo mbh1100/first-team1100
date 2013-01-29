@@ -18,16 +18,19 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author Aditya
+ * @author Akshay
  */
 public class TextBannerClientApp extends ClientApp {
 
     static final String APPNAME = TextBannerServerApp.APPNAME;
+    static final long TARGET_DELTA = 1000/20;
+    
     private JFrame frame;
     private JPanel panel;
     
     private String message = "";
     private float posX = 0.0f;
+    private float speed = 0;
     
     private Font font;
     private boolean fontSet = false;
@@ -50,6 +53,7 @@ public class TextBannerClientApp extends ClientApp {
         frame.setUndecorated(true);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setSize(d);
+        //frame.setSize(400, 200);
         frame.setTitle(getName());
         panel.setDoubleBuffered(true);
         frame.setVisible(true);
@@ -78,6 +82,7 @@ public class TextBannerClientApp extends ClientApp {
 
     @Override
     public void update() {
+        posX -= speed;
         frame.repaint();
     }
 
@@ -97,6 +102,10 @@ public class TextBannerClientApp extends ClientApp {
 
     public void setPosition(String s) {
         posX = Float.parseFloat(s);
+    }
+    
+    public void setSpeed(String s){
+        speed = Float.parseFloat(s);
     }
 
     @Override
@@ -121,6 +130,8 @@ public class TextBannerClientApp extends ClientApp {
                 case "pos":
                     setPosition(cmdSegment[1]);
                     break;
+                case "dx":
+                    setSpeed(cmdSegment[1]);
             }
         }
     }
@@ -128,6 +139,11 @@ public class TextBannerClientApp extends ClientApp {
     @Override
     public String getCommand() {
         return null;
+    }
+    
+    @Override
+    public long getTargetDelta(){
+        return TARGET_DELTA;
     }
 
     @Override

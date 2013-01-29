@@ -6,21 +6,19 @@ package displaygrid.apps;
 
 import displaygrid.ServerApp;
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import javax.swing.JColorChooser;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  *
  * @author Akshay
  */
-public class TextBannerServerApp extends ServerApp implements ActionListener {
+public class TextBannerServerApp extends ServerApp implements ActionListener, ChangeListener {
 
     static final String APPNAME = "Text Banner";
     
@@ -32,6 +30,7 @@ public class TextBannerServerApp extends ServerApp implements ActionListener {
     private Color textColor;
     
     private float x;
+    private float speed = 0.01f;
     
     private TextBannerServerFrame frame;
 
@@ -49,6 +48,7 @@ public class TextBannerServerApp extends ServerApp implements ActionListener {
         frame.bgcolorButton.addActionListener(this);
         frame.textcolorButton.addActionListener(this);
         frame.messageField.addActionListener(this);
+        frame.speedSlider.addChangeListener(this);
         frame.setTitle(this.toString());
         
         updateCommonCommand();
@@ -56,7 +56,7 @@ public class TextBannerServerApp extends ServerApp implements ActionListener {
 
     @Override
     public void update() {        
-        x -= 0.01;
+        x -= speed;
         if(x < 0){
             x = 1;
             clients.add(0, clients.remove(clients.size()-1)); //moves client at back to front            
@@ -71,6 +71,7 @@ public class TextBannerServerApp extends ServerApp implements ActionListener {
         commonCmd += "msg#" + message + ":";
         commonCmd += "bg#" + getColorString(bgColor) + ":";
         commonCmd += "txt#" + getColorString(textColor) + ":";
+        commonCmd += "dx#" + speed/clients.size() + ":";
 
         for (String c : clients) {
             commonCommandPending.add(c);
@@ -99,7 +100,7 @@ public class TextBannerServerApp extends ServerApp implements ActionListener {
         
         float pos = x-i;
 
-        cmd += "pos#" + pos;
+        cmd += "pos#" + pos+":";
         return cmd;
     }
 
@@ -130,6 +131,14 @@ public class TextBannerServerApp extends ServerApp implements ActionListener {
             if (newColor != null) {
                 bgColor = newColor;
             }
+        }
+        updateCommonCommand();
+    }
+
+    @Override
+    public void stateChanged(ChangeEvent e) {
+        if(e.getSource() == frame.speedSlider){
+            speed = frame.speedSlider.getValue()/1000f;
         }
         updateCommonCommand();
     }

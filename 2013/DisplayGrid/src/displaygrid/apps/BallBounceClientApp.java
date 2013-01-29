@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -26,13 +27,21 @@ public class BallBounceClientApp extends ClientApp {
     public static final float MIN_X = BallBounceServerApp.MIN_X;
     public static final float MIN_Y = BallBounceServerApp.MIN_Y;
     
+    private static final int PADDLE_SPEED = 3;
+    
     private JFrame frame;
     private JPanel panel;
+    
+    private Random rand;
     
     private int index = 0;
     private int numClients = 1;
     private float x,y,dx, dy;
+    private int screenX, screenY;
     private int radius;
+    private int leftPaddleY = 0;
+    private int rightPaddleY = 0;
+    private int paddleWidth,paddleHeight;
     
     long lastFrame = 0;
 
@@ -42,6 +51,10 @@ public class BallBounceClientApp extends ClientApp {
         y = 0;
         dx = 0;
         dy = 0;
+        screenX = 0;
+        screenY = 0;
+        
+        rand = new Random();
         
         frame = new JFrame();
         panel = new JPanel(){
@@ -55,6 +68,8 @@ public class BallBounceClientApp extends ClientApp {
         frame.setUndecorated(true);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         radius = d.width/20;
+        paddleWidth = radius/2;
+        paddleHeight = radius*3;
         frame.setSize(d);
         //frame.setSize(300,400);
         panel.setDoubleBuffered(true);
@@ -82,6 +97,24 @@ public class BallBounceClientApp extends ClientApp {
             dy *= -1;
         }
         
+        if(index == 0){
+            if(screenY > (leftPaddleY-paddleHeight/2)){
+                leftPaddleSpeed = PADDLE_SPEED;
+            }else{
+                leftPaddleSpeed = -PADDLE_SPEED;
+            }
+        }
+        leftPaddleY += leftPaddleSpeed;
+        
+        if(index == numClients-1){
+            if(screenY > (rightPaddleY-paddleHeight/2)){
+                rightPaddleSpeed = PADDLE_SPEED;
+            }else{
+                rightPaddleSpeed = -PADDLE_SPEED;
+            }
+        }
+        rightPaddleY += rightPaddleSpeed;
+        
         frame.repaint();        
     }
     
@@ -95,9 +128,17 @@ public class BallBounceClientApp extends ClientApp {
         float maxx = (index+1)*windowSize;
         float rx = (x-minx)/windowSize; //relative to this screen
         
-        int screenX = (int)(rx*panel.getWidth());
-        int screenY = (int)(y*panel.getHeight());
-        g.fillOval(screenX-radius, screenY-radius, radius*2, radius*2);    
+        screenX = (int)(rx*panel.getWidth());
+        screenY = (int)(y*panel.getHeight());
+        g.fillOval(screenX-radius, screenY-radius, radius*2, radius*2);  
+        
+        if(index == 0){
+            g.fillRect(0, leftPaddleY, paddleWidth, paddleHeight);
+        }
+        
+        if(index == numClients -1){
+            g.fillRect(panel.getWidth()-paddleWidth, screenY-(paddleHeight/2), paddleWidth, paddleHeight);
+        }
         
         //FPS
         
