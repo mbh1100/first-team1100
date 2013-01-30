@@ -40,4 +40,6 @@ public class RobotMap {
     
     public static final int S_ENCODER_CHANNEL_A = 1;
     public static final int S_ENCODER_CHANNEL_B = 2;
+ 
+    public static final int S_SOLENOID_SHOOTER_PISTON = 1;
 }
