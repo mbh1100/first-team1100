@@ -6,6 +6,7 @@ package edu.arhs.team1100.ultimateascent.commands;
 
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterSubsystem;
+import edu.arhs.team1100.ultimateascent.subsystems.ShooterPistonSubsystem;
 
 /**
  *
@@ -13,16 +14,15 @@ import edu.arhs.team1100.ultimateascent.subsystems.ShooterSubsystem;
  */
 public class ShootFrisbeeCommand extends CommandBase{
     public ShootFrisbeeCommand(){
-        requires(ShooterSubsystem.getInstance());
+        requires(ShooterPistonSubsystem.getInstance());
     }
 
     protected void initialize() {
-        ShooterSubsystem.getInstance().setSetpoint(0.0);
-        ShooterSubsystem.getInstance().enable();
+        ShooterPistonSubsystem.getInstance();
     }
 
     protected void execute() {
-       
+       ShooterPistonSubsystem.getInstance().shootPiston();
     }
 
     protected boolean isFinished() {

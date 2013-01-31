@@ -19,6 +19,9 @@ public class ShooterWheelSubsystem extends PIDSubsystem {
     private static final double P = 0;
     private static final double I = 0;
     private static final double D = 0;
+    
+    final static int SHOOTING_POWER = 9000;
+    final static int OFF = 0;
 
     static ShooterWheelSubsystem instance;
     private Talon shooterWheel;
@@ -30,7 +33,7 @@ public class ShooterWheelSubsystem extends PIDSubsystem {
         wheelEncoder = new Encoder(RobotMap.S_ENCODER_CHANNEL_A, RobotMap.S_ENCODER_CHANNEL_B);
     }
 
-    public ShooterWheelSubsystem getInstance() {
+    public static ShooterWheelSubsystem getInstance() {
         if (instance == null) {
             instance = new ShooterWheelSubsystem();
             instance.initDefaultCommand();
@@ -40,11 +43,11 @@ public class ShooterWheelSubsystem extends PIDSubsystem {
     }
 
     public void SpinWheel() {
-        
+        shooterWheel.set(SHOOTING_POWER);
     }
 
     public void StopSpinning() {
-        shooterWheel.set(0);
+        shooterWheel.set(OFF);
     }
 
     protected double returnPIDInput() {

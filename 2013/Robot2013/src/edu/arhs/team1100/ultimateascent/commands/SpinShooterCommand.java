@@ -6,21 +6,22 @@ package edu.arhs.team1100.ultimateascent.commands;
 
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterSubsystem;
-
+import edu.arhs.team1100.ultimateascent.subsystems.ShooterWheelSubsystem;
 /**
  *
  * @author Jason
  */
 public class SpinShooterCommand  extends CommandBase{
     public SpinShooterCommand(){
-        requires(ShooterSubsystem.getInstance());
+        requires(ShooterWheelSubsystem.getInstance());
     }
 
     protected void initialize() {
+        ShooterWheelSubsystem.getInstance();
     }
 
     protected void execute() {
-       
+       ShooterWheelSubsystem.getInstance().SpinWheel();
     }
 
     protected boolean isFinished() {

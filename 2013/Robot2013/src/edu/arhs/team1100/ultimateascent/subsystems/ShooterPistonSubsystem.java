@@ -34,6 +34,12 @@ public class ShooterPistonSubsystem extends Subsystem {
     public void shootPiston() {
         //Extend and retract piston
     }
+    
+    public void shootAllThree() {
+        //Extend and retract
+        //Extend and retract
+        //Extend and retract
+    }
 
     protected void initDefaultCommand() {
     }

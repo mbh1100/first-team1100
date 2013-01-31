@@ -7,7 +7,7 @@ package edu.arhs.team1100.ultimateascent.subsystems;
 import edu.arhs.team1100.ultimateascent.RobotMap;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
-                                                                                            import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.Encoder;
 
 /**
