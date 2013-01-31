@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
- * @author Akshay
+ * @author Team1100
  */
 public class DriveInACircleCommandGroup extends CommandGroup {
     

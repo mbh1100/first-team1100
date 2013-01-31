@@ -9,7 +9,7 @@ import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
 
 /**
  *
- * @author ADITYA
+ * @author Team1100
  */
 public class StopDriveCommand extends CommandBase {
     
