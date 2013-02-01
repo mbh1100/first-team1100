@@ -27,7 +27,7 @@ public class DriveSubsystem extends PIDSubsystem {
     public static final double DIRECTION_LEFT = 270;
     public static final double DIRECTION_RIGHT = 90;
     private static final double MAGNITUDE_DEADBAND = 0.3;
-    private static final double ROTATION_ACCURACY = 10;
+    private static final double ROTATION_ACCURACY = 15;
     public static final double P = 0.02;
     public static final double I = 0.0001; //1;
     public static final double D = 0.0005;
@@ -91,6 +91,10 @@ public class DriveSubsystem extends PIDSubsystem {
 
         drive.mecanumDrive_Cartesian((Math.sin(Math.toRadians(angle)) * magnitude), (Math.cos(Math.toRadians(angle)) * magnitude), rotation, driveGyro.getAngle());
     }
+    
+    public void mecanumDrive_Cartesian(double x, double y, double r){
+        drive.mecanumDrive_Cartesian(-x, -y, -r, driveGyro.getAngle());
+    }
 
     public void stop() {
         drive(0, 0, 0);
@@ -99,6 +103,39 @@ public class DriveSubsystem extends PIDSubsystem {
     protected double returnPIDInput() {
         //return smallest angle difference between gyro and joystick angle
 
+        return getGyroAngle();
+        
+        
+        /*double controlX = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
+        double controlY = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
+        double joystickMagnitude = Math.sqrt((controlX * controlX) + (controlY * controlY));
+        double joystickAngle = Math.toDegrees(MathUtils.atan2(-controlX, controlY));
+        
+        while(joystickAngle < 0){
+            joystickAngle += 360;
+        }
+        
+        double gyroAngle = driveGyro.getAngle();
+        while(gyroAngle < 0) {
+            gyroAngle += 360;
+        }
+        gyroAngle %= 360;
+        gyroAngle = 360-gyroAngle;
+        
+        double error = Math.abs(joystickAngle - gyroAngle);
+        
+        while (error > 180){
+            error -= 360;
+        }
+        
+        Log.log(this, " JS:"+Log.round(joystickAngle, 2)+" GY:"+Log.round(gyroAngle, 2)+" ER:"+Log.round(error, 2), Log.LEVEL_DEBUG);
+        if(Math.abs(error) < ROTATION_ACCURACY){
+            return 0;
+        }
+        return error;*/
+        
+        
+        /*
         double gyroAngle = driveGyro.getAngle();
         while(gyroAngle < 0){
             gyroAngle += 360;
@@ -118,56 +155,8 @@ public class DriveSubsystem extends PIDSubsystem {
         
         Log.log(this, "gyro: " + Log.round(-gyroAngle, 2), Log.LEVEL_DEBUG);
         
-        return -(gyroAngle);
-        /* double gyroAngle = driveGyro.getAngle();
-        
-         while(gyroAngle < 0)
-         {
-         gyroAngle+=360;
-         }
-        
-         gyroAngle += 180;
-         gyroAngle = gyroAngle % 360;
-         gyroAngle -= 180;
-         gyroAngle *= -1;
-        
-         if(joystickAngle > 180)
-         {
-         joystickAngle = 360 - joystickAngle;
-         joystickAngle *= -1;
-         }
-         double error = joystickAngle - gyroAngle;
-        
-         if(error > 180)
-         {
-         error = 180 - (error%180);
-         error *= -1;
-         }
-        
-         if(error < -180)
-         {
-         error = 180 + (error%180);
-         }
-        
-         //        if(error < 180)
-         //        {
-         //            error = 180 - Math.abs(error%180);
-         //            //error *= -1;
-         //        }
-        
-         Log.log(this, "Gyro: " + gyroAngle + "  Joystick: " + joystickAngle + "    error: "+ error, Log.LEVEL_DEBUG);
-        
-         
-         boolean isCloseEnough = (Math.abs(error) < ROTATION_ACCURACY);
+        return -(gyroAngle);*/
 
-         //Log.log(this, "gyro: " + Log.round(gyroAngle, 2) + " setpoint: " + getSetpoint(), Log.LEVEL_DEBUG);
-         //Log.log(this, "gryo: "+Log.round(gyroAngle, 2) +" jstick: "+Log.round(joystickAngle, 2)+" ERROR: "+Log.round(error, 2), Log.LEVEL_DEBUG);
-         DSLog.log(1,"  Error: "+Log.round(error, 2));
-         if (joystickMagnitude > MAGNITUDE_DEADBAND && !isCloseEnough) {
-         return error;
-         } else {
-         return 0.0;
-         }*/
 
     }
 
@@ -177,6 +166,10 @@ public class DriveSubsystem extends PIDSubsystem {
 
 //        Log.log(this, "Rotation Speed: "+rotationSpeed, Log.LEVEL_DEBUG);
         drive.mecanumDrive_Cartesian(controlX, controlY, rotationSpeed, driveGyro.getAngle());
+    }
+    
+    public double getGyroAngle() {
+        return -driveGyro.getAngle();
     }
 
     public void calibrateGyro() {
