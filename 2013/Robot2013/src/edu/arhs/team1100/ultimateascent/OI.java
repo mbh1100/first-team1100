@@ -3,6 +3,7 @@ package edu.arhs.team1100.ultimateascent;
 
 import edu.arhs.team1100.ultimateascent.autonomous.DriveInALineCommand;
 import edu.arhs.team1100.ultimateascent.autonomous.DriveInASquareCommandGroup;
+import edu.arhs.team1100.ultimateascent.autonomous.StopDriveCommand;
 import edu.arhs.team1100.ultimateascent.commands.*;
 import edu.arhs.team1100.ultimateascent.input.AttackThree;
 import edu.arhs.team1100.ultimateascent.input.XboxController;
@@ -45,8 +46,13 @@ public class OI {
         rightJoystick.getButton(1).whileHeld(new JoystickPIDMecanumCommand());
         leftJoystick.getButton(RobotMap.D_TOGGLE_BUTTON_NUMBER).whenPressed(new SetDefaultMecanumCommand());
         
+        
         //Recording Command Stuff
-        leftJoystick.getButton(10).whileHeld(null);
+        recorder = new RecordStateCommand(20);
+        PlayRecordedStateCommand tmp = new PlayRecordedStateCommand(recorder);
+        rightJoystick.getButton(5).whileHeld(recorder);
+        rightJoystick.getButton(2).whileHeld(tmp);
+        
         
         xbox.getButtonRightBumper().whileHeld(new ShootFrisbeeCommand());
     }

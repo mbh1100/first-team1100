@@ -68,7 +68,7 @@ public class DriveSubsystem extends PIDSubsystem {
 
     public void mecanumDrive() {
         //Log.log(this, "Gyro angle: "+Log.round(driveGyro.getAngle(), 2), Log.LEVEL_DEBUG);
-        //DSLog.log(1, "Gyro angle: " + Log.round(driveGyro.getAngle()%360, 2));
+        DSLog.log(1, "Gyro angle: " + Log.round(driveGyro.getAngle(), 2));
         double rotation = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
         double controlX = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
         double controlY = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);

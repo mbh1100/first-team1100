@@ -12,6 +12,10 @@ public class ControllerState {
     
     public double X, Y, R;
     
+    public ControllerState(){
+        this(0,0,0);
+    }
+    
     public ControllerState(double x,double y,double r){
         X = x;
         Y = y;

@@ -6,6 +6,8 @@ package edu.arhs.team1100.ultimateascent.commands;
 
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
 import edu.arhs.team1100.ultimateascent.util.ControllerState;
+import edu.arhs.team1100.ultimateascent.util.Log;
+import java.util.Vector;
 
 /**
  *
@@ -13,31 +15,41 @@ import edu.arhs.team1100.ultimateascent.util.ControllerState;
  */
 public class PlayRecordedStateCommand extends CommandBase{
     
-    private ControllerState[] state;
+    static RecordStateCommand recorder = null;
+    
+    private Vector states;
     private int index = 0;
     private long last = 0;
     private long interval = 0;
+    private ControllerState currentState;
     
-    public PlayRecordedStateCommand(ControllerState[] s, long interval){
+    public PlayRecordedStateCommand(RecordStateCommand r){
+        recorder = r;
         requires(DriveSubsystem.getInstance());
-        state = s;        
-        this.interval = interval;
     }
 
     protected void initialize() {
-        index = 0;
+        index = 0;        
+        states = recorder.getRecording();        
+        this.interval = recorder.getInterval();
         last = System.currentTimeMillis();
+        currentState = new ControllerState();
+        Log.log(this, "INIT: "+states.size()+" command, inteval "+interval, Log.LEVEL_DEBUG);
     }
 
     protected void execute() {
-        long t = System.currentTimeMillis();
-        if(index < state.length && t-last >= interval){
-            last = t;
-            DriveSubsystem.getInstance().driveCartesian(state[index].X, state[index].Y, state[index].R);
-            index++;
-        } else {
+        long t = System.currentTimeMillis();        
+        
+        if((index >= 0 && index < states.size()) && t-last >= interval) {
+            last = t;            
+            currentState = (ControllerState)states.elementAt(index); 
+            index++;                       
+            Log.log(this, currentState.toString(), Log.LEVEL_DEBUG);
+        }  else if(index >= states.size()){
             index = -1;
         }
+        DriveSubsystem.getInstance().driveCartesian(currentState.X, currentState.Y, currentState.R);
+ 
         
     }
 
@@ -47,6 +59,7 @@ public class PlayRecordedStateCommand extends CommandBase{
 
     protected void end() {
         DriveSubsystem.getInstance().stop();
+        Log.log(this, "Playback END", Log.LEVEL_DEBUG);
     }
 
     protected void interrupted() {

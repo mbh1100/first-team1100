@@ -12,8 +12,8 @@ public class AttackThree extends Joystick {
     public AttackThree(int channel, double joystickDeadband) {
         super(channel);
         
-        for(int counter = 0; counter < 12; counter++) {
-            button[counter] = new JoystickButton(this, counter);
+        for(int i = 0; i < 11; i++) {
+            button[i] = new JoystickButton(this, i+1);
         }
         
         this.joystickDeadband = joystickDeadband;
@@ -24,7 +24,7 @@ public class AttackThree extends Joystick {
      * @return trigger button
      */
     public JoystickButton getButton(int buttonNumber) {
-        return button[buttonNumber];
+        return button[buttonNumber-1];
     }
 
     public double getAxis(AxisType axis) {

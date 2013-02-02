@@ -8,6 +8,7 @@ import edu.arhs.team1100.ultimateascent.OI;
 import edu.arhs.team1100.ultimateascent.util.ControllerState;
 import edu.arhs.team1100.ultimateascent.util.Log;
 import edu.wpi.first.wpilibj.Joystick;
+import java.util.Vector;
 
 /**
  *
@@ -15,7 +16,7 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class RecordStateCommand extends CommandBase {
     
-    private ControllerState[] recording;
+    private Vector recording;
     private int interval = 0;
     private long last = 0;
     
@@ -25,24 +26,30 @@ public class RecordStateCommand extends CommandBase {
     }
 
     protected void initialize() {
+        Log.log(this, "START RECORD", Log.LEVEL_DEBUG);
+        recording = new Vector();
         last = System.currentTimeMillis();
       
     }
 
     protected void execute() {
+        //Log.log(this, "EXECUTE", Log.LEVEL_DEBUG);
         long t = System.currentTimeMillis();
             if(t-last >= interval){
             double X = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
             double Y = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
             double R = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
-            Log.log(this, "new ControllerState("+X+","+Y+","+R+"),", Log.LEVEL_DEBUG);
+            //Log.log(this, "new ControllerState("+X+","+Y+","+R+"),", Log.LEVEL_DEBUG);
+            recording.addElement(new ControllerState(X, Y, R));
+            Log.log(this, recording.elementAt(recording.size()-1).toString(), Log.LEVEL_DEBUG);
             last = t;
         }
     }
     
-    public ControllerState[] getRecording(){
+    public Vector getRecording(){
         return recording;
     }
+    
     
     public int getInterval(){
         return interval;
