@@ -9,7 +9,7 @@ import edu.arhs.team1100.ultimateascent.subsystems.ShooterSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterWheelSubsystem;
 /**
  *
- * @author Jason
+ * @author Team 1100
  */
 public class SpinShooterCommand  extends CommandBase{
     public SpinShooterCommand(){

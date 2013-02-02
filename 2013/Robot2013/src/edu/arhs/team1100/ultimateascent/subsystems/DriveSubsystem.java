@@ -14,7 +14,9 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.arhs.team1100.ultimateascent.util.DSLog;
 import edu.arhs.team1100.ultimateascent.util.Log;
 import edu.wpi.first.wpilibj.Gyro;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.arhs.team1100.ultimateascent.commands.SetDefaultMecanumCommand;
 
 /**
  *
@@ -91,9 +93,18 @@ public class DriveSubsystem extends PIDSubsystem {
 
         drive.mecanumDrive_Cartesian((Math.sin(Math.toRadians(angle)) * magnitude), (Math.cos(Math.toRadians(angle)) * magnitude), rotation, driveGyro.getAngle());
     }
-    
-    public void mecanumDrive_Cartesian(double x, double y, double r){
+
+    public void driveCartesian(double x, double y, double r) {
         drive.mecanumDrive_Cartesian(-x, -y, -r, driveGyro.getAngle());
+    }
+    
+    public void drivePolar(){
+        double controlX = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
+        double controlY = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
+        double joystickMagnitude = Math.sqrt((controlX * controlX) + (controlY * controlY));
+        double joystickAngle = Math.toDegrees(MathUtils.atan2(-controlX, controlY));
+
+        drive.mecanumDrive_Polar(joystickMagnitude, joystickAngle, 0);
     }
 
     public void stop() {
@@ -104,60 +115,6 @@ public class DriveSubsystem extends PIDSubsystem {
         //return smallest angle difference between gyro and joystick angle
 
         return getGyroAngle();
-        
-        
-        /*double controlX = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
-        double controlY = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
-        double joystickMagnitude = Math.sqrt((controlX * controlX) + (controlY * controlY));
-        double joystickAngle = Math.toDegrees(MathUtils.atan2(-controlX, controlY));
-        
-        while(joystickAngle < 0){
-            joystickAngle += 360;
-        }
-        
-        double gyroAngle = driveGyro.getAngle();
-        while(gyroAngle < 0) {
-            gyroAngle += 360;
-        }
-        gyroAngle %= 360;
-        gyroAngle = 360-gyroAngle;
-        
-        double error = Math.abs(joystickAngle - gyroAngle);
-        
-        while (error > 180){
-            error -= 360;
-        }
-        
-        Log.log(this, " JS:"+Log.round(joystickAngle, 2)+" GY:"+Log.round(gyroAngle, 2)+" ER:"+Log.round(error, 2), Log.LEVEL_DEBUG);
-        if(Math.abs(error) < ROTATION_ACCURACY){
-            return 0;
-        }
-        return error;*/
-        
-        
-        /*
-        double gyroAngle = driveGyro.getAngle();
-        while(gyroAngle < 0){
-            gyroAngle += 360;
-        }
-        gyroAngle %= 360;
-        Log.log(this, "og: "+gyroAngle, Log.LEVEL_DEBUG);
-        Log.log(this, "setpoint: "+getSetpoint(), Log.LEVEL_DEBUG);
-        double error = getSetpoint() - gyroAngle;
-        //Log.log(this, "error: "+error, Log.LEVEL_DEBUG);
-        
-        if(error > 180) {
-            gyroAngle += 360;            
-        }
-        else if(error < -180) {
-            gyroAngle -= 360;
-        }
-        
-        Log.log(this, "gyro: " + Log.round(-gyroAngle, 2), Log.LEVEL_DEBUG);
-        
-        return -(gyroAngle);*/
-
-
     }
 
     protected void usePIDOutput(double rotationSpeed) {
@@ -167,7 +124,7 @@ public class DriveSubsystem extends PIDSubsystem {
 //        Log.log(this, "Rotation Speed: "+rotationSpeed, Log.LEVEL_DEBUG);
         drive.mecanumDrive_Cartesian(controlX, controlY, rotationSpeed, driveGyro.getAngle());
     }
-    
+
     public double getGyroAngle() {
         return -driveGyro.getAngle();
     }
@@ -195,4 +152,9 @@ public class DriveSubsystem extends PIDSubsystem {
     protected void initDefaultCommand() {
         setDefaultCommand(new JoystickMecanumCommand());
     }
+
+    public void setDefaultMecanumCommand(Command command) {
+        setDefaultCommand(command);
+    }
+
 }

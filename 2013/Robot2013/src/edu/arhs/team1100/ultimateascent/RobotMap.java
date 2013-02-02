@@ -20,6 +20,8 @@ public class RobotMap {
     // public static final int rangefinderModule = 1;
     
     //DRIVE
+    public static final int D_TOGGLE_BUTTON_NUMBER = 8;
+    
     public static final int D_TALON_FRONT_LEFT_SLOT = 1;
     public static final int D_TALON_FRONT_LEFT_CHANNEL = 1;
     

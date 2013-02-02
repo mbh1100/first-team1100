@@ -33,7 +33,7 @@ public class PlayRecordedStateCommand extends CommandBase{
         long t = System.currentTimeMillis();
         if(index < state.length && t-last >= interval){
             last = t;
-            DriveSubsystem.getInstance().mecanumDrive_Cartesian(state[index].X, state[index].Y, state[index].R);
+            DriveSubsystem.getInstance().driveCartesian(state[index].X, state[index].Y, state[index].R);
             index++;
         } else {
             index = -1;

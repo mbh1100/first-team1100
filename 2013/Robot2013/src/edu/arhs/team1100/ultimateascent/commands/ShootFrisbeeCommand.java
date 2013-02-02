@@ -10,7 +10,7 @@ import edu.arhs.team1100.ultimateascent.subsystems.ShooterPistonSubsystem;
 
 /**
  *
- * @author Jason
+ * @author Team 1100
  */
 public class ShootFrisbeeCommand extends CommandBase{
     public ShootFrisbeeCommand(){

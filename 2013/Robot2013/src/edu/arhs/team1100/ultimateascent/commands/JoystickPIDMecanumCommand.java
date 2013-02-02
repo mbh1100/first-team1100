@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.Joystick;
 
 /**
  *
- * @author Akshay
+ * @author Team 1100
  */
 public class JoystickPIDMecanumCommand extends CommandBase {
 

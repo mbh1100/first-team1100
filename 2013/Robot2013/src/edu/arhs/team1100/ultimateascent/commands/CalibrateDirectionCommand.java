@@ -8,7 +8,7 @@ import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
 
 /**
  *
- * @author Akshay
+ * @author Team 1100
  */
 public class CalibrateDirectionCommand extends CommandBase {
     
