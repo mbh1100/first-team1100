@@ -20,7 +20,7 @@ public class JoystickMecanumCommand extends CommandBase {
     }
 
     protected void execute() {
-        DriveSubsystem.getInstance().mecanumDrive();        
+        DriveSubsystem.getInstance().userDrive();        
     }
 
     protected boolean isFinished() {

@@ -1,38 +1,55 @@
 package edu.arhs.team1100.ultimateascent.input;
 
+import com.sun.squawk.util.MathUtils;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class AttackThree extends Joystick {
 
     private JoystickButton button[] = new JoystickButton[11];
-    
     private double joystickDeadband = 0.1;
 
     public AttackThree(int channel, double joystickDeadband) {
         super(channel);
-        
-        for(int i = 0; i < 11; i++) {
-            button[i] = new JoystickButton(this, i+1);
+
+        for (int i = 0; i < 11; i++) {
+            button[i] = new JoystickButton(this, i + 1);
         }
-        
+
         this.joystickDeadband = joystickDeadband;
     }
 
     /**
-     * AttackThree Trigger Button
-     * @return trigger button
+     * Gets the specified button on this controller
+     *
+     * @param N
+     * @return JoystickButton N
      */
-    public JoystickButton getButton(int buttonNumber) {
-        return button[buttonNumber-1];
+    public JoystickButton getButton(int N) {
+        return button[N - 1];
     }
 
     public double getAxis(AxisType axis) {
         double val = super.getAxis(axis);
-        if(Math.abs(val) <= joystickDeadband) {
+        if (Math.abs(val) <= joystickDeadband) {
             val = 0.0;
-        }        
+        }
         return val;
     }
-}
 
+    public double getAngle() {
+        double x = -getAxis(Joystick.AxisType.kX);
+        double y = -getAxis(Joystick.AxisType.kY);
+        double angle = Math.toDegrees(MathUtils.atan2(x, y));
+        while (angle < 0) {
+            angle += 360;
+        }
+        return angle;
+    }
+
+    public double getMagnitude() {
+        double x = getAxis(Joystick.AxisType.kX);
+        double y = getAxis(Joystick.AxisType.kY);
+        return Math.sqrt((x * x) + (y * y));
+    }
+}

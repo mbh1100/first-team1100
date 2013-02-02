@@ -5,7 +5,6 @@
 package edu.arhs.team1100.ultimateascent.commands;
 
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
-import edu.arhs.team1100.ultimateascent.subsystems.ShooterSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterPistonSubsystem;
 
 /**

@@ -31,10 +31,10 @@ public class PlayRecordedStateCommand extends CommandBase{
     protected void initialize() {
         index = 0;        
         states = recorder.getRecording();        
-        this.interval = recorder.getInterval();
+        interval = recorder.getInterval();
         last = System.currentTimeMillis();
         currentState = new ControllerState();
-        Log.log(this, "INIT: "+states.size()+" command, inteval "+interval, Log.LEVEL_DEBUG);
+        Log.log(this, "PLAY RECORDING: "+states.size()+" commands, interval "+interval, Log.LEVEL_DEBUG);
     }
 
     protected void execute() {

@@ -28,25 +28,36 @@ public class JoystickPIDMecanumCommand extends CommandBase {
     }
 
     protected void execute() {
-        
-        double controlX = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
+
+        /*double controlX = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
         double controlY = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
         double joystickMagnitude = Math.sqrt((controlX * controlX) + (controlY * controlY));
         double joystickAngle = Math.toDegrees(MathUtils.atan2(-controlX, controlY));
-        while(joystickAngle < 0){
+        while (joystickAngle < 0) {
             joystickAngle += 360;
-        }
+        }*/
         
+        double joystickAngle = OI.getInstance().getRightJoystick().getAngle();
+        double joystickMagnitude = OI.getInstance().getRightJoystick().getMagnitude();
+
         double gyroAngle = DriveSubsystem.getInstance().getGyroAngle();
         double normalizedGyroAngle = gyroAngle % 360;
-        
+
         double difference = joystickAngle - normalizedGyroAngle;
-        if(difference > 180)difference -= 360;
-        if(difference < -180)difference += 360;
-        Log.log(this, "diff "+difference, Log.LEVEL_DEBUG);
+        if (difference > 180) {
+            difference -= 360;
+        }
+        if (difference < -180) {
+            difference += 360;
+        }
         
+        if(Math.abs(joystickMagnitude) < MAGNITUDE_DEADBAND){
+            difference = 0;
+        }
+        // Log.log(this, "diff "+difference, Log.LEVEL_DEBUG);
+
         DriveSubsystem.getInstance().setSetpoint(gyroAngle + difference);
-        
+
 
     }
 

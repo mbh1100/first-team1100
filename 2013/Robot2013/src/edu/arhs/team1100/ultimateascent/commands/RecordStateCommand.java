@@ -22,6 +22,7 @@ public class RecordStateCommand extends CommandBase {
     
     
     public RecordStateCommand(int hz){
+        recording = new Vector();
         interval = 1000/hz;
     }
 

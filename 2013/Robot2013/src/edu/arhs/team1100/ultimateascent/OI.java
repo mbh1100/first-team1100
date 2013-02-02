@@ -1,13 +1,10 @@
 
 package edu.arhs.team1100.ultimateascent;
 
-import edu.arhs.team1100.ultimateascent.autonomous.DriveInALineCommand;
-import edu.arhs.team1100.ultimateascent.autonomous.DriveInASquareCommandGroup;
 import edu.arhs.team1100.ultimateascent.autonomous.StopDriveCommand;
 import edu.arhs.team1100.ultimateascent.commands.*;
 import edu.arhs.team1100.ultimateascent.input.AttackThree;
 import edu.arhs.team1100.ultimateascent.input.XboxController;
-import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -25,7 +22,7 @@ public class OI {
     private AttackThree rightJoystick;
     private XboxController xbox;
     
-    RecordStateCommand recorder;
+    RecordStateCommand recorder5;
        
     public static OI getInstance(){
         if(instance == null){
@@ -40,21 +37,18 @@ public class OI {
         xbox = new XboxController(XBOX_CONTROLLER_CHANNEL, 0.1);
         
         //bind buttons to commands HERE
-        leftJoystick.getButton(2).whenPressed(new DriveInASquareCommandGroup(1-leftJoystick.getAxis(AttackThree.AxisType.kZ), 8));
-        leftJoystick.getButton(2).whenPressed(new DriveInALineCommand(1-leftJoystick.getAxis(AttackThree.AxisType.kZ), DriveSubsystem.DIRECTION_FORWARD, 2.0));
+        leftJoystick.getButton(2).whenPressed(new ToggleDriveModeCommand());
         rightJoystick.getButton(3).whenPressed(new CalibrateDirectionCommand());
         rightJoystick.getButton(1).whileHeld(new JoystickPIDMecanumCommand());
-        leftJoystick.getButton(RobotMap.D_TOGGLE_BUTTON_NUMBER).whenPressed(new SetDefaultMecanumCommand());
         
         
         //Recording Command Stuff
-        recorder = new RecordStateCommand(20);
-        PlayRecordedStateCommand tmp = new PlayRecordedStateCommand(recorder);
-        rightJoystick.getButton(5).whileHeld(recorder);
-        rightJoystick.getButton(2).whileHeld(tmp);
+        recorder5 = new RecordStateCommand(20);
+        rightJoystick.getButton(5).whileHeld(recorder5);
+        rightJoystick.getButton(2).whenPressed(new PlayRecordedStateCommand(recorder5));
+        rightJoystick.getButton(4).whenPressed(new StopDriveCommand(0.1));
         
-        
-        xbox.getButtonRightBumper().whileHeld(new ShootFrisbeeCommand());
+        //xbox.getButtonRightBumper().whileHeld(new ShootFrisbeeCommand());
     }
     
     public AttackThree getLeftJoystick(){
