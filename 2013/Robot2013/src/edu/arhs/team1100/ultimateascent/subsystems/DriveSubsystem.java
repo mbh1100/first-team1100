@@ -4,6 +4,7 @@
  */
 package edu.arhs.team1100.ultimateascent.subsystems;
 
+import com.sun.squawk.util.MathUtils;
 import edu.arhs.team1100.ultimateascent.OI;
 import edu.arhs.team1100.ultimateascent.RobotMap;
 import edu.arhs.team1100.ultimateascent.commands.JoystickMecanumCommand;
@@ -104,8 +105,19 @@ public class DriveSubsystem extends PIDSubsystem {
         drive.mecanumDrive_Cartesian((Math.sin(Math.toRadians(angle)) * magnitude), (Math.cos(Math.toRadians(angle)) * magnitude), rotation, driveGyro.getAngle());
     }
 
-    public void driveCartesian(double x, double y, double r) {
-        drive.mecanumDrive_Cartesian(-x, -y, -r, driveGyro.getAngle());
+    public void driveSimulate(double x, double y, double rot, int mode) {
+        if(mode == MODE_POLAR){
+            double magnitude = -Math.sqrt(x*x + y*y);
+            double angle = Math.toDegrees(MathUtils.atan2(x, y));
+            while (angle < 0) {
+                angle += 360;
+            }
+            drive.mecanumDrive_Polar(magnitude, angle, rot);
+        } else if(mode == MODE_CARTESIAN){
+            drive.mecanumDrive_Cartesian(-x, -y, -rot, driveGyro.getAngle());
+        } else {
+            stop();
+        }
     }
  
 
@@ -127,6 +139,10 @@ public class DriveSubsystem extends PIDSubsystem {
     
     public void toggleDriveMode(){
         driveMode = (driveMode == MODE_CARTESIAN)?MODE_POLAR:MODE_CARTESIAN;
+    }
+    
+    public int getDriveMode(){
+        return driveMode;
     }
 
     public double getGyroAngle() {

@@ -13,6 +13,7 @@ import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.commands.JoystickPIDMecanumCommand;
 import edu.arhs.team1100.ultimateascent.commands.PlayRecordedStateCommand;
 import edu.arhs.team1100.ultimateascent.commands.RecordStateCommand;
+import edu.arhs.team1100.ultimateascent.util.DSLog;
 import edu.arhs.team1100.ultimateascent.util.Log;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -29,6 +30,8 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 public class RobotMain extends IterativeRobot {
 
     Command autonomousCommand;
+    
+    long lastTime = 0;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -70,6 +73,7 @@ public class RobotMain extends IterativeRobot {
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
+        lastTime = System.currentTimeMillis();
         Scheduler.getInstance().enable();
     }
 
@@ -78,6 +82,10 @@ public class RobotMain extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        long curTime = System.currentTimeMillis();
+        long fps = 1000/(curTime-lastTime);
+        DSLog.log(3, "FPS: "+fps);
+        lastTime = curTime;
     }
 
     /**

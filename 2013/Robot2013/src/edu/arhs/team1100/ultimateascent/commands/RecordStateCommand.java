@@ -5,6 +5,7 @@
 package edu.arhs.team1100.ultimateascent.commands;
 
 import edu.arhs.team1100.ultimateascent.OI;
+import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
 import edu.arhs.team1100.ultimateascent.util.ControllerState;
 import edu.arhs.team1100.ultimateascent.util.Log;
 import edu.wpi.first.wpilibj.Joystick;
@@ -40,9 +41,10 @@ public class RecordStateCommand extends CommandBase {
             double X = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
             double Y = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
             double R = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
+            int mode = DriveSubsystem.getInstance().getDriveMode();
             //Log.log(this, "new ControllerState("+X+","+Y+","+R+"),", Log.LEVEL_DEBUG);
-            recording.addElement(new ControllerState(X, Y, R));
-            Log.log(this, recording.elementAt(recording.size()-1).toString(), Log.LEVEL_DEBUG);
+            recording.addElement(new ControllerState(X, Y, R, mode));
+            //Log.log(this, recording.elementAt(recording.size()-1).toString(), Log.LEVEL_DEBUG);
             last = t;
         }
     }

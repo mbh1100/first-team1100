@@ -44,11 +44,11 @@ public class PlayRecordedStateCommand extends CommandBase{
             last = t;            
             currentState = (ControllerState)states.elementAt(index); 
             index++;                       
-            Log.log(this, currentState.toString(), Log.LEVEL_DEBUG);
+            //Log.log(this, currentState.toString(), Log.LEVEL_DEBUG);
         }  else if(index >= states.size()){
             index = -1;
         }
-        DriveSubsystem.getInstance().driveCartesian(currentState.X, currentState.Y, currentState.R);
+        DriveSubsystem.getInstance().driveSimulate(currentState.X, currentState.Y, currentState.R, currentState.mode);
  
         
     }
