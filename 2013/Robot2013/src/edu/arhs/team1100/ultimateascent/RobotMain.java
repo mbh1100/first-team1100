@@ -82,6 +82,7 @@ public class RobotMain extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        
         long curTime = System.currentTimeMillis();
         long fps = 1000/(curTime-lastTime);
         DSLog.log(3, "FPS: "+fps);
