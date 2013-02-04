@@ -1,0 +1,248 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Team 1100 Scouting Form</title>
+<meta name="viewport" content="width=device-width; initial-scale=1.0;maximum-scale=1.0">
+<style type="text/css">
+    body
+	{
+    	font-family:"Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
+    	font-size:12px;
+    }
+    
+	p, h1, form, button{border:0; margin:0; padding:0;}
+    .spacer{clear:both; height:1px;}
+	.awkSpace{clear:both; height:25px;}
+	.newLine{clear:both; height:1px;}
+    
+	/* ----------- My Form ----------- */
+    .myform{
+    margin:0 auto;
+    width:device-width;
+    padding:14px;
+	max-width:400px;
+    }
+    
+    /* ----------- stylized ----------- */
+    #stylized{
+    border:solid 2px #000;
+    background:#BF3330;
+	margin:0 auto;
+    }
+	
+    #stylized h1 {
+    font-size:14px;
+    font-weight:bold;
+    margin-bottom:8px;
+	color:#FFF;
+    }
+	
+    #stylized p{
+    font-size:11px;
+    color:#FFF;
+    margin-bottom:20px;
+    border-bottom:solid 1px #CCC;
+    padding-bottom:10px;
+    }
+	
+    #stylized label{
+    display:block;
+    font-weight:bold;
+    text-align:left;
+    width:140px;
+    float:left;
+	color:#FFF
+    }
+	
+    #stylized .small{
+    color:#CCC;
+    display:block;
+    font-size:11px;
+    font-weight:normal;
+    text-align:left;
+    width:140px;
+    }
+	
+    #stylized input{
+    float:left;
+    font-size:12px;
+    padding:4px 2px;
+    border:solid 1px #000;
+    width:40%;
+    margin:2px 0 20px 10px;
+    }
+	
+	#stylized textarea{
+	float:left;
+    font-size:12px;
+    	padding:4px 2px;
+    	border:solid 1px #000;
+    	width:200px;
+		height:100px;
+    	margin:2px 0 20px 10px;
+		resize:none;
+	}
+</style>
+
+<SCRIPT language="Javascript">
+      
+      	function isNumberKey(evt)
+      	{
+        	 var charCode = (evt.which) ? evt.which : event.keyCode
+         	if (charCode > 31 && (charCode < 48 || charCode > 57))
+            	return false;
+ 
+         	return true;
+		}
+	  
+	  	function ValidateContactForm()
+		{
+			var team = document.form.team;
+			var roundnum = document.form.round;
+			var ap = document.form.ap;
+			var fp = document.form.fp;
+			var cp = document.form.cp;
+			var fc = document.form.fc;
+			var pp = document.form.pp;
+			var dv = document.form.dv;
+		
+			if (team.value == "")
+			{
+				window.alert("Please enter a valid Team Number.");
+				team.focus();
+				return false;
+			}
+			if (roundnum.value == "")
+			{
+				window.alert("Please enter a valid Round Number.");
+				roundnum.focus();
+				return false;
+			}
+			if (ap.value == "")
+			{
+				window.alert("Please enter a valid Autonomous Score.");
+				ap.focus();
+				return false;
+			}
+			if (fp.value == "")
+			{
+				window.alert("Please enter a valid Frisbee Score.");
+				fp.focus();
+				return false;
+			}
+			if (cp.value == "")
+			{
+				window.alert("Please enter a valid Climbing Score.");
+				cp.focus();
+				return false;
+			}
+			if (fc.value == "")
+			{
+				window.alert("Please enter a valid Frisbee Collected Count.");
+				fc.focus();
+				return false;
+			}
+			if (pp.value == "")
+			{
+				window.alert("Please enter a valid Points Prevented.");
+				pp.focus();
+				return false;
+			}
+			if (dv.value == "" || dv.value < 1 || dv.value > 10)
+			{
+				window.alert("Please enter a valid Defensive Value.");
+				dv.focus();
+				return false;
+			}
+			return true;
+		}
+      
+   </SCRIPT>
+
+</head>
+
+<body bgcolor="#cac0a7" >
+
+<div id="stylized" class="myform">
+<form id="form" name="form" method="post" action="ScoutingForm.php" onsubmit="return ValidateContactForm()">
+<h1>Team 1100 Scouting Form</h1>
+<p>Enter Round Information In This Form.<br />
+  Created by Team 1100</p>
+<div class="spacer"></div>
+
+<label>Team #
+<span class="small">Team Number</span>
+</label>
+<input type="text" name="team" id="team" maxlength="4" onkeypress="return isNumberKey(event)" />
+<div class="spacer"></div>
+
+<label>Round #
+<span class="small">Round Number</span>
+</label>
+<input type="text" name="round" id="round" maxlength="3" onkeypress="return isNumberKey(event)"/>
+<div class="spacer"></div>
+
+<label>Autonomous Points Scored<span class="small">Autonomous Points Scored</span>
+</label>
+<input type="text" name="ap" id="ap" maxlength="3" onkeypress="return isNumberKey(event)"/>
+<div class="spacer"></div>
+
+<label>Frisbee Points Scored<span class="small">Total Number of Scored Points</span>
+</label>
+<input type="text" name="fp" id="fp" maxlength="3" onkeypress="return isNumberKey(event)"/>
+<div class="spacer"></div>
+
+<label>Climbing Points Scored<span class="small">Climbing Points Collected</span>
+</label>
+<input type="text" name="cp" id="cp" maxlength="2" onkeypress="return isNumberKey(event)"/>
+<div class="spacer"></div>
+
+<label>Frisbees Collected<span class="small">Frisbees Collected</span>
+</label>
+<input type="text" name="fc" id="fc" maxlength="3" onkeypress="return isNumberKey(event)"/>
+<div class="spacer"></div>
+
+<label>Points Prevented<span class="small">Number of points Prevented</span>
+</label>
+<input type="text" name="pp" id="pp" maxlength="3" onkeypress="return isNumberKey(event)"/>
+<div class="spacer"></div>
+
+<label>Defensive Value<span class="small">Value 1-10 Representing Defensive ability</span>
+</label>
+<input type="text" name="dv" id="dv" maxlength="2" onkeypress="return isNumberKey(event)"/>
+<div class="spacer"></div>
+
+<label>Violations<span class="small">Were Violations Caused?</span>
+</label>
+<input type="checkbox" style="width:auto;" name="violations" id="violations" />
+<div class="awkSpace"></div> 
+
+<label>Comments<span class="small">Additional Information!</span>
+</label>
+<textarea name="comments" id="comments" />
+</textarea>
+<div class="spacer"></div>
+<input type="submit" value="Submit" name="submit" style="color:#FFFFFF;background:#666666; width:100px; text-align:center; margin-left:150px; border-color:#000; font-size:16px" />
+<div class="spacer"></div>
+
+</form>
+</div>
+<br />
+<br />
+
+<div style="text-align:center">
+  <p>© 2013 Team 1100. All Rights Reserved. <br />
+    
+    All other copyrights or trademarks are the property of their respective owners. 
+  <br />
+  <br />
+    Disclaimer: Communications between you and Team 1100 are protected by our Privacy Policy but not by the attorney-client privilege or as work product. 
+    Team 1100 provides access to independent Scouting Database's and self-help services at your specific direction. We are not an enterprise-level cloud database storage faciltator or a substitute for an enterprise-level database provider or faciltator. We cannot provide any kind of advice, explanation, opinion, or recommendation about possible storage needs, requirements, security, options, or selection of strategies. Your access to the website is subject to our Terms of Use. <br />
+  <br />
+    
+    Team 1100, 79 Bartlett Street, Northborough, MA is an unregistered and unbonded scouting database facilitator(exp. 12/13).
+  </p>
+</div>
+</body>
+</html>

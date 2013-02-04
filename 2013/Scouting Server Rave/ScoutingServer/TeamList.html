@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Team List</title>
+
+<style type="text/css">
+
+    .teamList{
+    margin:0 auto;
+    width:device-width;
+    padding:14px;
+	max-width:400px;
+    }
+	
+	.fancyList{
+	background: #BF3330;
+	border-color: #000;
+	border: 1px solid #000;
+	line-height: 1.0;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	}
+	.fancyList li {
+	border-color: #000;
+	background: transparent; 
+	border-bottom:  1px solid #000; 
+	font-size:30px;
+	padding:7px 20px 4px 20px; 
+	text-decoration:none;
+	
+	word-wrap:break-word;
+	color:#FFF;
+	}
+	.fancyList li:hover {
+		color:#F33;
+	}
+	
+	.roundHeader {
+		display:block;
+	background: #BF3330;
+	border-color: #000;
+	border: 1px solid #000;
+	line-height: 1.0;
+	margin: 0;
+	margin-top:20px;
+	
+	width:inherit;
+	
+	font-size:50px;
+	padding:7px 20px 4px 20px; 
+	color:#FFF;
+	text-align:center;
+}
+a { color: inherit; text-decoration:inherit;} 
+
+.aggregateInfo {
+	background: #BF3330;
+}
+	
+.floatRight
+{
+	float:right;
+	
+	word-wrap:break-word;
+}
+</style>
+
+</head>
+<body bgcolor="#cac0a7">
+<div class="teamList">
+	<div id='TeamTitle' class="roundHeader">
+    	Team 1100
+    </div>
+    <div id='AggregateInfo'>
+        <ul class="fancyList" style="display:block;">
+            <li>test<span class='floatRight'>aaaaaaa</span></li>
+            <li>2224</li>
+            <li>2512</li>
+            <li>2442</li>
+        </ul>
+    </div>
+
+
+	<a class="roundHeader" href="javascript:toggle();"> Round 52</a>
+	<div id='roundInfo'>
+        <ul class="fancyList" style="display:none;">
+            <li><span>1115</span><span>1115</span></li>
+            <li>2224</li>
+            <li>2512</li>
+            <li>2442</li>
+        </ul>
+    </div>
+    
+		<a class="roundHeader" href="javascript:toggle();"> Round 51</a>
+	<div id='roundInfo'>
+        <ul class="fancyList">
+            <li>test<span class='floatRight'>aaaaaaa</span></li>
+            <li>12422</li>
+            <li>2512</li>
+            <li>2442</li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
+<script language="javascript">
+function toggle()
+{
+	var ele = document.getElementById("roundInfo");
+	if(ele.style.display == "block")
+	{
+		ele.style.display  = "none";
+	}
+	else
+	{
+		ele.style.display = "block";
+	}
+}
+</script>
