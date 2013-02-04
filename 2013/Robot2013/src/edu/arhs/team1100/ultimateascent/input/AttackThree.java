@@ -22,7 +22,7 @@ public class AttackThree extends Joystick {
     /**
      * Gets the specified button on this controller
      *
-     * @param N
+     * @param N button number
      * @return JoystickButton N
      */
     public JoystickButton getButton(int N) {

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.arhs.team1100.ultimateascent.subsystems;
 
 import edu.wpi.first.wpilibj.command.PIDSubsystem;

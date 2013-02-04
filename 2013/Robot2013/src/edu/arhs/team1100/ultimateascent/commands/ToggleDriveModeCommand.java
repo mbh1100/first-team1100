@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.arhs.team1100.ultimateascent.commands;
 
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
@@ -11,7 +7,7 @@ import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
  * @author Team 1100
  */
 public class ToggleDriveModeCommand extends CommandBase {
-    
+
     private boolean finished = false;
 
     protected void initialize() {
@@ -28,7 +24,7 @@ public class ToggleDriveModeCommand extends CommandBase {
     }
 
     protected void end() {
-        if(!finished){
+        if (!finished) {
             execute();
         }
     }
@@ -36,6 +32,4 @@ public class ToggleDriveModeCommand extends CommandBase {
     protected void interrupted() {
         end();
     }
-
-    
 }

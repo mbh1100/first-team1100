@@ -8,11 +8,11 @@
 package edu.arhs.team1100.ultimateascent;
 
 
-import edu.arhs.team1100.ultimateascent.commands.CalibrateDirectionCommand;
+import edu.arhs.team1100.ultimateascent.commands.CalibrateGyroCommand;
 import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.commands.JoystickPIDMecanumCommand;
-import edu.arhs.team1100.ultimateascent.commands.PlayRecordedStateCommand;
-import edu.arhs.team1100.ultimateascent.commands.RecordStateCommand;
+import edu.arhs.team1100.ultimateascent.commands.PlayRecordingCommand;
+import edu.arhs.team1100.ultimateascent.commands.RecordCommand;
 import edu.arhs.team1100.ultimateascent.util.DSLog;
 import edu.arhs.team1100.ultimateascent.util.Log;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -44,10 +44,10 @@ public class RobotMain extends IterativeRobot {
         //add all logging classes
         Log.addClass(RobotMain.class, Log.LEVEL_DEBUG);
         //Log.addClass(DriveSubsystem.class, Log.LEVEL_DEBUG);
-        Log.addClass(CalibrateDirectionCommand.class, Log.LEVEL_DEBUG);
+        Log.addClass(CalibrateGyroCommand.class, Log.LEVEL_DEBUG);
         Log.addClass(JoystickPIDMecanumCommand.class, Log.LEVEL_DEBUG);
-        Log.addClass(RecordStateCommand.class, Log.LEVEL_DEBUG);
-        Log.addClass(PlayRecordedStateCommand.class, Log.LEVEL_DEBUG);
+        Log.addClass(RecordCommand.class, Log.LEVEL_DEBUG);
+        Log.addClass(PlayRecordingCommand.class, Log.LEVEL_DEBUG);
 
         // instantiate the command used for the autonomous period
         

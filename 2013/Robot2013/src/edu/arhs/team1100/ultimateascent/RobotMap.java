@@ -9,17 +9,21 @@ import edu.wpi.first.wpilibj.Talon;
  * floating around.
  */
 public class RobotMap {
-    // For example to map the left and right motors, you could define the
-    // following variables to use with your drivetrain subsystem.
-    // public static final int leftMotor = 1;
-    // public static final int rightMotor = 2;
+
+    //[C]ONTROLS
+    public static final int C_LEFT_JOYSTICK_CHANNEL = 1;
+    public static final int C_RIGHT_JOYSTICK_CHANNEL = 2;
+    public static final int C_XBOX_CONTROLLER_CHANNEL = 3;
     
-    // If you are using multiple modules, make sure to define both the port
-    // number and the module. For example you with a rangefinder:
-    // public static final int rangefinderPort = 1;
-    // public static final int rangefinderModule = 1;
+    public static final int C_TOGGLE_DRIVE = 2;
+    public static final int C_CALIBRATE_GYRO = 3;
+    public static final int C_DRIVE_PID = 1; //trigger
+    public static final int C_STOP_DRIVE = 4;
     
-    //DRIVE
+    public static final int C_RECORD = 5;
+    public static final int C_PLAY_RECORDING = 2;
+    
+    //[D]RIVE
     public static final int D_TOGGLE_BUTTON_NUMBER = 8;
     
     public static final int D_TALON_FRONT_LEFT_SLOT = 1;
@@ -37,6 +41,7 @@ public class RobotMap {
     public static final int D_GYRO_SLOT = 1;
     public static final int D_GYRO_CHANNEL = 1;
     
+    //[S]HOOTER
     public static final int S_TALON_SHOOTER_WHEEL_SLOT = 1;
     public static final int S_TALON_SHOOTER_WHEEL_CHANNEL = 5;
     

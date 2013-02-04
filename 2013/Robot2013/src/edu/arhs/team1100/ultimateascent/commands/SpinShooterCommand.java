@@ -1,17 +1,15 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.arhs.team1100.ultimateascent.commands;
 
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterWheelSubsystem;
+
 /**
  *
  * @author Team 1100
  */
-public class SpinShooterCommand  extends CommandBase{
-    public SpinShooterCommand(){
+public class SpinShooterCommand extends CommandBase {
+
+    public SpinShooterCommand() {
         requires(ShooterWheelSubsystem.getInstance());
     }
 
@@ -20,7 +18,7 @@ public class SpinShooterCommand  extends CommandBase{
     }
 
     protected void execute() {
-       ShooterWheelSubsystem.getInstance().SpinWheel();
+        ShooterWheelSubsystem.getInstance().SpinWheel();
     }
 
     protected boolean isFinished() {

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.arhs.team1100.ultimateascent.commands;
 
 import com.sun.squawk.util.MathUtils;
@@ -23,20 +19,11 @@ public class JoystickPIDMecanumCommand extends CommandBase {
     }
 
     protected void initialize() {
-        DriveSubsystem.getInstance().setSetpoint(DriveSubsystem.getInstance().getGyroAngle()); //desired difference between desired and actual angle
+        DriveSubsystem.getInstance().setSetpoint(DriveSubsystem.getInstance().getGyroAngle());
         DriveSubsystem.getInstance().enable(); //PID enable
     }
 
     protected void execute() {
-
-        /*double controlX = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
-        double controlY = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
-        double joystickMagnitude = Math.sqrt((controlX * controlX) + (controlY * controlY));
-        double joystickAngle = Math.toDegrees(MathUtils.atan2(-controlX, controlY));
-        while (joystickAngle < 0) {
-            joystickAngle += 360;
-        }*/
-        
         double joystickAngle = OI.getInstance().getRightJoystick().getAngle();
         double joystickMagnitude = OI.getInstance().getRightJoystick().getMagnitude();
 
@@ -50,15 +37,12 @@ public class JoystickPIDMecanumCommand extends CommandBase {
         if (difference < -180) {
             difference += 360;
         }
-        
-        if(Math.abs(joystickMagnitude) < MAGNITUDE_DEADBAND){
+
+        if (Math.abs(joystickMagnitude) < MAGNITUDE_DEADBAND) {
             difference = 0;
         }
-        // Log.log(this, "diff "+difference, Log.LEVEL_DEBUG);
 
         DriveSubsystem.getInstance().setSetpoint(gyroAngle + difference);
-
-
     }
 
     protected boolean isFinished() {

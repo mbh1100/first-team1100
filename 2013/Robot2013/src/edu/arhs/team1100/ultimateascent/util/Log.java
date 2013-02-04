@@ -1,12 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.arhs.team1100.ultimateascent.util;
 
 import com.sun.squawk.util.MathUtils;
 import java.util.Vector;
-
 
 /**
  *
@@ -48,13 +43,13 @@ public class Log {
             System.out.println("[" + simpleClassName(lc) + "] " + message);
         }
     }
-    
-    public static String round(double num, int places){   
-        return MathUtils.round(num*MathUtils.pow(10, places))/MathUtils.pow(10, places) + "";
+
+    public static String round(double num, int places) {
+        return MathUtils.round(num * MathUtils.pow(10, places)) / MathUtils.pow(10, places) + "";
     }
-    
-    private static String simpleClassName(LogClass c){
-        return c.mClass.getName().substring(c.mClass.getName().lastIndexOf('.')+1);
+
+    private static String simpleClassName(LogClass c) {
+        return c.mClass.getName().substring(c.mClass.getName().lastIndexOf('.') + 1);
     }
 }
 

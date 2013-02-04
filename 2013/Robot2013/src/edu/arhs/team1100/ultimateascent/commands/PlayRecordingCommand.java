@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.arhs.team1100.ultimateascent.commands;
 
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
@@ -11,50 +7,54 @@ import java.util.Vector;
 
 /**
  *
- * @author akshay
+ * @author Team 1100
  */
-public class PlayRecordedStateCommand extends CommandBase{
+public class PlayRecordingCommand extends CommandBase{
     
-    static RecordStateCommand recorder = null;
+    static RecordCommand recorder = null;
     
-    private Vector states;
-    private int index = 0;
-    private long last = 0;
-    private long interval = 0;
+    private Vector states;    
     private ControllerState currentState;
     
-    public PlayRecordedStateCommand(RecordStateCommand r){
+    private int index = 0;
+    private boolean finished = false;    
+    private long last = 0;
+    private long interval = 0;
+    
+    public PlayRecordingCommand(RecordCommand r){
         recorder = r;
         requires(DriveSubsystem.getInstance());
     }
 
     protected void initialize() {
-        index = 0;        
-        states = recorder.getRecording();        
+        index = 0;    
+        finished = false;
+        
+        states = recorder.getRecording();  
+        currentState = new ControllerState();
+        
         interval = recorder.getInterval();
         last = System.currentTimeMillis();
-        currentState = new ControllerState();
+        
         Log.log(this, "PLAY RECORDING: "+states.size()+" commands, interval "+interval, Log.LEVEL_DEBUG);
     }
 
     protected void execute() {
         long t = System.currentTimeMillis();        
         
-        if((index >= 0 && index < states.size()) && t-last >= interval) {
+        if(!finished && index < states.size() && t-last >= interval) {
             last = t;            
             currentState = (ControllerState)states.elementAt(index); 
             index++;                       
             //Log.log(this, currentState.toString(), Log.LEVEL_DEBUG);
         }  else if(index >= states.size()){
-            index = -1;
+            finished = true;
         }
-        DriveSubsystem.getInstance().driveSimulate(currentState.X, currentState.Y, currentState.R, currentState.mode);
- 
-        
+        DriveSubsystem.getInstance().driveSimulate(currentState.X, currentState.Y, currentState.R, currentState.mode);        
     }
 
     protected boolean isFinished() {
-        return index == -1;
+        return finished;
     }
 
     protected void end() {

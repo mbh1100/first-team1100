@@ -11,18 +11,14 @@ import edu.arhs.team1100.ultimateascent.input.XboxController;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-    
-    private final int LEFT_JOYSTICK_CHANNEL = 1;
-    private final int RIGHT_JOYSTICK_CHANNEL = 2;
-    private final int XBOX_CONTROLLER_CHANNEL = 3;
-    
+        
     private static OI instance;
     
-    private AttackThree leftJoystick;
-    private AttackThree rightJoystick;
+    private AttackThree leftStick;
+    private AttackThree rightStick;
     private XboxController xbox;
     
-    RecordStateCommand recorder5;
+    RecordCommand recorder;
        
     public static OI getInstance(){
         if(instance == null){
@@ -32,31 +28,31 @@ public class OI {
     }
     
     public OI(){
-        leftJoystick = new AttackThree(LEFT_JOYSTICK_CHANNEL, 0.1);
-        rightJoystick = new AttackThree(RIGHT_JOYSTICK_CHANNEL, 0.1);
-        xbox = new XboxController(XBOX_CONTROLLER_CHANNEL, 0.1);
+        leftStick = new AttackThree(RobotMap.C_LEFT_JOYSTICK_CHANNEL, 0.1);
+        rightStick = new AttackThree(RobotMap.C_RIGHT_JOYSTICK_CHANNEL, 0.1);
+        xbox = new XboxController(RobotMap.C_XBOX_CONTROLLER_CHANNEL, 0.1);
         
-        //bind buttons to commands HERE
-        leftJoystick.getButton(2).whenPressed(new ToggleDriveModeCommand());
-        rightJoystick.getButton(3).whenPressed(new CalibrateDirectionCommand());
-        rightJoystick.getButton(1).whileHeld(new JoystickPIDMecanumCommand());
-        
+        //drive controls
+        leftStick.getButton(RobotMap.C_TOGGLE_DRIVE).whenPressed(new ToggleDriveModeCommand());
+        rightStick.getButton(RobotMap.C_CALIBRATE_GYRO).whenPressed(new CalibrateGyroCommand());
+        rightStick.getButton(RobotMap.C_DRIVE_PID).whileHeld(new JoystickPIDMecanumCommand());
+        rightStick.getButton(RobotMap.C_STOP_DRIVE).whenPressed(new StopDriveCommand(0.1));
         
         //Recording Command Stuff
-        recorder5 = new RecordStateCommand(20);
-        rightJoystick.getButton(5).whileHeld(recorder5);
-        rightJoystick.getButton(2).whenPressed(new PlayRecordedStateCommand(recorder5));
-        rightJoystick.getButton(4).whenPressed(new StopDriveCommand(0.1));
+        recorder = new RecordCommand(20); //interval is 20 ms
+        rightStick.getButton(RobotMap.C_RECORD).whileHeld(recorder);
+        rightStick.getButton(RobotMap.C_PLAY_RECORDING).whenPressed(new PlayRecordingCommand(recorder));
+        
         
         //xbox.getButtonRightBumper().whileHeld(new ShootFrisbeeCommand());
     }
     
     public AttackThree getLeftJoystick(){
-        return leftJoystick;
+        return leftStick;
     }
     
     public AttackThree getRightJoystick(){
-        return rightJoystick;        
+        return rightStick;        
     }
     
     public XboxController getXboxController(){

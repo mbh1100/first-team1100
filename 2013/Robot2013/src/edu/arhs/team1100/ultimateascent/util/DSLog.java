@@ -1,15 +1,14 @@
 package edu.arhs.team1100.ultimateascent.util;
 
+import edu.wpi.first.wpilibj.AnalogModule;
+import edu.wpi.first.wpilibj.Dashboard;
+import edu.wpi.first.wpilibj.DigitalModule;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStationLCD;
-import edu.wpi.first.wpilibj.Dashboard;
-import edu.wpi.first.wpilibj.AnalogModule;
-import edu.wpi.first.wpilibj.DigitalModule;
 import edu.wpi.first.wpilibj.Solenoid;
 
-
 /**
- * Logs messages to the Driver Station 
+ * Logs messages to the Driver Station
  */
 public class DSLog {
 
@@ -50,13 +49,13 @@ public class DSLog {
      */
     static private String padMsg(String msg) {
         String line = msg;
-        if (line.length() < 21) {  
+        if (line.length() < 21) {
             for (int i = msg.length() + 1; i <= 21; i++) {
                 line += " ";
             }
         }
         line = line.substring(0, 21);
-        return line; 
+        return line;
     }
 
     /**
@@ -66,8 +65,8 @@ public class DSLog {
         for (int i = 0; i < 6; i++) {
             lcdHistory[i] = clearLine;
             DriverStationLCD.getInstance().println(lcdLines[i], 1, lcdHistory[i]);
-        } 
-        DriverStationLCD.getInstance().updateLCD();  
+        }
+        DriverStationLCD.getInstance().updateLCD();
     }
 
     /**
@@ -138,8 +137,8 @@ public class DSLog {
 
                 // Add the cluster for Analog Module 0 (Slot One on the cRio)
                 lowDashData.addCluster();
-                
-                
+
+
                 {
                     // Here we just iterate through the analog ports, adding
                     // float values containing the average voltage for the given

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.arhs.team1100.ultimateascent.commands;
 
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
@@ -10,7 +6,7 @@ import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
  *
  * @author Team 1100
  */
-public class CalibrateDirectionCommand extends CommandBase {
+public class CalibrateGyroCommand extends CommandBase {
     
     private boolean finished = false;
 
@@ -27,9 +23,13 @@ public class CalibrateDirectionCommand extends CommandBase {
     }
 
     protected void end() {
+        if(!finished){
+            execute();
+        }
     }
 
     protected void interrupted() {
+        end();
     }
     
 }

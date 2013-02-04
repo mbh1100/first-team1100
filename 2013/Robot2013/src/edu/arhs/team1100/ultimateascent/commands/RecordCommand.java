@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.arhs.team1100.ultimateascent.commands;
 
 import edu.arhs.team1100.ultimateascent.OI;
@@ -13,48 +9,43 @@ import java.util.Vector;
 
 /**
  *
- * @author akshay
+ * @author Team 1100
  */
-public class RecordStateCommand extends CommandBase {
-    
+public class RecordCommand extends CommandBase {
+
     private Vector recording;
     private int interval = 0;
     private long last = 0;
-    
-    
-    public RecordStateCommand(int hz){
+
+    public RecordCommand(int hz) {
         recording = new Vector();
-        interval = 1000/hz;
+        interval = 1000 / hz;
     }
 
     protected void initialize() {
         Log.log(this, "START RECORD", Log.LEVEL_DEBUG);
         recording = new Vector();
         last = System.currentTimeMillis();
-      
+
     }
 
     protected void execute() {
-        //Log.log(this, "EXECUTE", Log.LEVEL_DEBUG);
         long t = System.currentTimeMillis();
-            if(t-last >= interval){
+        if (t - last >= interval) {
             double X = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
             double Y = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
             double R = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
             int mode = DriveSubsystem.getInstance().getDriveMode();
-            //Log.log(this, "new ControllerState("+X+","+Y+","+R+"),", Log.LEVEL_DEBUG);
             recording.addElement(new ControllerState(X, Y, R, mode));
-            //Log.log(this, recording.elementAt(recording.size()-1).toString(), Log.LEVEL_DEBUG);
             last = t;
         }
     }
-    
-    public Vector getRecording(){
+
+    public Vector getRecording() {
         return recording;
     }
-    
-    
-    public int getInterval(){
+
+    public int getInterval() {
         return interval;
     }
 
@@ -67,5 +58,4 @@ public class RecordStateCommand extends CommandBase {
 
     protected void interrupted() {
     }
-    
 }

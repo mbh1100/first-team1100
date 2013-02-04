@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.arhs.team1100.ultimateascent.subsystems;
 
 import com.sun.squawk.util.MathUtils;
@@ -27,23 +23,18 @@ public class DriveSubsystem extends PIDSubsystem {
     public static final double DIRECTION_BACK = 180;
     public static final double DIRECTION_LEFT = 270;
     public static final double DIRECTION_RIGHT = 90;
-    
     private static final int MODE_CARTESIAN = 0;
     private static final int MODE_POLAR = 1;
-    
     public static final double P = 0.02;
-    public static final double I = 0.0001; 
+    public static final double I = 0.0001;
     public static final double D = 0.0005;
-    
     static DriveSubsystem instance;
-    
     private RobotDrive drive;
     private Gyro driveGyro;
     private Talon frontLeftTalon;
     private Talon frontRightTalon;
     private Talon backLeftTalon;
     private Talon backRightTalon;
-    
     private int driveMode = MODE_CARTESIAN;
 
     public static DriveSubsystem getInstance() {
@@ -72,10 +63,10 @@ public class DriveSubsystem extends PIDSubsystem {
     }
 
     public void userDrive() {
-        DSLog.log(1, "Drive Mode: "+((driveMode == MODE_POLAR)?"POLAR":"CARTESIAN"));
+        DSLog.log(1, "Drive Mode: " + ((driveMode == MODE_POLAR) ? "POLAR" : "CARTESIAN"));
         DSLog.log(2, "Gyro angle: " + Log.round(driveGyro.getAngle(), 2));
-        
-        if(driveMode == MODE_CARTESIAN){
+
+        if (driveMode == MODE_CARTESIAN) {
             userDriveCartesian();
         } else if (driveMode == MODE_POLAR) {
             userDrivePolar();
@@ -86,40 +77,39 @@ public class DriveSubsystem extends PIDSubsystem {
         }
 
     }
-    
-    private void userDriveCartesian(){
+
+    private void userDriveCartesian() {
         double rotation = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
         double controlX = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
-        double controlY = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);            
-        drive.mecanumDrive_Cartesian(controlX, controlY, rotation, driveGyro.getAngle());        
+        double controlY = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
+        drive.mecanumDrive_Cartesian(controlX, controlY, rotation, driveGyro.getAngle());
     }
-    
-    private void userDrivePolar(){    
+
+    private void userDrivePolar() {
         double magnitude = -OI.getInstance().getLeftJoystick().getMagnitude();
         double angle = OI.getInstance().getLeftJoystick().getAngle();
         double rotation = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
-        drive.mecanumDrive_Polar(magnitude, angle, rotation);        
+        drive.mecanumDrive_Polar(magnitude, angle, rotation);
     }
 
-    public void drive(double magnitude, double angle, double rotation) {        
+    public void drive(double magnitude, double angle, double rotation) {
         drive.mecanumDrive_Cartesian((Math.sin(Math.toRadians(angle)) * magnitude), (Math.cos(Math.toRadians(angle)) * magnitude), rotation, driveGyro.getAngle());
     }
 
     public void driveSimulate(double x, double y, double rot, int mode) {
-        if(mode == MODE_POLAR){
-            double magnitude = -Math.sqrt(x*x + y*y);
+        if (mode == MODE_POLAR) {
+            double magnitude = -Math.sqrt(x * x + y * y);
             double angle = Math.toDegrees(MathUtils.atan2(x, y));
             while (angle < 0) {
                 angle += 360;
             }
             drive.mecanumDrive_Polar(magnitude, angle, rot);
-        } else if(mode == MODE_CARTESIAN){
+        } else if (mode == MODE_CARTESIAN) {
             drive.mecanumDrive_Cartesian(-x, -y, -rot, driveGyro.getAngle());
         } else {
             stop();
         }
     }
- 
 
     public void stop() {
         drive(0, 0, 0);
@@ -133,15 +123,14 @@ public class DriveSubsystem extends PIDSubsystem {
         double controlX = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
         double controlY = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
 
-//        Log.log(this, "Rotation Speed: "+rotationSpeed, Log.LEVEL_DEBUG);
         drive.mecanumDrive_Cartesian(controlX, controlY, rotationSpeed, driveGyro.getAngle());
     }
-    
-    public void toggleDriveMode(){
-        driveMode = (driveMode == MODE_CARTESIAN)?MODE_POLAR:MODE_CARTESIAN;
+
+    public void toggleDriveMode() {
+        driveMode = (driveMode == MODE_CARTESIAN) ? MODE_POLAR : MODE_CARTESIAN;
     }
-    
-    public int getDriveMode(){
+
+    public int getDriveMode() {
         return driveMode;
     }
 
@@ -176,5 +165,4 @@ public class DriveSubsystem extends PIDSubsystem {
     public void setDefaultMecanumCommand(Command command) {
         setDefaultCommand(command);
     }
-
 }
