@@ -11,8 +11,9 @@ import edu.wpi.first.wpilibj.Solenoid;
 public class ShooterPistonSubsystem extends Subsystem {
 
     private Solenoid shooterPiston;
-
     static ShooterPistonSubsystem instance;
+    
+    private int numberOfFrisbees = 0;
     
     public ShooterPistonSubsystem() {
         shooterPiston = new Solenoid(RobotMap.S_SOLENOID_SHOOTER_PISTON);
@@ -28,15 +29,27 @@ public class ShooterPistonSubsystem extends Subsystem {
     }
 
     public void shootPiston() {
-        //Extend and retract piston
+        shooterPiston.set(true);
+        shooterPiston.set(false);
+        this.incrimentNumberFrisbees(-1);
     }
     
-    public void shootAllThree() {
-        //Extend and retract
-        //Extend and retract
-        //Extend and retract
+    public void shoot(int n  ) {
+        for(int i = 0; i < n; i++){
+            shootPiston();
+        }
+    }
+    
+    public void incrimentNumberFrisbees(int number){
+        numberOfFrisbees+= number;
     }
 
+    public int getNumberFrisbees() {
+        return numberOfFrisbees;
+    }
     protected void initDefaultCommand() {
+    }
+
+    public void shoot() {
     }
 }

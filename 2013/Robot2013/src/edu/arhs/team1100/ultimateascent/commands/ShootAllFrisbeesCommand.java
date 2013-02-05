@@ -2,15 +2,14 @@ package edu.arhs.team1100.ultimateascent.commands;
 
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterPistonSubsystem;
-import edu.arhs.team1100.ultimateascent.subsystems.ShooterWheelSubsystem;
-
+import edu.arhs.team1100.ultimateascent.commands.FrisbeeCountCommand;
 /**
  *
  * @author Team 1100
  */
-public class ShootFrisbeeCommand extends CommandBase {
-
-    public ShootFrisbeeCommand() {
+public class ShootAllFrisbeesCommand extends CommandBase {
+    
+    public ShootAllFrisbeesCommand() {
         requires(ShooterPistonSubsystem.getInstance());
     }
 
@@ -18,8 +17,8 @@ public class ShootFrisbeeCommand extends CommandBase {
         ShooterPistonSubsystem.getInstance();
     }
 
-    protected void execute() {
-        ShooterPistonSubsystem.getInstance().shoot(1);
+    protected void execute(int numberOfFrisbees) {
+        ShooterPistonSubsystem.getInstance().shoot(ShooterPistonSubsystem.getInstance().getNumberFrisbees());
     }
 
     protected boolean isFinished() {
@@ -32,5 +31,8 @@ public class ShootFrisbeeCommand extends CommandBase {
 
     protected void interrupted() {
         end();
+    }
+
+    protected void execute() {
     }
 }

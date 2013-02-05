@@ -15,6 +15,7 @@ import edu.arhs.team1100.ultimateascent.commands.PlayRecordingCommand;
 import edu.arhs.team1100.ultimateascent.commands.RecordCommand;
 import edu.arhs.team1100.ultimateascent.util.DSLog;
 import edu.arhs.team1100.ultimateascent.util.Log;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -48,7 +49,6 @@ public class RobotMain extends IterativeRobot {
         Log.addClass(JoystickPIDMecanumCommand.class, Log.LEVEL_DEBUG);
         Log.addClass(RecordCommand.class, Log.LEVEL_DEBUG);
         Log.addClass(PlayRecordingCommand.class, Log.LEVEL_DEBUG);
-
         // instantiate the command used for the autonomous period
         
 

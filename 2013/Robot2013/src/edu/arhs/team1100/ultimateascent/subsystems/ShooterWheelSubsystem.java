@@ -16,7 +16,8 @@ public class ShooterWheelSubsystem extends PIDSubsystem {
     private static final double I = 0;
     private static final double D = 0;
     
-    final static int SHOOTING_POWER = 9000;
+    final static int ORIGONAL_SHOOTING_POWER = 9000;
+    static int SHOOTING_POWER = 9000;
     final static int OFF = 0;
 
     static ShooterWheelSubsystem instance;
@@ -44,6 +45,16 @@ public class ShooterWheelSubsystem extends PIDSubsystem {
 
     public void StopSpinning() {
         shooterWheel.set(OFF);
+    }
+    
+    public void setShootingSpeed(int shooterSpeed)
+    {
+        SHOOTING_POWER = shooterSpeed;
+    }
+    
+    public void resetShootingSpeed()
+    {
+        SHOOTING_POWER = ORIGONAL_SHOOTING_POWER;
     }
 
     protected double returnPIDInput() {

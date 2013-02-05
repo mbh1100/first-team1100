@@ -5,6 +5,7 @@ import edu.arhs.team1100.ultimateascent.autonomous.StopDriveCommand;
 import edu.arhs.team1100.ultimateascent.commands.*;
 import edu.arhs.team1100.ultimateascent.input.AttackThree;
 import edu.arhs.team1100.ultimateascent.input.XboxController;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -30,8 +31,7 @@ public class OI {
     public OI(){
         leftStick = new AttackThree(RobotMap.C_LEFT_JOYSTICK_CHANNEL, 0.1);
         rightStick = new AttackThree(RobotMap.C_RIGHT_JOYSTICK_CHANNEL, 0.1);
-        xbox = new XboxController(RobotMap.C_XBOX_CONTROLLER_CHANNEL, 0.1);
-        
+        xbox = new XboxController(RobotMap.C_XBOX_CONTROLLER_CHANNEL, 0.1);        
         //drive controls
         leftStick.getButton(RobotMap.C_TOGGLE_DRIVE).whenPressed(new ToggleDriveModeCommand());
         rightStick.getButton(RobotMap.C_CALIBRATE_GYRO).whenPressed(new CalibrateGyroCommand());
@@ -43,8 +43,10 @@ public class OI {
         rightStick.getButton(RobotMap.C_RECORD).whileHeld(recorder);
         rightStick.getButton(RobotMap.C_PLAY_RECORDING).whenPressed(new PlayRecordingCommand(recorder));
         
+        //xbox Stuff
+        xbox.getButtonRightBumper().whileHeld(new ShootFrisbeeCommand());
+        xbox.getButtonLeftBumper().whileHeld(new ShootAllFrisbeesCommand());
         
-        //xbox.getButtonRightBumper().whileHeld(new ShootFrisbeeCommand());
     }
     
     public AttackThree getLeftJoystick(){
@@ -87,7 +89,7 @@ public class OI {
     // the button is released.
     // button.whileHeld(new ExampleCommand());
     
-    // Start the command when the button is released  and let it run the command
+    // Start the command the button is released  and let it run the command
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
 }

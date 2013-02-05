@@ -1,7 +1,5 @@
 package edu.arhs.team1100.ultimateascent;
 
-import edu.wpi.first.wpilibj.Talon;
-
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -49,4 +47,5 @@ public class RobotMap {
     public static final int S_ENCODER_CHANNEL_B = 2;
  
     public static final int S_SOLENOID_SHOOTER_PISTON = 1;
+    public static final int S_FRISBEE_LIMIT_SWITCH = 9000;
 }
