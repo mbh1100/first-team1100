@@ -84,8 +84,11 @@ public class RobotMain extends IterativeRobot {
         Scheduler.getInstance().run();
         
         long curTime = System.currentTimeMillis();
-        long fps = 1000/(curTime-lastTime);
-        DSLog.log(3, "FPS: "+fps);
+        if ((curTime - lastTime) != 0) {
+            long fps = 1000/(curTime-lastTime);
+            DSLog.log(3, "FPS: "+fps);
+        }
+        
         lastTime = curTime;
     }
 
