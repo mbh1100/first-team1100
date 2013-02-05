@@ -17,7 +17,6 @@ public class XboxController extends Joystick {
     private JoystickButton buttonRightStick;
     
     private double joystickDeadband = 0.1;
-
     public XboxController(int channel, double joystickDeadband) {        
         super(channel);
 

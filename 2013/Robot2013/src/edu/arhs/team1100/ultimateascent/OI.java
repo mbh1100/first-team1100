@@ -20,7 +20,11 @@ public class OI {
     private XboxController xbox;
     
     RecordCommand recorder;
-       
+    
+    /**
+     * Gets the current instance. 
+     * @return instance of OI
+     */
     public static OI getInstance(){
         if(instance == null){
             instance = new OI();
@@ -28,6 +32,9 @@ public class OI {
         return instance;
     }
     
+    /**
+     * Constructor
+     */
     public OI(){
         leftStick = new AttackThree(RobotMap.C_LEFT_JOYSTICK_CHANNEL, 0.1);
         rightStick = new AttackThree(RobotMap.C_RIGHT_JOYSTICK_CHANNEL, 0.1);
@@ -49,14 +56,26 @@ public class OI {
         
     }
     
+    /**
+     * Get the left joystick
+     * @return left AttackThree object
+     */
     public AttackThree getLeftJoystick(){
         return leftStick;
     }
     
+    /**
+     * Get right joystick
+     * @return right AttackThree
+     */
     public AttackThree getRightJoystick(){
         return rightStick;        
     }
     
+    /**
+     * Get xbox controller
+     * @return XboxController object
+     */
     public XboxController getXboxController(){
         return xbox;
     }

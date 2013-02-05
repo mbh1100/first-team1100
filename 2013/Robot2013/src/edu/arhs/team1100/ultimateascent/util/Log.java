@@ -5,7 +5,7 @@ import java.util.Vector;
 
 /**
  *
- * @author Akshay
+ * @author Team 1100
  */
 public class Log {
 

@@ -4,12 +4,12 @@ import com.sun.squawk.util.MathUtils;
 import edu.arhs.team1100.ultimateascent.OI;
 import edu.arhs.team1100.ultimateascent.RobotMap;
 import edu.arhs.team1100.ultimateascent.commands.JoystickMecanumCommand;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Talon;
 import edu.arhs.team1100.ultimateascent.util.DSLog;
 import edu.arhs.team1100.ultimateascent.util.Log;
 import edu.wpi.first.wpilibj.Gyro;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 

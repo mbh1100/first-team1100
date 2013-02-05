@@ -9,25 +9,30 @@ import edu.arhs.team1100.ultimateascent.subsystems.ShooterWheelSubsystem;
  * @author Team 1100
  */
 public class ShootFrisbeeCommand extends CommandBase {
+    
+    private boolean finished;
 
     public ShootFrisbeeCommand() {
         requires(ShooterPistonSubsystem.getInstance());
     }
 
     protected void initialize() {
-        ShooterPistonSubsystem.getInstance();
+        finished = false;
     }
 
     protected void execute() {
         ShooterPistonSubsystem.getInstance().shoot(1);
+        finished = true;
     }
 
     protected boolean isFinished() {
-        return false;
+        return finished;
     }
 
     protected void end() {
-        DriveSubsystem.getInstance().disable();
+        if(!finished){
+            execute();
+        }
     }
 
     protected void interrupted() {

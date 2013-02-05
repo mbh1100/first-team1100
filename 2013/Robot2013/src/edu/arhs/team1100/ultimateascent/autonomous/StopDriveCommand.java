@@ -10,7 +10,10 @@ import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
 public class StopDriveCommand extends CommandBase {
     
     double duration;
-    
+    /**
+     * 
+     * @param duration duration of stop moving in seconds
+     */
     public StopDriveCommand(double duration){
         requires(DriveSubsystem.getInstance());
         this.duration = duration;

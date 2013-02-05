@@ -14,7 +14,12 @@ public class DriveInALineCommand extends CommandBase {
     private double speed = 0.0;
     private double direction = 0.0;
     private double duration = 0;
-    
+    /**
+     * 
+     * @param speed motor speed
+     * @param direction direction in degrees to move
+     * @param duration length in seconds of command
+     */
     public DriveInALineCommand(double speed, double direction, double duration){
         requires(DriveSubsystem.getInstance());  
         this.speed = speed;
