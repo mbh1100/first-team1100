@@ -20,6 +20,7 @@ public class RobotMap {
     
     public static final int C_RECORD = 5;
     public static final int C_PLAY_RECORDING = 2;
+    public static final int C_PRINT_RECORDING = 6;
     
     //[D]RIVE
     public static final int D_TOGGLE_BUTTON_NUMBER = 8;
@@ -47,5 +48,5 @@ public class RobotMap {
     public static final int S_ENCODER_CHANNEL_B = 2;
  
     public static final int S_SOLENOID_SHOOTER_PISTON = 1;
-    public static final int S_FRISBEE_LIMIT_SWITCH = 9000;
+    public static final int S_FRISBEE_LIMIT_SWITCH = 2;
 }

@@ -4,22 +4,20 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-
 package edu.arhs.team1100.ultimateascent;
-
 
 import edu.arhs.team1100.ultimateascent.commands.CalibrateGyroCommand;
 import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.commands.JoystickPIDMecanumCommand;
-import edu.arhs.team1100.ultimateascent.commands.PlayRecordingCommand;
-import edu.arhs.team1100.ultimateascent.commands.RecordCommand;
+import edu.arhs.team1100.ultimateascent.recording.PlayRecordingCommand;
+import edu.arhs.team1100.ultimateascent.recording.RecordCommand;
 import edu.arhs.team1100.ultimateascent.util.DSLog;
 import edu.arhs.team1100.ultimateascent.util.Log;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import java.util.Vector;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -31,8 +29,9 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 public class RobotMain extends IterativeRobot {
 
     Command autonomousCommand;
-    
     long lastTime = 0;
+    long totalTime = 0;
+    long cycles = 0;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -50,7 +49,6 @@ public class RobotMain extends IterativeRobot {
         Log.addClass(RecordCommand.class, Log.LEVEL_DEBUG);
         Log.addClass(PlayRecordingCommand.class, Log.LEVEL_DEBUG);
         // instantiate the command used for the autonomous period
-        
 
         // Initialize all subsystems
         CommandBase.init();
@@ -69,7 +67,7 @@ public class RobotMain extends IterativeRobot {
     }
 
     public void teleopInit() {
-	// This makes sure that the autonomous stops running when
+        // This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
@@ -82,14 +80,26 @@ public class RobotMain extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        printRate();
+
+
+    }
+
+    public void printRate() {
         
         long curTime = System.currentTimeMillis();
-        if ((curTime - lastTime) != 0) {
-            long fps = 1000/(curTime-lastTime);
-            DSLog.log(3, "FPS: "+fps);
+        long d = curTime - lastTime;
+        totalTime += d;
+        cycles++;
+
+        if (totalTime >= 1000) {
+            DSLog.log(3, "Rate: " + (cycles / totalTime));
+            cycles = 0;
+            totalTime = 0;
         }
-        
+
         lastTime = curTime;
+
     }
 
     /**
@@ -99,8 +109,7 @@ public class RobotMain extends IterativeRobot {
         LiveWindow.run();
     }
 
-    public void disabledInit()
-    {
+    public void disabledInit() {
         Scheduler.getInstance().removeAll();
         Scheduler.getInstance().disable();
     }
