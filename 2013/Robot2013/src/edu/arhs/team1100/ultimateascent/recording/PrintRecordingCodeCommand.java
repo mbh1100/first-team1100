@@ -11,6 +11,8 @@ public class PrintRecordingCodeCommand extends CommandBase {
 
     private RecordCommand recorder;
     private boolean finished;
+    
+    private String code = "";
 
     public PrintRecordingCodeCommand(RecordCommand r) {
         recorder = r;
@@ -18,6 +20,7 @@ public class PrintRecordingCodeCommand extends CommandBase {
 
     protected void initialize() {
         finished = false;
+        code = "";
     }
 
     /**
@@ -30,39 +33,49 @@ public class PrintRecordingCodeCommand extends CommandBase {
         Vector recording = recorder.getRecording();
 
         //THIS IS THE _ONLY_ CLASS TO USE SYSTEM.OUT.PRINTLN()
-        System.out.println();
-        System.out.println("+--------------------------------------------------+");
-        System.out.println();
+        add();
+        add("+--------------------------------------------------+");
+        add();
         
         //package declaration
-        System.out.println("package edu.arhs.team1100.ultimateascent.recording;");
+        add("package edu.arhs.team1100.ultimateascent.recording;");
         
         //RoutineClass
-        System.out.println("public class Routine"+System.currentTimeMillis()+" extends RecordedRoutine {");
+        add("public class Routine"+System.currentTimeMillis()+" extends RecordedRoutine {");
         
             //getInterval()
-            System.out.println("protected int getInterval(){");
-                System.out.println("return "+interval+";");
+            add("protected int getInterval(){");
+                add("return "+interval+";");
             //end getInterval()
-            System.out.println("}");
+            add("}");
             
             //getRecording()
-            System.out.println("protected ControllerState[] getRecording(){");
-                System.out.println("return new ControllerState[]{");
+            add("protected ControllerState[] getRecording(){");
+                add("return new ControllerState[]{");
                     for(int i = 0; i < recording.size(); i++){
-                        System.out.println(recording.elementAt(i).toString());
+                        add(recording.elementAt(i).toString());
                     }                    
-                System.out.println("};");
+                add("};");
             //end getRecording
-            System.out.println("}");
+            add("}");
         //end RoutineClass
-        System.out.println("}");
+        add("}");
         
-        System.out.println();
-        System.out.println("+--------------------------------------------------+");
-        System.out.println();
+        add();
+        add("+--------------------------------------------------+");
+        add();
+        
+        System.out.println(code);
 
         finished = true;
+    }
+    
+    private void add(String s){
+        code += s + "\n";        
+    }
+    
+    private void add(){
+        add("");
     }
 
     protected boolean isFinished() {

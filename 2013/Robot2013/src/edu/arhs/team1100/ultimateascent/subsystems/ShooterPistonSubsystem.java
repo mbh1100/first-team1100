@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 
 /**
  *
- * @author team1100
+ * @author Ryan
  */
 public class ShooterPistonSubsystem extends Subsystem {
 

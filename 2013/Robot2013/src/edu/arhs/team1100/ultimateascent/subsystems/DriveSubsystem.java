@@ -86,8 +86,8 @@ public class DriveSubsystem extends PIDSubsystem {
     }
 
     private void userDrivePolar() {
-        double magnitude = -OI.getInstance().getLeftJoystick().getMagnitude();
-        double angle = OI.getInstance().getLeftJoystick().getAngle();
+        double magnitude = OI.getInstance().getLeftJoystick().getMagnitude();
+        double angle = -OI.getInstance().getLeftJoystick().getAngle();
         double rotation = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
         drive.mecanumDrive_Polar(magnitude, angle, rotation);
     }

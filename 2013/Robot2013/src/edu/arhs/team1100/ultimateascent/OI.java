@@ -8,6 +8,7 @@ import edu.arhs.team1100.ultimateascent.commands.*;
 import edu.arhs.team1100.ultimateascent.input.AttackThree;
 import edu.arhs.team1100.ultimateascent.input.XboxController;
 import edu.arhs.team1100.ultimateascent.recording.PrintRecordingCodeCommand;
+import edu.arhs.team1100.ultimateascent.recording.SquareWeaveRoutine;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -52,9 +53,13 @@ public class OI {
         rightStick.getButton(RobotMap.C_RECORD).whileHeld(recorder);
         rightStick.getButton(RobotMap.C_PLAY_RECORDING).whenPressed(new PlayRecordingCommand(recorder));
         rightStick.getButton(RobotMap.C_PRINT_RECORDING).whenPressed(new PrintRecordingCodeCommand(recorder));
+        
+        rightStick.getButton(8).whenPressed(new SquareWeaveRoutine());
         //xbox Stuff
         xbox.getButtonRightBumper().whileHeld(new ShootFrisbeeCommand());
         xbox.getButtonLeftBumper().whileHeld(new ShootAllFrisbeesCommand());
+        
+        
         
     }
     

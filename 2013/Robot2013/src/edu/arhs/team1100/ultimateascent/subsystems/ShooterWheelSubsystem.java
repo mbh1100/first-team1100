@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.PIDController;
 
 /**
  *
- * @author team1100
+ * @author Ryan
  */
 public class ShooterWheelSubsystem extends PIDSubsystem {
     
