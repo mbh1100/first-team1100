@@ -1,5 +1,10 @@
 package edu.arhs.team1100.ultimateascent.recording;
 
+/**
+ *
+ * @author Robot 1100
+ */
+
 public class SquareWeaveRoutine extends RecordedRoutine {
 
     protected int getInterval() {

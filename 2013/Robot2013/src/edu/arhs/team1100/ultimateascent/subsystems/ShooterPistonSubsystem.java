@@ -31,7 +31,7 @@ public class ShooterPistonSubsystem extends Subsystem {
     public void shootPiston() {
         shooterPiston.set(true);
         shooterPiston.set(false);
-        this.incrimentNumberFrisbees(-1);
+        this.incrementNumberFrisbees(-1);
     }
     
     public void shoot(int n  ) {
@@ -40,7 +40,7 @@ public class ShooterPistonSubsystem extends Subsystem {
         }
     }
     
-    public void incrimentNumberFrisbees(int number){
+    public void incrementNumberFrisbees(int number){
         numberOfFrisbees+= number;
     }
 

@@ -27,7 +27,7 @@ public class Camera {
     //Image related
     AxisCamera axisCamera = null;
     ColorImage colorImg;
-    BinaryImage binaryImg;
+    BinaryImage binaryImg; 
     ParticleAnalysisReport[] partReport = null;
 
     public Camera() {

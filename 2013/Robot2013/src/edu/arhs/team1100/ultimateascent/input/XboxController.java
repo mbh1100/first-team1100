@@ -3,6 +3,11 @@ package edu.arhs.team1100.ultimateascent.input;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
+/**
+ *
+ * @author Team 1100
+ */
+
 public class XboxController extends Joystick {
 
     private JoystickButton buttonA;

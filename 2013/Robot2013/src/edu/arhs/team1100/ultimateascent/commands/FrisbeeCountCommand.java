@@ -23,7 +23,7 @@ public class FrisbeeCountCommand extends CommandBase {
     protected void execute() {
         if(limitSwitch.get() && !lastLimitInput){
             lastLimitInput = true;
-            ShooterPistonSubsystem.getInstance().incrimentNumberFrisbees(1);
+            ShooterPistonSubsystem.getInstance().incrementNumberFrisbees(1);
         }
         else { 
             lastLimitInput = false;

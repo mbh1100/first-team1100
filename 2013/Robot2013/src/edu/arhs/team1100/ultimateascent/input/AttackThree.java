@@ -4,6 +4,11 @@ import com.sun.squawk.util.MathUtils;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
+/**
+ *
+ * @author Team 1100
+ */
+
 public class AttackThree extends Joystick {
 
     private JoystickButton button[] = new JoystickButton[11];
