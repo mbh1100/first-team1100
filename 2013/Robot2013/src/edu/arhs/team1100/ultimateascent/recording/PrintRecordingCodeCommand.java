@@ -33,49 +33,45 @@ public class PrintRecordingCodeCommand extends CommandBase {
         Vector recording = recorder.getRecording();
 
         //THIS IS THE _ONLY_ CLASS TO USE SYSTEM.OUT.PRINTLN()
-        add();
-        add("+--------------------------------------------------+");
-        add();
+        code("");
+        code("+---------------[START OF CODE]----------------------+");
+        code("\n\n");
         
         //package declaration
-        add("package edu.arhs.team1100.ultimateascent.recording;");
+        code("package edu.arhs.team1100.ultimateascent.recording;");
         
         //RoutineClass
-        add("public class Routine"+System.currentTimeMillis()+" extends RecordedRoutine {");
+        code("public class Routine"+System.currentTimeMillis()+" extends RecordedRoutine {");
         
             //getInterval()
-            add("protected int getInterval(){");
-                add("return "+interval+";");
+            code("protected int getInterval(){");
+                code("return "+interval+";");
             //end getInterval()
-            add("}");
+            code("}");
             
             //getRecording()
-            add("protected ControllerState[] getRecording(){");
-                add("return new ControllerState[]{");
+            code("protected ControllerState[] getRecording(){");
+                code("return new ControllerState[]{");
                     for(int i = 0; i < recording.size(); i++){
-                        add(recording.elementAt(i).toString());
+                        code(recording.elementAt(i).toString());
                     }                    
-                add("};");
+                code("};");
             //end getRecording
-            add("}");
+            code("}");
         //end RoutineClass
-        add("}");
+        code("}");
         
-        add();
-        add("+--------------------------------------------------+");
-        add();
+        code("\n\n");
+        code("+---------------[ END OF CODE ]-----------------------+");
+        code("");
         
         System.out.println(code);
 
         finished = true;
     }
     
-    private void add(String s){
-        code += s + "\n";        
-    }
-    
-    private void add(){
-        add("");
+    private void code(String s){
+        code += s ;//+ "\n";        
     }
 
     protected boolean isFinished() {

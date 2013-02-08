@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import java.util.Vector;
 
 /**
- *
+ * Records robot movements for later replay
  * @author Team 1100
  */
 public class RecordCommand extends CommandBase {
