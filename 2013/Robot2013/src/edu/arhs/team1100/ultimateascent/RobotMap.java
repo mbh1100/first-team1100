@@ -22,6 +22,8 @@ public class RobotMap {
     public static final int C_PLAY_RECORDING = 2;
     public static final int C_PRINT_RECORDING = 6;
     
+    public static final int C_CAMERATEST = 7;
+    
     //[D]RIVE
     public static final int D_TOGGLE_BUTTON_NUMBER = 8;
     

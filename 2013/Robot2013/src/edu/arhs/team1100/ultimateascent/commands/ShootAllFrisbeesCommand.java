@@ -21,7 +21,7 @@ public class ShootAllFrisbeesCommand extends CommandBase {
     }
 
     protected void execute(int numberOfFrisbees) {
-        ShooterPistonSubsystem.getInstance().shoot(ShooterPistonSubsystem.getInstance().getNumberFrisbees());
+        ShooterPistonSubsystem.getInstance().shoot(ShooterPistonSubsystem.getInstance().getFrisbeeCount());
         finished = true;
     }
 

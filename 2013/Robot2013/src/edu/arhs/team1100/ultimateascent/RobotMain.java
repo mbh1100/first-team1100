@@ -7,17 +7,18 @@
 package edu.arhs.team1100.ultimateascent;
 
 import edu.arhs.team1100.ultimateascent.commands.CalibrateGyroCommand;
+import edu.arhs.team1100.ultimateascent.commands.CameraTestCommand;
 import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.commands.JoystickPIDMecanumCommand;
 import edu.arhs.team1100.ultimateascent.recording.PlayRecordingCommand;
 import edu.arhs.team1100.ultimateascent.recording.RecordCommand;
+import edu.arhs.team1100.ultimateascent.sensors.Camera;
 import edu.arhs.team1100.ultimateascent.util.DSLog;
 import edu.arhs.team1100.ultimateascent.util.Log;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import java.util.Vector;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -44,10 +45,12 @@ public class RobotMain extends IterativeRobot {
         //add all logging classes
         Log.addClass(RobotMain.class, Log.LEVEL_DEBUG);
         //Log.addClass(DriveSubsystem.class, Log.LEVEL_DEBUG);
-        Log.addClass(CalibrateGyroCommand.class, Log.LEVEL_DEBUG);
-        Log.addClass(JoystickPIDMecanumCommand.class, Log.LEVEL_DEBUG);
+        Log.addClass(CalibrateGyroCommand.class, Log.LEVEL_OFF);
+        Log.addClass(JoystickPIDMecanumCommand.class, Log.LEVEL_OFF);
         Log.addClass(RecordCommand.class, Log.LEVEL_DEBUG);
         Log.addClass(PlayRecordingCommand.class, Log.LEVEL_DEBUG);
+        Log.addClass(CameraTestCommand.class, Log.LEVEL_DEBUG);
+        Log.addClass(Camera.class, Log.LEVEL_DEBUG);
         // instantiate the command used for the autonomous period
 
         // Initialize all subsystems

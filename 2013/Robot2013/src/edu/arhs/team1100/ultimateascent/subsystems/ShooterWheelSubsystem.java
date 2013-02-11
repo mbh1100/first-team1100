@@ -39,7 +39,7 @@ public class ShooterWheelSubsystem extends PIDSubsystem {
 
     }
 
-    public void SpinWheel() {
+    public void spinWheel() {
         shooterWheel.set(SHOOTING_POWER);
     }
 

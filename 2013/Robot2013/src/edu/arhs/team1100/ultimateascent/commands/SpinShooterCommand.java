@@ -14,11 +14,10 @@ public class SpinShooterCommand extends CommandBase {
     }
 
     protected void initialize() {
-        ShooterWheelSubsystem.getInstance();
     }
 
     protected void execute() {
-        ShooterWheelSubsystem.getInstance().SpinWheel();
+        ShooterWheelSubsystem.getInstance().spinWheel();
     }
 
     protected boolean isFinished() {

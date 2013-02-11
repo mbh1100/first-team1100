@@ -143,22 +143,6 @@ public class DriveSubsystem extends PIDSubsystem {
         driveGyro.reset();
     }
 
-    public Talon getFrontLeftTalon() {
-        return frontLeftTalon;
-    }
-
-    public Talon getFrontRightTalon() {
-        return frontRightTalon;
-    }
-
-    public Talon getBackLeftTalon() {
-        return backLeftTalon;
-    }
-
-    public Talon getBackRightTalon() {
-        return backRightTalon;
-    }
-
     protected void initDefaultCommand() {
         setDefaultCommand(new JoystickMecanumCommand());
     }

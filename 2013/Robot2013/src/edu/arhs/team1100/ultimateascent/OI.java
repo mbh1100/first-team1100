@@ -44,6 +44,8 @@ public class OI {
         xbox = new XboxController(RobotMap.C_XBOX_CONTROLLER_CHANNEL, 0.1);        
         //drive controls
         leftStick.getButton(RobotMap.C_TOGGLE_DRIVE).whenPressed(new ToggleDriveModeCommand());
+        leftStick.getButton(RobotMap.C_CAMERATEST).whileHeld(new CameraTestCommand());
+        
         rightStick.getButton(RobotMap.C_CALIBRATE_GYRO).whenPressed(new CalibrateGyroCommand());
         rightStick.getButton(RobotMap.C_DRIVE_PID).whileHeld(new JoystickPIDMecanumCommand());
         rightStick.getButton(RobotMap.C_STOP_DRIVE).whenPressed(new StopDriveCommand(0.1));

@@ -1,22 +1,29 @@
 package edu.arhs.team1100.ultimateascent.subsystems;
 
 import edu.arhs.team1100.ultimateascent.RobotMap;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Solenoid;
 
 /**
  *
- * @author Ryan
+ * @author Team 1100
  */
 public class ShooterPistonSubsystem extends Subsystem {
 
     private Solenoid shooterPiston;
     static ShooterPistonSubsystem instance;
     
-    private int numberOfFrisbees = 0;
+    
+    private DigitalInput limitSwitch;
+    private boolean lastLimitState;
+    
+    private int frisbeeCount = 0;
     
     public ShooterPistonSubsystem() {
         shooterPiston = new Solenoid(RobotMap.S_SOLENOID_SHOOTER_PISTON);
+        
+        limitSwitch = new DigitalInput(RobotMap.S_FRISBEE_LIMIT_SWITCH);
 
     }
     
@@ -31,7 +38,7 @@ public class ShooterPistonSubsystem extends Subsystem {
     public void shootPiston() {
         shooterPiston.set(true);
         shooterPiston.set(false);
-        this.incrementNumberFrisbees(-1);
+        frisbeeCount--;
     }
     
     public void shoot(int n  ) {
@@ -40,12 +47,18 @@ public class ShooterPistonSubsystem extends Subsystem {
         }
     }
     
-    public void incrementNumberFrisbees(int number){
-        numberOfFrisbees+= number;
+    public void updateFrisbeeCount(){
+        boolean limitState = limitSwitch.get();
+        if(limitState && !lastLimitState){ //if switch is open, and was closed before
+            frisbeeCount++;
+        }
+        lastLimitState = limitState;
+        
     }
 
-    public int getNumberFrisbees() {
-        return numberOfFrisbees;
+
+    public int getFrisbeeCount() {
+        return frisbeeCount;
     }
     protected void initDefaultCommand() {
     }

@@ -1,7 +1,22 @@
 package edu.arhs.team1100.ultimateascent.recording;
 
 /**
- *
+ *   [S]tart, [E]nd
+ * 
+ *     -----E 
+ *    /         ---- 
+ *   /         /    \   
+ *   | 0      /   0  |
+ *    \------/       |   
+ *                  /
+ *     /-----------/                
+ *    /      ----
+ *   |      /     \
+ *   \ 0   /     0 |
+ *    ----   /-----/
+ *         S/
+ * 
+ * 
  * @author Robot 1100
  */
 
