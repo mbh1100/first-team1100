@@ -89,14 +89,14 @@ public class RobotMain extends IterativeRobot {
     }
 
     public void printRate() {
-        
+
         long curTime = System.currentTimeMillis();
         long d = curTime - lastTime;
         totalTime += d;
         cycles++;
 
         if (totalTime >= 1000) {
-            DSLog.log(3, "Rate: " + (cycles / totalTime));
+            DSLog.log(3, "Rate: " + (cycles));
             cycles = 0;
             totalTime = 0;
         }

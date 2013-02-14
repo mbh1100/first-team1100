@@ -13,13 +13,14 @@ import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
 public class Camera {
 
     private int MIN_RED = 0;
-    private int MAX_RED = 20;
+    private int MAX_RED = 90;
     private int MIN_GREEN = 235;
     private int MAX_GREEN = 255;
     private int MIN_BLUE = 235;
     private int MAX_BLUE = 255;
-    
+
     private AxisCamera axisCamera = null;
+    private ColorImage colorImage;
     private BinaryImage binaryImg;
     private ParticleAnalysisReport[] particles = null;
     private static Camera instance;
@@ -37,13 +38,13 @@ public class Camera {
     public Camera() {
         axisCamera = AxisCamera.getInstance();//at 10.11.0.11 btw (10.11.1.11 in 1101 network)
 
-        //Camera Settings 
+        //Camera Settings
         if (axisCamera != null) {
-            axisCamera.writeCompression(0);
-            axisCamera.writeBrightness(0);
-            axisCamera.writeExposureControl(AxisCamera.ExposureT.hold);
-            axisCamera.writeRotation(AxisCamera.RotationT.k0);
-            axisCamera.writeResolution(AxisCamera.ResolutionT.k160x120);
+            //axisCamera.writeCompression(0);
+            //axisCamera.writeBrightness(0);
+            //axisCamera.writeExposureControl(AxisCamera.ExposureT.hold);
+            //axisCamera.writeRotation(AxisCamera.RotationT.k0);
+            //axisCamera.writeResolution(AxisCamera.ResolutionT.k160x120);
         }
     }
 
@@ -51,17 +52,26 @@ public class Camera {
     private void update() {
         if (axisCamera != null && axisCamera.freshImage()) {
             try {
-                binaryImg = axisCamera.getImage().thresholdRGB(MIN_RED, MAX_RED, MIN_GREEN, MAX_GREEN, MIN_BLUE, MAX_BLUE);
+                //Log.log(this, "Got an image!", Log.LEVEL_DEBUG);
+                colorImage = axisCamera.getImage();
+                binaryImg = colorImage.thresholdRGB(MIN_RED, MAX_RED, MIN_GREEN, MAX_GREEN, MIN_BLUE, MAX_BLUE);
                 particles = binaryImg.getOrderedParticleAnalysisReports(1);  //get one (the largest) particle
+                colorImage.free();
                 binaryImg.free();
             } catch (Exception e) {
+                try {
+                    binaryImg.free();
+                }
+                catch (Exception e2) {
+                }
                 Log.log(this, "Error: "+e.getMessage(), Log.LEVEL_ERROR);
-            }
-
+            };
+        }else {
+            Log.log(this, "image not fresh yet", Log.LEVEL_DEBUG);
         }
     }
-    
-  
+
+
 
     public ParticleAnalysisReport getBiggestParticle() {
         update();
@@ -71,7 +81,7 @@ public class Camera {
             return null;
         }
     }
-    
+
     public double getcenterX(){
         update();
         if (particles != null && particles.length != 0){
@@ -79,7 +89,7 @@ public class Camera {
         }
         return 0;
     }
-    
+
     public double getCenterY(){
         update();
         if (particles != null && particles.length != 0){

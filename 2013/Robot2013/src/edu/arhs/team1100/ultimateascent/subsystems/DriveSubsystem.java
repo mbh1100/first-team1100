@@ -4,6 +4,7 @@ import com.sun.squawk.util.MathUtils;
 import edu.arhs.team1100.ultimateascent.OI;
 import edu.arhs.team1100.ultimateascent.RobotMap;
 import edu.arhs.team1100.ultimateascent.commands.JoystickMecanumCommand;
+import edu.arhs.team1100.ultimateascent.sensors.Camera;
 import edu.arhs.team1100.ultimateascent.util.DSLog;
 import edu.arhs.team1100.ultimateascent.util.Log;
 import edu.wpi.first.wpilibj.Gyro;
@@ -29,6 +30,9 @@ public class DriveSubsystem extends PIDSubsystem {
     public static final double P = 0.02;
     public static final double I = 0.0001;
     public static final double D = 0.0005;
+    public static final double kCameraP = 1.0;
+    public static final double kCameraI = 0.01;
+    public static final double kCameraD = 0.05;
     static DriveSubsystem instance;
     private RobotDrive drive;
     private Gyro driveGyro;
@@ -37,6 +41,7 @@ public class DriveSubsystem extends PIDSubsystem {
     private Talon backLeftTalon;
     private Talon backRightTalon;
     private int driveMode = MODE_CARTESIAN;
+    private boolean isCameraMode = false;
 
     public static DriveSubsystem getInstance() {
         if (instance == null) {
@@ -117,7 +122,14 @@ public class DriveSubsystem extends PIDSubsystem {
     }
 
     protected double returnPIDInput() {
-        return getGyroAngle();
+        if (isCameraMode)
+        {
+            return Camera.getInstance().getcenterX();
+        }
+        else
+        {
+            return getGyroAngle();
+        }
     }
 
     protected void usePIDOutput(double rotationSpeed) {
@@ -125,6 +137,18 @@ public class DriveSubsystem extends PIDSubsystem {
         double controlY = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
 
         drive.mecanumDrive_Cartesian(controlX, controlY, rotationSpeed, driveGyro.getAngle());
+    }
+
+    public void setSetpoint(double setpoint)
+    {
+        if (!isCameraMode)
+        {
+            super.setSetpoint(setpoint);
+        }
+        else
+        {
+            super.setSetpoint(0.0);
+        }
     }
 
     public void toggleDriveMode() {
@@ -149,5 +173,25 @@ public class DriveSubsystem extends PIDSubsystem {
 
     public void setDefaultMecanumCommand(Command command) {
         setDefaultCommand(command);
+    }
+
+    public void setCameraMode(boolean mode)
+    {
+        isCameraMode = mode;
+        if (isCameraMode)
+        {
+            getPIDController().setPID(kCameraP, kCameraI, kCameraD);
+            DSLog.log(4, "Camera PID mode");
+        }
+        else
+        {
+            getPIDController().setPID(P, I, D);
+            DSLog.log(4, "Gyro PID mode");
+        }
+    }
+
+    public boolean getCameraMode()
+    {
+        return isCameraMode;
     }
 }

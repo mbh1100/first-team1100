@@ -19,6 +19,7 @@ public class JoystickPIDMecanumCommand extends CommandBase {
     }
 
     protected void initialize() {
+        DriveSubsystem.getInstance().setCameraMode(false);
         DriveSubsystem.getInstance().setSetpoint(DriveSubsystem.getInstance().getGyroAngle());
         DriveSubsystem.getInstance().enable(); //PID enable
     }
