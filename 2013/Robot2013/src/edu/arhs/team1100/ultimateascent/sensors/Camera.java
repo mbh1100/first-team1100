@@ -55,6 +55,7 @@ public class Camera {
                 //Log.log(this, "Got an image!", Log.LEVEL_DEBUG);
                 colorImage = axisCamera.getImage();
                 binaryImg = colorImage.thresholdRGB(MIN_RED, MAX_RED, MIN_GREEN, MAX_GREEN, MIN_BLUE, MAX_BLUE);
+                
                 particles = binaryImg.getOrderedParticleAnalysisReports(1);  //get one (the largest) particle
                 colorImage.free();
                 binaryImg.free();
