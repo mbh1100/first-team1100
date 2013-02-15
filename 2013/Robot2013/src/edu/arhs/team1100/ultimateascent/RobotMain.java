@@ -13,6 +13,7 @@ import edu.arhs.team1100.ultimateascent.commands.JoystickPIDMecanumCommand;
 import edu.arhs.team1100.ultimateascent.recording.PlayRecordingCommand;
 import edu.arhs.team1100.ultimateascent.recording.RecordCommand;
 import edu.arhs.team1100.ultimateascent.sensors.Camera;
+import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
 import edu.arhs.team1100.ultimateascent.util.DSLog;
 import edu.arhs.team1100.ultimateascent.util.Log;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -44,7 +45,7 @@ public class RobotMain extends IterativeRobot {
         Log.setMinLevel(Log.LEVEL_DEBUG);
         //add all logging classes
         Log.addClass(RobotMain.class, Log.LEVEL_DEBUG);
-        //Log.addClass(DriveSubsystem.class, Log.LEVEL_DEBUG);
+        Log.addClass(DriveSubsystem.class, Log.LEVEL_DEBUG);
         Log.addClass(CalibrateGyroCommand.class, Log.LEVEL_OFF);
         Log.addClass(JoystickPIDMecanumCommand.class, Log.LEVEL_OFF);
         Log.addClass(RecordCommand.class, Log.LEVEL_DEBUG);
@@ -88,7 +89,7 @@ public class RobotMain extends IterativeRobot {
 
     }
 
-    public void printRate() {
+    private void printRate() {
 
         long curTime = System.currentTimeMillis();
         long d = curTime - lastTime;

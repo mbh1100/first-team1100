@@ -1,5 +1,6 @@
 package edu.arhs.team1100.ultimateascent.sensors;
 
+import edu.arhs.team1100.ultimateascent.util.DSLog;
 import edu.arhs.team1100.ultimateascent.util.Log;
 import edu.wpi.first.wpilibj.camera.*;
 import edu.wpi.first.wpilibj.image.ColorImage;
@@ -13,10 +14,10 @@ import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
 public class Camera {
 
     private int MIN_RED = 0;
-    private int MAX_RED = 90;
-    private int MIN_GREEN = 235;
+    private int MAX_RED = 20;
+    private int MIN_GREEN = 220;
     private int MAX_GREEN = 255;
-    private int MIN_BLUE = 235;
+    private int MIN_BLUE = 220;
     private int MAX_BLUE = 255;
 
     private AxisCamera axisCamera = null;
@@ -24,7 +25,7 @@ public class Camera {
     private BinaryImage binaryImg;
     private ParticleAnalysisReport[] particles = null;
     private static Camera instance;
-    private final int PARTICLE_SIZE = 3;
+    private final int PARTICLE_SIZE = 1;
 
     public static Camera getInstance() {
 
@@ -73,7 +74,10 @@ public class Camera {
     }
 
 
-
+    /**
+     * 
+     * @return the largest visible particle
+     */
     public ParticleAnalysisReport getBiggestParticle() {
         update();
         if (particles != null && particles.length != 0) {
@@ -83,14 +87,25 @@ public class Camera {
         }
     }
 
-    public double getcenterX(){
+    /**
+     * 
+     * @return the horizontal center of the largest visible particle. If there is no particle, returns 0.0
+     * 
+     */
+    public double getCenterX(){
         update();
         if (particles != null && particles.length != 0){
+            DSLog.log(6, "PARTICLE: "+Log.round(particles [0].center_mass_x_normalized, 4));
             return particles [0].center_mass_x_normalized;
         }
+        DSLog.log(6, "NO PARTICLE");
         return 0;
     }
 
+    /**
+     * 
+     * @return the vertical center of the largest visible particle. If there is no particle ,returns 0.0 
+     */
     public double getCenterY(){
         update();
         if (particles != null && particles.length != 0){

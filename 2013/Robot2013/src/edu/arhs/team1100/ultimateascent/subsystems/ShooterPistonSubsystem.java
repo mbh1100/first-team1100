@@ -35,18 +35,18 @@ public class ShooterPistonSubsystem extends Subsystem {
         return instance;
     }
 
-    public void shootPiston() {
+    /**
+     * Shoots one frisbee
+     */
+    public void shoot() {
         shooterPiston.set(true);
         shooterPiston.set(false);
         frisbeeCount--;
     }
     
-    public void shoot(int n  ) {
-        for(int i = 0; i < n; i++){
-            shootPiston();
-        }
-    }
-    
+    /**
+     * Counts frisbees
+     */
     public void updateFrisbeeCount(){
         boolean limitState = limitSwitch.get();
         if(limitState && !lastLimitState){ //if switch is open, and was closed before
@@ -56,13 +56,14 @@ public class ShooterPistonSubsystem extends Subsystem {
         
     }
 
-
+    /**
+     * 
+     * @return number of frisbees being carried
+     */
     public int getFrisbeeCount() {
         return frisbeeCount;
     }
     protected void initDefaultCommand() {
     }
 
-    public void shoot() {
-    }
 }

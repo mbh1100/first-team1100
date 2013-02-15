@@ -13,8 +13,6 @@ import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
 public class CameraPIDMecanumCommand extends CommandBase {
 
     public CameraPIDMecanumCommand() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
         requires(DriveSubsystem.getInstance());
     }
 

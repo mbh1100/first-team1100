@@ -41,10 +41,17 @@ public class RecordCommand extends CommandBase {
         }
     }
 
+    /**
+     * @return the last recording by this recorded 
+     */
     public Vector getRecording() {
         return recording;
     }
 
+    /**
+     * 
+     * @return the frequency at which recordings are made
+     */
     public int getInterval() {
         return interval;
     }

@@ -21,7 +21,7 @@ public class ShootFrisbeeCommand extends CommandBase {
     }
 
     protected void execute() {
-        ShooterPistonSubsystem.getInstance().shoot(1);
+        ShooterPistonSubsystem.getInstance().shoot(); //<--- wont work
         finished = true;
     }
 

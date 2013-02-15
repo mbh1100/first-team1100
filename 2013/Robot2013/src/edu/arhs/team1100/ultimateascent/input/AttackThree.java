@@ -42,6 +42,9 @@ public class AttackThree extends Joystick {
         return val;
     }
 
+    /**
+     * @return the angle formed by the joystick handle
+     */
     public double getAngle() {
         double x = -getAxis(Joystick.AxisType.kX);
         double y = -getAxis(Joystick.AxisType.kY);
@@ -52,6 +55,10 @@ public class AttackThree extends Joystick {
         return angle;
     }
 
+    /**
+     * 
+     * @return the magnitude of the joystick
+     */
     public double getMagnitude() {
         double x = getAxis(Joystick.AxisType.kX);
         double y = getAxis(Joystick.AxisType.kY);

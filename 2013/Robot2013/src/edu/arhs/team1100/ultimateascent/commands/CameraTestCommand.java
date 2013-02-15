@@ -12,7 +12,7 @@ public class CameraTestCommand extends CommandBase{
     protected void initialize() {}
 
     protected void execute() {
-        double cx = Camera.getInstance().getcenterX();
+        double cx = Camera.getInstance().getCenterX();
         double cy = Camera.getInstance().getCenterY();
         Log.log(this, "particle ( "+cx+" , "+cy+" )", Log.LEVEL_DEBUG);
     }

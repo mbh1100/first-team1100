@@ -29,6 +29,12 @@ public class Log {
         classes.addElement(new LogClass(c, level));
     }
 
+    /**
+     * Log  a message
+     * @param source the object calling this function
+     * @param message 
+     * @param level Log.LEVEL_*
+     */
     public static void log(Object source, String message, int level) {
         LogClass lc = null;
         for (int i = 0; i < classes.size(); i++) {
