@@ -47,6 +47,14 @@ public class ShooterPistonSubsystem extends Subsystem {
         frisbeeCount--;
     }
     
+    public void shootAll()
+    {
+        for(int counter = 1; counter <= frisbeeCount; counter++)
+        {
+            this.shoot();
+        }
+    }
+    
     /**
      * Counts frisbees
      */

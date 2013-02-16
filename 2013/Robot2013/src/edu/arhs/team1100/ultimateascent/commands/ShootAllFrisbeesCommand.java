@@ -13,7 +13,7 @@ public class ShootAllFrisbeesCommand extends CommandBase {
     private boolean finished;
 
     /**
-     *
+     * 
      */
     public ShootAllFrisbeesCommand() {
         requires(ShooterPistonSubsystem.getInstance());
@@ -24,8 +24,9 @@ public class ShootAllFrisbeesCommand extends CommandBase {
         finished = false;
     }
 
-    protected void execute(int numberOfFrisbees) {
+    protected void execute() {
         // ShooterPistonSubsystem.getInstance().shoot(ShooterPistonSubsystem.getInstance().getFrisbeeCount()); <--- not going to work
+        ShooterPistonSubsystem.getInstance().shootAll();
         finished = true;
     }
 
@@ -42,8 +43,5 @@ public class ShootAllFrisbeesCommand extends CommandBase {
 
     protected void interrupted() {
         end();
-    }
-
-    protected void execute() {
     }
 }
