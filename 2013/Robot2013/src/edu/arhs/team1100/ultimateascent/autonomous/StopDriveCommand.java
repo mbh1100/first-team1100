@@ -8,13 +8,19 @@ import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
  * @author Team1100
  */
 public class StopDriveCommand extends CommandBase {
-    
+
     double duration;
+
     /**
-     * 
+     *
      * @param duration duration of stop moving in seconds
      */
-    public StopDriveCommand(double duration){
+    /**
+     * Stops the robot
+     *
+     * @param duration
+     */
+    public StopDriveCommand(double duration) {
         requires(DriveSubsystem.getInstance());
         this.duration = duration;
     }
@@ -38,5 +44,4 @@ public class StopDriveCommand extends CommandBase {
     protected void interrupted() {
         end();
     }
-    
 }

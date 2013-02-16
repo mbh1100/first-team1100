@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
 
 /**
  *
- * @author akshay
+ * @author Team 1100
  */
 public class Camera {
 
@@ -76,7 +76,7 @@ public class Camera {
 
     /**
      * 
-     * @return the largest visible particle
+     * @return The largest visible particle.
      */
     public ParticleAnalysisReport getBiggestParticle() {
         update();

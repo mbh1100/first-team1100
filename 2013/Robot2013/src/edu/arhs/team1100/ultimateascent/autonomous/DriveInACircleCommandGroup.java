@@ -11,9 +11,18 @@ public class DriveInACircleCommandGroup extends CommandGroup {
 
     /**
      * Makes the robot move in a circle
+     *
      * @param speed speed of wheels
      * @param duration total duration of entire movement in second
-     * @param rotations number of how many times the angle moves e.g. input 8 would make a octagon
+     * @param rotations number of how many times the angle moves e.g. input 8
+     * would make a octagon
+     */
+    /**
+     * drives robot in a circle
+     *
+     * @param speed
+     * @param duration
+     * @param rotations
      */
     public DriveInACircleCommandGroup(double speed, double duration, double rotations) {
 

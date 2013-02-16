@@ -26,7 +26,10 @@ public class ShooterPistonSubsystem extends Subsystem {
         limitSwitch = new DigitalInput(RobotMap.S_FRISBEE_LIMIT_SWITCH);
 
     }
-    
+    /**
+     * creates a new instance of the shooter
+     * @return 
+     */
     public static ShooterPistonSubsystem getInstance() {
         if(instance == null) {
             instance = new ShooterPistonSubsystem();

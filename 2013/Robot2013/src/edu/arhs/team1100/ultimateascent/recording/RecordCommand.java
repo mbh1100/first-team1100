@@ -9,6 +9,7 @@ import java.util.Vector;
 
 /**
  * Records robot movements for later replay
+ *
  * @author Team 1100
  */
 public class RecordCommand extends CommandBase {
@@ -17,11 +18,19 @@ public class RecordCommand extends CommandBase {
     private int interval = 0;
     private long last = 0;
 
+    /**
+     * Sets a new recording and interval
+     *
+     * @param hz
+     */
     public RecordCommand(int hz) {
         recording = new Vector();
         interval = 1000 / hz;
     }
 
+    /**
+     * Starts a new recording
+     */
     protected void initialize() {
         Log.log(this, "START RECORD", Log.LEVEL_DEBUG);
         recording = new Vector();
@@ -42,14 +51,14 @@ public class RecordCommand extends CommandBase {
     }
 
     /**
-     * @return the last recording by this recorded 
+     * @return the last recording by this recorded
      */
     public Vector getRecording() {
         return recording;
     }
 
     /**
-     * 
+     *
      * @return the frequency at which recordings are made
      */
     public int getInterval() {

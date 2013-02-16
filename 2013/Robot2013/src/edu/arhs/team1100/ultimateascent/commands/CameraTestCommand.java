@@ -10,7 +10,9 @@ import edu.arhs.team1100.ultimateascent.util.Log;
 public class CameraTestCommand extends CommandBase{
 
     protected void initialize() {}
-
+/**
+ * gets and displays the center of the camera
+ */
     protected void execute() {
         double cx = Camera.getInstance().getCenterX();
         double cy = Camera.getInstance().getCenterY();

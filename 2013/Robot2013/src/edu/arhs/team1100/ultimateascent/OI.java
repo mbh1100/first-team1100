@@ -1,4 +1,7 @@
-
+/**
+ * @author Team 1100
+ * 
+ */
 package edu.arhs.team1100.ultimateascent;
 
 import edu.arhs.team1100.ultimateascent.recording.RecordCommand;
@@ -25,23 +28,24 @@ public class OI {
 
     RecordCommand recorder;
 
+    
     /**
-     * Gets the current instance.
-     * @return instance of OI
+     * Gets current instance,if there is no instance, creates an instance
+     * @return OI object 
      */
     public static OI getInstance(){
+
         if(instance == null){
             instance = new OI();
         }
         return instance;
     }
 
-    /**
-     * Constructor
-     */
     public OI(){
+        //declares the left and right joysticks
         leftStick = new AttackThree(RobotMap.C_LEFT_JOYSTICK_CHANNEL, 0.1);
         rightStick = new AttackThree(RobotMap.C_RIGHT_JOYSTICK_CHANNEL, 0.1);
+        //declares the xbox controller
         xbox = new XboxController(RobotMap.C_XBOX_CONTROLLER_CHANNEL, 0.1);
         //drive controls
         leftStick.getButton(RobotMap.C_TOGGLE_DRIVE).whenPressed(new ToggleDriveModeCommand());

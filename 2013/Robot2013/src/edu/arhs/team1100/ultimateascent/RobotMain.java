@@ -64,7 +64,7 @@ public class RobotMain extends IterativeRobot {
     }
 
     /**
-     * This function is called periodically during autonomous
+     * called periodically during autonomous
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
@@ -80,7 +80,7 @@ public class RobotMain extends IterativeRobot {
     }
 
     /**
-     * This function is called periodically during operator control
+     * called periodically during operator control
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
@@ -89,6 +89,9 @@ public class RobotMain extends IterativeRobot {
 
     }
 
+    /**
+     * prints out the refresh rate of program
+     */
     private void printRate() {
 
         long curTime = System.currentTimeMillis();
@@ -107,7 +110,7 @@ public class RobotMain extends IterativeRobot {
     }
 
     /**
-     * This function is called periodically during test mode
+     * called periodically during test mode
      */
     public void testPeriodic() {
         LiveWindow.run();
