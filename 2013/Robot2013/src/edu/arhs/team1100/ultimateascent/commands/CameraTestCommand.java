@@ -1,6 +1,6 @@
 package edu.arhs.team1100.ultimateascent.commands;
 
-import edu.arhs.team1100.ultimateascent.sensors.Camera;
+import edu.arhs.team1100.ultimateascent.input.Camera;
 import edu.arhs.team1100.ultimateascent.util.Log;
 
 /**

@@ -49,10 +49,8 @@ public class DSLog {
      */
     static private String padMsg(String msg) {
         String line = msg;
-        if (line.length() < 21) {
-            for (int i = msg.length() + 1; i <= 21; i++) {
-                line += " ";
-            }
+        while (line.length() < 21) {
+            line += " ";
         }
         line = line.substring(0, 21);
         return line;

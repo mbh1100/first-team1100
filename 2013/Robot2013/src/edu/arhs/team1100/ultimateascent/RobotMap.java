@@ -45,11 +45,19 @@ public class RobotMap {
 
     //[S]HOOTER
     public static final int S_TALON_SHOOTER_WHEEL_SLOT = 1;
-    public static final int S_TALON_SHOOTER_WHEEL_CHANNEL = 5;
+    public static final int S_VICTOR_SHOOTER_WHEEL_CHANNEL = 7;
+    
+    public static final int S_VICTOR_SHOOTER_TILT_CHANNEL = 8; 
 
     public static final int S_ENCODER_CHANNEL_A = 1;
     public static final int S_ENCODER_CHANNEL_B = 2;
 
+    public static final int S_COMPRESSOR_PRESSURE_SWITCH_CHANNEL = 5;
+    public static final int S_COMPRESSOR_RELAY_CHANNEL = 8;
     public static final int S_SOLENOID_SHOOTER_PISTON = 1;
     public static final int S_FRISBEE_LIMIT_SWITCH = 2;
+    
+    //[L]IFT
+    public static final int L_VICTOR_LEFT  = 6;
+    public static final int L_VICTOR_RIGHT = 5;
 }

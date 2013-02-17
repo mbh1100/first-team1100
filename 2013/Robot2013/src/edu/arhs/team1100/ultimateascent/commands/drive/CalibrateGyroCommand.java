@@ -1,21 +1,21 @@
-package edu.arhs.team1100.ultimateascent.commands;
+package edu.arhs.team1100.ultimateascent.commands.drive;
 
+import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
 
 /**
  *
  * @author Team 1100
  */
-public class ToggleDriveModeCommand extends CommandBase {
-
+public class CalibrateGyroCommand extends CommandBase {
+    
     private boolean finished = false;
 
     protected void initialize() {
-        finished = false;
     }
 
     protected void execute() {
-        DriveSubsystem.getInstance().toggleDriveMode();
+        DriveSubsystem.getInstance().calibrateGyro();
         finished = true;
     }
 
@@ -24,7 +24,7 @@ public class ToggleDriveModeCommand extends CommandBase {
     }
 
     protected void end() {
-        if (!finished) {
+        if(!finished){
             execute();
         }
     }
@@ -32,4 +32,5 @@ public class ToggleDriveModeCommand extends CommandBase {
     protected void interrupted() {
         end();
     }
+    
 }

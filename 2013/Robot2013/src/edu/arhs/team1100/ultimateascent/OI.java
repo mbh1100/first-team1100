@@ -4,14 +4,21 @@
  */
 package edu.arhs.team1100.ultimateascent;
 
+import edu.arhs.team1100.ultimateascent.commands.shooter.StopShooterCommand;
+import edu.arhs.team1100.ultimateascent.commands.shooter.ShootFrisbeeCommand;
+import edu.arhs.team1100.ultimateascent.commands.shooter.ChangeShooterSpeedCommand;
+import edu.arhs.team1100.ultimateascent.commands.drive.ToggleDriveModeCommand;
+import edu.arhs.team1100.ultimateascent.commands.drive.CalibrateGyroCommand;
+import edu.arhs.team1100.ultimateascent.commands.drive.JoystickPIDMecanumCommand;
+import edu.arhs.team1100.ultimateascent.commands.drive.CameraPIDMecanumCommand;
 import edu.arhs.team1100.ultimateascent.recording.RecordCommand;
 import edu.arhs.team1100.ultimateascent.recording.PlayRecordingCommand;
-import edu.arhs.team1100.ultimateascent.autonomous.StopDriveCommand;
+import edu.arhs.team1100.ultimateascent.commands.drive.StopDriveCommand;
 import edu.arhs.team1100.ultimateascent.commands.*;
 import edu.arhs.team1100.ultimateascent.input.AttackThree;
 import edu.arhs.team1100.ultimateascent.input.XboxController;
 import edu.arhs.team1100.ultimateascent.recording.PrintRecordingCodeCommand;
-import edu.arhs.team1100.ultimateascent.recording.SquareWeaveRoutine;
+import edu.arhs.team1100.ultimateascent.autonomous.SquareWeaveRoutine;
 
 
 /**
@@ -47,13 +54,14 @@ public class OI {
         rightStick = new AttackThree(RobotMap.C_RIGHT_JOYSTICK_CHANNEL, 0.1);
         //declares the xbox controller
         xbox = new XboxController(RobotMap.C_XBOX_CONTROLLER_CHANNEL, 0.1);
+        
         //drive controls
-        leftStick.getButton(RobotMap.C_TOGGLE_DRIVE).whenPressed(new ToggleDriveModeCommand());
-        leftStick.getButton(RobotMap.C_CAMERATEST).whileHeld(new CameraTestCommand());
+        leftStick.getButton(RobotMap.C_TOGGLE_DRIVE).whenPressed(new ToggleDriveModeCommand());        
+        //leftStick.getButton(RobotMap.C_DRIVE_CAMERA).whileHeld(new CameraPIDMecanumCommand());
+        //leftStick.getButton(RobotMap.C_CAMERATEST).whileHeld(new CameraTestCommand());
 
         rightStick.getButton(RobotMap.C_CALIBRATE_GYRO).whenPressed(new CalibrateGyroCommand());
         rightStick.getButton(RobotMap.C_DRIVE_PID).whileHeld(new JoystickPIDMecanumCommand());
-        leftStick.getButton(RobotMap.C_DRIVE_CAMERA).whileHeld(new CameraPIDMecanumCommand());
         rightStick.getButton(RobotMap.C_STOP_DRIVE).whenPressed(new StopDriveCommand(0.1));
 
         //Recording Command Stuff
@@ -64,11 +72,11 @@ public class OI {
 
         rightStick.getButton(8).whenPressed(new SquareWeaveRoutine());
         //xbox Stuff
-        xbox.getButtonRightBumper().whileHeld(new ShootFrisbeeCommand());
-        xbox.getButtonLeftBumper().whileHeld(new ShootAllFrisbeesCommand());
-
-
-
+        xbox.getButtonRightBumper().whenPressed(new ShootFrisbeeCommand());
+        xbox.getButtonA().whenPressed(new ChangeShooterSpeedCommand(0.1));
+        xbox.getButtonB().whenPressed(new ChangeShooterSpeedCommand(-0.1));
+        xbox.getButtonX().whileHeld(new StopShooterCommand());
+        
     }
 
     /**

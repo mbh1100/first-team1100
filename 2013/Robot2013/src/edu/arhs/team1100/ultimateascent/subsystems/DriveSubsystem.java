@@ -3,8 +3,8 @@ package edu.arhs.team1100.ultimateascent.subsystems;
 import com.sun.squawk.util.MathUtils;
 import edu.arhs.team1100.ultimateascent.OI;
 import edu.arhs.team1100.ultimateascent.RobotMap;
-import edu.arhs.team1100.ultimateascent.commands.JoystickMecanumCommand;
-import edu.arhs.team1100.ultimateascent.sensors.Camera;
+import edu.arhs.team1100.ultimateascent.commands.drive.JoystickMecanumCommand;
+import edu.arhs.team1100.ultimateascent.input.Camera;
 import edu.arhs.team1100.ultimateascent.util.DSLog;
 import edu.arhs.team1100.ultimateascent.util.Log;
 import edu.wpi.first.wpilibj.Gyro;
@@ -25,25 +25,27 @@ public class DriveSubsystem extends PIDSubsystem {
     public static final double DIRECTION_LEFT = 270;
     public static final double DIRECTION_RIGHT = 90;
     
-    private static final int MODE_CARTESIAN = 0;
-    private static final int MODE_POLAR = 1;
+    public static final int MODE_CARTESIAN = 0;
+    public static final int MODE_POLAR = 1;
     
     public static final double kJoystickP = 0.02;
     public static final double kJoystickI = 0.0001;
     public static final double kJoystickD = 0.0005;
+    
     public static final double kCameraP = 1.0;
     public static final double kCameraI = 0.01;
     public static final double kCameraD = 1.5;
     
-    private static final double ACCURACY = 0.15;
-    
     static DriveSubsystem instance;
+    
     private RobotDrive drive;
     private Gyro driveGyro;
+    
     private Talon frontLeftTalon;
     private Talon frontRightTalon;
     private Talon backLeftTalon;
     private Talon backRightTalon;
+    
     private int driveMode = MODE_CARTESIAN;
     private boolean isCameraMode = false;
 
@@ -77,9 +79,6 @@ public class DriveSubsystem extends PIDSubsystem {
      * drive mode (Polar or cartesian).
      */
     public void userDrive() {
-        DSLog.log(1, "Drive Mode: " + ((driveMode == MODE_POLAR) ? "POLAR" : "CARTESIAN"));
-        DSLog.log(2, "Gyro angle: " + Log.round(driveGyro.getAngle(), 2));
-
         if (driveMode == MODE_CARTESIAN) {
             userDriveCartesian();
         } else if (driveMode == MODE_POLAR) {
@@ -89,7 +88,6 @@ public class DriveSubsystem extends PIDSubsystem {
             driveMode = MODE_CARTESIAN;
             userDriveCartesian();
         }
-
     }
 
     private void userDriveCartesian() {
@@ -100,8 +98,8 @@ public class DriveSubsystem extends PIDSubsystem {
     }
 
     private void userDrivePolar() {
-        double magnitude = OI.getInstance().getLeftJoystick().getMagnitude();
-        double angle = -OI.getInstance().getLeftJoystick().getAngle();
+        double magnitude = -OI.getInstance().getLeftJoystick().getMagnitude();
+        double angle =  -OI.getInstance().getLeftJoystick().getAngle();
         double rotation = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
         drive.mecanumDrive_Polar(magnitude, angle, rotation);
     }
@@ -127,7 +125,7 @@ public class DriveSubsystem extends PIDSubsystem {
      */
     public void driveSimulate(double x, double y, double rot, int mode) {
         if (mode == MODE_POLAR) {
-            double magnitude = -Math.sqrt(x * x + y * y);
+            double magnitude = Math.sqrt(x * x + y * y);
             double angle = Math.toDegrees(MathUtils.atan2(x, y));
             while (angle < 0) {
                 angle += 360;
@@ -214,10 +212,8 @@ public class DriveSubsystem extends PIDSubsystem {
         isCameraMode = mode;
         if (isCameraMode) {
             getPIDController().setPID(kCameraP, kCameraI, kCameraD);
-            DSLog.log(4, "Camera PID mode");
         } else {
             getPIDController().setPID(kJoystickP, kJoystickI, kJoystickD);
-            DSLog.log(4, "Gyro PID mode");
         }
     }
 

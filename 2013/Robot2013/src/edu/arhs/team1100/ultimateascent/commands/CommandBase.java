@@ -2,7 +2,10 @@ package edu.arhs.team1100.ultimateascent.commands;
 
 import edu.arhs.team1100.ultimateascent.OI;
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
-import edu.arhs.team1100.ultimateascent.sensors.Camera;
+import edu.arhs.team1100.ultimateascent.subsystems.LiftSubsystem;
+import edu.arhs.team1100.ultimateascent.subsystems.ShooterPistonSubsystem;
+import edu.arhs.team1100.ultimateascent.subsystems.ShooterTiltSubsystem;
+import edu.arhs.team1100.ultimateascent.subsystems.ShooterWheelSubsystem;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -25,7 +28,10 @@ public abstract class CommandBase extends Command {
         // yet. Thus, their requires() statements may grab null pointers. Bad
         // news. Don't move it.
         DriveSubsystem.getInstance();
-        Camera.getInstance();
+        LiftSubsystem.getInstance();
+        ShooterWheelSubsystem.getInstance();
+        ShooterTiltSubsystem.getInstance();
+        ShooterPistonSubsystem.getInstance();
         OI.getInstance();
 
         // Show what command your subsystem is running on the SmartDashboard

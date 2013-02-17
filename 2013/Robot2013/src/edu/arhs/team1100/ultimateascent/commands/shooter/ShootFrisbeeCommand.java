@@ -1,32 +1,28 @@
-package edu.arhs.team1100.ultimateascent.commands;
+package edu.arhs.team1100.ultimateascent.commands.shooter;
 
+import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterPistonSubsystem;
-import edu.arhs.team1100.ultimateascent.commands.FrisbeeCountCommand;
+import edu.arhs.team1100.ultimateascent.subsystems.ShooterWheelSubsystem;
 
 /**
  *
  * @author Team 1100
  */
-public class ShootAllFrisbeesCommand extends CommandBase {
-
+public class ShootFrisbeeCommand extends CommandBase {
+    
     private boolean finished;
 
-    /**
-     * 
-     */
-    public ShootAllFrisbeesCommand() {
+    public ShootFrisbeeCommand() {
         requires(ShooterPistonSubsystem.getInstance());
     }
 
     protected void initialize() {
-        ShooterPistonSubsystem.getInstance();
         finished = false;
     }
 
     protected void execute() {
-        // ShooterPistonSubsystem.getInstance().shoot(ShooterPistonSubsystem.getInstance().getFrisbeeCount()); <--- not going to work
-        ShooterPistonSubsystem.getInstance().shootAll();
+        ShooterPistonSubsystem.getInstance().shoot(); //<--- wont work???
         finished = true;
     }
 
@@ -35,8 +31,7 @@ public class ShootAllFrisbeesCommand extends CommandBase {
     }
 
     protected void end() {
-
-        if (!finished) {
+        if(!finished){
             execute();
         }
     }

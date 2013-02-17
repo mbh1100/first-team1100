@@ -6,14 +6,15 @@
 /*----------------------------------------------------------------------------*/
 package edu.arhs.team1100.ultimateascent;
 
-import edu.arhs.team1100.ultimateascent.commands.CalibrateGyroCommand;
+import edu.arhs.team1100.ultimateascent.commands.drive.CalibrateGyroCommand;
 import edu.arhs.team1100.ultimateascent.commands.CameraTestCommand;
 import edu.arhs.team1100.ultimateascent.commands.CommandBase;
-import edu.arhs.team1100.ultimateascent.commands.JoystickPIDMecanumCommand;
+import edu.arhs.team1100.ultimateascent.commands.drive.JoystickPIDMecanumCommand;
 import edu.arhs.team1100.ultimateascent.recording.PlayRecordingCommand;
 import edu.arhs.team1100.ultimateascent.recording.RecordCommand;
-import edu.arhs.team1100.ultimateascent.sensors.Camera;
+import edu.arhs.team1100.ultimateascent.input.Camera;
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
+import edu.arhs.team1100.ultimateascent.subsystems.ShooterWheelSubsystem;
 import edu.arhs.team1100.ultimateascent.util.DSLog;
 import edu.arhs.team1100.ultimateascent.util.Log;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -30,10 +31,12 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  */
 public class RobotMain extends IterativeRobot {
 
-    Command autonomousCommand;
-    long lastTime = 0;
-    long totalTime = 0;
-    long cycles = 0;
+    private Command autonomousCommand;
+    
+    private long lastTime = 0;
+    private long totalTime = 0;
+    private long cycles = 0;
+    private long rate = 0;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -56,6 +59,9 @@ public class RobotMain extends IterativeRobot {
 
         // Initialize all subsystems
         CommandBase.init();
+        
+        //init the camera
+        //Camera.getInstance();
     }
 
     public void autonomousInit() {
@@ -84,15 +90,37 @@ public class RobotMain extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        printRate();
+        trackRate();
+        updateDriverStationLog();
 
 
+    }
+    
+    private void updateDriverStationLog(){
+        DSLog.log(1, "Drive Mode: " + ((DriveSubsystem.getInstance().getDriveMode() == DriveSubsystem.MODE_POLAR) ? "POLAR" : "CARTESIAN"));
+        DSLog.log(2, "Gyro Angle: " + Log.round(DriveSubsystem.getInstance().getGyroAngle(), 2));
+        //DSLog.log(3, "Rate      : " + rate);
+        DSLog.log(3, "Shooter   : " + Log.round(ShooterWheelSubsystem.getInstance().getSpeed(),2));
+        if(DriveSubsystem.getInstance().getPIDController().isEnable()){
+            DSLog.log(4, DriveSubsystem.getInstance().getCameraMode()?"Camera PID Mode":"Gyro PID Mode");
+        } else {
+            DSLog.log(4, "");
+        }
+        
+        DSLog.log(5, "ENCODER : "+ ShooterWheelSubsystem.getInstance().getRate());
+        
+       /*if(Camera.getInstance().isEnabled() && Camera.getInstance().hasParticle()){
+            DSLog.log(6, "PARTICLE: " + Camera.getInstance().getCenterX());
+        } else {
+            DSLog.log(6, "NO PARTICLE");
+        }*/
+        
     }
 
     /**
      * prints out the refresh rate of program
      */
-    private void printRate() {
+    private void trackRate() {
 
         long curTime = System.currentTimeMillis();
         long d = curTime - lastTime;
@@ -100,7 +128,7 @@ public class RobotMain extends IterativeRobot {
         cycles++;
 
         if (totalTime >= 1000) {
-            DSLog.log(3, "Rate: " + (cycles));
+            rate = cycles / (totalTime/1000);
             cycles = 0;
             totalTime = 0;
         }
