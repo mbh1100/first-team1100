@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.Victor;
 
 /**
  *
- * @author Ryan
+ * @author Team 1100
  */
 public class ShooterWheelSubsystem extends PIDSubsystem {
 

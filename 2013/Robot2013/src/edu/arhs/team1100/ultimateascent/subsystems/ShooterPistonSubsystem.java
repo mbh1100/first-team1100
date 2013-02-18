@@ -1,9 +1,10 @@
 package edu.arhs.team1100.ultimateascent.subsystems;
 
 import edu.arhs.team1100.ultimateascent.RobotMap;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  *
@@ -11,8 +12,10 @@ import edu.wpi.first.wpilibj.Solenoid;
  */
 public class ShooterPistonSubsystem extends Subsystem {
 
-    private Solenoid shooterPiston;
     static ShooterPistonSubsystem instance;
+    
+    private Compressor compressor;
+    private Solenoid shooterPiston;
     
     
     private DigitalInput limitSwitch;
@@ -21,13 +24,14 @@ public class ShooterPistonSubsystem extends Subsystem {
     private int frisbeeCount = 0;
     
     public ShooterPistonSubsystem() {
-        shooterPiston = new Solenoid(RobotMap.S_SOLENOID_SHOOTER_PISTON);
-        
-        limitSwitch = new DigitalInput(RobotMap.S_FRISBEE_LIMIT_SWITCH);
+        compressor = new Compressor(RobotMap.S_COMPRESSOR_PRESSURE_SWITCH_CHANNEL, RobotMap.S_COMPRESSOR_RELAY_CHANNEL);
+        shooterPiston = new Solenoid(RobotMap.S_SOLENOID_SHOOTER_PISTON);        
+        //limitSwitch = new DigitalInput(RobotMap.S_FRISBEE_LIMIT_SWITCH);
+        compressor.start();
 
     }
     /**
-     * creates a new instance of the shooter
+     * Creates a new instance of the shooter
      * @return 
      */
     public static ShooterPistonSubsystem getInstance() {
@@ -39,21 +43,25 @@ public class ShooterPistonSubsystem extends Subsystem {
     }
 
     /**
-     * Shoots one frisbee
+     * Un-shoots a frisbee
      */
-    public void shoot() {
+    public void unShoot() {
         shooterPiston.set(true);
+    }
+    
+    /**
+     * Shoots a frisbee
+     */
+    public void shoot(){
         shooterPiston.set(false);
+        
         frisbeeCount--;
     }
     
-    public void shootAll()
-    {
-        for(int counter = 1; counter <= frisbeeCount; counter++)
-        {
-            this.shoot();
-        }
+    public void set(boolean state){
+        shooterPiston.set(state);
     }
+
     
     /**
      * Counts frisbees

@@ -10,6 +10,7 @@ import edu.arhs.team1100.ultimateascent.commands.drive.CalibrateGyroCommand;
 import edu.arhs.team1100.ultimateascent.commands.CameraTestCommand;
 import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.commands.drive.JoystickPIDMecanumCommand;
+import edu.arhs.team1100.ultimateascent.commands.shooter.ShootFrisbeeCommand;
 import edu.arhs.team1100.ultimateascent.recording.PlayRecordingCommand;
 import edu.arhs.team1100.ultimateascent.recording.RecordCommand;
 import edu.arhs.team1100.ultimateascent.input.Camera;
@@ -55,6 +56,7 @@ public class RobotMain extends IterativeRobot {
         Log.addClass(PlayRecordingCommand.class, Log.LEVEL_DEBUG);
         Log.addClass(CameraTestCommand.class, Log.LEVEL_DEBUG);
         Log.addClass(Camera.class, Log.LEVEL_DEBUG);
+        Log.addClass(ShootFrisbeeCommand.class, Log.LEVEL_DEBUG);
         // instantiate the command used for the autonomous period
 
         // Initialize all subsystems

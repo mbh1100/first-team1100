@@ -41,13 +41,13 @@ public class Camera {
         axisCamera = AxisCamera.getInstance();//at 10.11.0.11 btw (10.11.1.11 in 1101 network)
 
         //Camera Settings
-        /*if (axisCamera != null) {
-         axisCamera.writeCompression(0);
-         axisCamera.writeBrightness(0);
-         axisCamera.writeExposureControl(AxisCamera.ExposureT.hold);
-         axisCamera.writeRotation(AxisCamera.RotationT.k0);
-         axisCamera.writeResolution(AxisCamera.ResolutionT.k160x120);
-         }*/
+//        if (axisCamera != null) {
+//         axisCamera.writeCompression(0);
+//         axisCamera.writeBrightness(0);
+//         axisCamera.writeExposureControl(AxisCamera.ExposureT.hold);
+//         axisCamera.writeRotation(AxisCamera.RotationT.k180);
+//         axisCamera.writeResolution(AxisCamera.ResolutionT.k160x120);
+//        }
     }
 
     //updates camera if there is a new image

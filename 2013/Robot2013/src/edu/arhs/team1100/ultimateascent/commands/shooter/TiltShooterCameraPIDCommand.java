@@ -4,29 +4,27 @@
  */
 package edu.arhs.team1100.ultimateascent.commands.shooter;
 
-import edu.arhs.team1100.ultimateascent.OI;
 import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterTiltSubsystem;
-import edu.wpi.first.wpilibj.Joystick.AxisType;
 
 /**
  *
  * @author akshay
  */
-public class TiltShooterCommand extends CommandBase {
+public class TiltShooterCameraPIDCommand extends CommandBase {
     
-    public TiltShooterCommand() {
+    public TiltShooterCameraPIDCommand() {
         requires(ShooterTiltSubsystem.getInstance());
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        ShooterTiltSubsystem.getInstance().enable();
+        ShooterTiltSubsystem.getInstance().setSetpoint(0.0);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        double speed = OI.getInstance().getXboxController().getAxis(AxisType.kTwist);
-        ShooterTiltSubsystem.getInstance().tilt(speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -36,6 +34,8 @@ public class TiltShooterCommand extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
+        ShooterTiltSubsystem.getInstance().stop();
+        ShooterTiltSubsystem.getInstance().disable();
     }
 
     // Called when another command which requires one or more of the same

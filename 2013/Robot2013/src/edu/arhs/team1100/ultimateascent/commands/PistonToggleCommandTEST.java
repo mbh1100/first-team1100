@@ -2,40 +2,45 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.arhs.team1100.ultimateascent.commands.shooter;
+package edu.arhs.team1100.ultimateascent.commands;
 
-import edu.arhs.team1100.ultimateascent.OI;
-import edu.arhs.team1100.ultimateascent.commands.CommandBase;
-import edu.arhs.team1100.ultimateascent.subsystems.ShooterTiltSubsystem;
-import edu.wpi.first.wpilibj.Joystick.AxisType;
+import edu.arhs.team1100.ultimateascent.subsystems.ShooterPistonSubsystem;
 
 /**
  *
  * @author akshay
  */
-public class TiltShooterCommand extends CommandBase {
-    
-    public TiltShooterCommand() {
-        requires(ShooterTiltSubsystem.getInstance());
+public class PistonToggleCommandTEST extends CommandBase {
+
+    private boolean state = false;
+    private boolean finished = false;
+
+    public PistonToggleCommandTEST() {
+        requires(ShooterPistonSubsystem.getInstance());
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        finished = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        double speed = OI.getInstance().getXboxController().getAxis(AxisType.kTwist);
-        ShooterTiltSubsystem.getInstance().tilt(speed);
+        ShooterPistonSubsystem.getInstance().set(!state);
+        state = !state;
+        finished = true;
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return finished;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+        if (!finished) {
+            execute();
+        }
     }
 
     // Called when another command which requires one or more of the same

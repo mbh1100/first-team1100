@@ -4,6 +4,7 @@ import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterPistonSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterWheelSubsystem;
+import edu.arhs.team1100.ultimateascent.util.Log;
 
 /**
  *
@@ -11,19 +12,31 @@ import edu.arhs.team1100.ultimateascent.subsystems.ShooterWheelSubsystem;
  */
 public class ShootFrisbeeCommand extends CommandBase {
     
+    private static final long TIME = 150;
+            
+    
+    private long startTime = 0;
     private boolean finished;
 
     public ShootFrisbeeCommand() {
-        requires(ShooterPistonSubsystem.getInstance());
+        requires(ShooterPistonSubsystem.getInstance());        
+        this.setInterruptible(false);        
     }
 
     protected void initialize() {
+        Log.log(this, "SHOOT!!!", Log.LEVEL_DEBUG);
+        startTime = System.currentTimeMillis();
         finished = false;
     }
 
     protected void execute() {
-        ShooterPistonSubsystem.getInstance().shoot(); //<--- wont work???
-        finished = true;
+        ShooterPistonSubsystem.getInstance().unShoot();
+        
+        if(System.currentTimeMillis() - startTime > TIME){
+            Log.log(this, "UN-SHOOT!!!", Log.LEVEL_DEBUG);
+            ShooterPistonSubsystem.getInstance().shoot();
+            finished = true;
+        }
     }
 
     protected boolean isFinished() {
@@ -31,9 +44,7 @@ public class ShootFrisbeeCommand extends CommandBase {
     }
 
     protected void end() {
-        if(!finished){
-            execute();
-        }
+        ShooterPistonSubsystem.getInstance().shoot();        
     }
 
     protected void interrupted() {

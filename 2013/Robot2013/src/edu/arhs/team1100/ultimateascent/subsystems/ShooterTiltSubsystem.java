@@ -2,8 +2,10 @@ package edu.arhs.team1100.ultimateascent.subsystems;
 
 import edu.arhs.team1100.ultimateascent.RobotMap;
 import edu.arhs.team1100.ultimateascent.commands.shooter.TiltShooterCommand;
+import edu.arhs.team1100.ultimateascent.input.Camera;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+
 
 /**
  *
@@ -35,20 +37,20 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
         tiltMotor.set(speed / 2);
 
     }
+    
+    public void stop(){
+        tiltMotor.set(0.0);
+    }
 
     public void initDefaultCommand() {
         setDefaultCommand(new TiltShooterCommand());
     }
 
     protected double returnPIDInput() {
-        // Return your input value for the PID loop
-        // e.g. a sensor, like a potentiometer:
-        // yourPot.getAverageVoltage() / kYourMaxVoltage;
-        return 0.0;
+        return Camera.getInstance().getCenterY();
     }
 
     protected void usePIDOutput(double output) {
-        // Use output to drive your system, like a motor
-        // e.g. yourMotor.set(output);
+        tiltMotor.set(output);
     }
 }
