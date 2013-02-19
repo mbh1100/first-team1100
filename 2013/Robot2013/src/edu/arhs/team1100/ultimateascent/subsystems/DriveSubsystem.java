@@ -61,16 +61,16 @@ public class DriveSubsystem extends PIDSubsystem {
         super(kJoystickP, kJoystickI, kJoystickD);//SUPER PID!!!!
         Log.log(this, "Constructor", Log.LEVEL_DEBUG);
 
-        frontLeftTalon = new Talon(RobotMap.D_TALON_FRONT_LEFT_CHANNEL);
-        frontRightTalon = new Talon(RobotMap.D_TALON_FRONT_RIGHT_CHANNEL);
-        backLeftTalon = new Talon(RobotMap.D_TALON_BACK_LEFT_CHANNEL);
-        backRightTalon = new Talon(RobotMap.D_TALON_BACK_RIGHT_CHANNEL);
+        frontLeftTalon = new Talon(RobotMap.D_TALON_FRONT_LEFT);
+        frontRightTalon = new Talon(RobotMap.D_TALON_FRONT_RIGHT);
+        backLeftTalon = new Talon(RobotMap.D_TALON_BACK_LEFT);
+        backRightTalon = new Talon(RobotMap.D_TALON_BACK_RIGHT);
         drive = new RobotDrive(
                 frontLeftTalon,
                 frontRightTalon,
                 backLeftTalon,
                 backRightTalon);
-        driveGyro = new Gyro(RobotMap.D_GYRO_CHANNEL);
+        driveGyro = new Gyro(RobotMap.D_GYRO);
 
     }
 

@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
 public class Camera {
 
     private int MIN_RED = 0;
-    private int MAX_RED = 20;
+    private int MAX_RED = 30;
     private int MIN_GREEN = 220;
     private int MAX_GREEN = 255;
     private int MIN_BLUE = 220;

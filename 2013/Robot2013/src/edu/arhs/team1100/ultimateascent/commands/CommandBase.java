@@ -2,6 +2,7 @@ package edu.arhs.team1100.ultimateascent.commands;
 
 import edu.arhs.team1100.ultimateascent.OI;
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
+import edu.arhs.team1100.ultimateascent.subsystems.IntakeSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.LiftSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterPistonSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterTiltSubsystem;
@@ -32,7 +33,9 @@ public abstract class CommandBase extends Command {
         ShooterWheelSubsystem.getInstance();
         ShooterTiltSubsystem.getInstance();
         ShooterPistonSubsystem.getInstance();
+        IntakeSubsystem.getInstance();
         OI.getInstance();
+        
 
         // Show what command your subsystem is running on the SmartDashboard
         //SmartDashboard.putData(exampleSubsystem);

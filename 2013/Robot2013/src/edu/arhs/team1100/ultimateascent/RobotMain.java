@@ -7,7 +7,6 @@
 package edu.arhs.team1100.ultimateascent;
 
 import edu.arhs.team1100.ultimateascent.commands.drive.CalibrateGyroCommand;
-import edu.arhs.team1100.ultimateascent.commands.CameraTestCommand;
 import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.commands.drive.JoystickPIDMecanumCommand;
 import edu.arhs.team1100.ultimateascent.commands.shooter.ShootFrisbeeCommand;
@@ -54,7 +53,6 @@ public class RobotMain extends IterativeRobot {
         Log.addClass(JoystickPIDMecanumCommand.class, Log.LEVEL_OFF);
         Log.addClass(RecordCommand.class, Log.LEVEL_DEBUG);
         Log.addClass(PlayRecordingCommand.class, Log.LEVEL_DEBUG);
-        Log.addClass(CameraTestCommand.class, Log.LEVEL_DEBUG);
         Log.addClass(Camera.class, Log.LEVEL_DEBUG);
         Log.addClass(ShootFrisbeeCommand.class, Log.LEVEL_DEBUG);
         // instantiate the command used for the autonomous period
@@ -63,7 +61,7 @@ public class RobotMain extends IterativeRobot {
         CommandBase.init();
         
         //init the camera
-        //Camera.getInstance();
+        Camera.getInstance();
     }
 
     public void autonomousInit() {

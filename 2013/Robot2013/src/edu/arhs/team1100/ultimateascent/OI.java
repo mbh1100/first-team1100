@@ -1,11 +1,6 @@
-/**
- * @author Team 1100
- * 
- */
 package edu.arhs.team1100.ultimateascent;
 
 import edu.arhs.team1100.ultimateascent.commands.shooter.StopShooterCommand;
-import edu.arhs.team1100.ultimateascent.commands.shooter.ShootFrisbeeCommand;
 import edu.arhs.team1100.ultimateascent.commands.shooter.ChangeShooterSpeedCommand;
 import edu.arhs.team1100.ultimateascent.commands.drive.ToggleDriveModeCommand;
 import edu.arhs.team1100.ultimateascent.commands.drive.CalibrateGyroCommand;
@@ -16,10 +11,10 @@ import edu.arhs.team1100.ultimateascent.commands.drive.StopDriveCommand;
 import edu.arhs.team1100.ultimateascent.input.AttackThree;
 import edu.arhs.team1100.ultimateascent.input.XboxController;
 import edu.arhs.team1100.ultimateascent.recording.PrintRecordingCodeCommand;
-import edu.arhs.team1100.ultimateascent.autonomous.SquareWeaveRoutine;
-import edu.arhs.team1100.ultimateascent.commands.PistonToggleCommandTEST;
-import edu.arhs.team1100.ultimateascent.commands.shooter.ShootAllFrisbeesCommandGroup;
-
+import edu.arhs.team1100.ultimateascent.commands.drive.CameraPIDMecanumCommand;
+import edu.arhs.team1100.ultimateascent.commands.shooter.RapidFireFrisbeesCommandGroup;
+import edu.arhs.team1100.ultimateascent.commands.shooter.ShootFrisbeeCommand;
+import edu.arhs.team1100.ultimateascent.commands.shooter.TiltShooterCameraPIDCommand;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -27,115 +22,88 @@ import edu.arhs.team1100.ultimateascent.commands.shooter.ShootAllFrisbeesCommand
  */
 public class OI {
 
+    //SETTINGS
+    //LEFT STICK BUTTON SETTINGS
+    private static final int TOGGLE_DRIVE = 2;
+    private static final int CAMERA_PID = 1; //trigger
+    //RIGHT STICK BUTTON SETTINGS
+    private static final int CALIBRATE_GYRO = 3;
+    private static final int JOYSTICK_PID = 1; //trigger
+    private static final int STOP_DRIVE = 4;
+    //recording    
+    private static final int RECORD = 5;
+    private static final int PLAY_RECORDING = 2;
+    private static final int PRINT_RECORDING = 2;
     private static OI instance;
-
     private AttackThree leftStick;
     private AttackThree rightStick;
     private XboxController xbox;
-
     RecordCommand recorder;
 
-    
     /**
      * Gets current instance,if there is no instance, creates an instance
-     * @return OI object 
+     *
+     * @return OI object
      */
-    public static OI getInstance(){
-
-        if(instance == null){
+    public static OI getInstance() {
+        if (instance == null) {
             instance = new OI();
         }
         return instance;
     }
 
-    public OI(){
-        //declares the left and right joysticks
-        leftStick = new AttackThree(RobotMap.C_LEFT_JOYSTICK_CHANNEL, 0.1);
-        rightStick = new AttackThree(RobotMap.C_RIGHT_JOYSTICK_CHANNEL, 0.1);
-        //declares the xbox controller
-        xbox = new XboxController(RobotMap.C_XBOX_CONTROLLER_CHANNEL, 0.1);
-        
-        //drive controls
-        leftStick.getButton(RobotMap.C_TOGGLE_DRIVE).whenPressed(new ToggleDriveModeCommand());        
-        //leftStick.getButton(RobotMap.C_DRIVE_CAMERA).whileHeld(new CameraPIDMecanumCommand());
-        //leftStick.getButton(RobotMap.C_CAMERATEST).whileHeld(new CameraTestCommand());
+    public OI() {
+        //Init controllers
+        leftStick = new AttackThree(RobotMap.C_LEFT_JOYSTICK, 0.1);
+        rightStick = new AttackThree(RobotMap.C_RIGHT_JOYSTICK, 0.1);
+        xbox = new XboxController(RobotMap.C_XBOX_CONTROLLER, 0.1);
 
-        rightStick.getButton(RobotMap.C_CALIBRATE_GYRO).whenPressed(new CalibrateGyroCommand());
-        rightStick.getButton(RobotMap.C_DRIVE_PID).whileHeld(new JoystickPIDMecanumCommand());
-        rightStick.getButton(RobotMap.C_STOP_DRIVE).whenPressed(new StopDriveCommand(0.1));
+        //CONTROL ASSIGNMENTS    
 
-        //Recording Command Stuff
+        leftStick.getButton(TOGGLE_DRIVE).whenPressed(new ToggleDriveModeCommand());
+        leftStick.getButton(CAMERA_PID).whileHeld(new CameraPIDMecanumCommand());
+        rightStick.getButton(CALIBRATE_GYRO).whenPressed(new CalibrateGyroCommand());
+        rightStick.getButton(JOYSTICK_PID).whileHeld(new JoystickPIDMecanumCommand());
+        rightStick.getButton(STOP_DRIVE).whenPressed(new StopDriveCommand(0.1));
+
         recorder = new RecordCommand(20); //interval is 20 ms
-        rightStick.getButton(RobotMap.C_RECORD).whileHeld(recorder);
-        rightStick.getButton(RobotMap.C_PLAY_RECORDING).whenPressed(new PlayRecordingCommand(recorder));
-        rightStick.getButton(RobotMap.C_PRINT_RECORDING).whenPressed(new PrintRecordingCodeCommand(recorder));
+        rightStick.getButton(RECORD).whileHeld(recorder);
+        rightStick.getButton(PLAY_RECORDING).whenPressed(new PlayRecordingCommand(recorder));
+        rightStick.getButton(PRINT_RECORDING).whenPressed(new PrintRecordingCodeCommand(recorder));
 
-        rightStick.getButton(8).whenPressed(new SquareWeaveRoutine());
-        
-        //xbox Stuff
-        xbox.getButtonRightBumper().whileHeld(new ShootFrisbeeCommand());
-        xbox.getButtonLeftBumper().whenPressed(new ShootAllFrisbeesCommandGroup());
+        xbox.getButtonRightBumper().whenPressed(new ShootFrisbeeCommand());
+        xbox.getButtonLeftBumper().whileHeld(new RapidFireFrisbeesCommandGroup());
         xbox.getButtonA().whenPressed(new ChangeShooterSpeedCommand(0.1));
         xbox.getButtonB().whenPressed(new ChangeShooterSpeedCommand(-0.1));
         xbox.getButtonX().whileHeld(new StopShooterCommand());
-        xbox.getButtonY().whenPressed(new PistonToggleCommandTEST());
-        
+        xbox.getButtonY().whileHeld(new TiltShooterCameraPIDCommand());
+
     }
 
     /**
      * Get the left joystick
+     *
      * @return left AttackThree object
      */
-    public AttackThree getLeftJoystick(){
+    public AttackThree getLeftJoystick() {
         return leftStick;
     }
 
     /**
      * Get right joystick
+     *
      * @return right AttackThree
      */
-    public AttackThree getRightJoystick(){
+    public AttackThree getRightJoystick() {
         return rightStick;
     }
 
     /**
      * Get xbox controller
+     *
      * @return XboxController object
      */
-    public XboxController getXboxController(){
+    public XboxController getXboxController() {
         return xbox;
     }
-
-    //// CREATING BUTTONS
-    // One type of button is a joystick button which is any button on a joystick.
-    // You create one by telling it which joystick it's on and which button
-    // number it is.
-    // Joystick stick = new Joystick(port);
-    // Button button = new JoystickButton(stick, buttonNumber);
-
-    // Another type of button you can create is a DigitalIOButton, which is
-    // a button or switch hooked up to the cypress module. These are useful if
-    // you want to build a customized operator interface.
-    // Button button = new DigitalIOButton(1);
-
-    // There are a few additional built in buttons you can use. Additionally,
-    // by subclassing Button you can create custom triggers and bind those to
-    // commands the same as any other Button.
-
-    //// TRIGGERING COMMANDS WITH BUTTONS
-    // Once you have a button, it's trivial to bind it to a button in one of
-    // three ways:
-
-    // Start the command when the button is pressed and let it run the command
-    // until it is finished as determined by it's isFinished method.
-    // button.whenPressed(new ExampleCommand());
-
-    // Run the command while the button is being held down and interrupt it once
-    // the button is released.
-    // button.whileHeld(new ExampleCommand());
-
-    // Start the command the button is released  and let it run the command
-    // until it is finished as determined by it's isFinished method.
-    // button.whenReleased(new ExampleCommand());
 }
-

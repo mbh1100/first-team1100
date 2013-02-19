@@ -19,8 +19,8 @@ public class TiltShooterCameraPIDCommand extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        ShooterTiltSubsystem.getInstance().setSetpoint(0.0);        
         ShooterTiltSubsystem.getInstance().enable();
-        ShooterTiltSubsystem.getInstance().setSetpoint(0.0);
     }
 
     // Called repeatedly when this Command is scheduled to run

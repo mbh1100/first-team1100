@@ -30,8 +30,8 @@ public class ShooterWheelSubsystem extends PIDSubsystem {
      */
     public ShooterWheelSubsystem() {
         super(P, I, D); //SUPER PID!!!
-        shooterWheel = new Victor(RobotMap.S_VICTOR_SHOOTER_WHEEL_CHANNEL);
-        wheelEncoder = new Encoder(RobotMap.S_ENCODER_CHANNEL_A, RobotMap.S_ENCODER_CHANNEL_B);
+        shooterWheel = new Victor(RobotMap.S_VICTOR_SHOOTER_WHEEL);
+        wheelEncoder = new Encoder(RobotMap.S_ENCODER_A, RobotMap.S_ENCODER_B);
         
         wheelEncoder.setDistancePerPulse(1);
         wheelEncoder.start();

@@ -1,8 +1,10 @@
 package edu.arhs.team1100.ultimateascent.subsystems;
 
+import edu.arhs.team1100.ultimateascent.OI;
 import edu.arhs.team1100.ultimateascent.RobotMap;
 import edu.arhs.team1100.ultimateascent.commands.shooter.TiltShooterCommand;
 import edu.arhs.team1100.ultimateascent.input.Camera;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
@@ -13,9 +15,9 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
  */
 public class ShooterTiltSubsystem extends PIDSubsystem {
 
-    private static final double Kp = 0.0;
-    private static final double Ki = 0.0;
-    private static final double Kd = 0.0;
+    private static final double P = 0.7;
+    private static final double I = 0.01;
+    private static final double D = 0.05;
     private static ShooterTiltSubsystem instance;
     private Victor tiltMotor;
 
@@ -29,12 +31,14 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
     // Initialize your subsystem here
 
     public ShooterTiltSubsystem() {
-        super(Kp, Ki, Kd);
-        tiltMotor = new Victor(RobotMap.S_VICTOR_SHOOTER_TILT_CHANNEL);
+        super(P, I, D);
+        tiltMotor = new Victor(RobotMap.S_VICTOR_SHOOTER_TILT);
     }
 
-    public void tilt(double speed) {
-        tiltMotor.set(speed / 2);
+    public void doTilt() {
+        
+        double speed = OI.getInstance().getXboxController().getAxis(Joystick.AxisType.kY);
+        tiltMotor.set(speed);
 
     }
     
@@ -47,7 +51,7 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
     }
 
     protected double returnPIDInput() {
-        return Camera.getInstance().getCenterY();
+        return -Camera.getInstance().getCenterY();
     }
 
     protected void usePIDOutput(double output) {

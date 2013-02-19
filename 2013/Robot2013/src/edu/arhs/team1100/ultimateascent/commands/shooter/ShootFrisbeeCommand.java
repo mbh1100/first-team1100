@@ -12,7 +12,7 @@ import edu.arhs.team1100.ultimateascent.util.Log;
  */
 public class ShootFrisbeeCommand extends CommandBase {
     
-    private static final long TIME = 150;
+    private static final long TIME = 200;
             
     
     private long startTime = 0;
