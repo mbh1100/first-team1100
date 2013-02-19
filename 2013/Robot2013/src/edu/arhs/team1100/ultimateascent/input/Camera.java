@@ -28,6 +28,10 @@ public class Camera {
     private boolean enabled = false;
     private boolean hasParticle = false;
 
+    /**
+     * If a Camera object has not been created, construct one
+     * @return 
+     */
     public static Camera getInstance() {
 
         if (instance == null) {
@@ -37,6 +41,9 @@ public class Camera {
 
     }
 
+    /**
+     * Gets an Instance of Axis Camera
+     */
     public Camera() {
         axisCamera = AxisCamera.getInstance();//at 10.11.0.11 btw (10.11.1.11 in 1101 network)
 
@@ -120,18 +127,26 @@ public class Camera {
         }
 
     }
-
+    /**
+     * Catches Camera errors
+     */
     public void free() {
         try {
         } catch (Exception e) {
             Log.log(e, "Error freeing camera resources", Log.LEVEL_ERROR);
         }
     }
-
+    
+    /**
+     * @return enabled 
+     */
     public boolean isEnabled() {
         return enabled;
     }
 
+    /**
+     * @return hasParticle
+     */
     public boolean hasParticle() {
         return hasParticle;
     }

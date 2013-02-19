@@ -15,33 +15,48 @@ public class SpinShooterCommand extends CommandBase {
     
     private double speed = 0.0;
     
+    /**
+     * Constructs a ShooterWheelSubsystem object
+     * @param speed 
+     */
     public SpinShooterCommand(double speed) {
         requires(ShooterWheelSubsystem.getInstance());
         this.speed = speed;
     }
 
-    // Called just before this Command runs the first time
+    /**
+    * Called just before this Command runs the first time
+    */
     protected void initialize() {
     }
 
-    // Called repeatedly when this Command is scheduled to run
+    /**
+     * Called repeatedly when this Command is scheduled to run
+     */
     protected void execute() {
         ShooterWheelSubsystem.getInstance().setSpeed(speed);
                 
     }
 
-    // Make this return true when this Command no longer needs to run execute()
+     /**
+     * Make this return true when this Command no longer needs to run execute()
+     * @return false
+     */
     protected boolean isFinished() {
         return false;
     }
 
-    // Called once after isFinished returns true
+    /**
+     * Called once after isFinished returns true
+     */
     protected void end() {
         ShooterWheelSubsystem.getInstance().setSpeed(0.0);
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
+    /**
+     * Called when another command which requires one or more of the same 
+     * subsystems is scheduled to run
+     */
     protected void interrupted() {
         end();
     }

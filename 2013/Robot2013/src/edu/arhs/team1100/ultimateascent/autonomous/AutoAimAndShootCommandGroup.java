@@ -16,6 +16,9 @@ public class AutoAimAndShootCommandGroup extends CommandGroup {
     
     private RapidFireCommandGroup shootCommand;
     
+    /**
+     * Constructs objects
+     */
     public AutoAimAndShootCommandGroup() {
         shootCommand = new RapidFireCommandGroup();
         addParallel(new CameraPIDMecanumCommand());
@@ -23,6 +26,9 @@ public class AutoAimAndShootCommandGroup extends CommandGroup {
         addParallel(new SpinShooterCommand(0.7)); //replace with PID later if possible
     }
     
+    /**
+     * If Drive and Shooter is on targer, shoot for as long as its on target
+     */
     public void execute(){
         if(DriveSubsystem.getInstance().onTarget() && ShooterTiltSubsystem.getInstance().onTarget()){
             if(!shootCommand.isRunning()){ //this should repeat shots as long as its on target

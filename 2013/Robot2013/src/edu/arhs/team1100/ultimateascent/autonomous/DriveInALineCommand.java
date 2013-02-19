@@ -34,11 +34,15 @@ public class DriveInALineCommand extends CommandBase {
         this.direction = direction;
         this.duration = duration;
     }
-
+    
+    /**
+     * Initializes timeout to duration
+     */
     protected void initialize() {
         setTimeout(duration);
     }
-
+    
+ 
     protected void execute() {
         DriveSubsystem.getInstance().drive(speed, direction, 0.0);
     }

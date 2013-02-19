@@ -20,7 +20,9 @@ public class CameraPIDMecanumCommand extends CommandBase {
         requires(DriveSubsystem.getInstance());
     }
 
-    // Called just before this Command runs the first time
+    /**
+     * Called just before this Command runs the first time
+     */
     protected void initialize() {
         DriveSubsystem.getInstance().setCameraMode(true);
         DriveSubsystem.getInstance().setInputRange(-1.0, 1.0);
@@ -29,24 +31,33 @@ public class CameraPIDMecanumCommand extends CommandBase {
         DriveSubsystem.getInstance().enable();
     }
 
-    // Called repeatedly when this Command is scheduled to run
+    /**
+     * Called repeatedly when this Command is scheduled to run
+     */
     protected void execute() {
     }
 
-    // Make this return true when this Command no longer needs to run execute()
+    /**
+     * Make this return true when this Command no longer needs to run execute()
+     * @return false
+     */
     protected boolean isFinished() {
         return false;
     }
 
-    // Called once after isFinished returns true
+    /**
+     * Called once after isFinished returns true
+     */
     protected void end() {
         DriveSubsystem.getInstance().disable();
         DriveSubsystem.getInstance().stop();
         Camera.getInstance().free();
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
+    /**
+     * Called when another command which requires one or more of the same 
+     * subsystems is scheduled to run
+     */
     protected void interrupted() {
         end();
     }

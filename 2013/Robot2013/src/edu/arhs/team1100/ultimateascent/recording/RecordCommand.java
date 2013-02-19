@@ -37,7 +37,9 @@ public class RecordCommand extends CommandBase {
         last = System.currentTimeMillis();
 
     }
-
+   /**
+     * Called repeatedly when this Command is scheduled to run
+     */
     protected void execute() {
         long t = System.currentTimeMillis();
         if (t - last >= interval) {
@@ -58,20 +60,27 @@ public class RecordCommand extends CommandBase {
     }
 
     /**
-     *
      * @return the frequency at which recordings are made
      */
     public int getInterval() {
         return interval;
     }
-
+      /**
+     * Make this return true when this Command no longer needs to run execute()
+     * @return finished
+     */
     protected boolean isFinished() {
         return false;
     }
-
+   /**
+     * Called once after isFinished returns true
+     */
     protected void end() {
     }
-
+    /**
+     * Called when another command which requires one or more of the same 
+     * subsystems is scheduled to run
+     */
     protected void interrupted() {
     }
 }

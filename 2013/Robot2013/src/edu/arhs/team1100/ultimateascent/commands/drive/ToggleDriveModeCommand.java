@@ -11,27 +11,39 @@ public class ToggleDriveModeCommand extends CommandBase {
 
     private boolean finished = false;
 
-    //initializes the command
+    /**
+     * Initializes the shooter
+     */
     protected void initialize() {
         finished = false;
     }
-    //toggles drive modes
+    /**
+     * Toggles drive mode and turns finish to true
+     */
     protected void execute() {
         DriveSubsystem.getInstance().toggleDriveMode();
         finished = true;
     }
     
-    //returns whether toggling has orrucred
+    /**
+     * Returns whether toggling has occurred
+     * @return finished
+     */
     protected boolean isFinished() {
         return finished;
     }
-    //toggles drive mode if it has no finished
+    /**
+     * Toggles drive mode if it has not finished
+     */
     protected void end() {
         if (!finished) {
             execute();
         }
     }
     
+    /**
+     * Toggles drive mode if interrupted
+     */
     protected void interrupted() {
         end();
     }

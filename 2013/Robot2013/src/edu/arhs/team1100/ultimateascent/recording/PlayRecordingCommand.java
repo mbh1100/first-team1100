@@ -19,6 +19,10 @@ public class PlayRecordingCommand extends CommandBase {
     private long last = 0;
     private long interval = 0;
 
+    /**
+     * Starts recording
+     * @param r 
+     */
     public PlayRecordingCommand(RecordCommand r) {
         recorder = r;
         requires(DriveSubsystem.getInstance());
@@ -57,6 +61,9 @@ public class PlayRecordingCommand extends CommandBase {
         DriveSubsystem.getInstance().driveSimulate(currentState.X, currentState.Y, currentState.R, currentState.mode);
     }
 
+    /**
+     * @return finished
+     */
     protected boolean isFinished() {
         return finished;
     }
@@ -68,7 +75,10 @@ public class PlayRecordingCommand extends CommandBase {
         DriveSubsystem.getInstance().stop();
         Log.log(this, "Playback END", Log.LEVEL_DEBUG);
     }
-
+     /**
+     * Called when another command which requires one or more of the same 
+     * subsystems is scheduled to run
+     */
     protected void interrupted() {
         end();
     }

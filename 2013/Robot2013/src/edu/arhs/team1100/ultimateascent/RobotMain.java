@@ -63,7 +63,7 @@ public class RobotMain extends IterativeRobot {
         //init the camera
         Camera.getInstance();
     }
-
+   
     public void autonomousInit() {
         // schedule the autonomous command (example)
         autonomousCommand.start();
@@ -75,7 +75,7 @@ public class RobotMain extends IterativeRobot {
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
     }
-
+   
     public void teleopInit() {
         // This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to
@@ -143,7 +143,7 @@ public class RobotMain extends IterativeRobot {
     public void testPeriodic() {
         LiveWindow.run();
     }
-
+    
     public void disabledInit() {
         Scheduler.getInstance().removeAll();
         Scheduler.getInstance().disable();

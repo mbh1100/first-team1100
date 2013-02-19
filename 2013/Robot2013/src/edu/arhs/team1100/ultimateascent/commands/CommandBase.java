@@ -49,6 +49,9 @@ public abstract class CommandBase extends Command {
         super(name);
     }
 
+    /**
+     * Constructs a Command Object
+     */
     public CommandBase() {
         super();
     }

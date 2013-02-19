@@ -51,7 +51,9 @@ public class OI {
         }
         return instance;
     }
-
+    /**
+     * Initializes the controls
+     */
     public OI() {
         //Init controllers
         leftStick = new AttackThree(RobotMap.C_LEFT_JOYSTICK, 0.1);

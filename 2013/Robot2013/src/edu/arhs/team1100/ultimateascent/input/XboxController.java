@@ -22,6 +22,12 @@ public class XboxController extends Joystick {
     private JoystickButton buttonRightStick;
     
     private double joystickDeadband = 0.1;
+    
+    /**
+     * Maps the layout of the Xbox Controller
+     * @param channel
+     * @param joystickDeadband 
+     */
     public XboxController(int channel, double joystickDeadband) {        
         super(channel);
 
@@ -38,47 +44,71 @@ public class XboxController extends Joystick {
         
         this.joystickDeadband = joystickDeadband;
     }
-
+    /**
+     * @return buttonA
+     */
     public JoystickButton getButtonA() {
         return buttonA;
     }
-
+    /**
+     * @return buttonB
+     */
     public JoystickButton getButtonB() {
         return buttonB;
     }
-
+    /**
+     * @return buttonX
+     */
     public JoystickButton getButtonX() {
         return buttonX;
     }
-
+    /**
+     * @return buttonY
+     */
     public JoystickButton getButtonY() {
         return buttonY;
     }
-
+    /**
+     * @return buttonLeftBumper
+     */
     public JoystickButton getButtonLeftBumper() {
         return buttonLeftBumper;
     }
-
+    /**
+     * @return buttonRightBumper
+     */
     public JoystickButton getButtonRightBumper() {
         return buttonRightBumper;
     }
-
+    /**
+     * @return buttonBack
+     */
     public JoystickButton getButtonBack() {
         return buttonBack;
     }
-
+    /**
+     * @return buttonStart
+     */
     public JoystickButton getButtonStart() {
         return buttonStart;
     }
-    
+     /**
+     * @return buttonLeftStick
+     */
     public JoystickButton getButtonLeftStick() {
         return buttonLeftStick;
     }
-
+    /**
+     * @return buttonRightStick
+     */
     public JoystickButton getButtonRightStick() {
         return buttonRightStick;
     }
-
+    /**
+     * Finds the position of the axis
+     * @param axis
+     * @return val
+     */
     public double getAxis(Joystick.AxisType axis) {
         double val = super.getAxis(axis);
         if(Math.abs(val) <= joystickDeadband) {

@@ -14,6 +14,11 @@ public class AttackThree extends Joystick {
     private JoystickButton button[] = new JoystickButton[11];
     private double joystickDeadband = 0.1;
 
+    /**
+     * Initializes joystick button
+     * @param channel
+     * @param joystickDeadband 
+     */
     public AttackThree(int channel, double joystickDeadband) {
         super(channel);
 
@@ -34,6 +39,11 @@ public class AttackThree extends Joystick {
         return button[N - 1];
     }
 
+    /**
+     * Gets position of axis
+     * @param axis
+     * @return val
+     */
     public double getAxis(AxisType axis) {
         double val = super.getAxis(axis);
         if (Math.abs(val) <= joystickDeadband) {

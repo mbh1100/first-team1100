@@ -16,28 +16,41 @@ public class ChangeShooterSpeedCommand extends CommandBase {
     private double delta = 0.0;    
     private boolean finished = false;
     
-    public ChangeShooterSpeedCommand(double d) {
+    /**
+     * Constructs a ShooterWheelSubsystem
+     * @param d 
+     */
+    public ChangeShooterSpeedCommand(double duration) {
         requires(ShooterWheelSubsystem.getInstance());
-        delta = d;
+        delta = duration;
     }
 
-    // Called just before this Command runs the first time
+     /**
+     * Called just before this Command runs the first time
+     */
     protected void initialize() {
         finished = false;
     }
 
-    // Called repeatedly when this Command is scheduled to run
+    /**
+     * Called repeatedly when this Command is scheduled to run
+     */
     protected void execute() {
         ShooterWheelSubsystem.getInstance().changeSpeed(delta);
         finished = true;
     }
 
-    // Make this return true when this Command no longer needs to run execute()
+     /**
+     * Make this return true when this Command no longer needs to run execute()
+     * @return isTimedOut()
+     */
     protected boolean isFinished() {
         return finished;
     }
 
-    // Called once after isFinished returns true
+    /**
+     * Called once after isFinished returns true
+     */
     protected void end() {
         if(!finished){
             execute();
@@ -45,8 +58,10 @@ public class ChangeShooterSpeedCommand extends CommandBase {
         
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
+    /**
+     * Called when another command which requires one or more of the same 
+     * subsystems is scheduled to run
+     */
     protected void interrupted() {
         end();
     }

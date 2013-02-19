@@ -15,19 +15,24 @@ public class JoystickPIDMecanumCommand extends CommandBase {
 
     private static final double MAGNITUDE_DEADBAND = 0.3;
 
+    /**
+     * Creates a DriveSubsystem object
+     */
     public JoystickPIDMecanumCommand() {
         requires(DriveSubsystem.getInstance());
     }
 
     /**
-     * 
+     * Called just before this Command runs the first time
      */
     protected void initialize() {
         DriveSubsystem.getInstance().setCameraMode(false);
         DriveSubsystem.getInstance().setSetpoint(DriveSubsystem.getInstance().getGyroAngle());
         DriveSubsystem.getInstance().enable(); //PID enable
     }
-
+    /**
+     * Called repeatedly when this Command is scheduled to run
+     */
     protected void execute() {
         double joystickAngle = OI.getInstance().getRightJoystick().getAngle();
         double joystickMagnitude = OI.getInstance().getRightJoystick().getMagnitude();
@@ -49,15 +54,23 @@ public class JoystickPIDMecanumCommand extends CommandBase {
 
         DriveSubsystem.getInstance().setSetpoint(gyroAngle + difference);
     }
-
+    /**
+     * Make this return true when this Command no longer needs to run execute()
+     * @return false
+     */
     protected boolean isFinished() {
         return false;
     }
-
+    /**
+     * Called once after isFinished returns true
+     */
     protected void end() {
         DriveSubsystem.getInstance().disable(); // PID disable
     }
-
+    /**
+     * Called when another command which requires one or more of the same 
+     * subsystems is scheduled to run
+     */
     protected void interrupted() {
         end();
     }
