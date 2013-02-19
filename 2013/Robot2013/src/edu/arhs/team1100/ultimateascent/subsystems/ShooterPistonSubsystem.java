@@ -23,6 +23,9 @@ public class ShooterPistonSubsystem extends Subsystem {
     
     private int frisbeeCount = 0;
     
+    /**
+     * Constructs Compressor and Solenoid and starts compressor
+     */
     public ShooterPistonSubsystem() {
         compressor = new Compressor(RobotMap.S_COMPRESSOR_PRESSURE_SWITCH, RobotMap.S_COMPRESSOR_RELAY);
         shooterPiston = new Solenoid(RobotMap.S_SOLENOID_SHOOTER_PISTON);        
@@ -32,7 +35,7 @@ public class ShooterPistonSubsystem extends Subsystem {
     }
     /**
      * Creates a new instance of the shooter
-     * @return 
+     * @return instance
      */
     public static ShooterPistonSubsystem getInstance() {
         if(instance == null) {
@@ -58,6 +61,10 @@ public class ShooterPistonSubsystem extends Subsystem {
         frisbeeCount--;
     }
     
+    /**
+     * Turns Piston on or off
+     * @param state 
+     */
     public void set(boolean state){
         shooterPiston.set(state);
     }
@@ -82,6 +89,9 @@ public class ShooterPistonSubsystem extends Subsystem {
     public int getFrisbeeCount() {
         return frisbeeCount;
     }
+    /**
+     * null
+     */
     protected void initDefaultCommand() {
     }
 

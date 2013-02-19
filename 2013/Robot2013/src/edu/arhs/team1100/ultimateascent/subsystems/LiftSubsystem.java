@@ -40,7 +40,9 @@ public class LiftSubsystem extends Subsystem{
         left = new Victor(RobotMap.L_VICTOR_LEFT);
         right = new Victor(RobotMap.L_VICTOR_RIGHT);
     }
-    
+    /**
+     * Lifts
+     */
     public void doLift(){
         double speed = OI.getInstance().getXboxController().getAxis(AxisType.kZ)/2;
         left.set(speed);
@@ -48,7 +50,9 @@ public class LiftSubsystem extends Subsystem{
     }
     
         
-  
+  /**
+   * Initializes LiftCommand
+   */
     protected void initDefaultCommand() {
         setDefaultCommand(new LiftCommand());
     }

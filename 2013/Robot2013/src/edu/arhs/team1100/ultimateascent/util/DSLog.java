@@ -25,6 +25,9 @@ public class DSLog {
     static String[] lcdHistory = new String[6];  // array to scroll lcd display
     static String clearLine = "                     "; // 21 spaces to clear a line
 
+    /**
+     * Removes all data for lcdHistory
+     */
     public DSLog() {
         for (int i = 0; i < lcdHistory.length; i++) {
             lcdHistory[i] = "";

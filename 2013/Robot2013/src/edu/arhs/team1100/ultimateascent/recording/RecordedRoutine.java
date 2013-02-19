@@ -18,10 +18,16 @@ public abstract class RecordedRoutine extends CommandBase {
     private boolean finished = false;
     private long last = 0;
     
+    /**
+     * Creates a DriveSubsystem object
+     */
     public RecordedRoutine(){
         requires(DriveSubsystem.getInstance());
     }
     
+    /**
+    * Called just before this Command runs the first time
+    */
     protected final void initialize() {
         index = 0;
         finished = false;
@@ -33,6 +39,9 @@ public abstract class RecordedRoutine extends CommandBase {
         last = System.currentTimeMillis();
     }
 
+    /**
+     * Called repeatedly when this Command is scheduled to run
+     */
     protected final void execute() {
         long t = System.currentTimeMillis();
         
@@ -47,20 +56,33 @@ public abstract class RecordedRoutine extends CommandBase {
         DriveSubsystem.getInstance().driveSimulate(currentState.X, currentState.Y, currentState.R, currentState.mode);        
 
     }
-
+     /**
+     * Make this return true when this Command no longer needs to run execute()
+     * @return finished
+     */
     protected final boolean isFinished() {
         return finished;
     }
-
+    /**
+     * Called once after isFinished returns true
+     */
     protected final void end() {
         DriveSubsystem.getInstance().stop();
     }
-
+    /**
+     * Called when another command which requires one or more of the same 
+     * subsystems is scheduled to run
+     */
     protected final void interrupted() {
         end();
     }
-    
+    /**
+     * @return null
+     */
     protected abstract int getInterval();
+    /**
+     * @return null
+     */
     protected abstract ControllerState[] getRecording();
     
 }

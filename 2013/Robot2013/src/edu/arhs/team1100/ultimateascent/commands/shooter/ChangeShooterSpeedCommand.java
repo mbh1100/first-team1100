@@ -18,7 +18,7 @@ public class ChangeShooterSpeedCommand extends CommandBase {
     
     /**
      * Constructs a ShooterWheelSubsystem
-     * @param d 
+     * @param duration
      */
     public ChangeShooterSpeedCommand(double duration) {
         requires(ShooterWheelSubsystem.getInstance());

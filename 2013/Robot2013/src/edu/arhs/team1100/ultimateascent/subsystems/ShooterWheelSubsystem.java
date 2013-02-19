@@ -81,26 +81,38 @@ public class ShooterWheelSubsystem extends PIDSubsystem {
     protected void usePIDOutput(double output) {
         shooterWheel.set(output);
     }
-    
+    /**
+     * Changes speed, in a range of 0-1
+     * @param d 
+     */
     public void changeSpeed(double d){
         speed += d;
         speed = (speed < 0.0)?0.0:((speed > 1.0)?1.0:speed);
         shooterWheel.set(-speed);
     }
-    
+    /**
+     * Sets speed to s
+     * @param s 
+     */
     public void setSpeed(double s){
         shooterWheel.set(s);
     }
-    
+    /**
+     * @return speed of shooter wheel 
+     */
     public double getSpeed(){
         return -shooterWheel.get();
     }
-    
+    /**
+     * @return rate of movemnet on shooter wheel
+     */
     public double getRate(){
        return wheelEncoder.getRate();
     }
     
-
+    /**
+     * null
+     */
     protected void initDefaultCommand() {
     }
 }

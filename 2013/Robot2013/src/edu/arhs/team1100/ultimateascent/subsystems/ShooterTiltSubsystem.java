@@ -21,6 +21,11 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
     private static ShooterTiltSubsystem instance;
     private Victor tiltMotor;
 
+    
+    /**
+     * Creates a ShooterTilitSubsystem object, if not already
+     * @return 
+     */
     public static ShooterTiltSubsystem getInstance() {
         if (instance == null) {
             instance = new ShooterTiltSubsystem();
@@ -29,31 +34,45 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
         return instance;
     }
     // Initialize your subsystem here
-
+    /**
+     * Sets PID for tilt
+     */
     public ShooterTiltSubsystem() {
         super(P, I, D);
         tiltMotor = new Victor(RobotMap.S_VICTOR_SHOOTER_TILT);
     }
 
+    /**
+     * Tilts the shooter
+     */
     public void doTilt() {
         
         double speed = OI.getInstance().getXboxController().getAxis(Joystick.AxisType.kY);
         tiltMotor.set(speed);
 
     }
-    
+    /**
+     * Stops tilting
+     */
     public void stop(){
         tiltMotor.set(0.0);
     }
-
+    /**
+     * Initializes TiltShooterCommand
+     */
     public void initDefaultCommand() {
         setDefaultCommand(new TiltShooterCommand());
     }
-
+    /**
+     * @return Center Y
+     */
     protected double returnPIDInput() {
         return -Camera.getInstance().getCenterY();
     }
-
+    /**
+     * Sets output
+     * @param output 
+     */
     protected void usePIDOutput(double output) {
         tiltMotor.set(output);
     }

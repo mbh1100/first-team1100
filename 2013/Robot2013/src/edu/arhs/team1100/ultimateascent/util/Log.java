@@ -15,7 +15,10 @@ public class Log {
     public final static int LEVEL_OFF = 3;
     private static int minLevel;
     private static Vector classes;
-
+    
+    /**
+     * Creates  new vector of classes
+     */
     public static void init() {
         classes = new Vector();
         minLevel = LEVEL_DEBUG;
@@ -28,7 +31,11 @@ public class Log {
     public static void setMinLevel(int mlvl) {
         minLevel = mlvl;
     }
-
+    /**
+     * Adds a class to the class vector, with level
+     * @param c
+     * @param level 
+     */
     public static void addClass(Class c, int level) {
         classes.addElement(new LogClass(c, level));
     }
@@ -53,7 +60,12 @@ public class Log {
             System.out.println("[" + simpleClassName(lc) + "] " + message);
         }
     }
-
+    /**
+     * Rounds
+     * @param num
+     * @param places
+     * @return rounded number
+     */
     public static String round(double num, int places) {
         return MathUtils.round(num * MathUtils.pow(10, places)) / MathUtils.pow(10, places) + "";
     }

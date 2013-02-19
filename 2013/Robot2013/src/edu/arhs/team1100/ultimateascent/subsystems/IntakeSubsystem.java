@@ -16,10 +16,16 @@ public class IntakeSubsystem extends Subsystem {
     private static IntakeSubsystem instance;
     private Victor roller;
 
+    /**
+     * Constructs a Vector of I_VICTOR_ROLLER
+     */
     public IntakeSubsystem() {
         roller = new Victor(RobotMap.I_VICTOR_ROLLER);
     }
-
+    /**
+     * Creates a IntakeSubsystem if not already
+     * @return instance
+     */
     public static IntakeSubsystem getInstance() {
         if (instance == null) {
             instance = new IntakeSubsystem();
@@ -28,15 +34,23 @@ public class IntakeSubsystem extends Subsystem {
         return instance;
     }
 
+    /**
+     * Set speed for xbox controller
+     */
     public void roll() {
         double speed = OI.getInstance().getXboxController().getAxis(Joystick.AxisType.kTwist);
         roller.set(speed);
     }
-    
+    /**
+     * Stops the rolling
+     */
     public void stop() {
         roller.set(0);
     }
-
+    
+    /**
+     * Initializes Intake Command
+     */
     protected void initDefaultCommand() {
         setDefaultCommand(new IntakeCommand());
     }
