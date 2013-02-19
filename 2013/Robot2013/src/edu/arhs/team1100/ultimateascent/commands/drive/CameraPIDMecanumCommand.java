@@ -23,7 +23,9 @@ public class CameraPIDMecanumCommand extends CommandBase {
     // Called just before this Command runs the first time
     protected void initialize() {
         DriveSubsystem.getInstance().setCameraMode(true);
-        DriveSubsystem.getInstance().setSetpoint(0);
+        DriveSubsystem.getInstance().setInputRange(-1.0, 1.0);
+        DriveSubsystem.getInstance().setPercentTolerance(10.0); //10 percent tolerance
+        DriveSubsystem.getInstance().setSetpoint(0.0);
         DriveSubsystem.getInstance().enable();
     }
 

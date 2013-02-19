@@ -21,6 +21,10 @@ public class Log {
         minLevel = LEVEL_DEBUG;
     }
 
+    /**
+     * Sets the minimum logging level that is shown
+     * @param mlvl minimum level to be set
+     */
     public static void setMinLevel(int mlvl) {
         minLevel = mlvl;
     }

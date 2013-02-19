@@ -88,6 +88,10 @@ public class ShooterWheelSubsystem extends PIDSubsystem {
         shooterWheel.set(-speed);
     }
     
+    public void setSpeed(double s){
+        shooterWheel.set(s);
+    }
+    
     public double getSpeed(){
         return -shooterWheel.get();
     }

@@ -1,0 +1,33 @@
+package edu.arhs.team1100.ultimateascent.autonomous;
+
+import edu.arhs.team1100.ultimateascent.commands.drive.CameraPIDMecanumCommand;
+import edu.arhs.team1100.ultimateascent.commands.shooter.RapidFireCommandGroup;
+import edu.arhs.team1100.ultimateascent.commands.shooter.SpinShooterCommand;
+import edu.arhs.team1100.ultimateascent.commands.shooter.TiltShooterCameraPIDCommand;
+import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
+import edu.arhs.team1100.ultimateascent.subsystems.ShooterTiltSubsystem;
+import edu.wpi.first.wpilibj.command.CommandGroup;
+
+/**
+ *
+ * @author akshay
+ */
+public class AutoAimAndShootCommandGroup extends CommandGroup {
+    
+    private RapidFireCommandGroup shootCommand;
+    
+    public AutoAimAndShootCommandGroup() {
+        shootCommand = new RapidFireCommandGroup();
+        addParallel(new CameraPIDMecanumCommand());
+        addParallel(new TiltShooterCameraPIDCommand());
+        addParallel(new SpinShooterCommand(0.7)); //replace with PID later if possible
+    }
+    
+    public void execute(){
+        if(DriveSubsystem.getInstance().onTarget() && ShooterTiltSubsystem.getInstance().onTarget()){
+            if(!shootCommand.isRunning()){ //this should repeat shots as long as its on target
+                shootCommand.start();
+            }                       
+        }
+    }
+}

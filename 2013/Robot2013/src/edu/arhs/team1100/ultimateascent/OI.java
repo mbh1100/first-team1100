@@ -12,7 +12,7 @@ import edu.arhs.team1100.ultimateascent.input.AttackThree;
 import edu.arhs.team1100.ultimateascent.input.XboxController;
 import edu.arhs.team1100.ultimateascent.recording.PrintRecordingCodeCommand;
 import edu.arhs.team1100.ultimateascent.commands.drive.CameraPIDMecanumCommand;
-import edu.arhs.team1100.ultimateascent.commands.shooter.RapidFireFrisbeesCommandGroup;
+import edu.arhs.team1100.ultimateascent.commands.shooter.RapidFireCommandGroup;
 import edu.arhs.team1100.ultimateascent.commands.shooter.ShootFrisbeeCommand;
 import edu.arhs.team1100.ultimateascent.commands.shooter.TiltShooterCameraPIDCommand;
 
@@ -72,7 +72,7 @@ public class OI {
         rightStick.getButton(PRINT_RECORDING).whenPressed(new PrintRecordingCodeCommand(recorder));
 
         xbox.getButtonRightBumper().whenPressed(new ShootFrisbeeCommand());
-        xbox.getButtonLeftBumper().whileHeld(new RapidFireFrisbeesCommandGroup());
+        xbox.getButtonLeftBumper().whileHeld(new RapidFireCommandGroup());
         xbox.getButtonA().whenPressed(new ChangeShooterSpeedCommand(0.1));
         xbox.getButtonB().whenPressed(new ChangeShooterSpeedCommand(-0.1));
         xbox.getButtonX().whileHeld(new StopShooterCommand());

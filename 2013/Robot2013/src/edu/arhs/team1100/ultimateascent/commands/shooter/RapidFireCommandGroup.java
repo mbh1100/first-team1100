@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
  *
  * @author akshay
  */
-public class RapidFireFrisbeesCommandGroup extends CommandGroup {
+public class RapidFireCommandGroup extends CommandGroup {
     
-    public RapidFireFrisbeesCommandGroup(){
+    public RapidFireCommandGroup(){
             addSequential(new ShootFrisbeeCommand());
             addSequential(new WaitCommand(0.5));           
             this.setInterruptible(false);

@@ -21,8 +21,8 @@ public class RobotMap {
     public static final int D_GYRO = 1;
 
     //[S]HOOTER
-    public static final int S_VICTOR_SHOOTER_WHEEL = 7;    
-    public static final int S_VICTOR_SHOOTER_TILT = 9; 
+    public static final int S_VICTOR_SHOOTER_WHEEL = 9;    
+    public static final int S_VICTOR_SHOOTER_TILT = 7; 
 
     public static final int S_ENCODER_A = 1;
     public static final int S_ENCODER_B = 2;
