@@ -15,9 +15,9 @@ public class Camera {
 
     private int MIN_RED = 0;
     private int MAX_RED = 30;
-    private int MIN_GREEN = 220;
+    private int MIN_GREEN = 230;
     private int MAX_GREEN = 255;
-    private int MIN_BLUE = 220;
+    private int MIN_BLUE = 230;
     private int MAX_BLUE = 255;
     private AxisCamera axisCamera = null;
     private ColorImage colorImage;
@@ -75,9 +75,9 @@ public class Camera {
                 } catch (Exception e2) {
                 }
                 Log.log(this, "Error: " + e.getMessage(), Log.LEVEL_ERROR);
-            };
+            }
         } else {
-            Log.log(this, "image not fresh yet", Log.LEVEL_DEBUG);
+            
         }
     }
 

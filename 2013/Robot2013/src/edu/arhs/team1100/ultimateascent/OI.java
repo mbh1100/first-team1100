@@ -1,6 +1,6 @@
 package edu.arhs.team1100.ultimateascent;
 
-import edu.arhs.team1100.ultimateascent.commands.shooter.StopShooterCommand;
+import edu.arhs.team1100.ultimateascent.autonomous.AutoAimAndShootCommandGroup;
 import edu.arhs.team1100.ultimateascent.commands.shooter.ChangeShooterSpeedCommand;
 import edu.arhs.team1100.ultimateascent.commands.drive.ToggleDriveModeCommand;
 import edu.arhs.team1100.ultimateascent.commands.drive.CalibrateGyroCommand;
@@ -13,8 +13,7 @@ import edu.arhs.team1100.ultimateascent.input.XboxController;
 import edu.arhs.team1100.ultimateascent.recording.PrintRecordingCodeCommand;
 import edu.arhs.team1100.ultimateascent.commands.drive.CameraPIDMecanumCommand;
 import edu.arhs.team1100.ultimateascent.commands.shooter.RapidFireCommandGroup;
-import edu.arhs.team1100.ultimateascent.commands.shooter.ShootFrisbeeCommand;
-import edu.arhs.team1100.ultimateascent.commands.shooter.TiltShooterCameraPIDCommand;
+import edu.arhs.team1100.ultimateascent.commands.shooter.CameraPIDTiltShooterCommand;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -34,6 +33,7 @@ public class OI {
     private static final int RECORD = 5;
     private static final int PLAY_RECORDING = 2;
     private static final int PRINT_RECORDING = 2;
+    
     private static OI instance;
     private AttackThree leftStick;
     private AttackThree rightStick;
@@ -73,13 +73,11 @@ public class OI {
         rightStick.getButton(PLAY_RECORDING).whenPressed(new PlayRecordingCommand(recorder));
         rightStick.getButton(PRINT_RECORDING).whenPressed(new PrintRecordingCodeCommand(recorder));
 
-        xbox.getButtonRightBumper().whenPressed(new ShootFrisbeeCommand());
-        xbox.getButtonLeftBumper().whileHeld(new RapidFireCommandGroup());
-        xbox.getButtonA().whenPressed(new ChangeShooterSpeedCommand(0.1));
-        xbox.getButtonB().whenPressed(new ChangeShooterSpeedCommand(-0.1));
-        xbox.getButtonX().whileHeld(new StopShooterCommand());
-        xbox.getButtonY().whileHeld(new TiltShooterCameraPIDCommand());
-
+        xbox.getButtonX().whileHeld(new RapidFireCommandGroup());
+        xbox.getButtonRightBumper().whenPressed(new ChangeShooterSpeedCommand(0.1));
+        xbox.getButtonLeftBumper().whenPressed(new ChangeShooterSpeedCommand(-0.1));
+        xbox.getButtonY().whileHeld(new CameraPIDTiltShooterCommand());
+        xbox.getButtonBack().whileHeld(new AutoAimAndShootCommandGroup());
     }
 
     /**

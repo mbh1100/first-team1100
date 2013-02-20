@@ -3,7 +3,7 @@ package edu.arhs.team1100.ultimateascent.autonomous;
 import edu.arhs.team1100.ultimateascent.commands.drive.CameraPIDMecanumCommand;
 import edu.arhs.team1100.ultimateascent.commands.shooter.RapidFireCommandGroup;
 import edu.arhs.team1100.ultimateascent.commands.shooter.SpinShooterCommand;
-import edu.arhs.team1100.ultimateascent.commands.shooter.TiltShooterCameraPIDCommand;
+import edu.arhs.team1100.ultimateascent.commands.shooter.CameraPIDTiltShooterCommand;
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterTiltSubsystem;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -20,9 +20,10 @@ public class AutoAimAndShootCommandGroup extends CommandGroup {
      * Constructs objects
      */
     public AutoAimAndShootCommandGroup() {
+            
         shootCommand = new RapidFireCommandGroup();
         addParallel(new CameraPIDMecanumCommand());
-        addParallel(new TiltShooterCameraPIDCommand());
+        addParallel(new CameraPIDTiltShooterCommand());
         addParallel(new SpinShooterCommand(0.7)); //replace with PID later if possible
     }
     

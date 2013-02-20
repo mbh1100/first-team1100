@@ -29,7 +29,6 @@ public class ShootFrisbeeCommand extends CommandBase {
     * Called just before this Command runs the first time
     */
     protected void initialize() {
-        Log.log(this, "SHOOT!!!", Log.LEVEL_DEBUG);
         startTime = System.currentTimeMillis();
         finished = false;
     }
@@ -37,10 +36,8 @@ public class ShootFrisbeeCommand extends CommandBase {
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
-        ShooterPistonSubsystem.getInstance().unShoot();
-        
-        if(System.currentTimeMillis() - startTime > TIME){
-            Log.log(this, "UN-SHOOT!!!", Log.LEVEL_DEBUG);
+        ShooterPistonSubsystem.getInstance().unShoot();        
+        if(System.currentTimeMillis() - startTime >= TIME){
             ShooterPistonSubsystem.getInstance().shoot();
             finished = true;
         }

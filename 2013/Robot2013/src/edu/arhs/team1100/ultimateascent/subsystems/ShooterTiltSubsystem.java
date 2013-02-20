@@ -2,8 +2,10 @@ package edu.arhs.team1100.ultimateascent.subsystems;
 
 import edu.arhs.team1100.ultimateascent.OI;
 import edu.arhs.team1100.ultimateascent.RobotMap;
-import edu.arhs.team1100.ultimateascent.commands.shooter.TiltShooterCommand;
+import edu.arhs.team1100.ultimateascent.commands.shooter.TiltShooterPIDCommand;
 import edu.arhs.team1100.ultimateascent.input.Camera;
+import edu.arhs.team1100.ultimateascent.util.Log;
+import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
@@ -15,11 +17,21 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
  */
 public class ShooterTiltSubsystem extends PIDSubsystem {
 
-    private static final double P = 0.7;
-    private static final double I = 0.01;
-    private static final double D = 0.05;
+    
+    private static final double kCameraP = 0.2;
+    private static final double kCameraI = 0.1;
+    private static final double kCameraD = 0.1;
+    
+    private static final double kTiltP = 1.0;
+    private static final double kTiltI = 0.1;
+    private static final double kTiltD = 0.05;
+    
     private static ShooterTiltSubsystem instance;
     private Victor tiltMotor;
+    private AnalogChannel potentiometer;   
+    
+    
+    private boolean isCameraMode = false;
 
     
     /**
@@ -38,8 +50,9 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
      * Sets PID for tilt
      */
     public ShooterTiltSubsystem() {
-        super(P, I, D);
+        super(kTiltP, kTiltI, kTiltD);
         tiltMotor = new Victor(RobotMap.S_VICTOR_SHOOTER_TILT);
+        potentiometer = new AnalogChannel(RobotMap.S_POTENTIOMETER_TILT);
     }
 
     /**
@@ -54,6 +67,10 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
     /**
      * Stops tilting
      */
+    public double getAngle(){
+        return potentiometer.getVoltage();
+    }
+    
     public void stop(){
         tiltMotor.set(0.0);
     }
@@ -61,19 +78,49 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
      * Initializes TiltShooterCommand
      */
     public void initDefaultCommand() {
-        setDefaultCommand(new TiltShooterCommand());
+        setDefaultCommand(new TiltShooterPIDCommand());
     }
     /**
      * @return Center Y
      */
     protected double returnPIDInput() {
-        return -Camera.getInstance().getCenterY();
+        //Log.log(this, "Y :  "+(-Camera.getInstance().getCenterY()), Log.LEVEL_DEBUG);
+        if(isCameraMode){
+            return -Camera.getInstance().getCenterY();
+        } else {
+            return potentiometer.getVoltage();
+        }
     }
     /**
      * Sets output
      * @param output 
      */
     protected void usePIDOutput(double output) {
+        if(isCameraMode){
         tiltMotor.set(output);
+        } else {
+            tiltMotor.set(-output);
+        }
+    }
+    
+        /**
+     * Sets the PID mode to either camera or joystick 
+     * @param mode Whether or not to use camera pid mode (true), if false, uses joystick PID
+     */
+    public void setCameraMode(boolean mode) {
+        isCameraMode = mode;
+        if (isCameraMode) {
+            getPIDController().setPID(kCameraP, kCameraI, kCameraD);
+        } else {
+            getPIDController().setPID(kTiltP, kTiltI, kTiltD);
+        }
+    }
+
+    /**
+     * 
+     * @return whether the drive is using camera pid mode
+     */
+    public boolean getCameraMode() {
+        return isCameraMode;
     }
 }

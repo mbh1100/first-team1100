@@ -1,9 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.arhs.team1100.ultimateascent.commands.shooter;
 
+import edu.arhs.team1100.ultimateascent.OI;
 import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterWheelSubsystem;
 
@@ -12,7 +9,7 @@ import edu.arhs.team1100.ultimateascent.subsystems.ShooterWheelSubsystem;
  * @author akshay
  */
 public class ChangeShooterSpeedCommand extends CommandBase {
-    
+        
     private double delta = 0.0;    
     private boolean finished = false;
     
@@ -36,7 +33,18 @@ public class ChangeShooterSpeedCommand extends CommandBase {
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
-        ShooterWheelSubsystem.getInstance().changeSpeed(delta);
+        double curSpeed = ShooterWheelSubsystem.getInstance().getSpeed();
+        double newSpeed = curSpeed + delta;
+        boolean isStartDown = OI.getInstance().getXboxController().getButtonStart().get();
+        
+        if(delta > 0.0 && curSpeed == 0.0){
+            newSpeed = ShooterWheelSubsystem.DEFAULT_SPEED;
+        }
+        
+        if(isStartDown){
+            newSpeed = (delta > 0.0)?1.0:0.0;
+        }
+        ShooterWheelSubsystem.getInstance().setSpeed(newSpeed);
         finished = true;
     }
 

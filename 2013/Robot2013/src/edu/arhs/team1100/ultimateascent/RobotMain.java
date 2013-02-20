@@ -10,10 +10,12 @@ import edu.arhs.team1100.ultimateascent.commands.drive.CalibrateGyroCommand;
 import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.commands.drive.JoystickPIDMecanumCommand;
 import edu.arhs.team1100.ultimateascent.commands.shooter.ShootFrisbeeCommand;
+import edu.arhs.team1100.ultimateascent.commands.shooter.TiltShooterPIDCommand;
 import edu.arhs.team1100.ultimateascent.recording.PlayRecordingCommand;
 import edu.arhs.team1100.ultimateascent.recording.RecordCommand;
 import edu.arhs.team1100.ultimateascent.input.Camera;
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
+import edu.arhs.team1100.ultimateascent.subsystems.ShooterTiltSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterWheelSubsystem;
 import edu.arhs.team1100.ultimateascent.util.DSLog;
 import edu.arhs.team1100.ultimateascent.util.Log;
@@ -55,13 +57,17 @@ public class RobotMain extends IterativeRobot {
         Log.addClass(PlayRecordingCommand.class, Log.LEVEL_DEBUG);
         Log.addClass(Camera.class, Log.LEVEL_DEBUG);
         Log.addClass(ShootFrisbeeCommand.class, Log.LEVEL_DEBUG);
+        Log.addClass(ShooterTiltSubsystem.class, Log.LEVEL_DEBUG);
+        Log.addClass(TiltShooterPIDCommand.class, Log.LEVEL_DEBUG);
         // instantiate the command used for the autonomous period
 
         // Initialize all subsystems
         CommandBase.init();
+
         
         //init the camera
-        Camera.getInstance();
+        Camera.getInstance().getCenterX();
+        
     }
    /**
     * Initializes Autonomous 
@@ -94,7 +100,7 @@ public class RobotMain extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        trackRate();
+        //trackRate();
         updateDriverStationLog();
 
 
@@ -111,13 +117,18 @@ public class RobotMain extends IterativeRobot {
             DSLog.log(4, "");
         }
         
-        DSLog.log(5, "ENCODER : "+ ShooterWheelSubsystem.getInstance().getRate());
+        //DSLog.log(6, (Runtime.getRuntime().freeMemory()/1024)+"/"+(Runtime.getRuntime().totalMemory()/1000));
         
-       /*if(Camera.getInstance().isEnabled() && Camera.getInstance().hasParticle()){
-            DSLog.log(6, "PARTICLE: " + Camera.getInstance().getCenterX());
+        
+        //DSLog.log(5, "ENCODER : "+ ShooterWheelSubsystem.getInstance().getRate());
+        
+        
+        
+       if(Camera.getInstance().isEnabled() && Camera.getInstance().hasParticle()){
+            DSLog.log(6, "PARTICLE: (" + Log.round(Camera.getInstance().getCenterX(), 2) + "," + Log.round(Camera.getInstance().getCenterY(), 2) + ")");
         } else {
             DSLog.log(6, "NO PARTICLE");
-        }*/
+        }
         
     }
 

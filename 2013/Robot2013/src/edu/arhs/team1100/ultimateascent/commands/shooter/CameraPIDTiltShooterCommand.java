@@ -7,51 +7,39 @@ import edu.arhs.team1100.ultimateascent.subsystems.ShooterTiltSubsystem;
  *
  * @author akshay
  */
-public class TiltShooterCameraPIDCommand extends CommandBase {
+public class CameraPIDTiltShooterCommand extends CommandBase {
     
-     /**
-     * Constructs a ShooterWheelSubsystem object
-     */
-    public TiltShooterCameraPIDCommand() {
+    public CameraPIDTiltShooterCommand() {
         requires(ShooterTiltSubsystem.getInstance());
     }
 
-    /**
-    * Called just before this Command runs the first time
-    */
+    // Called just before this Command runs the first time
     protected void initialize() {
+        ShooterTiltSubsystem.getInstance().setCameraMode(true);
         ShooterTiltSubsystem.getInstance().setInputRange(-1.0, 1.0);
-        ShooterTiltSubsystem.getInstance().setAbsoluteTolerance(10.0);//10 %
+        ShooterTiltSubsystem.getInstance().setPercentTolerance(5.0);//10 %
         ShooterTiltSubsystem.getInstance().setSetpoint(0.0);        
         ShooterTiltSubsystem.getInstance().enable();
     }
 
-   /**
-     * Called repeatedly when this Command is scheduled to run
-     */
+    // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     }
 
-     /**
-     * Make this return true when this Command no longer needs to run execute()
-     * @return false
-     */
+    // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return false;
     }
 
-   /**
-     * Called once after isFinished returns true
-     */
+    // Called once after isFinished returns true
     protected void end() {
         ShooterTiltSubsystem.getInstance().stop();
         ShooterTiltSubsystem.getInstance().disable();
+        ShooterTiltSubsystem.getInstance().setCameraMode(false);
     }
 
-    /**
-     * Called when another command which requires one or more of the same 
-     * subsystems is scheduled to run
-     */
+    // Called when another command which requires one or more of the same
+    // subsystems is scheduled to run
     protected void interrupted() {
         end();
     }

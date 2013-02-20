@@ -32,9 +32,9 @@ public class DriveSubsystem extends PIDSubsystem {
     public static final double kJoystickI = 0.0001;
     public static final double kJoystickD = 0.0005;
     
-    public static final double kCameraP = 1.0;
+    public static final double kCameraP = 0.6;
     public static final double kCameraI = 0.01;
-    public static final double kCameraD = 1.5;
+    public static final double kCameraD = 0.2;
     
     static DriveSubsystem instance;
     

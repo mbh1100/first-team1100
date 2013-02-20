@@ -44,7 +44,7 @@ public class LiftSubsystem extends Subsystem{
      * Lifts
      */
     public void doLift(){
-        double speed = OI.getInstance().getXboxController().getAxis(AxisType.kZ)/2;
+        double speed = OI.getInstance().getXboxController().getAxis(AxisType.kZ)/1.5;
         left.set(speed);
         right.set(-speed);
     }
