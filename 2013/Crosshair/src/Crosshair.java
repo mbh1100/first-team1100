@@ -32,7 +32,7 @@ public class Crosshair extends JFrame implements MouseListener, MouseMotionListe
     }
 
     public void paint(Graphics g) {
-        g.clearRect(0, 0, w, h);
+        //g.clearRect(0, 0, w, h);
         //draw crosshair
         g.setColor(Color.RED);
         g.drawLine(0, h / 2, w, h / 2);
