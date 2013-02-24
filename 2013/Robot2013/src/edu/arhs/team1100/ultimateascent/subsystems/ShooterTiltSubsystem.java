@@ -65,7 +65,7 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
 
     }
     /**
-     * Stops tilting
+     * returns the voltage of the angle potentiometer
      */
     public double getAngle(){
         return potentiometer.getVoltage();

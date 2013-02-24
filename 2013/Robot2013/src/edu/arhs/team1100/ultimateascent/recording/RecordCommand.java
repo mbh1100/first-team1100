@@ -32,7 +32,7 @@ public class RecordCommand extends CommandBase {
      * Starts a new recording
      */
     protected void initialize() {
-        Log.log(this, "START RECORD", Log.LEVEL_DEBUG);
+        Log.log(this, "Recording START", Log.LEVEL_DEBUG);
         recording = new Vector();
         last = System.currentTimeMillis();
 

@@ -41,7 +41,7 @@ public class PlayRecordingCommand extends CommandBase {
         interval = recorder.getInterval();
         last = System.currentTimeMillis();
 
-        Log.log(this, "PLAY RECORDING: " + states.size() + " commands, interval " + interval, Log.LEVEL_DEBUG);
+        Log.log(this, "Playback START: " + states.size() + " commands, interval " + interval, Log.LEVEL_DEBUG);
     }
 
     /**

@@ -5,13 +5,11 @@ import edu.arhs.team1100.ultimateascent.OI;
 import edu.arhs.team1100.ultimateascent.RobotMap;
 import edu.arhs.team1100.ultimateascent.commands.drive.JoystickMecanumCommand;
 import edu.arhs.team1100.ultimateascent.input.Camera;
-import edu.arhs.team1100.ultimateascent.util.DSLog;
 import edu.arhs.team1100.ultimateascent.util.Log;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**
@@ -59,7 +57,6 @@ public class DriveSubsystem extends PIDSubsystem {
 
     public DriveSubsystem() {
         super(kJoystickP, kJoystickI, kJoystickD);//SUPER PID!!!!
-        Log.log(this, "Constructor", Log.LEVEL_DEBUG);
 
         frontLeftTalon = new Talon(RobotMap.D_TALON_FRONT_LEFT);
         frontRightTalon = new Talon(RobotMap.D_TALON_FRONT_RIGHT);
@@ -99,7 +96,7 @@ public class DriveSubsystem extends PIDSubsystem {
 
     private void userDrivePolar() {
         double magnitude = -OI.getInstance().getLeftJoystick().getMagnitude();
-        double angle =  -OI.getInstance().getLeftJoystick().getAngle();
+        double angle = -OI.getInstance().getLeftJoystick().getAngle();
         double rotation = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
         drive.mecanumDrive_Polar(magnitude, angle, rotation);
     }
@@ -137,6 +134,7 @@ public class DriveSubsystem extends PIDSubsystem {
             stop();
         }
     }
+
     /**
      * Stops the drive
      */
@@ -157,11 +155,10 @@ public class DriveSubsystem extends PIDSubsystem {
     protected void usePIDOutput(double rotationSpeed) {
         double controlX = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
         double controlY = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
- 
+
         drive.mecanumDrive_Cartesian(controlX, controlY, rotationSpeed, driveGyro.getAngle());
     }
 
-    
     public void setSetpoint(double setpoint) {
         if (!isCameraMode) {
             super.setSetpoint(setpoint);
@@ -178,15 +175,16 @@ public class DriveSubsystem extends PIDSubsystem {
     }
 
     /**
-     * 
-     * @return the current drive mode, DriveSubsystem.MODE_POLAR or DriveSubsystem.MODE_CARTESIAN
+     *
+     * @return the current drive mode, DriveSubsystem.MODE_POLAR or
+     * DriveSubsystem.MODE_CARTESIAN
      */
     public int getDriveMode() {
         return driveMode;
     }
 
     /**
-     * 
+     *
      * @return the un-normalized gyro angle
      */
     public double getGyroAngle() {
@@ -205,8 +203,10 @@ public class DriveSubsystem extends PIDSubsystem {
     }
 
     /**
-     * Sets the PID mode to either camera or joystick 
-     * @param mode Whether or not to use camera pid mode (true), if false, uses joystick PID
+     * Sets the PID mode to either camera or joystick
+     *
+     * @param mode Whether or not to use camera pid mode (true), if false, uses
+     * joystick PID
      */
     public void setCameraMode(boolean mode) {
         isCameraMode = mode;
@@ -218,7 +218,7 @@ public class DriveSubsystem extends PIDSubsystem {
     }
 
     /**
-     * 
+     *
      * @return whether the drive is using camera pid mode
      */
     public boolean getCameraMode() {
