@@ -36,6 +36,10 @@ public class DriveSubsystem extends PIDSubsystem {
     
     static DriveSubsystem instance;
     
+    /*static {        
+       getInstance();    
+    }*/
+    
     private RobotDrive drive;
     private Gyro driveGyro;
     

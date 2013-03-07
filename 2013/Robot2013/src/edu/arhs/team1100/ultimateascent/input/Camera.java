@@ -30,7 +30,8 @@ public class Camera {
 
     /**
      * If a Camera object has not been created, construct one
-     * @return 
+     *
+     * @return
      */
     public static Camera getInstance() {
 
@@ -66,18 +67,20 @@ public class Camera {
                 binaryImg = colorImage.thresholdRGB(MIN_RED, MAX_RED, MIN_GREEN, MAX_GREEN, MIN_BLUE, MAX_BLUE);
 
                 particles = binaryImg.getOrderedParticleAnalysisReports(1);  //get one (the largest) particle
-                colorImage.free();
-                binaryImg.free();
+                //colorImage.free();
+                //binaryImg.free();
                 enabled = true;
             } catch (Exception e) {
+                Log.log(this, "Error: " + e.getMessage(), Log.LEVEL_ERROR);
+            } finally {
                 try {
                     binaryImg.free();
+                    colorImage.free();
                 } catch (Exception e2) {
                 }
-                Log.log(this, "Error: " + e.getMessage(), Log.LEVEL_ERROR);
+                
             }
         } else {
-            
         }
     }
 
@@ -127,6 +130,7 @@ public class Camera {
         }
 
     }
+
     /**
      * Catches Camera errors
      */
@@ -136,9 +140,9 @@ public class Camera {
             Log.log(e, "Error freeing camera resources", Log.LEVEL_ERROR);
         }
     }
-    
+
     /**
-     * @return enabled 
+     * @return enabled
      */
     public boolean isEnabled() {
         return enabled;
