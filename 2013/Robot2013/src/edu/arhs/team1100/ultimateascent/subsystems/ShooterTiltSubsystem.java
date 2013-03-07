@@ -4,7 +4,6 @@ import edu.arhs.team1100.ultimateascent.OI;
 import edu.arhs.team1100.ultimateascent.RobotMap;
 import edu.arhs.team1100.ultimateascent.commands.shooter.TiltShooterPIDCommand;
 import edu.arhs.team1100.ultimateascent.input.Camera;
-import edu.arhs.team1100.ultimateascent.util.Log;
 import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Victor;
@@ -17,13 +16,16 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
  */
 public class ShooterTiltSubsystem extends PIDSubsystem {
 
+    public static final double FLAT_ANGLE = 1.3;
+    public static final double AUTONOMOUS_ANGLE = 1.7;
+    public static final double SHOOTING_ANGLE = 1.7;
     
     private static final double kCameraP = 0.2;
     private static final double kCameraI = 0.1;
     private static final double kCameraD = 0.1;
     
     private static final double kTiltP = 1.0;
-    private static final double kTiltI = 0.1;
+    private static final double kTiltI = 0.20;
     private static final double kTiltD = 0.05;
     
     private static ShooterTiltSubsystem instance;

@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 package edu.arhs.team1100.ultimateascent;
 
+import edu.arhs.team1100.ultimateascent.autonomous.AutoAimAndShootCommandGroup;
 import edu.arhs.team1100.ultimateascent.commands.drive.CalibrateGyroCommand;
 import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.commands.drive.JoystickPIDMecanumCommand;
@@ -15,12 +16,12 @@ import edu.arhs.team1100.ultimateascent.recording.PlayRecordingCommand;
 import edu.arhs.team1100.ultimateascent.recording.RecordCommand;
 import edu.arhs.team1100.ultimateascent.input.Camera;
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
+import edu.arhs.team1100.ultimateascent.subsystems.LiftSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterTiltSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterWheelSubsystem;
 import edu.arhs.team1100.ultimateascent.util.DSLog;
 import edu.arhs.team1100.ultimateascent.util.Log;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
@@ -33,7 +34,8 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  */
 public class RobotMain extends IterativeRobot {
 
-    private Command autonomousCommand;
+    //private Command autonomousCommand;
+    private AutoAimAndShootCommandGroup autonomous;
     
     private long lastTime = 0;
     private long totalTime = 0;
@@ -60,10 +62,11 @@ public class RobotMain extends IterativeRobot {
         Log.addClass(ShooterTiltSubsystem.class, Log.LEVEL_DEBUG);
         Log.addClass(TiltShooterPIDCommand.class, Log.LEVEL_DEBUG);
         // instantiate the command used for the autonomous period
-
         // Initialize all subsystems
         CommandBase.init();
 
+        autonomous = new AutoAimAndShootCommandGroup();
+        
         
         //init the camera
         Camera.getInstance().getCenterX();
@@ -74,19 +77,27 @@ public class RobotMain extends IterativeRobot {
     */
     public void autonomousInit() {
         // schedule the autonomous command (example)
-        autonomousCommand.start();
+        //autonomousCommand.start();
+        
+        Scheduler.getInstance().enable();
+        //DSLog.log(5, "auto init");
+        autonomous.start();
     }
 
     /**
      * called periodically during autonomous
      */
     public void autonomousPeriodic() {
+        //autonomous.execute();
+        
         Scheduler.getInstance().run();
     }
    /**
     * Initializes teleop
     */
     public void teleopInit() {
+        autonomous.cancel();
+        //autonomous.stahp();
         // This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
@@ -114,21 +125,23 @@ public class RobotMain extends IterativeRobot {
         if(DriveSubsystem.getInstance().getPIDController().isEnable()){
             DSLog.log(4, DriveSubsystem.getInstance().getCameraMode()?"Camera PID Mode":"Gyro PID Mode");
         } else {
-            DSLog.log(4, "");
+            DSLog.log(4, "pot:"+ Log.round(ShooterTiltSubsystem.getInstance().getAngle(), 3));
         }
         
+        //DSLog.log(5, "Setpoint value : " + LiftSubsystem.);
+        
         //DSLog.log(6, (Runtime.getRuntime().freeMemory()/1024)+"/"+(Runtime.getRuntime().totalMemory()/1000));
+        DSLog.log(6, "Lift: "+Log.round(LiftSubsystem.getInstance().getPosition(),3));
+        
+       //DSLog.log(5, "ENCODER : "+ ShooterWheelSubsystem.getInstance().getRate());
         
         
-        //DSLog.log(5, "ENCODER : "+ ShooterWheelSubsystem.getInstance().getRate());
         
-        
-        
-       if(Camera.getInstance().isEnabled() && Camera.getInstance().hasParticle()){
+      /* if(Camera.getInstance().isEnabled() && Camera.getInstance().hasParticle()){
             DSLog.log(6, "PARTICLE: (" + Log.round(Camera.getInstance().getCenterX(), 2) + "," + Log.round(Camera.getInstance().getCenterY(), 2) + ")");
         } else {
             DSLog.log(6, "NO PARTICLE");
-        }
+        }*/
         
     }
 

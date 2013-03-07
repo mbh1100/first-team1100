@@ -1,6 +1,7 @@
 package edu.arhs.team1100.ultimateascent;
 
 import edu.arhs.team1100.ultimateascent.autonomous.AutoAimAndShootCommandGroup;
+import edu.arhs.team1100.ultimateascent.autonomous.TiltShooterPositionPIDCommand;
 import edu.arhs.team1100.ultimateascent.commands.shooter.ChangeShooterSpeedCommand;
 import edu.arhs.team1100.ultimateascent.commands.drive.ToggleDriveModeCommand;
 import edu.arhs.team1100.ultimateascent.commands.drive.CalibrateGyroCommand;
@@ -13,7 +14,7 @@ import edu.arhs.team1100.ultimateascent.input.XboxController;
 import edu.arhs.team1100.ultimateascent.recording.PrintRecordingCodeCommand;
 import edu.arhs.team1100.ultimateascent.commands.drive.CameraPIDMecanumCommand;
 import edu.arhs.team1100.ultimateascent.commands.shooter.RapidFireCommandGroup;
-import edu.arhs.team1100.ultimateascent.commands.shooter.CameraPIDTiltShooterCommand;
+import edu.arhs.team1100.ultimateascent.subsystems.ShooterTiltSubsystem;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -76,7 +77,7 @@ public class OI {
         xbox.getButtonX().whileHeld(new RapidFireCommandGroup());
         xbox.getButtonRightBumper().whenPressed(new ChangeShooterSpeedCommand(0.1));
         xbox.getButtonLeftBumper().whenPressed(new ChangeShooterSpeedCommand(-0.1));
-        xbox.getButtonY().whileHeld(new CameraPIDTiltShooterCommand());
+        xbox.getButtonY().whileHeld(new TiltShooterPositionPIDCommand());
         xbox.getButtonBack().whileHeld(new AutoAimAndShootCommandGroup());
     }
 

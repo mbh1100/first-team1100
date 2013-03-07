@@ -7,6 +7,7 @@ package edu.arhs.team1100.ultimateascent.subsystems;
 import edu.arhs.team1100.ultimateascent.OI;
 import edu.arhs.team1100.ultimateascent.RobotMap;
 import edu.arhs.team1100.ultimateascent.commands.LiftCommand;
+import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -19,7 +20,9 @@ public class LiftSubsystem extends Subsystem{
     
     private static LiftSubsystem instance;
     
+    
     private Victor left, right;
+    private AnalogChannel potentiometer;
     /**
      * creates a new instance of lift
      * @return 
@@ -39,6 +42,7 @@ public class LiftSubsystem extends Subsystem{
     public LiftSubsystem(){
         left = new Victor(RobotMap.L_VICTOR_LEFT);
         right = new Victor(RobotMap.L_VICTOR_RIGHT);
+        potentiometer = new AnalogChannel(RobotMap.L_POTENTIOMETER);
     }
     /**
      * Lifts
@@ -49,6 +53,9 @@ public class LiftSubsystem extends Subsystem{
         right.set(-speed);
     }
     
+    public double getPosition(){
+        return potentiometer.getVoltage();
+    }
         
   /**
    * Initializes LiftCommand

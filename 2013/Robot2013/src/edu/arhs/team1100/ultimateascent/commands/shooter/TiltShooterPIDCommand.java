@@ -38,7 +38,14 @@ public class TiltShooterPIDCommand extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         double delta = -OI.getInstance().getXboxController().getAxis(AxisType.kY);
+        
         setpoint += delta/100;
+        if(setpoint > 4.0){
+            setpoint = 4.0;
+            
+        } else if(setpoint < 1.0){
+            setpoint = 1.0;
+        }
         ShooterTiltSubsystem.getInstance().setSetpoint(setpoint);
                  
     }
