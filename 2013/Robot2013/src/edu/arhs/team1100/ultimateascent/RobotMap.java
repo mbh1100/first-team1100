@@ -38,7 +38,7 @@ public class RobotMap {
     public static final int L_VICTOR_LEFT  = 6;
     public static final int L_VICTOR_RIGHT = 5;
     
-    public static final int L_POTENTIOMETER = 3;
+    public static final int L_POTENTIOMETER = 4;
     
     //[I]NTAKE
     public static final int I_VICTOR_ROLLER = 8;
