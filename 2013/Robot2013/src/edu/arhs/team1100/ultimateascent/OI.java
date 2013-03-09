@@ -13,8 +13,8 @@ import edu.arhs.team1100.ultimateascent.input.AttackThree;
 import edu.arhs.team1100.ultimateascent.input.XboxController;
 import edu.arhs.team1100.ultimateascent.recording.PrintRecordingCodeCommand;
 import edu.arhs.team1100.ultimateascent.commands.drive.CameraPIDMecanumCommand;
+import edu.arhs.team1100.ultimateascent.commands.shooter.CameraPIDTiltShooterCommand;
 import edu.arhs.team1100.ultimateascent.commands.shooter.RapidFireCommandGroup;
-import edu.arhs.team1100.ultimateascent.subsystems.ShooterTiltSubsystem;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -33,7 +33,7 @@ public class OI {
     //recording    
     private static final int RECORD = 5;
     private static final int PLAY_RECORDING = 2;
-    private static final int PRINT_RECORDING = 2;
+    private static final int PRINT_RECORDING = 7;
     
     private static OI instance;
     private AttackThree leftStick;
@@ -77,7 +77,9 @@ public class OI {
         xbox.getButtonX().whileHeld(new RapidFireCommandGroup());
         xbox.getButtonRightBumper().whenPressed(new ChangeShooterSpeedCommand(0.1));
         xbox.getButtonLeftBumper().whenPressed(new ChangeShooterSpeedCommand(-0.1));
-        xbox.getButtonY().whileHeld(new TiltShooterPositionPIDCommand());
+        xbox.getButtonY().whileHeld(new TiltShooterPositionPIDCommand(RobotMap.DS_SHOOTING_ANGLE_CH));
+        xbox.getButtonB().whileHeld(new TiltShooterPositionPIDCommand(RobotMap.DS_FEEDER_ANGLE_CH));
+        //xbox.getButtonA().whileHeld(new CameraPIDTiltShooterCommand());
         xbox.getButtonBack().whileHeld(new AutoAimAndShootCommandGroup());
     }
 

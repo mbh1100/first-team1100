@@ -11,15 +11,12 @@ import edu.wpi.first.wpilibj.Victor;
  */
 public class ShooterWheelSubsystem extends PIDSubsystem {
 
-    public static final double DEFAULT_SPEED = 0.7;
+    public static final double SHOOTING_SPEED = 0.8;
     
     private static final double P = 1.0;
     private static final double I = 0.05;
     private static final double D = 0.01;
-    
-    
-    public static double SHOOTING_POWER = 0.7;
-    public static double SHOOTING_RATE = 0;
+
    
     
     static ShooterWheelSubsystem instance;

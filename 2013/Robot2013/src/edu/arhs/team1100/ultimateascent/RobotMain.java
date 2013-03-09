@@ -6,7 +6,9 @@
 /*----------------------------------------------------------------------------*/
 package edu.arhs.team1100.ultimateascent;
 
+import com.sun.squawk.util.MathUtils;
 import edu.arhs.team1100.ultimateascent.autonomous.AutoAimAndShootCommandGroup;
+import edu.arhs.team1100.ultimateascent.autonomous.AutonomousCommandGroup;
 import edu.arhs.team1100.ultimateascent.commands.drive.CalibrateGyroCommand;
 import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.commands.drive.JoystickPIDMecanumCommand;
@@ -36,6 +38,7 @@ public class RobotMain extends IterativeRobot {
 
     //private Command autonomousCommand;
     private AutoAimAndShootCommandGroup autonomous;
+    private AutonomousCommandGroup autoCommand;
     
     private long lastTime = 0;
     private long totalTime = 0;
@@ -65,7 +68,8 @@ public class RobotMain extends IterativeRobot {
         // Initialize all subsystems
         CommandBase.init();
 
-        autonomous = new AutoAimAndShootCommandGroup();
+        //autonomous = new AutoAimAndShootCommandGroup();
+        autoCommand = new AutonomousCommandGroup();
         
         
         //init the camera
@@ -77,11 +81,12 @@ public class RobotMain extends IterativeRobot {
     */
     public void autonomousInit() {
         // schedule the autonomous command (example)
-        //autonomousCommand.start();
+        //autonomous.start();
+        autoCommand.start();
         
         Scheduler.getInstance().enable();
         //DSLog.log(5, "auto init");
-        autonomous.start();
+       // autonomous.start();
     }
 
     /**
@@ -96,8 +101,6 @@ public class RobotMain extends IterativeRobot {
     * Initializes teleop
     */
     public void teleopInit() {
-        autonomous.cancel();
-        //autonomous.stahp();
         // This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
@@ -121,7 +124,7 @@ public class RobotMain extends IterativeRobot {
         DSLog.log(1, "Drive Mode: " + ((DriveSubsystem.getInstance().getDriveMode() == DriveSubsystem.MODE_POLAR) ? "POLAR" : "CARTESIAN"));
         DSLog.log(2, "Gyro Angle: " + Log.round(DriveSubsystem.getInstance().getGyroAngle(), 2));
         //DSLog.log(3, "Rate      : " + rate);
-        DSLog.log(3, "Shooter   : " + Log.round(ShooterWheelSubsystem.getInstance().getSpeed(),2));
+        DSLog.log(3, "Shooter   : " + MathUtils.round(ShooterWheelSubsystem.getInstance().getSpeed()*10));
         if(DriveSubsystem.getInstance().getPIDController().isEnable()){
             DSLog.log(4, DriveSubsystem.getInstance().getCameraMode()?"Camera PID Mode":"Gyro PID Mode");
         } else {

@@ -38,7 +38,7 @@ public class ChangeShooterSpeedCommand extends CommandBase {
         boolean isStartDown = OI.getInstance().getXboxController().getButtonStart().get();
         
         if(delta > 0.0 && curSpeed == 0.0){
-            newSpeed = ShooterWheelSubsystem.DEFAULT_SPEED;
+            newSpeed = ShooterWheelSubsystem.SHOOTING_SPEED;
         }
         
         if(isStartDown){

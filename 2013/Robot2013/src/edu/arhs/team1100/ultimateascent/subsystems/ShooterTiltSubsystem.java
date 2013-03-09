@@ -19,10 +19,13 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
     public static final double FLAT_ANGLE = 1.3;
     public static final double AUTONOMOUS_ANGLE = 1.7;
     public static final double SHOOTING_ANGLE = 1.7;
+    public static final double FEEDER_ANGLE = 1.96;
+    
+    
     
     private static final double kCameraP = 0.2;
-    private static final double kCameraI = 0.1;
-    private static final double kCameraD = 0.1;
+    private static final double kCameraI = 0.2;
+    private static final double kCameraD = 0.05;
     
     private static final double kTiltP = 1.0;
     private static final double kTiltI = 0.20;

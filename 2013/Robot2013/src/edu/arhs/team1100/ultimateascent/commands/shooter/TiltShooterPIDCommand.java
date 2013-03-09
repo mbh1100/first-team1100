@@ -40,8 +40,8 @@ public class TiltShooterPIDCommand extends CommandBase {
         double delta = -OI.getInstance().getXboxController().getAxis(AxisType.kY);
         
         setpoint += delta/100;
-        if(setpoint > 4.0){
-            setpoint = 4.0;
+        if(setpoint > 3.5){
+            setpoint = 3.5;
             
         } else if(setpoint < 1.0){
             setpoint = 1.0;

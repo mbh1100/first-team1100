@@ -13,7 +13,7 @@ public class RapidFireCommandGroup extends CommandGroup {
      */
     public RapidFireCommandGroup(){
             addSequential(new ShootFrisbeeCommand());
-            addSequential(new WaitCommand(0.5));           
+            addSequential(new WaitCommand(0.7));           
             this.setInterruptible(false);
     }
 

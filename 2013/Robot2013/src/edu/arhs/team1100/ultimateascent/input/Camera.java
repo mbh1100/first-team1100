@@ -27,6 +27,8 @@ public class Camera {
     private final int PARTICLE_SIZE = 1;
     private boolean enabled = false;
     private boolean hasParticle = false;
+    
+    private ParticleAnalysisReport centerest;
 
     /**
      * If a Camera object has not been created, construct one
@@ -66,7 +68,7 @@ public class Camera {
                 colorImage = axisCamera.getImage();
                 binaryImg = colorImage.thresholdRGB(MIN_RED, MAX_RED, MIN_GREEN, MAX_GREEN, MIN_BLUE, MAX_BLUE);
 
-                particles = binaryImg.getOrderedParticleAnalysisReports(1);  //get one (the largest) particle
+                particles = binaryImg.getOrderedParticleAnalysisReports(5);  //get one (the largest) particle
                 //colorImage.free();
                 //binaryImg.free();
                 enabled = true;
@@ -82,6 +84,21 @@ public class Camera {
             }
         } else {
         }
+        
+        centerest = null;
+        
+        //get particle closest to the center
+        if(particles != null && particles[0] != null){
+            centerest = particles[0];
+            for(int i = 0; i < particles.length; i++){
+                if(particles[i] != null && Math.abs(particles[i].center_mass_x_normalized) < Math.abs(centerest.center_mass_x_normalized)){
+                    centerest = particles[i];
+                    
+                }
+            }
+        }
+        
+        hasParticle = centerest != null;
     }
 
     /**
@@ -90,11 +107,7 @@ public class Camera {
      */
     public ParticleAnalysisReport getBiggestParticle() {
         update();
-        if (particles != null && particles.length != 0) {
-            return particles[0];
-        } else {
-            return null;
-        }
+        return centerest;
     }
 
     /**
@@ -105,11 +118,8 @@ public class Camera {
      */
     public double getCenterX() {
         update();
-        if (particles != null && particles.length != 0) {
-            hasParticle = true;
-            return particles[0].center_mass_x_normalized;
-        } else {
-            hasParticle = false;
+        if (hasParticle) {
+            return centerest.center_mass_x_normalized;
         }
         return 0;
     }
@@ -120,15 +130,11 @@ public class Camera {
      * no particle ,returns 0.0
      */
     public double getCenterY() {
-        update();
-        if (particles != null && particles.length != 0) {
-            hasParticle = true;
-            return particles[0].center_mass_y_normalized;
-        } else {
-            hasParticle = false;
-            return 0;
-        }
-
+        update();                
+        if (hasParticle) {
+            return centerest.center_mass_y_normalized;
+        } 
+        return 0;
     }
 
     /**
