@@ -19,6 +19,7 @@ import edu.arhs.team1100.ultimateascent.recording.RecordCommand;
 import edu.arhs.team1100.ultimateascent.input.Camera;
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.LiftSubsystem;
+import edu.arhs.team1100.ultimateascent.subsystems.ShooterPistonSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterTiltSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterWheelSubsystem;
 import edu.arhs.team1100.ultimateascent.util.DSLog;
@@ -121,7 +122,8 @@ public class RobotMain extends IterativeRobot {
     }
     
     private void updateDriverStationLog(){
-        DSLog.log(1, "Drive Mode: " + ((DriveSubsystem.getInstance().getDriveMode() == DriveSubsystem.MODE_POLAR) ? "POLAR" : "CARTESIAN"));
+            DSLog.log(1, "pressure :" + ShooterPistonSubsystem.getInstance().getPressureSwitch());
+        // DSLog.log(1, "Drive Mode: " + ((DriveSubsystem.getInstance().getDriveMode() == DriveSubsystem.MODE_POLAR) ? "POLAR" : "CARTESIAN"));
         DSLog.log(2, "Gyro Angle: " + Log.round(DriveSubsystem.getInstance().getGyroAngle(), 2));
         //DSLog.log(3, "Rate      : " + rate);
         DSLog.log(3, "Shooter   : " + MathUtils.round(ShooterWheelSubsystem.getInstance().getSpeed()*10));

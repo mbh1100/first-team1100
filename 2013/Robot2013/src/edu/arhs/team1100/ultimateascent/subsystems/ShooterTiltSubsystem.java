@@ -2,7 +2,7 @@ package edu.arhs.team1100.ultimateascent.subsystems;
 
 import edu.arhs.team1100.ultimateascent.OI;
 import edu.arhs.team1100.ultimateascent.RobotMap;
-import edu.arhs.team1100.ultimateascent.commands.shooter.TiltShooterPIDCommand;
+import edu.arhs.team1100.ultimateascent.commands.shooter.TiltShooterCommand;
 import edu.arhs.team1100.ultimateascent.input.Camera;
 import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.Joystick;
@@ -83,7 +83,7 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
      * Initializes TiltShooterCommand
      */
     public void initDefaultCommand() {
-        setDefaultCommand(new TiltShooterPIDCommand());
+        setDefaultCommand(new TiltShooterCommand());
     }
     /**
      * @return Center Y

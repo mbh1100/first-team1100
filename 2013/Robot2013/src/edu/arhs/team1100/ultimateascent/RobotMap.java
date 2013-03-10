@@ -24,7 +24,7 @@ public class RobotMap {
     public static final int D_GYRO = 1;
 
     //[S]HOOTER
-    public static final int S_VICTOR_SHOOTER_WHEEL = 9;    
+    public static final int S_VICTOR_SHOOTER_WHEEL = 8;    
     public static final int S_VICTOR_SHOOTER_TILT = 7; 
     
     public static final int S_POTENTIOMETER_TILT = 2;
@@ -44,5 +44,5 @@ public class RobotMap {
     public static final int L_POTENTIOMETER = 4;
     
     //[I]NTAKE
-    public static final int I_VICTOR_ROLLER = 8;
+    public static final int I_VICTOR_ROLLER = 9;
 }

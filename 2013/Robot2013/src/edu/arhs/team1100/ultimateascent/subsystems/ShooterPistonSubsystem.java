@@ -29,6 +29,8 @@ public class ShooterPistonSubsystem extends Subsystem {
     public ShooterPistonSubsystem() {
         compressor = new Compressor(RobotMap.S_COMPRESSOR_PRESSURE_SWITCH, RobotMap.S_COMPRESSOR_RELAY);
         shooterPiston = new Solenoid(RobotMap.S_SOLENOID_SHOOTER_PISTON);        
+        
+        
         //limitSwitch = new DigitalInput(RobotMap.S_FRISBEE_LIMIT_SWITCH);
         compressor.start();
 
@@ -88,6 +90,10 @@ public class ShooterPistonSubsystem extends Subsystem {
      */
     public int getFrisbeeCount() {
         return frisbeeCount;
+    }
+    
+    public boolean getPressureSwitch(){
+        return compressor.getPressureSwitchValue();
     }
     /**
      * null
