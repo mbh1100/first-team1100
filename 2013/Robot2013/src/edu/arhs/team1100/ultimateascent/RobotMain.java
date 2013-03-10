@@ -40,7 +40,6 @@ public class RobotMain extends IterativeRobot {
     //private Command autonomousCommand;
     private AutoAimAndShootCommandGroup autonomous;
     private AutonomousCommandGroup autoCommand;
-    
     private long lastTime = 0;
     private long totalTime = 0;
     private long cycles = 0;
@@ -71,23 +70,24 @@ public class RobotMain extends IterativeRobot {
 
         //autonomous = new AutoAimAndShootCommandGroup();
         autoCommand = new AutonomousCommandGroup();
-        
-        
+
+
         //init the camera
         Camera.getInstance().getCenterX();
-        
+
     }
-   /**
-    * Initializes Autonomous 
-    */
+
+    /**
+     * Initializes Autonomous
+     */
     public void autonomousInit() {
         // schedule the autonomous command (example)
         //autonomous.start();
         autoCommand.start();
-        
+
         Scheduler.getInstance().enable();
         //DSLog.log(5, "auto init");
-       // autonomous.start();
+        // autonomous.start();
     }
 
     /**
@@ -95,12 +95,13 @@ public class RobotMain extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         //autonomous.execute();
-        
+
         Scheduler.getInstance().run();
     }
-   /**
-    * Initializes teleop
-    */
+
+    /**
+     * Initializes teleop
+     */
     public void teleopInit() {
         // This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to
@@ -120,34 +121,34 @@ public class RobotMain extends IterativeRobot {
 
 
     }
-    
-    private void updateDriverStationLog(){
-            DSLog.log(1, "pressure :" + ShooterPistonSubsystem.getInstance().getPressureSwitch());
+
+    private void updateDriverStationLog() {
+        DSLog.log(1, "pressure :" + ShooterPistonSubsystem.getInstance().getPressureSwitch());
         // DSLog.log(1, "Drive Mode: " + ((DriveSubsystem.getInstance().getDriveMode() == DriveSubsystem.MODE_POLAR) ? "POLAR" : "CARTESIAN"));
         DSLog.log(2, "Gyro Angle: " + Log.round(DriveSubsystem.getInstance().getGyroAngle(), 2));
         //DSLog.log(3, "Rate      : " + rate);
-        DSLog.log(3, "Shooter   : " + MathUtils.round(ShooterWheelSubsystem.getInstance().getSpeed()*10));
-        if(DriveSubsystem.getInstance().getPIDController().isEnable()){
-            DSLog.log(4, DriveSubsystem.getInstance().getCameraMode()?"Camera PID Mode":"Gyro PID Mode");
+        DSLog.log(3, "Shooter   : " + MathUtils.round(ShooterWheelSubsystem.getInstance().getSpeed() * 10));
+        if (DriveSubsystem.getInstance().getPIDController().isEnable()) {
+            DSLog.log(4, DriveSubsystem.getInstance().getCameraMode() ? "Camera PID Mode" : "Gyro PID Mode");
         } else {
-            DSLog.log(4, "pot:"+ Log.round(ShooterTiltSubsystem.getInstance().getAngle(), 3));
+            DSLog.log(4, "pot:" + Log.round(ShooterTiltSubsystem.getInstance().getAngle(), 3));
         }
-        
+
         //DSLog.log(5, "Setpoint value : " + LiftSubsystem.);
-        
+
         //DSLog.log(6, (Runtime.getRuntime().freeMemory()/1024)+"/"+(Runtime.getRuntime().totalMemory()/1000));
-        DSLog.log(6, "Lift: "+Log.round(LiftSubsystem.getInstance().getPosition(),3));
-        
-       //DSLog.log(5, "ENCODER : "+ ShooterWheelSubsystem.getInstance().getRate());
-        
-        
-        
-      /* if(Camera.getInstance().isEnabled() && Camera.getInstance().hasParticle()){
-            DSLog.log(6, "PARTICLE: (" + Log.round(Camera.getInstance().getCenterX(), 2) + "," + Log.round(Camera.getInstance().getCenterY(), 2) + ")");
-        } else {
-            DSLog.log(6, "NO PARTICLE");
-        }*/
-        
+        DSLog.log(6, "Lift: " + Log.round(LiftSubsystem.getInstance().getPosition(), 3));
+
+        //DSLog.log(5, "ENCODER : "+ ShooterWheelSubsystem.getInstance().getRate());
+
+
+
+        /* if(Camera.getInstance().isEnabled() && Camera.getInstance().hasParticle()){
+         DSLog.log(6, "PARTICLE: (" + Log.round(Camera.getInstance().getCenterX(), 2) + "," + Log.round(Camera.getInstance().getCenterY(), 2) + ")");
+         } else {
+         DSLog.log(6, "NO PARTICLE");
+         }*/
+
     }
 
     /**
@@ -161,7 +162,7 @@ public class RobotMain extends IterativeRobot {
         cycles++;
 
         if (totalTime >= 1000) {
-            rate = cycles / (totalTime/1000);
+            rate = cycles / (totalTime / 1000);
             cycles = 0;
             totalTime = 0;
         }
@@ -176,6 +177,7 @@ public class RobotMain extends IterativeRobot {
     public void testPeriodic() {
         LiveWindow.run();
     }
+
     /**
      * Removes all instances declared
      */
