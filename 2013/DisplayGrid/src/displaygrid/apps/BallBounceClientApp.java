@@ -9,7 +9,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
-import java.io.Console;
 import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JPanel;

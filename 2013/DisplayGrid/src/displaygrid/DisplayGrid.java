@@ -85,7 +85,6 @@ public class DisplayGrid  extends JFrame implements ActionListener {
         for(int i = 0; i < Config.clientAppClasses.length; i++){
             try{
                 ClientApp app = (ClientApp)Config.clientAppClasses[i].newInstance();
-
                 if(appName.equals(app.toString())){
                     return app;
                 }

@@ -2,8 +2,6 @@ package displaygrid;
 
 import displaygrid.apps.BallBounceClientApp;
 import displaygrid.apps.BallBounceServerApp;
-import displaygrid.apps.BallBounceVerticleClientApp;
-import displaygrid.apps.BallBounceVerticleServerApp;
 import displaygrid.apps.BlackScreenClientApp;
 import displaygrid.apps.BlackScreenServerApp;
 import displaygrid.apps.PanoramaViewerClientApp;
@@ -32,7 +30,6 @@ public class Config {
         BallBounceClientApp.class,
         TextBannerClientApp.class,
         PanoramaViewerClientApp.class,
-        BallBounceVerticleClientApp.class
     };
     
     static final Class[] serverAppClasses = {
@@ -41,7 +38,6 @@ public class Config {
         BallBounceServerApp.class,
         TextBannerServerApp.class,
         PanoramaViewerServerApp.class,
-        BallBounceVerticleServerApp.class
     };
     
 }

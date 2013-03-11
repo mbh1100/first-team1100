@@ -79,8 +79,9 @@ public class Server extends Thread implements ActionListener {
                 } else {
                     new DataOutputStream(newClient.getOutputStream()).writeUTF(newClientID);
                 }
-                ClientHandler newClientHandler = new ClientHandler(newClientID, newClient, this);                
-                clientTableModel.insertRow(clientTableModel.getRowCount(), new Object[]{newClientID, null});                
+                ClientHandler newClientHandler = new ClientHandler(newClientID, newClient, this);
+                String newClientAddr = newClient.getInetAddress().getHostAddress();
+                clientTableModel.insertRow(clientTableModel.getRowCount(), new Object[]{newClientID, null, newClientAddr});                
                 clientList.put(newClientID, newClientHandler);
                 newClientHandler.start();
             } catch(Exception e){
@@ -230,7 +231,4 @@ public class Server extends Thread implements ActionListener {
         window.removeClient(c);
         clientList.remove(c);       
     }
-    
-
-
 }
