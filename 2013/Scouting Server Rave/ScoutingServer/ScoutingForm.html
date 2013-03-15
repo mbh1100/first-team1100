@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Team 1100 Scouting Form</title>
-<meta name="viewport" content="width=device-width; initial-scale=1.0;maximum-scale=1.0">
+<meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,user-scalable=no" />
 <style type="text/css">
     body
 	{
@@ -12,7 +12,7 @@
     }
     
 	p, h1, form, button{border:0; margin:0; padding:0;}
-    .spacer{clear:both; height:1px;}
+    .spacer{clear:both; height:10px;}
 	.awkSpace{clear:both; height:25px;}
 	.newLine{clear:both; height:1px;}
     
@@ -82,6 +82,34 @@
 		height:100px;
     	margin:2px 0 20px 10px;
 		resize:none;
+	}
+	
+	#stylized .incbutton {
+		width:40px;
+		height:30px;
+		background:#fff;
+		border:1px solid #000;
+		-webkit-border-radius:5px;
+		-moz-border-radius:5px;
+		border-radius:5px;
+		float:left;
+		vertical-align:middle;
+		-webkit-user-select: none;  /* Chrome all / Safari all */
+  		-moz-user-select: none;     /* Firefox all */
+  		-ms-user-select: none;      /* IE 10+ */	
+		color:#000;
+		text-align:center;
+		margin-left:10px;
+		font-size:22px;
+	}
+	
+	#stylized .countLabel {
+		float:left;
+		margin-left:20px;
+		margin-right:20px;
+		font-size:24px;
+		
+		text-align:center;
 	}
 </style>
 
@@ -183,24 +211,66 @@
 <input type="text" name="round" id="round" maxlength="3" onkeypress="return isNumberKey(event)"/>
 <div class="spacer"></div>
 
-<label>Autonomous Points Scored<span class="small">Autonomous Points Scored</span>
-</label>
-<input type="text" name="ap" id="ap" maxlength="3" onkeypress="return isNumberKey(event)"/>
+<label>Autonomous Hi<span class="small"># frisbees in 3 point goal</span></label>
+	<label class="incbutton" id="incBtn" onClick="dec('autohi')">-</label>
+    <div class="countLabel" id="autohi">0</div>
+	<label class="incbutton" id="incBtn" onClick="inc('autohi')">+</label>
 <div class="spacer"></div>
 
-<label>Frisbee Points Scored<span class="small">Total Number of Scored Points</span>
-</label>
-<input type="text" name="fp" id="fp" maxlength="3" onkeypress="return isNumberKey(event)"/>
+<label>Autonomous Mid<span class="small"># frisbees in 2 point goal</span></label>
+	<label class="incbutton" id="incBtn" onClick="dec('automid')">-</label>
+    <div class="countLabel" id="automid">0</div>
+	<label class="incbutton" id="incBtn" onClick="inc('automid')">+</label>
 <div class="spacer"></div>
 
-<label>Climbing Points Scored<span class="small">Climbing Points Collected</span>
-</label>
-<input type="text" name="cp" id="cp" maxlength="2" onkeypress="return isNumberKey(event)"/>
+<label>Autonomous Low<span class="small"># frisbees in 1 point goal</span></label>
+	<label class="incbutton" id="incBtn" onClick="dec('autolow')">-</label>
+    <div class="countLabel" id="autolow">0</div>
+	<label class="incbutton" id="incBtn" onClick="inc('autolow')">+</label>
 <div class="spacer"></div>
 
-<label>Frisbees Collected<span class="small">Frisbees Collected</span>
-</label>
-<input type="text" name="fc" id="fc" maxlength="3" onkeypress="return isNumberKey(event)"/>
+<label>Autonomous Miss<span class="small"># frisbees Missed</span></label>
+	<label class="incbutton" id="incBtn" onClick="dec('automiss')">-</label>
+    <div class="countLabel" id="automiss">0</div>
+	<label class="incbutton" id="incBtn" onClick="inc('automiss')">+</label>
+<div class="spacer"></div>
+<div class="spacer"></div>
+<div class="spacer"></div>
+<div class="spacer"></div>
+<div class="spacer"></div>
+
+<label>Teleop Hi<span class="small"># frisbees in 3 point goal</span></label>
+	<label class="incbutton" id="incBtn" onClick="dec('telehi')">-</label>
+    <div class="countLabel" id="telehi">0</div>
+	<label class="incbutton" id="incBtn" onClick="inc('telehi')">+</label>
+<div class="spacer"></div>
+
+<label>Teleop Mid<span class="small"># frisbees in 2 point goal</span></label>
+	<label class="incbutton" id="incBtn" onClick="dec('telemid')">-</label>
+    <div class="countLabel" id="telemid">0</div>
+	<label class="incbutton" id="incBtn" onClick="inc('telemid')">+</label>
+<div class="spacer"></div>
+
+<label>Teleop Low<span class="small"># frisbees in 1 point goal</span></label>
+	<label class="incbutton" id="incBtn" onClick="dec('telelow')">-</label>
+    <div class="countLabel" id="telelow">0</div>
+	<label class="incbutton" id="incBtn" onClick="inc('telelow')">+</label>
+<div class="spacer"></div>
+
+<label>Teleop Pyramid<span class="small"># frisbees ontop Pyramid</span></label>
+	<label class="incbutton" id="incBtn" onClick="dec('telepyr')">-</label>
+    <div class="countLabel" id="telepyr">0</div>
+	<label class="incbutton" id="incBtn" onClick="inc('telepyr')">+</label>
+<div class="spacer"></div>
+
+<label>Teleop Miss<span class="small"># frisbees Missed</span></label>
+	<label class="incbutton" id="incBtn" onClick="dec('telemiss')">-</label>
+    <div class="countLabel" id="telemiss">0</div>
+	<label class="incbutton" id="incBtn" onClick="inc('telemiss')">+</label>
+<div class="spacer"></div>
+<div class="spacer"></div>
+<div class="spacer"></div>
+<div class="spacer"></div>
 <div class="spacer"></div>
 
 <label>Points Prevented<span class="small">Number of points Prevented</span>
@@ -244,5 +314,26 @@
     Team 1100, 79 Bartlett Street, Northborough, MA is an unregistered and unbonded scouting database facilitator(exp. 12/13).
   </p>
 </div>
+
+<script language="javascript">
+	function inc(name)
+	{
+		var ele = document.getElementById(name);
+		element_number = parseFloat(ele.innerHTML);
+		element_number++;
+		ele.innerHTML = element_number;
+	}
+	
+	function dec(name)
+	{
+		var ele = document.getElementById(name);
+		element_number = parseFloat(ele.innerHTML);
+		if(element_number > 0) {
+			element_number--;
+		}
+		ele.innerHTML = element_number;
+		
+	}
+</script>
 </body>
 </html>
