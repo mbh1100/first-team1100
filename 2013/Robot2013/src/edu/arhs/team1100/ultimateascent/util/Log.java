@@ -3,6 +3,7 @@ package edu.arhs.team1100.ultimateascent.util;
 import com.sun.squawk.util.MathUtils;
 import java.util.Vector;
 
+
 /**
  *
  * @author Team 1100
@@ -74,7 +75,6 @@ public class Log {
         return c.mClass.getName().substring(c.mClass.getName().lastIndexOf('.') + 1);
     }
 }
-
 class LogClass {
 
     public Class mClass;

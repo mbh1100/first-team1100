@@ -2,8 +2,9 @@ package edu.arhs.team1100.ultimateascent.subsystems;
 
 import edu.arhs.team1100.ultimateascent.OI;
 import edu.arhs.team1100.ultimateascent.RobotMap;
-import edu.arhs.team1100.ultimateascent.commands.shooter.TiltShooterCommand;
+import edu.arhs.team1100.ultimateascent.commands.shooter.TiltShooterPIDCommand;
 import edu.arhs.team1100.ultimateascent.input.Camera;
+import edu.arhs.team1100.ultimateascent.util.Log;
 import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Victor;
@@ -23,9 +24,9 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
     
     
     
-    private static final double kCameraP = 0.2;
-    private static final double kCameraI = 0.2;
-    private static final double kCameraD = 0.05;
+    private static final double kCameraP = .25;
+    private static final double kCameraI = 0.05;
+    private static final double kCameraD = 0.00;
     
     private static final double kTiltP = 1.0;
     private static final double kTiltI = 0.20;
@@ -83,13 +84,14 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
      * Initializes TiltShooterCommand
      */
     public void initDefaultCommand() {
-        setDefaultCommand(new TiltShooterCommand());
+        setDefaultCommand(new TiltShooterPIDCommand());
     }
     /**
      * @return Center Y
      */
     protected double returnPIDInput() {
         //Log.log(this, "Y :  "+(-Camera.getInstance().getCenterY()), Log.LEVEL_DEBUG);
+        Log.log(this, "tilt pidGet()", Log.LEVEL_DEBUG);
         if(isCameraMode){
             return -Camera.getInstance().getCenterY();
         } else {
@@ -101,6 +103,7 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
      * @param output 
      */
     protected void usePIDOutput(double output) {
+        Log.log(this, "usePidOutput()", Log.LEVEL_DEBUG);
         if(isCameraMode){
         tiltMotor.set(output);
         } else {

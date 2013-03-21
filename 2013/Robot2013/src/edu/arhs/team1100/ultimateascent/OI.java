@@ -80,7 +80,7 @@ public class OI {
         xbox.getButtonY().whileHeld(new TiltShooterPositionPIDCommand(RobotMap.DS_SHOOTING_ANGLE_CH));
         xbox.getButtonB().whileHeld(new TiltShooterPositionPIDCommand(RobotMap.DS_FEEDER_ANGLE_CH));
         //xbox.getButtonA().whileHeld(new CameraPIDTiltShooterCommand());
-        xbox.getButtonBack().whileHeld(new AutoAimAndShootCommandGroup());
+        xbox.getButtonBack().whileHeld(new CameraPIDTiltShooterCommand());
     }
 
     /**

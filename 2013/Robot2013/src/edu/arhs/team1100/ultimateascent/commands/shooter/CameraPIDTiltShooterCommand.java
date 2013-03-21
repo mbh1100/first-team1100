@@ -2,6 +2,8 @@ package edu.arhs.team1100.ultimateascent.commands.shooter;
 
 import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterTiltSubsystem;
+import edu.arhs.team1100.ultimateascent.util.DSLog;
+import edu.arhs.team1100.ultimateascent.util.Log;
 
 /**
  *
@@ -16,14 +18,17 @@ public class CameraPIDTiltShooterCommand extends CommandBase {
     // Called just before this Command runs the first time
     protected void initialize() {
         ShooterTiltSubsystem.getInstance().setCameraMode(true);
-        ShooterTiltSubsystem.getInstance().setInputRange(-1.0, 1.0);
+        //ShooterTiltSubsystem.getInstance().setInputRange(-1.0, 1.0);
         ShooterTiltSubsystem.getInstance().setPercentTolerance(5.0);//10 %
-        ShooterTiltSubsystem.getInstance().setSetpoint(0.0);        
+        ShooterTiltSubsystem.getInstance().setSetpoint(0.1);        
         ShooterTiltSubsystem.getInstance().enable();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        
+        DSLog.log(5, "camera-ing..");
+        Log.log(this, "PID", Log.LEVEL_DEBUG);
     }
 
     // Make this return true when this Command no longer needs to run execute()

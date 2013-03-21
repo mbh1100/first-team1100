@@ -9,9 +9,11 @@ package edu.arhs.team1100.ultimateascent;
 import com.sun.squawk.util.MathUtils;
 import edu.arhs.team1100.ultimateascent.autonomous.AutoAimAndShootCommandGroup;
 import edu.arhs.team1100.ultimateascent.autonomous.AutonomousCommandGroup;
+import edu.arhs.team1100.ultimateascent.autonomous.TiltShooterPositionPIDCommand;
 import edu.arhs.team1100.ultimateascent.commands.drive.CalibrateGyroCommand;
 import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.commands.drive.JoystickPIDMecanumCommand;
+import edu.arhs.team1100.ultimateascent.commands.shooter.CameraPIDTiltShooterCommand;
 import edu.arhs.team1100.ultimateascent.commands.shooter.ShootFrisbeeCommand;
 import edu.arhs.team1100.ultimateascent.commands.shooter.TiltShooterPIDCommand;
 import edu.arhs.team1100.ultimateascent.recording.PlayRecordingCommand;
@@ -64,6 +66,8 @@ public class RobotMain extends IterativeRobot {
         Log.addClass(ShootFrisbeeCommand.class, Log.LEVEL_DEBUG);
         Log.addClass(ShooterTiltSubsystem.class, Log.LEVEL_DEBUG);
         Log.addClass(TiltShooterPIDCommand.class, Log.LEVEL_DEBUG);
+        Log.addClass(CameraPIDTiltShooterCommand.class, Log.LEVEL_DEBUG);
+        Log.addClass(TiltShooterPositionPIDCommand.class, Log.LEVEL_DEBUG);
         // instantiate the command used for the autonomous period
         // Initialize all subsystems
         CommandBase.init();

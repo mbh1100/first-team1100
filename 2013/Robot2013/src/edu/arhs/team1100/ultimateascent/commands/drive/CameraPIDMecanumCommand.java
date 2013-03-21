@@ -7,6 +7,7 @@ package edu.arhs.team1100.ultimateascent.commands.drive;
 import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.input.Camera;
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
+import edu.arhs.team1100.ultimateascent.util.DSLog;
 
 /**
  *
@@ -35,6 +36,7 @@ public class CameraPIDMecanumCommand extends CommandBase {
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
+        DSLog.log(5, "Camera PID");
     }
 
     /**

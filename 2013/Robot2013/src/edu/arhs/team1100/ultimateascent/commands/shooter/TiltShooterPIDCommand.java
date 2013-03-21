@@ -7,6 +7,7 @@ package edu.arhs.team1100.ultimateascent.commands.shooter;
 import edu.arhs.team1100.ultimateascent.OI;
 import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterTiltSubsystem;
+import edu.arhs.team1100.ultimateascent.util.DSLog;
 import edu.arhs.team1100.ultimateascent.util.Log;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
 
@@ -27,7 +28,7 @@ public class TiltShooterPIDCommand extends CommandBase {
     // Called just before this Command runs the first time
     protected void initialize() {
         ShooterTiltSubsystem.getInstance().setCameraMode(false);
-        ShooterTiltSubsystem.getInstance().setInputRange(0.0, 5.0);
+            //ShooterTiltSubsystem.getInstance().setInputRange(0.0, 5.0);
         ShooterTiltSubsystem.getInstance().setPercentTolerance(5.0);
         
         setpoint = ShooterTiltSubsystem.getInstance().getAngle();
@@ -47,6 +48,8 @@ public class TiltShooterPIDCommand extends CommandBase {
             setpoint = 1.0;
         }
         ShooterTiltSubsystem.getInstance().setSetpoint(setpoint);
+        Log.log(this, "tilting.." + setpoint, Log.LEVEL_DEBUG);
+        DSLog.log(5, "Tilting..." + setpoint);
                  
     }
 

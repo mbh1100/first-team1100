@@ -40,7 +40,7 @@ public class RobotMap {
     //[L]IFT
     public static final int L_VICTOR_LEFT  = 6;
     public static final int L_VICTOR_RIGHT = 5;
-    
+    public static final int L_LIMIT_TOP = 9;
     public static final int L_POTENTIOMETER = 4;
     
     //[I]NTAKE

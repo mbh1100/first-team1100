@@ -29,6 +29,7 @@ public class Camera {
     private boolean hasParticle = false;
     
     private ParticleAnalysisReport centerest;
+    private ParticleAnalysisReport highest;
 
     /**
      * If a Camera object has not been created, construct one
@@ -98,7 +99,17 @@ public class Camera {
             }
         }
         
-        hasParticle = centerest != null;
+        highest = null;
+        if(particles != null && particles[0] != null){
+            highest = particles[0];
+            for(int i = 0; i < particles.length;i++){
+                if(particles[i] != null && particles[i].center_mass_y_normalized < highest.center_mass_y_normalized){
+                    highest = particles[i];
+                }
+            }
+        }
+        
+        hasParticle = highest != null;
     }
 
     /**
@@ -119,7 +130,7 @@ public class Camera {
     public double getCenterX() {
         update();
         if (hasParticle) {
-            return centerest.center_mass_x_normalized;
+            return highest.center_mass_x_normalized;
         }
         return 0;
     }
@@ -132,7 +143,7 @@ public class Camera {
     public double getCenterY() {
         update();                
         if (hasParticle) {
-            return centerest.center_mass_y_normalized;
+            return highest.center_mass_y_normalized;
         } 
         return 0;
     }

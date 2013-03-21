@@ -7,6 +7,7 @@ package edu.arhs.team1100.ultimateascent.autonomous;
 import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterTiltSubsystem;
 import edu.arhs.team1100.ultimateascent.util.DSLog;
+import edu.arhs.team1100.ultimateascent.util.Log;
 import edu.wpi.first.wpilibj.DriverStation;
 
 /**
@@ -29,10 +30,12 @@ public class TiltShooterPositionPIDCommand extends CommandBase {
         targetAngle = getDSSetpoint();
         ShooterTiltSubsystem.getInstance().disable();
         ShooterTiltSubsystem.getInstance().setCameraMode(false);
-        ShooterTiltSubsystem.getInstance().setInputRange(0.0, 5.0);
+        //ShooterTiltSubsystem.getInstance().setInputRange(0.0, 5.0);
         ShooterTiltSubsystem.getInstance().setPercentTolerance(5.0);
+        targetAngle = ShooterTiltSubsystem.getInstance().getAngle();
         ShooterTiltSubsystem.getInstance().setSetpoint(targetAngle);
         ShooterTiltSubsystem.getInstance().enable();
+        
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -40,6 +43,7 @@ public class TiltShooterPositionPIDCommand extends CommandBase {
         targetAngle = getDSSetpoint();
         ShooterTiltSubsystem.getInstance().setSetpoint(targetAngle);
         DSLog.log(5, "Setpoint value : " + targetAngle);
+        Log.log(this, "Positioning to "+targetAngle, Log.LEVEL_DEBUG);
     }
 
     double getDSSetpoint() {
