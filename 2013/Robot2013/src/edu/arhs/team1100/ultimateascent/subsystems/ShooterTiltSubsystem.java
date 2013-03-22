@@ -70,6 +70,10 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
         tiltMotor.set(speed);
 
     }
+    
+    public void tilt(double speed){
+        tiltMotor.set(speed);
+    }
     /**
      * returns the voltage of the angle potentiometer
      */

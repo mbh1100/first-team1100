@@ -15,6 +15,10 @@ public class RobotMap {
     
     public static int DS_SHOOTING_ANGLE_CH = 1;
     public static int DS_FEEDER_ANGLE_CH = 2;
+    
+    public static int DS_P = 3;
+    public static int DS_I = 4;
+    public static int DS_D = 5;
 
     //[D]RIVE
     public static final int D_TALON_FRONT_LEFT = 1;

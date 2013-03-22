@@ -128,7 +128,7 @@ public class DriveSubsystem extends PIDSubsystem {
         if (mode == MODE_POLAR) {
             double magnitude = Math.sqrt(x * x + y * y);
             double angle = Math.toDegrees(MathUtils.atan2(x, y));
-            while (angle < 0) {
+            while(angle < 0){
                 angle += 360;
             }
             drive.mecanumDrive_Polar(magnitude, angle, rot);
