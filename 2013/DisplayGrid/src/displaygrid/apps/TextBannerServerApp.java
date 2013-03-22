@@ -31,7 +31,7 @@ public class TextBannerServerApp extends ServerApp implements ActionListener, Ch
     private final String HEX = "0123456789abcdef";
     private String commonCmd;
     private ArrayList<String> commonCommandPending;
-    private ArrayList<Message> messages;
+    private ArrayList<TextBannerMessage> messages;
     private int messageIndex = 0;
     private long time = 10000;
     private long lastSwitchTime = 0;
@@ -47,8 +47,8 @@ public class TextBannerServerApp extends ServerApp implements ActionListener, Ch
         textColor = new Color(255, 255, 255);
         x = clients.size();
 
-        messages = new ArrayList<Message>();
-        messages.add(new Message(DEFAULT_MESSAGE, null, null));
+        messages = new ArrayList<>();
+        messages.add(new TextBannerMessage(DEFAULT_MESSAGE, null, null));
         messageIndex = 0;
 
         commonCmd = "";
@@ -115,7 +115,7 @@ public class TextBannerServerApp extends ServerApp implements ActionListener, Ch
     }
 
     public void updateCommonCommand() {
-        Message m = messages.get(messageIndex);
+        TextBannerMessage m = messages.get(messageIndex);
         Color tmpText = (m.textColor == null) ? textColor : m.textColor;
         Color tmpBg = (m.bgColor == null) ? bgColor : m.bgColor;
         frame.setPanelDisplay(m.text, tmpText, tmpBg);
@@ -178,7 +178,7 @@ public class TextBannerServerApp extends ServerApp implements ActionListener, Ch
         File f = fc.getSelectedFile();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(f));
-            String line = "";
+            String line;
             messages = new ArrayList<>();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(SPLIT_BRACKET);
@@ -193,7 +193,7 @@ public class TextBannerServerApp extends ServerApp implements ActionListener, Ch
                     }
 
                 }
-                messages.add(new Message(msg, fg, bg));
+                messages.add(new TextBannerMessage(msg, fg, bg));
             }
             reader.close();
             frame.setMessages(messages);
@@ -217,8 +217,8 @@ public class TextBannerServerApp extends ServerApp implements ActionListener, Ch
                 f.createNewFile();
             }
             BufferedWriter writer = new BufferedWriter(new FileWriter(f));
-            ArrayList<Message> msgs = frame.getMessages();
-            for (Message m : msgs) {
+            ArrayList<TextBannerMessage> msgs = frame.getMessages();
+            for (TextBannerMessage m : msgs) {
                 writer.write(m.getSaveString() + "\n");
             }
             writer.close();
@@ -277,13 +277,13 @@ public class TextBannerServerApp extends ServerApp implements ActionListener, Ch
     }
 }
 
-class Message {
+class TextBannerMessage {
 
     public String text = "";
     public Color textColor = null;
     public Color bgColor = null;
 
-    public Message(String t, Color tc, Color bg) {
+    public TextBannerMessage(String t, Color tc, Color bg) {
         text = t;
         textColor = tc;
         bgColor = bg;

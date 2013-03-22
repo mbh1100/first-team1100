@@ -56,6 +56,8 @@ public class TextBannerServerFrame extends javax.swing.JFrame {
         messageBgcolorButton = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         addButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        removeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
@@ -145,6 +147,20 @@ public class TextBannerServerFrame extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Clear");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        removeButton.setText("Remove");
+        removeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -185,15 +201,21 @@ public class TextBannerServerFrame extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(openButton)
                                     .addComponent(saveButton)
-                                    .addComponent(updateButton)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel6)
                                         .addGap(6, 6, 6)
                                         .addComponent(messageTextcolorButton)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(messageBgcolorButton))
-                                    .addComponent(addButton))
-                                .addGap(0, 131, Short.MAX_VALUE)))
+                                        .addComponent(messageBgcolorButton)))
+                                .addGap(0, 131, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(updateButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(addButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(removeButton)))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -216,9 +238,13 @@ public class TextBannerServerFrame extends javax.swing.JFrame {
                             .addComponent(messageBgcolorButton)
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(addButton)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(addButton)
+                            .addComponent(removeButton))
                         .addGap(41, 41, 41)
-                        .addComponent(updateButton))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(updateButton)
+                            .addComponent(jButton1)))
                     .addComponent(jScrollPane2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -251,7 +277,7 @@ public class TextBannerServerFrame extends javax.swing.JFrame {
 
     private void messageBgcolorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_messageBgcolorButtonActionPerformed
         try {
-            Message sel = (Message) messageList.getSelectedValue();
+            TextBannerMessage sel = (TextBannerMessage) messageList.getSelectedValue();
             sel.bgColor = JColorChooser.showDialog(new JFrame(), "Background Color", sel.bgColor);
             repaint();
         } catch (Exception e) {
@@ -264,7 +290,7 @@ public class TextBannerServerFrame extends javax.swing.JFrame {
 
     private void messageFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_messageFieldActionPerformed
         try {
-            ((Message) messageList.getSelectedValue()).text = messageField.getText();
+            ((TextBannerMessage) messageList.getSelectedValue()).text = messageField.getText();
             repaint();
         } catch (Exception e) {
         }
@@ -272,7 +298,7 @@ public class TextBannerServerFrame extends javax.swing.JFrame {
 
     private void messageTextcolorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_messageTextcolorButtonActionPerformed
         try {
-            Message sel = (Message) messageList.getSelectedValue();
+            TextBannerMessage sel = (TextBannerMessage) messageList.getSelectedValue();
             sel.textColor = JColorChooser.showDialog(new JFrame(), "Text Color", sel.textColor);
             repaint();
         } catch (Exception e) {
@@ -285,9 +311,17 @@ public class TextBannerServerFrame extends javax.swing.JFrame {
         Color txtColor = textcolorButton.getBackground();
 
         DefaultListModel model = ((DefaultListModel) messageList.getModel());
-        model.addElement(new Message(text, txtColor, bgColor));
+        model.addElement(new TextBannerMessage(text, txtColor, bgColor));
         repaint();
     }//GEN-LAST:event_addButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        messageList.setModel(new DefaultListModel());
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtonActionPerformed
+        ((DefaultListModel)messageList.getModel()).removeElement(messageList.getSelectedValue());
+    }//GEN-LAST:event_removeButtonActionPerformed
 
     public void paintPanel(Graphics g) {
         g.setColor(bgColor);
@@ -309,7 +343,7 @@ public class TextBannerServerFrame extends javax.swing.JFrame {
         textColor = text;
     }
 
-    public Font scaleFont(String text, Rectangle rect, Graphics g, Font pFont) {
+    private Font scaleFont(String text, Rectangle rect, Graphics g, Font pFont) {
         float fontSize = 2.0f;
         Font f = g.getFont().deriveFont(1);
         while (g.getFontMetrics(f).stringWidth(text) < rect.width && g.getFontMetrics(f).getHeight() < rect.getHeight()) {
@@ -319,25 +353,25 @@ public class TextBannerServerFrame extends javax.swing.JFrame {
         return f.deriveFont(fontSize - 1);
     }
 
-    public void setMessages(ArrayList<Message> msgs) {
+    public void setMessages(ArrayList<TextBannerMessage> msgs) {
         DefaultListModel newModel = new DefaultListModel();
-        for (Message m : msgs) {
+        for (TextBannerMessage m : msgs) {
             newModel.addElement(m);
         }
         messageList.setModel(newModel);
     }
 
-    public ArrayList<Message> getMessages() {
+    public ArrayList<TextBannerMessage> getMessages() {
         Object[] items = ((DefaultListModel) messageList.getModel()).toArray();
-        ArrayList<Message> msgs = new ArrayList<>();
+        ArrayList<TextBannerMessage> msgs = new ArrayList<>();
         for (int i = 0; i < items.length; i++) {
-            msgs.add((Message) items[i]);
+            msgs.add((TextBannerMessage) items[i]);
         }
         return msgs;
     }
 
     public void listSelected() {
-        Message m = (Message) messageList.getSelectedValue();
+        TextBannerMessage m = (TextBannerMessage) messageList.getSelectedValue();
         if(m.text != null){
         messageField.setText(m.text);
         } else {
@@ -393,6 +427,7 @@ public class TextBannerServerFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     public javax.swing.JButton bgcolorButton;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -406,6 +441,7 @@ public class TextBannerServerFrame extends javax.swing.JFrame {
     private javax.swing.JButton messageTextcolorButton;
     public javax.swing.JButton openButton;
     public javax.swing.JPanel panel;
+    private javax.swing.JButton removeButton;
     public javax.swing.JButton saveButton;
     public javax.swing.JSlider speedSlider;
     public javax.swing.JButton textcolorButton;
@@ -420,9 +456,9 @@ class ColorListCellRenderer extends DefaultListCellRenderer {
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 
         super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-        if (value != null && value instanceof Message) {
-            setBackground(((Message) value).bgColor);
-            setForeground(((Message) value).textColor);
+        if (value != null && value instanceof TextBannerMessage) {
+            setBackground(((TextBannerMessage) value).bgColor);
+            setForeground(((TextBannerMessage) value).textColor);
         }
         return this;
     }

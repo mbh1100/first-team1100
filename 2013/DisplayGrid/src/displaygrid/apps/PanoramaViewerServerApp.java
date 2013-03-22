@@ -1,6 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/*NOTES
+ * -use a library like wget-java and send a lan url to the client
+ * -client downloads the file needed independently of the DisplayGrid loop
+ * -host a server on any computer with the files needed
+ * -user provides urls to the gui
  */
 package displaygrid.apps;
 
