@@ -97,10 +97,14 @@ public class TextBannerServerApp extends ServerApp implements ActionListener, Ch
     @Override
     public void update() {
         x -= speed;
+        //#
         if (x < 0) {
             x = 1;
             clients.add(0, clients.remove(clients.size() - 1)); //moves client at back to front            
         }
+        /*if(x < -clients.size()){
+            x = 0;
+        }*/
 
         long curTime = System.currentTimeMillis();
         if (curTime - lastSwitchTime > time) {

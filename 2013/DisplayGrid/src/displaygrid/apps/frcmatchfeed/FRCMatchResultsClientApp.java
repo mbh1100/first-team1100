@@ -22,8 +22,8 @@ public class FRCMatchResultsClientApp extends ClientApp {
 
     static final String APPNAME = FRCMatchResultsServerApp.APPNAME;
     static final long TARGET_DELTA = 1000 * 5;
-    private final Color RED = new Color(255, 80, 80);
-    private final Color BLUE = new Color(80, 80, 255);
+    private final Color RED = new Color(180, 0, 0);
+    private final Color BLUE = new Color(50, 50, 255);
     private final String scorePlaceholder = "####### : ###";
     private JFrame frame;
     private JComponent panel;
@@ -68,9 +68,10 @@ public class FRCMatchResultsClientApp extends ClientApp {
 
 
         frame = new JFrame();
-        frame.setUndecorated(true);
+        //frame.setUndecorated(true);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setSize(d);
+        frame.setSize(600,400);
         panel = new JComponent() {
             @Override
             public void paint(Graphics g) {
@@ -80,10 +81,14 @@ public class FRCMatchResultsClientApp extends ClientApp {
         frame.add(panel);
         frame.setVisible(true);
         ((Graphics2D) panel.getGraphics()).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        titleRect = new Rectangle(0, 0, panel.getWidth(), panel.getHeight() / 7);
-        teamRect = new Rectangle(0, titleRect.y + titleRect.height, panel.getWidth(), panel.getHeight() / 10);
-        scoreRect = new Rectangle(0, teamRect.y + teamRect.height + panel.getHeight() / 20, panel.getWidth(), panel.getHeight() / 12);
-        finalRect = new Rectangle(0, (panel.getHeight() * 2) / 3, panel.getWidth(), panel.getHeight() / 3);
+        createRectangles();
+    }
+    
+    private void createRectangles(){
+        titleRect = new Rectangle(0, 0, panel.getWidth(), panel.getHeight()*2 / 10);
+        teamRect = new Rectangle(0, (int)titleRect.getMaxY(), panel.getWidth(), panel.getHeight()*1 / 10);
+        scoreRect = new Rectangle(0, (int)teamRect.getMaxY(), panel.getWidth(), panel.getHeight()*1 / 10);
+        finalRect = new Rectangle(0,scoreRect.y+4*scoreRect.height, panel.getWidth(), panel.getHeight()*3 / 10);
     }
 
     @Override
@@ -91,12 +96,13 @@ public class FRCMatchResultsClientApp extends ClientApp {
         try {
             if (newInfo) {
                 newInfo = false;
+                createRectangles();
                 titleText = type + " #" + num;
-                titleRect = new Rectangle(0, 0, panel.getWidth(), panel.getHeight() / 7);
+                //titleRect = new Rectangle(0, 0, panel.getWidth(), panel.getHeight() / 7);
                 titleFont = scaleFont(titleText, titleRect, panel.getGraphics(), font);
 
                 teamText = teams[0] + " | " + teams[1] + " | " + teams[2];
-                teamRect = new Rectangle(0, titleRect.y + titleRect.height, panel.getWidth(), panel.getHeight() / 10);
+                //teamRect = new Rectangle(0, titleRect.y + titleRect.height, panel.getWidth(), panel.getHeight() / 10);
                 teamFont = scaleFont(teamText, teamRect, panel.getGraphics(), font);
 
                 scoreText.clear();
@@ -104,10 +110,11 @@ public class FRCMatchResultsClientApp extends ClientApp {
                 scoreText.add("Teleop : " + teleopScore);
                 scoreText.add("Climb  : " + climbScore);
                 scoreText.add("Foul   : " + foulScore);
-                scoreRect = new Rectangle(0, teamRect.y + teamRect.height + panel.getHeight() / 20, panel.getWidth(), panel.getHeight() / 12);
+                
+                //scoreRect = new Rectangle(0, teamRect.y + teamRect.height + panel.getHeight() / 20, panel.getWidth(), panel.getHeight() / 12);
                 scoreFont = scaleFont("###### : ###", scoreRect, panel.getGraphics(), font);
 
-                finalRect = finalRect = new Rectangle(0, (panel.getHeight() * 2) / 3, panel.getWidth(), panel.getHeight() / 3);
+                //finalRect = finalRect = new Rectangle(0, (panel.getHeight() * 2) / 3, panel.getWidth(), panel.getHeight() / 3);
 
                 finalFont = scaleFont(finalScore, finalRect, panel.getGraphics(), font);
                 System.out.println(scoreFont.getName());
@@ -133,9 +140,7 @@ public class FRCMatchResultsClientApp extends ClientApp {
         }
         g.setColor(theme);
         g.fillRect(0, 0, panel.getWidth(), panel.getHeight());
-        g.setColor(g.getColor().brighter().brighter());
 
-        g.fill(titleRect);
         g.setFont(titleFont);
         g.setColor(Color.WHITE);
         Rectangle titleR = center(g.getFontMetrics().getStringBounds(titleText, g).getBounds(), titleRect);
@@ -151,11 +156,13 @@ public class FRCMatchResultsClientApp extends ClientApp {
             g.drawString(s, scoreR.x, scoreR.y);
             scoreR.y += scoreR.height + 1;
         }
-        g.setColor(theme.brighter().brighter());
-        g.fill(finalRect);
         g.setColor(Color.WHITE);
+        //g.draw(titleRect);
+        //g.draw(teamRect);
+        //g.draw(finalRect);
         g.setFont(finalFont);
         Rectangle finalR = center(g.getFontMetrics().getStringBounds(finalScore, g).getBounds(), finalRect);
+        
         g.drawString(finalScore, finalR.x, finalR.y);
     }
 
@@ -223,7 +230,7 @@ public class FRCMatchResultsClientApp extends ClientApp {
             fontSize++;
             f = f.deriveFont(fontSize);
         }
-        return f.deriveFont(fontSize);
+        return f;
     }
 
     //Tester main to fake the DisplayGrid loop
