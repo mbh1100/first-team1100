@@ -141,12 +141,16 @@ public class Camera {
      * no particle ,returns 0.0
      */
     public double getCenterY() {
-        update();                
-        if (hasParticle) {
-            return highest.center_mass_y_normalized;
-        } 
-        return 0;
+        try {
+            update();                
+            if (hasParticle) {
+                return highest.center_mass_y_normalized;
+            } 
+        } catch(Exception e){}
+        
+        return 0.0;
     }
+
 
     /**
      * Catches Camera errors

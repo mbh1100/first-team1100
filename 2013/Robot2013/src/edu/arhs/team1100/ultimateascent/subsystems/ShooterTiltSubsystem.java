@@ -24,9 +24,9 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
     
     
     
-    private static final double kCameraP = .25;
-    private static final double kCameraI = 0.05;
-    private static final double kCameraD = 0.00;
+    private static final double kCameraP = .5;
+    private static final double kCameraI = 0.0;
+    private static final double kCameraD = -0.25;
     
     private static final double kTiltP = 1.0;
     private static final double kTiltI = 0.20;
@@ -59,6 +59,7 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
         super(kTiltP, kTiltI, kTiltD);
         tiltMotor = new Victor(RobotMap.S_VICTOR_SHOOTER_TILT);
         potentiometer = new AnalogChannel(RobotMap.S_POTENTIOMETER_TILT);
+        
     }
 
     /**

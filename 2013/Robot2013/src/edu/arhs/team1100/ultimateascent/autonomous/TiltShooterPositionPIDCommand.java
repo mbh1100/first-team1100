@@ -4,6 +4,7 @@
  */
 package edu.arhs.team1100.ultimateascent.autonomous;
 
+import edu.arhs.team1100.ultimateascent.RobotMap;
 import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterTiltSubsystem;
 import edu.arhs.team1100.ultimateascent.util.DSLog;
@@ -21,7 +22,8 @@ public class TiltShooterPositionPIDCommand extends CommandBase {
 
     public TiltShooterPositionPIDCommand(int ch) {
         requires(ShooterTiltSubsystem.getInstance());
-        targetAngle = getDSSetpoint();
+        double s = DriverStation.getInstance().getAnalogIn(ch);
+        targetAngle = Math.min(3.5, Math.max(1.0, s));
         channel = ch;
     }
 
@@ -47,6 +49,9 @@ public class TiltShooterPositionPIDCommand extends CommandBase {
     }
 
     double getDSSetpoint() {
+        if(DriverStation.getInstance().getDigitalIn(RobotMap.DS_SETPOINT_TOGGLE)){
+            return targetAngle;
+        }
         double s = DriverStation.getInstance().getAnalogIn(channel);
         return Math.min(3.5, Math.max(1.0, s));
     }

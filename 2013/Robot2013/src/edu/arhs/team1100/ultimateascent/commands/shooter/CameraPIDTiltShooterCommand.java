@@ -4,6 +4,7 @@ import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterTiltSubsystem;
 import edu.arhs.team1100.ultimateascent.util.DSLog;
 import edu.arhs.team1100.ultimateascent.util.Log;
+import edu.arhs.team1100.ultimateascent.util.DSPID;
 
 /**
  *
@@ -27,8 +28,9 @@ public class CameraPIDTiltShooterCommand extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         
-        DSLog.log(5, "camera-ing..");
+        DSLog.log(5, "");
         Log.log(this, "PID", Log.LEVEL_DEBUG);
+      //  DSPID.setPIDFromDS(ShooterTiltSubsystem.getInstance().getPIDController());
     }
 
     // Make this return true when this Command no longer needs to run execute()

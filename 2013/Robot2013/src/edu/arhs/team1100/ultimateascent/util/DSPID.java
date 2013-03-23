@@ -11,19 +11,19 @@ import edu.wpi.first.wpilibj.PIDController;
  */
 public class DSPID {
 
-    public double getP() {
+    public static double getP() {
         return DriverStation.getInstance().getAnalogIn(RobotMap.DS_P);
     }
 
-    public double getI() {
+    public static double getI() {
         return DriverStation.getInstance().getAnalogIn(RobotMap.DS_I);
     }
     
-    public double getD() {
+    public static double getD() {
         return DriverStation.getInstance().getAnalogIn(RobotMap.DS_D);
     }
     
-    public void setPIDFromDS(PIDController p){
+    public static void setPIDFromDS(PIDController p){
         p.setPID(getP(), getI(), getD());
     }
 }

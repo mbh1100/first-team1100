@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.Joystick;
  * @author akshay
  */
 public class TiltShooterPIDBrakeCommand extends CommandBase {
-
+    private double DEAD = 0.1;
     private boolean isBrakeOn = false;
     private double setpoint = 0.0;
 
@@ -31,7 +31,7 @@ public class TiltShooterPIDBrakeCommand extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         double speed = OI.getInstance().getXboxController().getAxis(Joystick.AxisType.kY);
-        if (speed == 0.0 && !isBrakeOn) { //depends on deadband set in OI
+        if (Math.abs(speed) <= DEAD && !isBrakeOn) { //depends on deadband set in OI
             isBrakeOn = true;
             setpoint = ShooterTiltSubsystem.getInstance().getAngle();
             ShooterTiltSubsystem.getInstance().setSetpoint(setpoint);

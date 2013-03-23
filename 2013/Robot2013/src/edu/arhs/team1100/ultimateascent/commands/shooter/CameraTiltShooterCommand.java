@@ -7,14 +7,17 @@ package edu.arhs.team1100.ultimateascent.commands.shooter;
 import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.input.Camera;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterTiltSubsystem;
-
+import edu.arhs.team1100.ultimateascent.util.*;
 /**
  *
  * @author Akshay
  */
 public class CameraTiltShooterCommand extends CommandBase {
     
-    private final double SETPOINT = 0.1;
+    private final double OFFSET = 0.3;
+    private final double RATIO = .50;
+    
+    private boolean tracking;
     
     public CameraTiltShooterCommand() {
        requires(ShooterTiltSubsystem.getInstance());
@@ -24,17 +27,25 @@ public class CameraTiltShooterCommand extends CommandBase {
     protected void initialize() {
         ShooterTiltSubsystem.getInstance().disable();
         ShooterTiltSubsystem.getInstance().stop();
+        tracking = true;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        double y = Camera.getInstance().getCenterY();
-        double error = y - SETPOINT;
-        if(error > 0){
-            ShooterTiltSubsystem.getInstance().tilt(error/2);
-        } else if(error < 0){
-            ShooterTiltSubsystem.getInstance().tilt(error/2);
+        if(!tracking){
+            ShooterTiltSubsystem.getInstance().stop();
+            return;
         }
+        double y = Camera.getInstance().getCenterY();
+        double error = y - OFFSET;
+        error = Math.min(1.0, Math.max(-1.0, error));
+        DSLog.log(5,"Err*rat: " + error*RATIO);
+        ShooterTiltSubsystem.getInstance().tilt(error * RATIO);
+        
+    }
+    
+    public void stopTracking(){
+        tracking = false;
     }
 
     // Make this return true when this Command no longer needs to run execute()
