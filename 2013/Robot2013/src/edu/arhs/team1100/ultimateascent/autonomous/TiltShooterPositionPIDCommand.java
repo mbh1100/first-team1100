@@ -16,14 +16,14 @@ import edu.wpi.first.wpilibj.DriverStation;
  * @author Aditya
  */
 public class TiltShooterPositionPIDCommand extends CommandBase {
-
+    private double target = 0;
     private double targetAngle = ShooterTiltSubsystem.FLAT_ANGLE;
     private int channel;
 
     public TiltShooterPositionPIDCommand(int ch) {
         requires(ShooterTiltSubsystem.getInstance());
         double s = DriverStation.getInstance().getAnalogIn(ch);
-        targetAngle = Math.min(3.5, Math.max(1.0, s));
+        target = Math.min(3.5, Math.max(1.0, s));
         channel = ch;
     }
 
@@ -50,7 +50,7 @@ public class TiltShooterPositionPIDCommand extends CommandBase {
 
     double getDSSetpoint() {
         if(DriverStation.getInstance().getDigitalIn(RobotMap.DS_SETPOINT_TOGGLE)){
-            return targetAngle;
+            return target;
         }
         double s = DriverStation.getInstance().getAnalogIn(channel);
         return Math.min(3.5, Math.max(1.0, s));
