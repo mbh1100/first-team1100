@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.Joystick.AxisType;
  * @author akshay
  */
 public class TiltShooterCommand extends CommandBase {
-    
+
     /**
      * Constructs ShooterTiltSubsystem object
      */
@@ -26,6 +26,7 @@ public class TiltShooterCommand extends CommandBase {
     * Called just before this Command runs the first time
     */
     protected void initialize() {
+        ShooterTiltSubsystem.getInstance().disable();
     }
 
    /**
@@ -50,7 +51,7 @@ public class TiltShooterCommand extends CommandBase {
     }
 
      /**
-     * Called when another command which requires one or more of the same 
+     * Called when another command which requires one or more of the same
      * subsystems is scheduled to run
      */
     protected void interrupted() {

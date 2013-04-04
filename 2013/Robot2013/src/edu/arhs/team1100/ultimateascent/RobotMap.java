@@ -12,15 +12,15 @@ public class RobotMap {
     public static final int C_LEFT_JOYSTICK = 1;
     public static final int C_RIGHT_JOYSTICK = 2;
     public static final int C_XBOX_CONTROLLER = 3;
-    
+
     public static int DS_SHOOTING_ANGLE_CH = 1;
     public static int DS_FEEDER_ANGLE_CH = 2;
     public static int DS_FLAT_ANGLE_CH = 3;
-    
+
     public static int DS_SETPOINT_TOGGLE = 7;
-    public static int DS_P = 3;
-    public static int DS_I = 4;
-    public static int DS_D = 5;
+    public static int DS_P = 1;
+    public static int DS_I = 2;
+    public static int DS_D = 3;
 
     //[D]RIVE
     public static final int D_TALON_FRONT_LEFT = 1;
@@ -30,9 +30,9 @@ public class RobotMap {
     public static final int D_GYRO = 1;
 
     //[S]HOOTER
-    public static final int S_VICTOR_SHOOTER_WHEEL = 8;    
-    public static final int S_VICTOR_SHOOTER_TILT = 7; 
-    
+    public static final int S_VICTOR_SHOOTER_WHEEL = 8;
+    public static final int S_VICTOR_SHOOTER_TILT = 7;
+
     public static final int S_POTENTIOMETER_TILT = 2;
 
     public static final int S_ENCODER_A = 1;
@@ -42,13 +42,13 @@ public class RobotMap {
     public static final int S_COMPRESSOR_RELAY = 8;
     public static final int S_SOLENOID_SHOOTER_PISTON = 1;
     public static final int S_FRISBEE_LIMIT_SWITCH = 2;
-    
+
     //[L]IFT
     public static final int L_VICTOR_LEFT  = 6;
     public static final int L_VICTOR_RIGHT = 5;
     public static final int L_LIMIT_TOP = 9;
     public static final int L_POTENTIOMETER = 4;
-    
+
     //[I]NTAKE
     public static final int I_VICTOR_ROLLER = 9;
 }

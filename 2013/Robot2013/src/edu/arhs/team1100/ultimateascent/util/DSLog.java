@@ -20,7 +20,7 @@ public class DSLog {
         DriverStationLCD.Line.kUser4,
         DriverStationLCD.Line.kUser3,
         DriverStationLCD.Line.kUser2,
-        DriverStationLCD.Line.kMain6 // top line
+        DriverStationLCD.Line.kUser1 // top line
     };
     static String[] lcdHistory = new String[6];  // array to scroll lcd display
     static String clearLine = "                     "; // 21 spaces to clear a line

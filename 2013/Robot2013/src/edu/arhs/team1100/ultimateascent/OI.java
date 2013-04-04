@@ -30,11 +30,11 @@ public class OI {
     private static final int CALIBRATE_GYRO = 3;
     private static final int JOYSTICK_PID = 1; //trigger
     private static final int STOP_DRIVE = 4;
-    //recording    
+    //recording
     private static final int RECORD = 5;
     private static final int PLAY_RECORDING = 2;
     private static final int PRINT_RECORDING = 7;
-    
+
     private static OI instance;
     private AttackThree leftStick;
     private AttackThree rightStick;
@@ -61,7 +61,7 @@ public class OI {
         rightStick = new AttackThree(RobotMap.C_RIGHT_JOYSTICK, 0.1);
         xbox = new XboxController(RobotMap.C_XBOX_CONTROLLER, 0.1);
 
-        //CONTROL ASSIGNMENTS    
+        //CONTROL ASSIGNMENTS
 
         leftStick.getButton(TOGGLE_DRIVE).whenPressed(new ToggleDriveModeCommand());
         leftStick.getButton(CAMERA_PID).whileHeld(new CameraPIDMecanumCommand());
@@ -77,7 +77,7 @@ public class OI {
         xbox.getButtonX().whileHeld(new RapidFireCommandGroup());
         xbox.getButtonRightBumper().whenPressed(new ChangeShooterSpeedCommand(0.1));
         xbox.getButtonLeftBumper().whenPressed(new ChangeShooterSpeedCommand(-0.1));
-         xbox.getButtonY().whileHeld(new  CameraTiltShooterCommand());
+         xbox.getButtonY().whileHeld(new CameraPIDTiltShooterCommand());
        //  xbox.getButtonY().whenReleased(new TiltShooterPositionPIDCommand(RobotMap.DS_FLAT_ANGLE_CH));
        // xbox.getButtonA().whileHeld(new  CameraPIDTiltShooterCommand());
         xbox.getButtonB().whileHeld(new TiltShooterPositionPIDCommand(RobotMap.DS_FEEDER_ANGLE_CH));
