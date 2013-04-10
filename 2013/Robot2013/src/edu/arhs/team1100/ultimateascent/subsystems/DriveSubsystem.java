@@ -126,7 +126,7 @@ public class DriveSubsystem extends PIDSubsystem {
      */
     public void driveSimulate(double x, double y, double rot, int mode) {
         if (mode == MODE_POLAR) {
-            double magnitude = Math.sqrt(x * x + y * y);
+            double magnitude = -Math.sqrt(x * x + y * y); //---------------------------------Switch negative if not working
             double angle = Math.toDegrees(MathUtils.atan2(x, y));
             while(angle < 0){
                 angle += 360;
