@@ -11,9 +11,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  * @author Aditya
  */
 public class AutonomousCommandGroup extends CommandGroup {
-    
+
     public AutonomousCommandGroup() {
-        addSequential(new AutoAimAndShootCommandGroup());
+        addSequential(new AutoAimAndShootCommandGroup(5, 5));
         addSequential(new PyramidTowardsFeederCommand());
     }
 

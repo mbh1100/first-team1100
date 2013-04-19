@@ -12,23 +12,25 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  * @author akshay
  */
 public class AutoAimAndShootCommandGroup extends CommandGroup {
-    
-    private final long WAIT_TIME = 5000;
-    private final long FRISBEES = 5;
-    
+
+    private long WAIT_TIME = 5000;
+    private long FRISBEES = 5;
+
     private long sTime = 0;
     private int shots = 0;
-    
+
     private boolean isFinished = false;
-    
+
     private RapidFireCommandGroup shootCommand;
     private CameraTiltShooterCommand cameraTilter;
     private SpinShooterCommand spinShootCommand;
-    
+
     /**
      * Constructs objects
      */
-    public AutoAimAndShootCommandGroup() {
+    public AutoAimAndShootCommandGroup(long frisbees, long wait) {
+        this.FRISBEES = frisbees;
+        this.WAIT_TIME = wait;
         shootCommand = new RapidFireCommandGroup();
         spinShootCommand = new SpinShooterCommand(ShooterWheelSubsystem.SHOOTING_SPEED);
         cameraTilter = new CameraTiltShooterCommand();
@@ -38,26 +40,26 @@ public class AutoAimAndShootCommandGroup extends CommandGroup {
         //addParallel(new TiltShooterPositionPIDCommand(RobotMap.DS_SHOOTING_ANGLE_CH));
         addParallel(spinShootCommand); //replace with PID later if possible
     }
-    
+
     public void initialize(){
         sTime = System.currentTimeMillis();
         shots = 0;
         isFinished = false;
     }
-    
+
     /**
      * If Drive and Shooter is on target, shoot for as long as its on target
      */
     public void execute(){
-        if(System.currentTimeMillis()-sTime <= WAIT_TIME || isFinished){            
+        if(System.currentTimeMillis()-sTime <= WAIT_TIME || isFinished){
             return;
         }
-            
+
         if(!shootCommand.isRunning()){ //this should repeat shots as long as its on target
-                shootCommand.start();  
-                shots++;        
+                shootCommand.start();
+                shots++;
         }
-        
+
         if(shots == FRISBEES){
             isFinished = true;
             cameraTilter.stopTracking();
@@ -65,10 +67,10 @@ public class AutoAimAndShootCommandGroup extends CommandGroup {
         }
        // }
     }
-    
+
     protected boolean isFinished(){
         return isFinished;
     }
-    
- 
+
+
 }
