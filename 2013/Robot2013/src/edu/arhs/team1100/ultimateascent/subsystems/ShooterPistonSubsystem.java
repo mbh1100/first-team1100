@@ -17,7 +17,6 @@ public class ShooterPistonSubsystem extends Subsystem {
     private Compressor compressor;
     private Solenoid shooterPiston;
     
-    
     private DigitalInput limitSwitch;
     private boolean lastLimitState;
     

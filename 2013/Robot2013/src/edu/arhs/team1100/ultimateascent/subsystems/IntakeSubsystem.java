@@ -1,11 +1,10 @@
 package edu.arhs.team1100.ultimateascent.subsystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.Victor;
 import edu.arhs.team1100.ultimateascent.RobotMap;
-import edu.arhs.team1100.ultimateascent.OI;
-import edu.arhs.team1100.ultimateascent.commands.IntakeCommand;
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PWM;
+import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  *
@@ -13,21 +12,39 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class IntakeSubsystem extends Subsystem {
 
-    private static IntakeSubsystem instance;
-    private Victor roller;
-
+    static IntakeSubsystem instance;
+    
+    private Compressor compressor;
+    private Solenoid intakePistonLeft;
+    private Solenoid intakePistonRight;
+    
+    private PWM intakeMotorLeft;
+    private PWM intakeMotorRight;
+    
     /**
      * Constructs a Vector of I_VICTOR_ROLLER
      */
     public IntakeSubsystem() {
-        roller = new Victor(RobotMap.I_VICTOR_ROLLER);
+        compressor = new Compressor(RobotMap.S_COMPRESSOR_PRESSURE_SWITCH, RobotMap.S_COMPRESSOR_RELAY);
+        
+        intakePistonLeft = new Solenoid(RobotMap.FP_SOLENOID_LEFT);
+        intakePistonRight = new Solenoid(RobotMap.FP_SOLENOID_RIGHT);
+        
+        intakePistonLeft.set(false);
+        intakePistonRight.set(false);
+        
+        intakeMotorLeft = new PWM(RobotMap.FP_PWM_INTAKE_LEFT);
+        intakeMotorRight = new PWM(RobotMap.FP_PWM_INTAKE_RIGHT);
+        
+        compressor.start();
     }
+    
     /**
      * Creates a IntakeSubsystem if not already
      * @return instance
      */
     public static IntakeSubsystem getInstance() {
-        if (instance == null) {
+        if(instance == null) {
             instance = new IntakeSubsystem();
             instance.initDefaultCommand();
         }
@@ -35,23 +52,39 @@ public class IntakeSubsystem extends Subsystem {
     }
 
     /**
-     * Set speed for xbox controller
+     * Rolls the wheels on the left to move frisbees
      */
-    public void roll() {
-        double speed = OI.getInstance().getXboxController().getAxis(Joystick.AxisType.kTwist);
-        roller.set(speed);
-    }
-    /**
-     * Stops the rolling
-     */
-    public void stop() {
-        roller.set(0);
+    public void intakeRollLeft() {
+        if (intakeMotorLeft.getRaw() > 0) {
+            intakeMotorLeft.setRaw(0);
+        } else {
+            intakeMotorLeft.setRaw(255);
+        }
     }
     
     /**
-     * Initializes Intake Command
+     * Rolls the wheels on the right to move frisbees
+     */
+    public void intakeRollRight() {
+        if (intakeMotorRight.getRaw() > 0) {
+            intakeMotorRight.setRaw(0);
+        } else {
+            intakeMotorRight.setRaw(255);
+        }
+    }
+    
+    /**
+     * Stops wheels for frisbees
+     */
+    public void pistonLift() {
+        intakePistonLeft.set(!intakePistonLeft.get());
+        intakePistonRight.set(!intakePistonRight.get());
+    }
+    
+    /**
+     * Initializes intake command
      */
     protected void initDefaultCommand() {
-        setDefaultCommand(new IntakeCommand());
+            
     }
 }

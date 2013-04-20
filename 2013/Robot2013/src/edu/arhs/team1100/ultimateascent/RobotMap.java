@@ -48,7 +48,10 @@ public class RobotMap {
     public static final int L_VICTOR_RIGHT = 5;
     public static final int L_LIMIT_TOP = 9;
     public static final int L_POTENTIOMETER = 4;
-
-    //[I]NTAKE
-    public static final int I_VICTOR_ROLLER = 9;
+    
+    //[F]loor Intake
+    public static final int FP_SOLENOID_LEFT = 2;
+    public static final int FP_SOLENOID_RIGHT = 3;
+    public static final int FP_PWM_INTAKE_LEFT = 9;
+    public static final int FP_PWM_INTAKE_RIGHT = 10;
 }

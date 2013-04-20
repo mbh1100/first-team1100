@@ -12,28 +12,29 @@ import edu.wpi.first.wpilibj.Joystick;
  *
  * @author akshay
  */
-public class IntakeCommand extends CommandBase {
+public class IntakeRollerCommand extends CommandBase {
     
     /**
      * Initializes IntakeSubsystem
      */
-    public IntakeCommand() {
+    public IntakeRollerCommand() {
         requires(IntakeSubsystem.getInstance());
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
     }
 
     /**
      * Called just before this Command runs the first time
      */
     protected void initialize() {
+        IntakeSubsystem.getInstance().intakeRollLeft();
+        IntakeSubsystem.getInstance().intakeRollRight();
+        setTimeout(1.0);
     }
 
     /**
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
-        IntakeSubsystem.getInstance().roll();
+
     }
 
     /**
@@ -41,14 +42,13 @@ public class IntakeCommand extends CommandBase {
      * @return false
      */
     protected boolean isFinished() {
-        return false;
+        return isTimedOut();
     }
 
     /**
      * Called once after isFinished returns true
      */
     protected void end() {
-        IntakeSubsystem.getInstance().stop();
     }
   
     /**
@@ -56,6 +56,5 @@ public class IntakeCommand extends CommandBase {
      * subsystems is scheduled to run
      */
     protected void interrupted() {
-        end();
     }
 }
