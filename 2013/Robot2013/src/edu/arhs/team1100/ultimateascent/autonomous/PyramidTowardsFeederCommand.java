@@ -3,12 +3,20 @@ package edu.arhs.team1100.ultimateascent.autonomous;
 import edu.arhs.team1100.ultimateascent.recording.ControllerState;
 import edu.arhs.team1100.ultimateascent.recording.RecordedRoutine;
 
+/**
+ * @author Team 1100
+ */
 public class PyramidTowardsFeederCommand extends RecordedRoutine {
 
     protected int getInterval() {
         return 50;
     }
 
+    /**
+     * Recorded autonomous routine to go towards feeder station
+     *
+     * @return ControllerState[]
+     */
     protected ControllerState[] getRecording() {
         return new ControllerState[]{new ControllerState(0.0, 0.0, 0.0, 1),
             new ControllerState(0.0, 0.0, 0.0, 1),

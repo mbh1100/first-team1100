@@ -4,13 +4,7 @@ import edu.arhs.team1100.ultimateascent.recording.ControllerState;
 import edu.arhs.team1100.ultimateascent.recording.RecordedRoutine;
 
 /**
- * [S]tart, [E]nd
- *
- * -----E / ---- / / \ | 0 / 0 | \------/ | / /-----------/ / ---- | / \ \ 0 / 0
- * | ---- /-----/ S/
- *
- *
- * @author Robot 1100
+ * @author Team 1100
  */
 public class SquareWeaveRoutine extends RecordedRoutine {
 
@@ -18,6 +12,16 @@ public class SquareWeaveRoutine extends RecordedRoutine {
         return 50;
     }
 
+    /**
+     * [S]tart, [E]nd
+     *
+     * -----E / ---- / / \ | 0 / 0 | \------/ | / /-----------/ / ---- | / \ \ 0
+     * / 0 | ---- /-----/ S/
+     *
+     * Drives robot in a square
+     *
+     * @return
+     */
     protected ControllerState[] getRecording() {
         return new ControllerState[]{
             new ControllerState(0.0, 0.0, 0.0, 0),

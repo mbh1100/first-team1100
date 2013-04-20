@@ -8,6 +8,8 @@ import edu.arhs.team1100.ultimateascent.subsystems.IntakeSubsystem;
  */
 public class IntakeRollerCommand extends CommandBase {
 
+    private long startTime = 0;
+
     /**
      * Constructs a IntakeRollerCommand
      */
@@ -19,16 +21,22 @@ public class IntakeRollerCommand extends CommandBase {
      * Called just before this Command runs the first time
      */
     protected void initialize() {
-        // Need to add delay betweens the roller runs so frisbees fall correctly
-        IntakeSubsystem.getInstance().intakeRollLeft();
-        IntakeSubsystem.getInstance().intakeRollRight();
-        setTimeout(1.0);
+        startTime = System.currentTimeMillis();
     }
 
     /**
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
+        IntakeSubsystem.getInstance().intakeRollLeft();
+
+        if (System.currentTimeMillis() - startTime >= 1000) {
+            IntakeSubsystem.getInstance().intakeRollRight();
+        }
+
+        if (System.currentTimeMillis() - startTime >= 3000) {
+            setTimeout(1.0);
+        }
     }
 
     /**

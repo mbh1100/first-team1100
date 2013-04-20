@@ -1,12 +1,9 @@
 package edu.arhs.team1100.ultimateascent.autonomous;
 
-import edu.arhs.team1100.ultimateascent.OI;
 import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
-import edu.wpi.first.wpilibj.Joystick;
 
 /**
- *
  * @author Team 1100
  */
 public class DriveInALineCommand extends CommandBase {
@@ -16,17 +13,11 @@ public class DriveInALineCommand extends CommandBase {
     private double duration = 0;
 
     /**
+     * Drives robot in a line
      *
      * @param speed motor speed
      * @param direction direction in degrees to move
      * @param duration length in seconds of command
-     */
-    /**
-     * drives robot in a line
-     *
-     * @param speed
-     * @param direction
-     * @param duration
      */
     public DriveInALineCommand(double speed, double direction, double duration) {
         requires(DriveSubsystem.getInstance());

@@ -30,9 +30,7 @@ public class DriveSubsystem extends PIDSubsystem {
     public static final double kCameraI = 0.01;
     public static final double kCameraD = 0.2;
     static DriveSubsystem instance;
-    /*static {        
-     getInstance();    
-     }*/
+//    static { getInstance(); }
     private RobotDrive drive;
     private Gyro driveGyro;
     private Talon frontLeftTalon;
@@ -56,10 +54,11 @@ public class DriveSubsystem extends PIDSubsystem {
     }
 
     /**
-     * Constructs a DriveSubsystem
+     * Constructs a DriveSubsystem. Initialize PID values, drive Talons, drive
+     * system, and gyro.
      */
     public DriveSubsystem() {
-        super(kJoystickP, kJoystickI, kJoystickD);//SUPER PID!!!!
+        super(kJoystickP, kJoystickI, kJoystickD);
 
         frontLeftTalon = new Talon(RobotMap.D_TALON_FRONT_LEFT);
         frontRightTalon = new Talon(RobotMap.D_TALON_FRONT_RIGHT);
@@ -92,6 +91,9 @@ public class DriveSubsystem extends PIDSubsystem {
         }
     }
 
+    /**
+     * Defines values to drive Cartesian mode. Gets values from controllers.
+     */
     private void userDriveCartesian() {
         double rotation = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
         double controlX = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
@@ -99,6 +101,9 @@ public class DriveSubsystem extends PIDSubsystem {
         drive.mecanumDrive_Cartesian(controlX, controlY, rotation, driveGyro.getAngle());
     }
 
+    /**
+     * Defines values to drive Polar mode. Gets values from controllers.
+     */
     private void userDrivePolar() {
         double magnitude = -OI.getInstance().getLeftJoystick().getMagnitude();
         double angle = -OI.getInstance().getLeftJoystick().getAngle();
@@ -107,7 +112,7 @@ public class DriveSubsystem extends PIDSubsystem {
     }
 
     /**
-     * Drives using given values
+     * Drives using given values. Default is Cartesian mode.
      *
      * @param magnitude speed of the robot
      * @param angle direction of the robot
@@ -118,7 +123,8 @@ public class DriveSubsystem extends PIDSubsystem {
     }
 
     /**
-     * Drives using values as if they were joystick values
+     * Drives using values as if they were joystick values. Used for recording
+     * playback.
      *
      * @param x x magnitude
      * @param y y magnitude
@@ -127,7 +133,7 @@ public class DriveSubsystem extends PIDSubsystem {
      */
     public void driveSimulate(double x, double y, double rot, int mode) {
         if (mode == MODE_POLAR) {
-            double magnitude = -Math.sqrt(x * x + y * y); //---------------------------------Switch negative if not working
+            double magnitude = -Math.sqrt(x * x + y * y); // --------------------------------- Switch negative if not working
             double angle = Math.toDegrees(MathUtils.atan2(x, y));
 
             while (angle < 0) {
@@ -143,12 +149,17 @@ public class DriveSubsystem extends PIDSubsystem {
     }
 
     /**
-     * Stops the drive
+     * Stops the drive movement.
      */
     public void stop() {
         drive(0, 0, 0);
     }
 
+    /**
+     * Returns result of camera or gyro PID.
+     *
+     * @return pCenter or getGyroAngle()
+     */
     protected double returnPIDInput() {
         if (isCameraMode) {
             double pCenter = Camera.getInstance().getCenterX();
@@ -159,12 +170,22 @@ public class DriveSubsystem extends PIDSubsystem {
         }
     }
 
+    /**
+     * Used for record playback.
+     *
+     * @param rotationSpeed
+     */
     protected void usePIDOutput(double rotationSpeed) {
         double controlX = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
         double controlY = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
         drive.mecanumDrive_Cartesian(controlX, controlY, rotationSpeed, driveGyro.getAngle());
     }
 
+    /**
+     * Drive rotation tracking. NOT USED.
+     *
+     * @param setpoint
+     */
     public void setSetpoint(double setpoint) {
         if (!isCameraMode) {
             super.setSetpoint(setpoint);
@@ -174,7 +195,7 @@ public class DriveSubsystem extends PIDSubsystem {
     }
 
     /**
-     * Switches the drive mode between polar and Cartesian
+     * Switches the drive mode between Polar and Cartesian.
      */
     public void toggleDriveMode() {
         driveMode = (driveMode == MODE_CARTESIAN) ? MODE_POLAR : MODE_CARTESIAN;
@@ -183,13 +204,14 @@ public class DriveSubsystem extends PIDSubsystem {
     /**
      *
      * @return the current drive mode, DriveSubsystem.MODE_POLAR or
-     * DriveSubsystem.MODE_CARTESIAN
+     * DriveSubsystem.MODE_CARTESIAN.
      */
     public int getDriveMode() {
         return driveMode;
     }
 
     /**
+     * Gets raw gyro angle.
      *
      * @return the un-normalized gyro angle
      */
@@ -198,18 +220,21 @@ public class DriveSubsystem extends PIDSubsystem {
     }
 
     /**
-     * Calibrates the gyro to use the current direction as zero
+     * Calibrates the gyro to use the current direction as zero.
      */
     public void calibrateGyro() {
         driveGyro.reset();
     }
 
+    /**
+     * Initialize default command.
+     */
     protected void initDefaultCommand() {
         setDefaultCommand(new JoystickMecanumCommand());
     }
 
     /**
-     * Sets the PID mode to either camera or joystick
+     * Sets the PID mode to either camera or joystick.
      *
      * @param mode Whether or not to use camera PID mode (true), if false, uses
      * joystick PID
@@ -224,7 +249,7 @@ public class DriveSubsystem extends PIDSubsystem {
     }
 
     /**
-     * Return if camera PID is being used
+     * Return if camera PID is being used.
      *
      * @return whether the drive is using camera PID mode
      */

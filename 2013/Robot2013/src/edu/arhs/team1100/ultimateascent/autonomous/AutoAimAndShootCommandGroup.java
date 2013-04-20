@@ -8,6 +8,7 @@ import edu.arhs.team1100.ultimateascent.subsystems.ShooterWheelSubsystem;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
+ * Camera aims and shoots variable amount of discs
  *
  * @author Team 1100
  */
@@ -23,7 +24,7 @@ public class AutoAimAndShootCommandGroup extends CommandGroup {
     private SpinShooterCommand spinShootCommand;
 
     /**
-     * Constructs objects
+     * Constructs AutoAimAndShootCommandGroup
      */
     public AutoAimAndShootCommandGroup(long frisbees, long wait) {
         this.FRISBEES = frisbees;
@@ -38,6 +39,9 @@ public class AutoAimAndShootCommandGroup extends CommandGroup {
         addParallel(spinShootCommand); //replace with PID later if possible
     }
 
+    /**
+     * Gets current time. Sets shots to 0.
+     */
     public void initialize() {
         sTime = System.currentTimeMillis();
         shots = 0;
@@ -62,9 +66,13 @@ public class AutoAimAndShootCommandGroup extends CommandGroup {
             cameraTilter.stopTracking();
             ShooterWheelSubsystem.getInstance().stop();
         }
-        // }
     }
 
+    /**
+     * Return if done.
+     *
+     * @return isTimedout()
+     */
     protected boolean isFinished() {
         return isFinished;
     }

@@ -20,7 +20,7 @@ public class ShooterWheelSubsystem extends PIDSubsystem {
     private double speed = 0.0;
 
     /**
-     * Constructs a ShooterWheelSubsystem Declares a new motor and encoder
+     * Constructs a ShooterWheelSubsystem. Declares a new motor and encoder.
      */
     public ShooterWheelSubsystem() {
         super(P, I, D);
@@ -59,7 +59,7 @@ public class ShooterWheelSubsystem extends PIDSubsystem {
     }
 
     /**
-     * Gets encoder rate of shooter wheel NOT USED
+     * Gets encoder rate of shooter wheel. NOT USED.
      *
      * @return the encoder rate on the shooter wheel
      */
@@ -68,7 +68,7 @@ public class ShooterWheelSubsystem extends PIDSubsystem {
     }
 
     /**
-     * Spins the shooter wheel at the shooting speed according to PID
+     * Spins the shooter wheel at the shooting speed according to PID.
      *
      * @param output
      */
@@ -77,7 +77,7 @@ public class ShooterWheelSubsystem extends PIDSubsystem {
     }
 
     /**
-     * Changes speed, in a range of 0-1
+     * Changes speed, in a range of 0-1.
      *
      * @param d
      */
@@ -88,7 +88,7 @@ public class ShooterWheelSubsystem extends PIDSubsystem {
     }
 
     /**
-     * Sets speed to s
+     * Sets speed to s.
      *
      * @param s
      */
@@ -99,7 +99,7 @@ public class ShooterWheelSubsystem extends PIDSubsystem {
     }
 
     /**
-     * Get speed of shooter
+     * Get speed of shooter.
      *
      * @return speed of shooter wheel
      */
@@ -108,7 +108,7 @@ public class ShooterWheelSubsystem extends PIDSubsystem {
     }
 
     /**
-     * Gets rate of encoder NOT USED
+     * Gets rate of encoder. NOT USED.
      *
      * @return rate of movement on shooter wheel
      */

@@ -12,8 +12,7 @@ import edu.arhs.team1100.ultimateascent.util.Log;
 import edu.wpi.first.wpilibj.DriverStation;
 
 /**
- *
- * @author Aditya
+ * @author Team 1100
  */
 public class TiltShooterPositionPIDCommand extends CommandBase {
 
@@ -21,6 +20,11 @@ public class TiltShooterPositionPIDCommand extends CommandBase {
     private double targetAngle = ShooterTiltSubsystem.FLAT_ANGLE;
     private int channel;
 
+    /**
+     * Constructs TiltShooterPositionPIDCommand
+     *
+     * @param ch
+     */
     public TiltShooterPositionPIDCommand(int ch) {
         requires(ShooterTiltSubsystem.getInstance());
         double s = DriverStation.getInstance().getAnalogIn(ch);

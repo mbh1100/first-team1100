@@ -1,11 +1,9 @@
 package edu.arhs.team1100.ultimateascent.autonomous;
 
 import edu.arhs.team1100.ultimateascent.commands.drive.StopDriveCommand;
-import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *
  * @author Team1100
  */
 public class DriveInACircleCommandGroup extends CommandGroup {
@@ -17,13 +15,6 @@ public class DriveInACircleCommandGroup extends CommandGroup {
      * @param duration total duration of entire movement in second
      * @param rotations number of how many times the angle moves e.g. input 8
      * would make a octagon
-     */
-    /**
-     * drives robot in a circle
-     *
-     * @param speed
-     * @param duration
-     * @param rotations
      */
     public DriveInACircleCommandGroup(double speed, double duration, double rotations) {
 

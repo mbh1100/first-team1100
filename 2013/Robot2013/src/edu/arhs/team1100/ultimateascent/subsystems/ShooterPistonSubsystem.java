@@ -19,8 +19,8 @@ public class ShooterPistonSubsystem extends Subsystem {
     private int frisbeeCount = 0;
 
     /**
-     * Constructs a ShooterPistonSubsystem Constructs Compressor and Solenoid
-     * and starts compressor
+     * Constructs a ShooterPistonSubsystem. Constructs Compressor and Solenoid
+     * and starts compressor.
      */
     public ShooterPistonSubsystem() {
         compressor = new Compressor(RobotMap.S_COMPRESSOR_PRESSURE_SWITCH, RobotMap.S_COMPRESSOR_RELAY);
@@ -45,14 +45,14 @@ public class ShooterPistonSubsystem extends Subsystem {
     }
 
     /**
-     * Pulls back piston to shoot a disc
+     * Pulls back piston to shoot a disc.
      */
     public void unShoot() {
         shooterPiston.set(true);
     }
 
     /**
-     * Shoots a disc
+     * Shoots a disc.
      */
     public void shoot() {
         shooterPiston.set(false);
@@ -60,7 +60,7 @@ public class ShooterPistonSubsystem extends Subsystem {
     }
 
     /**
-     * Turns Piston on or off
+     * Turns piston on or off.
      *
      * @param state
      */
@@ -69,7 +69,7 @@ public class ShooterPistonSubsystem extends Subsystem {
     }
 
     /**
-     * Counts discs
+     * Counts discs. NOT USED.
      */
     public void updateFrisbeeCount() {
         boolean limitState = limitSwitch.get();
@@ -81,7 +81,7 @@ public class ShooterPistonSubsystem extends Subsystem {
     }
 
     /**
-     * Gets discs being held
+     * Gets discs being held.
      *
      * @return number of discs being carried
      */
@@ -90,7 +90,7 @@ public class ShooterPistonSubsystem extends Subsystem {
     }
 
     /**
-     * Gets pressure from switch
+     * Gets pressure from switch.
      *
      * @return
      */

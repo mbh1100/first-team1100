@@ -19,7 +19,7 @@ public class IntakeLiftCommand extends CommandBase {
      */
     protected void initialize() {
         IntakeSubsystem.getInstance().pistonLift();
-        setTimeout(0.3);
+        setTimeout(0.5);
     }
 
     /**

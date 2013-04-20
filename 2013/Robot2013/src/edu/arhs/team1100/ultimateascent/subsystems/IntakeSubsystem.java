@@ -19,7 +19,8 @@ public class IntakeSubsystem extends Subsystem {
     private PWM intakeMotorRight;
 
     /**
-     * Constructs a Vector of I_VICTOR_ROLLER
+     * Constructs an IntakeSubsystem. Initializes compressor, lift pistons,
+     * intake motors. Starts compressor.
      */
     public IntakeSubsystem() {
         compressor = new Compressor(RobotMap.S_COMPRESSOR_PRESSURE_SWITCH, RobotMap.S_COMPRESSOR_RELAY);
@@ -50,29 +51,31 @@ public class IntakeSubsystem extends Subsystem {
     }
 
     /**
-     * Toggle the wheels on the left to move discs
+     * Toggle the wheels on the left to move discs. If not moving, set to full
+     * speed. If moving, set to neutral.
      */
     public void intakeRollLeft() {
-        if (intakeMotorLeft.getRaw() > 0) {
-            intakeMotorLeft.setRaw(0);
+        if (intakeMotorLeft.getRaw() > 127) {
+            intakeMotorLeft.setRaw(127);
         } else {
             intakeMotorLeft.setRaw(255);
         }
     }
 
     /**
-     * Toggle the wheels on the right to move discs
+     * Toggle the wheels on the right to move discs. If not moving, set to full
+     * speed. If moving, set to neutral.
      */
     public void intakeRollRight() {
-        if (intakeMotorRight.getRaw() > 0) {
-            intakeMotorRight.setRaw(0);
+        if (intakeMotorRight.getRaw() > 127) {
+            intakeMotorRight.setRaw(127);
         } else {
             intakeMotorRight.setRaw(255);
         }
     }
 
     /**
-     * Toggle floor pickup position
+     * Toggle floor pickup position. Reverses position from current position.
      */
     public void pistonLift() {
         intakePistonLeft.set(!intakePistonLeft.get());
@@ -80,7 +83,7 @@ public class IntakeSubsystem extends Subsystem {
     }
 
     /**
-     * Initializes intake command
+     * Initializes intake command. Do nothing.
      */
     protected void initDefaultCommand() {
     }

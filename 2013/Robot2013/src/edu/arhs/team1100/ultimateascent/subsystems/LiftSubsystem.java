@@ -33,7 +33,8 @@ public class LiftSubsystem extends Subsystem {
     }
 
     /**
-     * Constructs a LiftSubsystem
+     * Constructs a LiftSubsystem. Initialize left and right lift motors,
+     * potentiometer, and limit switch.
      */
     public LiftSubsystem() {
         left = new Victor(RobotMap.L_VICTOR_LEFT);
@@ -43,7 +44,7 @@ public class LiftSubsystem extends Subsystem {
     }
 
     /**
-     * Lifts the lift and shooter
+     * Lifts the lift and shooter.
      */
     public void doLift() {
         double speed = OI.getInstance().getXboxController().getAxis(AxisType.kZ) / 1.5;
@@ -51,12 +52,17 @@ public class LiftSubsystem extends Subsystem {
         right.set(-speed);
     }
 
+    /**
+     * Gets position of potentiometer. NOT USED.
+     *
+     * @return voltage of potentiometer
+     */
     public double getPosition() {
         return potentiometer.getVoltage();
     }
 
     /**
-     * Initializes LiftCommand
+     * Initializes default command
      */
     protected void initDefaultCommand() {
         setDefaultCommand(new LiftCommand());

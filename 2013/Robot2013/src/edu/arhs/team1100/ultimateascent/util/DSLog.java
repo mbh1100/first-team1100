@@ -22,11 +22,11 @@ public class DSLog {
         DriverStationLCD.Line.kUser2,
         DriverStationLCD.Line.kUser1 // top line
     };
-    static String[] lcdHistory = new String[6];  // array to scroll lcd display
+    static String[] lcdHistory = new String[6]; // array to scroll lcd display
     static String clearLine = "                     "; // 21 spaces to clear a line
 
     /**
-     * Removes all data for LCDHistory
+     * Removes all data for LCD history
      */
     public DSLog() {
         for (int i = 0; i < lcdHistory.length; i++) {

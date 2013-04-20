@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**
- *
  * @author Team 1100
  */
 public class ShooterTiltSubsystem extends PIDSubsystem {
@@ -32,7 +31,7 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
     private boolean isCameraMode = true;
 
     /**
-     * Creates a ShooterTilitSubsystem object, if not already
+     * Creates a ShooterTilitSubsystem object if not already created
      *
      * @return
      */
@@ -43,10 +42,9 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
         }
         return instance;
     }
-    // Initialize your subsystem here
 
     /**
-     * Sets PID for tilt
+     * Constructs a ShooterTiltSubsystem. Sets PID for tilt.
      */
     public ShooterTiltSubsystem() {
         super(kTiltP, kTiltI, kTiltD);
@@ -56,7 +54,7 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
     }
 
     /**
-     * Tilts the shooter
+     * Tilts the shooter.
      */
     public void doTilt() {
 
@@ -65,23 +63,33 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
 
     }
 
+    /**
+     * Gives tilt motor speed to tilt.
+     *
+     * @param speed
+     */
     public void tilt(double speed) {
         tiltMotor.set(speed);
     }
 
     /**
-     * returns the voltage of the angle potentiometer
+     * Gets potentiometer angle.
+     *
+     * @returns the voltage of the angle potentiometer
      */
     public double getAngle() {
         return potentiometer.getVoltage();
     }
 
+    /**
+     * Stops the tilt from moving.
+     */
     public void stop() {
         tiltMotor.set(0.0);
     }
 
     /**
-     * Initializes TiltShooterCommand
+     * Initializes default command
      */
     public void initDefaultCommand() {
         setDefaultCommand(new TiltShooterCommand());
@@ -106,7 +114,7 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
     }
 
     /**
-     * Sets output
+     * Sets output.
      *
      * @param output
      */
@@ -139,6 +147,7 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
     }
 
     /**
+     * Get if camera PID is being used or not.
      *
      * @return whether the drive is using camera PID mode
      */
