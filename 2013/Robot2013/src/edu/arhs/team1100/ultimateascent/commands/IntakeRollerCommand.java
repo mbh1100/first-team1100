@@ -25,6 +25,7 @@ public class IntakeRollerCommand extends CommandBase {
      * Called just before this Command runs the first time
      */
     protected void initialize() {
+        // Need to add delay betweens the roller runs so frisbees fall correctly
         IntakeSubsystem.getInstance().intakeRollLeft();
         IntakeSubsystem.getInstance().intakeRollRight();
         setTimeout(1.0);
