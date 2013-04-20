@@ -8,7 +8,7 @@ import edu.arhs.team1100.ultimateascent.util.DSPID;
 
 /**
  *
- * @author akshay
+ * @author Team 1100
  */
 public class CameraPIDTiltShooterCommand extends CommandBase {
 
@@ -31,7 +31,7 @@ public class CameraPIDTiltShooterCommand extends CommandBase {
 
         DSLog.log(5, "");
         Log.log(this, "PID", Log.LEVEL_DEBUG);
-      //  DSPID.setPIDFromDS(ShooterTiltSubsystem.getInstance().getPIDController());
+        //  DSPID.setPIDFromDS(ShooterTiltSubsystem.getInstance().getPIDController());
     }
 
     // Make this return true when this Command no longer needs to run execute()

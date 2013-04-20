@@ -14,9 +14,10 @@ import edu.arhs.team1100.ultimateascent.util.DSLog;
  * @author markbh
  */
 public class CameraPIDMecanumCommand extends CommandBase {
-/**
- * 
- */
+
+    /**
+     *
+     */
     public CameraPIDMecanumCommand() {
         requires(DriveSubsystem.getInstance());
     }
@@ -41,6 +42,7 @@ public class CameraPIDMecanumCommand extends CommandBase {
 
     /**
      * Make this return true when this Command no longer needs to run execute()
+     *
      * @return false
      */
     protected boolean isFinished() {
@@ -57,7 +59,7 @@ public class CameraPIDMecanumCommand extends CommandBase {
     }
 
     /**
-     * Called when another command which requires one or more of the same 
+     * Called when another command which requires one or more of the same
      * subsystems is scheduled to run
      */
     protected void interrupted() {

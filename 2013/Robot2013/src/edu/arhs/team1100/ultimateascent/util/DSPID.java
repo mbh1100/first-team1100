@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.PIDController;
 /**
  * Gets PID values from DriverStation
  *
- * @author Akshay
+ * @author Team 1100
  */
 public class DSPID {
 
@@ -18,12 +18,12 @@ public class DSPID {
     public static double getI() {
         return DriverStation.getInstance().getAnalogIn(RobotMap.DS_I);
     }
-    
+
     public static double getD() {
         return DriverStation.getInstance().getAnalogIn(RobotMap.DS_D);
     }
-    
-    public static void setPIDFromDS(PIDController p){
+
+    public static void setPIDFromDS(PIDController p) {
         p.setPID(getP(), getI(), getD());
     }
 }

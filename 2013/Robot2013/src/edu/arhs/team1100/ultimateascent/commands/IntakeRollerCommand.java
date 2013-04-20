@@ -1,21 +1,15 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.arhs.team1100.ultimateascent.commands;
 
 import edu.arhs.team1100.ultimateascent.subsystems.IntakeSubsystem;
-import edu.arhs.team1100.ultimateascent.OI;
-import edu.wpi.first.wpilibj.Joystick;
 
 /**
  *
- * @author akshay
+ * @author Team 1100
  */
 public class IntakeRollerCommand extends CommandBase {
-    
+
     /**
-     * Initializes IntakeSubsystem
+     * Constructs a IntakeRollerCommand
      */
     public IntakeRollerCommand() {
         requires(IntakeSubsystem.getInstance());
@@ -35,12 +29,12 @@ public class IntakeRollerCommand extends CommandBase {
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
-
     }
 
     /**
      * Make this return true when this Command no longer needs to run execute()
-     * @return false
+     *
+     * @return isTimedOut()
      */
     protected boolean isFinished() {
         return isTimedOut();
@@ -51,7 +45,7 @@ public class IntakeRollerCommand extends CommandBase {
      */
     protected void end() {
     }
-  
+
     /**
      * Called when another command which requires one or more of the same
      * subsystems is scheduled to run

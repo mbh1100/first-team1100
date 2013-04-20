@@ -10,10 +10,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
-
 /**
  *
- * @author akshay
+ * @author Team 1100
  */
 public class ShooterTiltSubsystem extends PIDSubsystem {
 
@@ -21,27 +20,20 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
     public static final double AUTONOMOUS_ANGLE = 1.7;
     public static final double SHOOTING_ANGLE = 1.7;
     public static final double FEEDER_ANGLE = 1.96;
-
-
-
     private static final double kCameraP = .5;
     private static final double kCameraI = 0.0;
     private static final double kCameraD = -0.25;
-
     private static final double kTiltP = 1.0;
     private static final double kTiltI = 0.20;
     private static final double kTiltD = 0.05;
-
     private static ShooterTiltSubsystem instance;
     private Victor tiltMotor;
     private AnalogChannel potentiometer;
-
-
     private boolean isCameraMode = true;
-
 
     /**
      * Creates a ShooterTilitSubsystem object, if not already
+     *
      * @return
      */
     public static ShooterTiltSubsystem getInstance() {
@@ -52,6 +44,7 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
         return instance;
     }
     // Initialize your subsystem here
+
     /**
      * Sets PID for tilt
      */
@@ -72,68 +65,69 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
 
     }
 
-    public void tilt(double speed){
+    public void tilt(double speed) {
         tiltMotor.set(speed);
     }
+
     /**
      * returns the voltage of the angle potentiometer
      */
-    public double getAngle(){
+    public double getAngle() {
         return potentiometer.getVoltage();
     }
 
-    public void stop(){
+    public void stop() {
         tiltMotor.set(0.0);
     }
+
     /**
      * Initializes TiltShooterCommand
      */
     public void initDefaultCommand() {
         setDefaultCommand(new TiltShooterCommand());
     }
+
     /**
      * @return Center Y
      */
     protected double returnPIDInput() {
-        try
-        {
+        try {
             //Log.log(this, "Y :  "+(-Camera.getInstance().getCenterY()), Log.LEVEL_DEBUG);
-            Log.log(this, "tilt pidGet()", Log.LEVEL_DEBUG);
-            if(isCameraMode){
+            Log.log(this, "tilt PIDGet()", Log.LEVEL_DEBUG);
+            if (isCameraMode) {
                 return -Camera.getInstance().getCenterY();
             } else {
                 return potentiometer.getVoltage();
             }
-        }
-        catch (Exception x)
-        {
+        } catch (Exception x) {
             Log.log(this, "exception PIDInput: " + x, Log.LEVEL_DEBUG);
             return 0;
         }
     }
+
     /**
      * Sets output
+     *
      * @param output
      */
     protected void usePIDOutput(double output) {
-        try
-        {
-            Log.log(this, "usePidOutput()" + output, Log.LEVEL_DEBUG);
-            if(isCameraMode){
+        try {
+            Log.log(this, "usePIDOutput()" + output, Log.LEVEL_DEBUG);
+            if (isCameraMode) {
                 tiltMotor.set(output);
             } else {
                 tiltMotor.set(-output);
             }
-        }
-        catch (Exception x)
-        {
+        } catch (Exception x) {
             Log.log(this, "exception PIDOutput " + x, Log.LEVEL_DEBUG);
         }
     }
 
-        /**
+    /**
      * Sets the PID mode to either camera or joystick
-     * @param mode Whether or not to use camera pid mode (true), if false, uses joystick PID
+     *
+     * @param mode Whether or not to use camera PID mode (true), if false, uses
+     * joystick PID
      */
     public void setCameraMode(boolean mode) {
         //isCameraMode = mode;
@@ -146,7 +140,7 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
 
     /**
      *
-     * @return whether the drive is using camera pid mode
+     * @return whether the drive is using camera PID mode
      */
     public boolean getCameraMode() {
         return isCameraMode;

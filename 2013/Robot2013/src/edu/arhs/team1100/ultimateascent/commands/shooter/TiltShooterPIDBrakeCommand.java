@@ -8,9 +8,10 @@ import edu.wpi.first.wpilibj.Joystick;
 
 /**
  *
- * @author akshay
+ * @author Team 1100
  */
 public class TiltShooterPIDBrakeCommand extends CommandBase {
+
     private double DEAD = 0.1;
     private boolean isBrakeOn = false;
     private double setpoint = 0.0;

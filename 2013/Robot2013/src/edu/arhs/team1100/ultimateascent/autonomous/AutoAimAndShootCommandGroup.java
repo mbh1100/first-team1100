@@ -9,18 +9,15 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
- * @author akshay
+ * @author Team 1100
  */
 public class AutoAimAndShootCommandGroup extends CommandGroup {
 
     private long WAIT_TIME = 5000;
     private long FRISBEES = 5;
-
     private long sTime = 0;
     private int shots = 0;
-
     private boolean isFinished = false;
-
     private RapidFireCommandGroup shootCommand;
     private CameraTiltShooterCommand cameraTilter;
     private SpinShooterCommand spinShootCommand;
@@ -34,14 +31,14 @@ public class AutoAimAndShootCommandGroup extends CommandGroup {
         shootCommand = new RapidFireCommandGroup();
         spinShootCommand = new SpinShooterCommand(ShooterWheelSubsystem.SHOOTING_SPEED);
         cameraTilter = new CameraTiltShooterCommand();
-       // addParallel(new CameraPIDMecanumCommand());
+        // addParallel(new CameraPIDMecanumCommand());
         addParallel(cameraTilter);
         addParallel(new StopDriveCommand(15));
         //addParallel(new TiltShooterPositionPIDCommand(RobotMap.DS_SHOOTING_ANGLE_CH));
         addParallel(spinShootCommand); //replace with PID later if possible
     }
 
-    public void initialize(){
+    public void initialize() {
         sTime = System.currentTimeMillis();
         shots = 0;
         isFinished = false;
@@ -50,27 +47,25 @@ public class AutoAimAndShootCommandGroup extends CommandGroup {
     /**
      * If Drive and Shooter is on target, shoot for as long as its on target
      */
-    public void execute(){
-        if(System.currentTimeMillis()-sTime <= WAIT_TIME || isFinished){
+    public void execute() {
+        if (System.currentTimeMillis() - sTime <= WAIT_TIME || isFinished) {
             return;
         }
 
-        if(!shootCommand.isRunning()){ //this should repeat shots as long as its on target
-                shootCommand.start();
-                shots++;
+        if (!shootCommand.isRunning()) { //this should repeat shots as long as its on target
+            shootCommand.start();
+            shots++;
         }
 
-        if(shots == FRISBEES){
+        if (shots == FRISBEES) {
             isFinished = true;
             cameraTilter.stopTracking();
             ShooterWheelSubsystem.getInstance().stop();
         }
-       // }
+        // }
     }
 
-    protected boolean isFinished(){
+    protected boolean isFinished() {
         return isFinished;
     }
-
-
 }

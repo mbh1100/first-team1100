@@ -52,10 +52,12 @@ public class RobotMain extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-        //initialize the Log utility
+
+        //Initialize the Log utility
         Log.init();
         Log.setMinLevel(Log.LEVEL_DEBUG);
-        //add all logging classes
+
+        //Add all logging classes
         Log.addClass(RobotMain.class, Log.LEVEL_DEBUG);
         Log.addClass(DriveSubsystem.class, Log.LEVEL_DEBUG);
         Log.addClass(CalibrateGyroCommand.class, Log.LEVEL_OFF);
@@ -68,7 +70,8 @@ public class RobotMain extends IterativeRobot {
         Log.addClass(TiltShooterPIDCommand.class, Log.LEVEL_DEBUG);
         Log.addClass(CameraTiltShooterCommand.class, Log.LEVEL_DEBUG);
         Log.addClass(TiltShooterPositionPIDCommand.class, Log.LEVEL_DEBUG);
-        // instantiate the command used for the autonomous period
+
+        // Instantiate the command used for the autonomous period
         // Initialize all subsystems
         CommandBase.init();
 
@@ -76,7 +79,7 @@ public class RobotMain extends IterativeRobot {
         autoCommand = new AutonomousCommandGroup();
 
 
-        //init the camera
+        //Initialize the camera
         Camera.getInstance().getCenterX();
 
     }
@@ -85,26 +88,25 @@ public class RobotMain extends IterativeRobot {
      * Initializes Autonomous
      */
     public void autonomousInit() {
-        // schedule the autonomous command (example)
+        //Schedule the autonomous command (example)
         //autonomous.start();
         autoCommand.start();
 
         Scheduler.getInstance().enable();
         //DSLog.log(5, "auto init");
-        // autonomous.start();
+        //autonomous.start();
     }
 
     /**
-     * called periodically during autonomous
+     * Called periodically during autonomous
      */
     public void autonomousPeriodic() {
         //autonomous.execute();
-
         Scheduler.getInstance().run();
     }
 
     /**
-     * Initializes teleop
+     * Initializes teleop mode
      */
     public void teleopInit() {
         // This makes sure that the autonomous stops running when
@@ -116,7 +118,7 @@ public class RobotMain extends IterativeRobot {
     }
 
     /**
-     * called periodically during operator control
+     * Called periodically during operator control
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
@@ -156,7 +158,7 @@ public class RobotMain extends IterativeRobot {
     }
 
     /**
-     * prints out the refresh rate of program
+     * Prints out the refresh rate of program
      */
     private void trackRate() {
 
@@ -176,7 +178,7 @@ public class RobotMain extends IterativeRobot {
     }
 
     /**
-     * called periodically during test mode
+     * Called periodically during test mode
      */
     public void testPeriodic() {
         LiveWindow.run();

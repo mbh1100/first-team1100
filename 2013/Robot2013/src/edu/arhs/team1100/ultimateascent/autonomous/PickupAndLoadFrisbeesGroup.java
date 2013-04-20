@@ -14,6 +14,4 @@ public class PickupAndLoadFrisbeesGroup extends CommandGroup {
 
     public PickupAndLoadFrisbeesGroup() {
     }
-
-
 }

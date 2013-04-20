@@ -17,6 +17,7 @@ public class ToggleDriveModeCommand extends CommandBase {
     protected void initialize() {
         finished = false;
     }
+
     /**
      * Toggles drive mode and turns finish to true
      */
@@ -24,14 +25,16 @@ public class ToggleDriveModeCommand extends CommandBase {
         DriveSubsystem.getInstance().toggleDriveMode();
         finished = true;
     }
-    
+
     /**
      * Returns whether toggling has occurred
+     *
      * @return finished
      */
     protected boolean isFinished() {
         return finished;
     }
+
     /**
      * Toggles drive mode if it has not finished
      */
@@ -40,7 +43,7 @@ public class ToggleDriveModeCommand extends CommandBase {
             execute();
         }
     }
-    
+
     /**
      * Toggles drive mode if interrupted
      */

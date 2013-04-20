@@ -9,15 +9,16 @@ import edu.arhs.team1100.ultimateascent.subsystems.ShooterWheelSubsystem;
 
 /**
  *
- * @author akshay
+ * @author Team 1100
  */
 public class SpinShooterCommand extends CommandBase {
-    
+
     private double speed = 0.0;
-    
+
     /**
      * Constructs a ShooterWheelSubsystem object
-     * @param speed 
+     *
+     * @param speed
      */
     public SpinShooterCommand(double speed) {
         requires(ShooterWheelSubsystem.getInstance());
@@ -25,8 +26,8 @@ public class SpinShooterCommand extends CommandBase {
     }
 
     /**
-    * Called just before this Command runs the first time
-    */
+     * Called just before this Command runs the first time
+     */
     protected void initialize() {
     }
 
@@ -35,11 +36,12 @@ public class SpinShooterCommand extends CommandBase {
      */
     protected void execute() {
         ShooterWheelSubsystem.getInstance().setSpeed(speed);
-                
+
     }
 
-     /**
+    /**
      * Make this return true when this Command no longer needs to run execute()
+     *
      * @return false
      */
     protected boolean isFinished() {
@@ -54,7 +56,7 @@ public class SpinShooterCommand extends CommandBase {
     }
 
     /**
-     * Called when another command which requires one or more of the same 
+     * Called when another command which requires one or more of the same
      * subsystems is scheduled to run
      */
     protected void interrupted() {

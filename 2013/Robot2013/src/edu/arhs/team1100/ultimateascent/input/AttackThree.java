@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  *
  * @author Team 1100
  */
-
 public class AttackThree extends Joystick {
 
     private JoystickButton button[] = new JoystickButton[11];
@@ -16,8 +15,9 @@ public class AttackThree extends Joystick {
 
     /**
      * Initializes joystick button
+     *
      * @param channel
-     * @param joystickDeadband 
+     * @param joystickDeadband
      */
     public AttackThree(int channel, double joystickDeadband) {
         super(channel);
@@ -41,6 +41,7 @@ public class AttackThree extends Joystick {
 
     /**
      * Gets position of axis
+     *
      * @param axis
      * @return val
      */
@@ -66,7 +67,7 @@ public class AttackThree extends Joystick {
     }
 
     /**
-     * 
+     *
      * @return the magnitude of the joystick
      */
     public double getMagnitude() {

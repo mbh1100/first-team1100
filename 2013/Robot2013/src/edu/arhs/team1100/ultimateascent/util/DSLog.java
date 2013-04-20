@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.Solenoid;
  */
 public class DSLog {
 
-    // going to treat the LCD as a stack, in reverse here because
+    // Going to treat the LCD as a stack, in reverse here because
     // new lines appear on the bottom and scroll upwards (mostly)
     static DriverStationLCD.Line[] lcdLines = {
         DriverStationLCD.Line.kUser6, // bottom line
@@ -26,7 +26,7 @@ public class DSLog {
     static String clearLine = "                     "; // 21 spaces to clear a line
 
     /**
-     * Removes all data for lcdHistory
+     * Removes all data for LCDHistory
      */
     public DSLog() {
         for (int i = 0; i < lcdHistory.length; i++) {

@@ -27,7 +27,6 @@ public class Camera {
     private final int PARTICLE_SIZE = 1;
     private boolean enabled = false;
     private boolean hasParticle = false;
-    
     private ParticleAnalysisReport centerest;
     private ParticleAnalysisReport highest;
 
@@ -81,34 +80,34 @@ public class Camera {
                     colorImage.free();
                 } catch (Exception e2) {
                 }
-                
+
             }
         } else {
         }
-        
+
         centerest = null;
-        
+
         //get particle closest to the center
-        if(particles != null && particles[0] != null){
+        if (particles != null && particles[0] != null) {
             centerest = particles[0];
-            for(int i = 0; i < particles.length; i++){
-                if(particles[i] != null && Math.abs(particles[i].center_mass_x_normalized) < Math.abs(centerest.center_mass_x_normalized)){
+            for (int i = 0; i < particles.length; i++) {
+                if (particles[i] != null && Math.abs(particles[i].center_mass_x_normalized) < Math.abs(centerest.center_mass_x_normalized)) {
                     centerest = particles[i];
-                    
+
                 }
             }
         }
-        
+
         highest = null;
-        if(particles != null && particles[0] != null){
+        if (particles != null && particles[0] != null) {
             highest = particles[0];
-            for(int i = 0; i < particles.length;i++){
-                if(particles[i] != null && particles[i].center_mass_y_normalized < highest.center_mass_y_normalized){
+            for (int i = 0; i < particles.length; i++) {
+                if (particles[i] != null && particles[i].center_mass_y_normalized < highest.center_mass_y_normalized) {
                     highest = particles[i];
                 }
             }
         }
-        
+
         hasParticle = highest != null;
     }
 
@@ -142,15 +141,15 @@ public class Camera {
      */
     public double getCenterY() {
         try {
-            update();                
+            update();
             if (hasParticle) {
                 return highest.center_mass_y_normalized;
-            } 
-        } catch(Exception e){}
-        
+            }
+        } catch (Exception e) {
+        }
+
         return 0.0;
     }
-
 
     /**
      * Catches Camera errors

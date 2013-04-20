@@ -21,35 +21,32 @@ public class DriveSubsystem extends PIDSubsystem {
     public static final double DIRECTION_BACK = 180;
     public static final double DIRECTION_LEFT = 270;
     public static final double DIRECTION_RIGHT = 90;
-    
     public static final int MODE_CARTESIAN = 0;
     public static final int MODE_POLAR = 1;
-    
     public static final double kJoystickP = 0.02;
     public static final double kJoystickI = 0.0001;
     public static final double kJoystickD = 0.0005;
-    
     public static final double kCameraP = 0.6;
     public static final double kCameraI = 0.01;
     public static final double kCameraD = 0.2;
-    
     static DriveSubsystem instance;
-    
     /*static {        
-       getInstance();    
-    }*/
-    
+     getInstance();    
+     }*/
     private RobotDrive drive;
     private Gyro driveGyro;
-    
     private Talon frontLeftTalon;
     private Talon frontRightTalon;
     private Talon backLeftTalon;
     private Talon backRightTalon;
-    
     private int driveMode = MODE_CARTESIAN;
     private boolean isCameraMode = false;
 
+    /**
+     * Creates a DriveSubsystem if not already created
+     *
+     * @return instance
+     */
     public static DriveSubsystem getInstance() {
         if (instance == null) {
             instance = new DriveSubsystem();
@@ -58,6 +55,9 @@ public class DriveSubsystem extends PIDSubsystem {
         return instance;
     }
 
+    /**
+     * Constructs a DriveSubsystem
+     */
     public DriveSubsystem() {
         super(kJoystickP, kJoystickI, kJoystickD);//SUPER PID!!!!
 
@@ -65,18 +65,20 @@ public class DriveSubsystem extends PIDSubsystem {
         frontRightTalon = new Talon(RobotMap.D_TALON_FRONT_RIGHT);
         backLeftTalon = new Talon(RobotMap.D_TALON_BACK_LEFT);
         backRightTalon = new Talon(RobotMap.D_TALON_BACK_RIGHT);
+
         drive = new RobotDrive(
                 frontLeftTalon,
                 frontRightTalon,
                 backLeftTalon,
                 backRightTalon);
+
         driveGyro = new Gyro(RobotMap.D_GYRO);
 
     }
 
     /**
      * Drives the robot using user input interpreted according to the current
-     * drive mode (Polar or cartesian).
+     * drive mode (Polar or Cartesian).
      */
     public void userDrive() {
         if (driveMode == MODE_CARTESIAN) {
@@ -118,8 +120,8 @@ public class DriveSubsystem extends PIDSubsystem {
     /**
      * Drives using values as if they were joystick values
      *
-     * @param x
-     * @param y
+     * @param x x magnitude
+     * @param y y magnitude
      * @param rot rotation
      * @param mode drive mode to use
      */
@@ -127,9 +129,11 @@ public class DriveSubsystem extends PIDSubsystem {
         if (mode == MODE_POLAR) {
             double magnitude = -Math.sqrt(x * x + y * y); //---------------------------------Switch negative if not working
             double angle = Math.toDegrees(MathUtils.atan2(x, y));
-            while(angle < 0){
+
+            while (angle < 0) {
                 angle += 360;
             }
+
             drive.mecanumDrive_Polar(magnitude, angle, rot);
         } else if (mode == MODE_CARTESIAN) {
             drive.mecanumDrive_Cartesian(-x, -y, -rot, driveGyro.getAngle());
@@ -158,7 +162,6 @@ public class DriveSubsystem extends PIDSubsystem {
     protected void usePIDOutput(double rotationSpeed) {
         double controlX = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
         double controlY = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
-
         drive.mecanumDrive_Cartesian(controlX, controlY, rotationSpeed, driveGyro.getAngle());
     }
 
@@ -171,7 +174,7 @@ public class DriveSubsystem extends PIDSubsystem {
     }
 
     /**
-     * Switches the drive mode between polar and cartesian
+     * Switches the drive mode between polar and Cartesian
      */
     public void toggleDriveMode() {
         driveMode = (driveMode == MODE_CARTESIAN) ? MODE_POLAR : MODE_CARTESIAN;
@@ -208,7 +211,7 @@ public class DriveSubsystem extends PIDSubsystem {
     /**
      * Sets the PID mode to either camera or joystick
      *
-     * @param mode Whether or not to use camera pid mode (true), if false, uses
+     * @param mode Whether or not to use camera PID mode (true), if false, uses
      * joystick PID
      */
     public void setCameraMode(boolean mode) {
@@ -221,8 +224,9 @@ public class DriveSubsystem extends PIDSubsystem {
     }
 
     /**
+     * Return if camera PID is being used
      *
-     * @return whether the drive is using camera pid mode
+     * @return whether the drive is using camera PID mode
      */
     public boolean getCameraMode() {
         return isCameraMode;

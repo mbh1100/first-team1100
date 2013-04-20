@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
- * @author Akshay
+ * @author Team 1100
  */
 public class DriveInASquareCommandGroup extends CommandGroup {
 

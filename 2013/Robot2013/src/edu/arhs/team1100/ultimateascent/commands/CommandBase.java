@@ -20,14 +20,16 @@ import edu.wpi.first.wpilibj.command.Command;
 public abstract class CommandBase extends Command {
 
     /**
-     * creates instances for the subsystems
+     * Creates instances for the subsystems
      */
     public static void init() {
+
         // This MUST be here. If the OI creates Commands (which it very likely
         // will), constructing it during the construction of CommandBase (from
         // which commands extend), subsystems are not guaranteed to be
         // yet. Thus, their requires() statements may grab null pointers. Bad
         // news. Don't move it.
+
         DriveSubsystem.getInstance();
         LiftSubsystem.getInstance();
         ShooterWheelSubsystem.getInstance();
@@ -35,14 +37,15 @@ public abstract class CommandBase extends Command {
         ShooterPistonSubsystem.getInstance();
         IntakeSubsystem.getInstance();
         OI.getInstance();
-        
+
 
         // Show what command your subsystem is running on the SmartDashboard
-        //SmartDashboard.putData(exampleSubsystem);
+        // SmartDashboard.putData(exampleSubsystem);
     }
 
     /**
-     * 
+     * Constructs CommandBase with name
+     *
      * @param name
      */
     public CommandBase(String name) {
@@ -50,7 +53,7 @@ public abstract class CommandBase extends Command {
     }
 
     /**
-     * Constructs a Command Object
+     * Constructs a CommandBase
      */
     public CommandBase() {
         super();

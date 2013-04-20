@@ -16,5 +16,4 @@ public class AutonomousCommandGroup extends CommandGroup {
         addSequential(new AutoAimAndShootCommandGroup(5, 5));
         addSequential(new PyramidTowardsFeederCommand());
     }
-
 }

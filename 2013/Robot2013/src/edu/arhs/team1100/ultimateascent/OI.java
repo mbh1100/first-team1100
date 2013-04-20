@@ -13,7 +13,6 @@ import edu.arhs.team1100.ultimateascent.input.XboxController;
 import edu.arhs.team1100.ultimateascent.recording.PrintRecordingCodeCommand;
 import edu.arhs.team1100.ultimateascent.commands.drive.CameraPIDMecanumCommand;
 import edu.arhs.team1100.ultimateascent.commands.shooter.CameraPIDTiltShooterCommand;
-import edu.arhs.team1100.ultimateascent.commands.shooter.CameraTiltShooterCommand;
 import edu.arhs.team1100.ultimateascent.commands.shooter.RapidFireCommandGroup;
 
 /**
@@ -22,19 +21,20 @@ import edu.arhs.team1100.ultimateascent.commands.shooter.RapidFireCommandGroup;
  */
 public class OI {
 
-    //SETTINGS
+    /**
+     * SETTINGS
+     */
     //LEFT STICK BUTTON SETTINGS
     private static final int TOGGLE_DRIVE = 2;
-    private static final int CAMERA_PID = 1; //trigger
+    private static final int CAMERA_PID = 1; //Trigger
     //RIGHT STICK BUTTON SETTINGS
     private static final int CALIBRATE_GYRO = 3;
-    private static final int JOYSTICK_PID = 1; //trigger
+    private static final int JOYSTICK_PID = 1; //Trigger
     private static final int STOP_DRIVE = 4;
-    //recording
+    //Recording
     private static final int RECORD = 5;
     private static final int PLAY_RECORDING = 2;
     private static final int PRINT_RECORDING = 7;
-
     private static OI instance;
     private AttackThree leftStick;
     private AttackThree rightStick;
@@ -42,9 +42,9 @@ public class OI {
     RecordCommand recorder;
 
     /**
-     * Gets current instance,if there is no instance, creates an instance
+     * Creates an OI if not already created
      *
-     * @return OI object
+     * @return instance
      */
     public static OI getInstance() {
         if (instance == null) {
@@ -52,17 +52,17 @@ public class OI {
         }
         return instance;
     }
+
     /**
-     * Initializes the controls
+     * Constructs an OI Initializes control scheme
      */
     public OI() {
-        //Init controllers
+        //Initialize controllers
         leftStick = new AttackThree(RobotMap.C_LEFT_JOYSTICK, 0.1);
         rightStick = new AttackThree(RobotMap.C_RIGHT_JOYSTICK, 0.1);
         xbox = new XboxController(RobotMap.C_XBOX_CONTROLLER, 0.1);
 
         //CONTROL ASSIGNMENTS
-
         leftStick.getButton(TOGGLE_DRIVE).whenPressed(new ToggleDriveModeCommand());
         leftStick.getButton(CAMERA_PID).whileHeld(new CameraPIDMecanumCommand());
         rightStick.getButton(CALIBRATE_GYRO).whenPressed(new CalibrateGyroCommand());
@@ -77,9 +77,9 @@ public class OI {
         xbox.getButtonX().whileHeld(new RapidFireCommandGroup());
         xbox.getButtonRightBumper().whenPressed(new ChangeShooterSpeedCommand(0.1));
         xbox.getButtonLeftBumper().whenPressed(new ChangeShooterSpeedCommand(-0.1));
-         xbox.getButtonY().whileHeld(new CameraPIDTiltShooterCommand());
-       //  xbox.getButtonY().whenReleased(new TiltShooterPositionPIDCommand(RobotMap.DS_FLAT_ANGLE_CH));
-       // xbox.getButtonA().whileHeld(new  CameraPIDTiltShooterCommand());
+        xbox.getButtonY().whileHeld(new CameraPIDTiltShooterCommand());
+        //  xbox.getButtonY().whenReleased(new TiltShooterPositionPIDCommand(RobotMap.DS_FLAT_ANGLE_CH));
+        // xbox.getButtonA().whileHeld(new  CameraPIDTiltShooterCommand());
         xbox.getButtonB().whileHeld(new TiltShooterPositionPIDCommand(RobotMap.DS_FEEDER_ANGLE_CH));
         //xbox.getButtonA().whileHeld(new CameraPIDTiltShooterCommand());
         //xbox.getButtonBack().whileHeld(new CameraTiltShooterCommand());
@@ -104,7 +104,7 @@ public class OI {
     }
 
     /**
-     * Get xbox controller
+     * Get Xbox controller
      *
      * @return XboxController object
      */

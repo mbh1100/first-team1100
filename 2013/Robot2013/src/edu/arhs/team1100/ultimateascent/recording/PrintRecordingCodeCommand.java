@@ -5,7 +5,7 @@ import java.util.Vector;
 
 /**
  *
- * @author akshay
+ * @author Team 1100
  */
 public class PrintRecordingCodeCommand extends CommandBase {
 
@@ -21,9 +21,10 @@ public class PrintRecordingCodeCommand extends CommandBase {
     public PrintRecordingCodeCommand(RecordCommand r) {
         recorder = r;
     }
+
     /**
-    * Called just before this Command runs the first time
-    */
+     * Called just before this Command runs the first time
+     */
     protected void initialize() {
         finished = false;
         code = "";
@@ -97,11 +98,11 @@ public class PrintRecordingCodeCommand extends CommandBase {
             execute();
         }
     }
-     /**
-     * Called when another command which requires one or more of the same 
+
+    /**
+     * Called when another command which requires one or more of the same
      * subsystems is scheduled to run
      */
-    
     protected void interrupted() {
         end();
     }

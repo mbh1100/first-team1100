@@ -5,16 +5,16 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 
 /**
  *
- * @author akshay
+ * @author Team 1100
  */
 public class RapidFireCommandGroup extends CommandGroup {
+
     /**
      * Constructs a ShootFrisbeeCommand and WaitCommand objects
      */
-    public RapidFireCommandGroup(){
-            addSequential(new ShootFrisbeeCommand());
-            addSequential(new WaitCommand(0.7));           
-            this.setInterruptible(false);
+    public RapidFireCommandGroup() {
+        addSequential(new ShootFrisbeeCommand());
+        addSequential(new WaitCommand(0.7));
+        this.setInterruptible(false);
     }
-
 }

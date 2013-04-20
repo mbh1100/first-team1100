@@ -6,7 +6,6 @@ import edu.arhs.team1100.ultimateascent.util.Log;
 import java.util.Vector;
 
 /**
- *
  * @author Team 1100
  */
 public class PlayRecordingCommand extends CommandBase {
@@ -21,7 +20,8 @@ public class PlayRecordingCommand extends CommandBase {
 
     /**
      * Starts recording
-     * @param r 
+     *
+     * @param r
      */
     public PlayRecordingCommand(RecordCommand r) {
         recorder = r;
@@ -29,7 +29,7 @@ public class PlayRecordingCommand extends CommandBase {
     }
 
     /**
-     * declares variables for recording video
+     * Declares variables for recording video
      */
     protected void initialize() {
         index = 0;
@@ -75,8 +75,9 @@ public class PlayRecordingCommand extends CommandBase {
         DriveSubsystem.getInstance().stop();
         Log.log(this, "Playback END", Log.LEVEL_DEBUG);
     }
-     /**
-     * Called when another command which requires one or more of the same 
+
+    /**
+     * Called when another command which requires one or more of the same
      * subsystems is scheduled to run
      */
     protected void interrupted() {

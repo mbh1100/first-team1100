@@ -6,15 +6,16 @@ import edu.arhs.team1100.ultimateascent.subsystems.ShooterWheelSubsystem;
 
 /**
  *
- * @author akshay
+ * @author Team 1100
  */
 public class ChangeShooterSpeedCommand extends CommandBase {
-        
-    private double delta = 0.0;    
+
+    private double delta = 0.0;
     private boolean finished = false;
-    
+
     /**
      * Constructs a ShooterWheelSubsystem
+     *
      * @param duration
      */
     public ChangeShooterSpeedCommand(double duration) {
@@ -22,7 +23,7 @@ public class ChangeShooterSpeedCommand extends CommandBase {
         delta = duration;
     }
 
-     /**
+    /**
      * Called just before this Command runs the first time
      */
     protected void initialize() {
@@ -36,20 +37,21 @@ public class ChangeShooterSpeedCommand extends CommandBase {
         double curSpeed = ShooterWheelSubsystem.getInstance().getSpeed();
         double newSpeed = curSpeed + delta;
         boolean isStartDown = OI.getInstance().getXboxController().getButtonStart().get();
-        
-        if(delta > 0.0 && curSpeed == 0.0){
+
+        if (delta > 0.0 && curSpeed == 0.0) {
             newSpeed = ShooterWheelSubsystem.SHOOTING_SPEED;
         }
-        
-        if(isStartDown){
-            newSpeed = (delta > 0.0)?1.0:0.0;
+
+        if (isStartDown) {
+            newSpeed = (delta > 0.0) ? 1.0 : 0.0;
         }
         ShooterWheelSubsystem.getInstance().setSpeed(newSpeed);
         finished = true;
     }
 
-     /**
+    /**
      * Make this return true when this Command no longer needs to run execute()
+     *
      * @return isTimedOut()
      */
     protected boolean isFinished() {
@@ -60,14 +62,14 @@ public class ChangeShooterSpeedCommand extends CommandBase {
      * Called once after isFinished returns true
      */
     protected void end() {
-        if(!finished){
+        if (!finished) {
             execute();
         }
-        
+
     }
 
     /**
-     * Called when another command which requires one or more of the same 
+     * Called when another command which requires one or more of the same
      * subsystems is scheduled to run
      */
     protected void interrupted() {

@@ -1,17 +1,15 @@
-
 package edu.arhs.team1100.ultimateascent.commands;
 
-import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.subsystems.LiftSubsystem;
 
 /**
  *
- * @author akshay
+ * @author Team 1100
  */
 public class LiftCommand extends CommandBase {
-    
+
     /**
-     * Constructs a LiftSubsystem Object
+     * Constructs a LiftCommand
      */
     public LiftCommand() {
         requires(LiftSubsystem.getInstance());
@@ -32,6 +30,7 @@ public class LiftCommand extends CommandBase {
 
     /**
      * Make this return true when this Command no longer needs to run execute()
+     *
      * @return false
      */
     protected boolean isFinished() {

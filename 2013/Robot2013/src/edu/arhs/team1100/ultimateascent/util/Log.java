@@ -3,9 +3,7 @@ package edu.arhs.team1100.ultimateascent.util;
 import com.sun.squawk.util.MathUtils;
 import java.util.Vector;
 
-
 /**
- *
  * @author Team 1100
  */
 public class Log {
@@ -16,9 +14,9 @@ public class Log {
     public final static int LEVEL_OFF = 3;
     private static int minLevel;
     private static Vector classes;
-    
+
     /**
-     * Creates  new vector of classes
+     * Creates new vector of classes
      */
     public static void init() {
         classes = new Vector();
@@ -27,24 +25,28 @@ public class Log {
 
     /**
      * Sets the minimum logging level that is shown
+     *
      * @param mlvl minimum level to be set
      */
     public static void setMinLevel(int mlvl) {
         minLevel = mlvl;
     }
+
     /**
      * Adds a class to the class vector, with level
+     *
      * @param c
-     * @param level 
+     * @param level
      */
     public static void addClass(Class c, int level) {
         classes.addElement(new LogClass(c, level));
     }
 
     /**
-     * Log  a message
+     * Log a message
+     *
      * @param source the object calling this function
-     * @param message 
+     * @param message
      * @param level Log.LEVEL_*
      */
     public static void log(Object source, String message, int level) {
@@ -61,8 +63,10 @@ public class Log {
             System.out.println("[" + simpleClassName(lc) + "] " + message);
         }
     }
+
     /**
      * Rounds
+     *
      * @param num
      * @param places
      * @return rounded number
@@ -75,6 +79,7 @@ public class Log {
         return c.mClass.getName().substring(c.mClass.getName().lastIndexOf('.') + 1);
     }
 }
+
 class LogClass {
 
     public Class mClass;

@@ -8,7 +8,7 @@ import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
  * @author Team 1100
  */
 public class CalibrateGyroCommand extends CommandBase {
-    
+
     private boolean finished = false;
 
     /**
@@ -16,7 +16,7 @@ public class CalibrateGyroCommand extends CommandBase {
      */
     protected void initialize() {
     }
-    
+
     /**
      * Calibrates Gyro
      */
@@ -26,16 +26,17 @@ public class CalibrateGyroCommand extends CommandBase {
     }
 
     /**
-     * @return finished 
+     * @return finished
      */
     protected boolean isFinished() {
         return finished;
     }
+
     /**
      * If finished = false, calibrate Gyro
      */
     protected void end() {
-        if(!finished){
+        if (!finished) {
             execute();
         }
     }
@@ -46,5 +47,4 @@ public class CalibrateGyroCommand extends CommandBase {
     protected void interrupted() {
         end();
     }
-    
 }

@@ -1,23 +1,17 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.arhs.team1100.ultimateascent.commands;
 
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterPistonSubsystem;
 
 /**
- *
- * @author akshay
+ * @author Team 1100
  */
 public class PistonToggleCommandTEST extends CommandBase {
 
     private boolean state = false;
     private boolean finished = false;
 
-    
     /**
-     * Constructs a ShooterPistonSubsystem object
+     * Constructs a PistonToggleCommandTEST
      */
     public PistonToggleCommandTEST() {
         requires(ShooterPistonSubsystem.getInstance());
@@ -41,6 +35,7 @@ public class PistonToggleCommandTEST extends CommandBase {
 
     /**
      * Make this return true when this Command no longer needs to run execute()
+     *
      * @return finished
      */
     protected boolean isFinished() {

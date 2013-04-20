@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.arhs.team1100.ultimateascent.subsystems;
 
 import edu.arhs.team1100.ultimateascent.OI;
@@ -14,57 +10,55 @@ import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
- * @author akshay
+ * @author Team 1100
  */
-public class LiftSubsystem extends Subsystem{
-    
+public class LiftSubsystem extends Subsystem {
+
     private static LiftSubsystem instance;
-    
-    
     private Victor left, right;
     private AnalogChannel potentiometer;
     private DigitalInput topSwtich;
+
     /**
-     * creates a new instance of lift
-     * @return 
+     * Creates a LiftSubsystem if not already created
+     *
+     * @return instance
      */
-    public static LiftSubsystem getInstance(){
-        if(instance ==  null){
+    public static LiftSubsystem getInstance() {
+        if (instance == null) {
             instance = new LiftSubsystem();
             instance.initDefaultCommand();
         }
         return instance;
     }
 
-
     /**
-     * 
+     * Constructs a LiftSubsystem
      */
-    public LiftSubsystem(){
+    public LiftSubsystem() {
         left = new Victor(RobotMap.L_VICTOR_LEFT);
         right = new Victor(RobotMap.L_VICTOR_RIGHT);
         potentiometer = new AnalogChannel(RobotMap.L_POTENTIOMETER);
         topSwtich = new DigitalInput(RobotMap.L_LIMIT_TOP);
     }
+
     /**
-     * Lifts
+     * Lifts the lift and shooter
      */
-    public void doLift(){
-        double speed = OI.getInstance().getXboxController().getAxis(AxisType.kZ)/1.5;
+    public void doLift() {
+        double speed = OI.getInstance().getXboxController().getAxis(AxisType.kZ) / 1.5;
         left.set(speed);
         right.set(-speed);
     }
-    
-    public double getPosition(){
+
+    public double getPosition() {
         return potentiometer.getVoltage();
     }
-        
-  /**
-   * Initializes LiftCommand
-   */
+
+    /**
+     * Initializes LiftCommand
+     */
     protected void initDefaultCommand() {
         setDefaultCommand(new LiftCommand());
     }
-    
 }

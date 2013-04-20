@@ -13,12 +13,11 @@ import edu.arhs.team1100.ultimateascent.subsystems.ShooterTiltSubsystem;
  * @author Aditya
  */
 public class CameraPIDTASTICTiltCommand extends CommandBase {
-    
+
     private final double OFFSET = 0.3;
-    
     private double setpoint = 0;
     private boolean tracking;
-    
+
     public CameraPIDTASTICTiltCommand() {
         requires(ShooterTiltSubsystem.getInstance());
     }
@@ -33,14 +32,14 @@ public class CameraPIDTASTICTiltCommand extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if(!tracking){
+        if (!tracking) {
             ShooterTiltSubsystem.getInstance().stop();
             return;
         }
         double y = Camera.getInstance().getCenterY();
-        double error = y- OFFSET;        
+        double error = y - OFFSET;
         error = Math.min(1.0, Math.max(-1.0, error));
-        setpoint += error/100;
+        setpoint += error / 100;
         ShooterTiltSubsystem.getInstance().setSetpoint(setpoint);
     }
 

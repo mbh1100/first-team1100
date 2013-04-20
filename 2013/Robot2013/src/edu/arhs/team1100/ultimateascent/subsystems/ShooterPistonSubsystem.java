@@ -7,39 +7,37 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
  * @author Team 1100
  */
 public class ShooterPistonSubsystem extends Subsystem {
 
     static ShooterPistonSubsystem instance;
-    
     private Compressor compressor;
     private Solenoid shooterPiston;
-    
     private DigitalInput limitSwitch;
     private boolean lastLimitState;
-    
     private int frisbeeCount = 0;
-    
+
     /**
-     * Constructs Compressor and Solenoid and starts compressor
+     * Constructs a ShooterPistonSubsystem Constructs Compressor and Solenoid
+     * and starts compressor
      */
     public ShooterPistonSubsystem() {
         compressor = new Compressor(RobotMap.S_COMPRESSOR_PRESSURE_SWITCH, RobotMap.S_COMPRESSOR_RELAY);
-        shooterPiston = new Solenoid(RobotMap.S_SOLENOID_SHOOTER_PISTON);        
-        
-        
+        shooterPiston = new Solenoid(RobotMap.S_SOLENOID_SHOOTER_PISTON);
+
         //limitSwitch = new DigitalInput(RobotMap.S_FRISBEE_LIMIT_SWITCH);
         compressor.start();
 
     }
+
     /**
-     * Creates a new instance of the shooter
+     * Creates a ShooterPistonSubsystem if not already created
+     *
      * @return instance
      */
     public static ShooterPistonSubsystem getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new ShooterPistonSubsystem();
             instance.initDefaultCommand();
         }
@@ -47,57 +45,62 @@ public class ShooterPistonSubsystem extends Subsystem {
     }
 
     /**
-     * Un-shoots a frisbee
+     * Pulls back piston to shoot a disc
      */
     public void unShoot() {
         shooterPiston.set(true);
     }
-    
+
     /**
-     * Shoots a frisbee
+     * Shoots a disc
      */
-    public void shoot(){
+    public void shoot() {
         shooterPiston.set(false);
-        
         frisbeeCount--;
     }
-    
+
     /**
      * Turns Piston on or off
-     * @param state 
+     *
+     * @param state
      */
-    public void set(boolean state){
+    public void set(boolean state) {
         shooterPiston.set(state);
     }
 
-    
     /**
-     * Counts frisbees
+     * Counts discs
      */
-    public void updateFrisbeeCount(){
+    public void updateFrisbeeCount() {
         boolean limitState = limitSwitch.get();
-        if(limitState && !lastLimitState){ //if switch is open, and was closed before
+        if (limitState && !lastLimitState) { //if switch is open, and was closed before
             frisbeeCount++;
         }
         lastLimitState = limitState;
-        
+
     }
 
     /**
-     * 
-     * @return number of frisbees being carried
+     * Gets discs being held
+     *
+     * @return number of discs being carried
      */
     public int getFrisbeeCount() {
         return frisbeeCount;
     }
-    
-    public boolean getPressureSwitch(){
+
+    /**
+     * Gets pressure from switch
+     *
+     * @return
+     */
+    public boolean getPressureSwitch() {
         return compressor.getPressureSwitchValue();
     }
+
     /**
-     * null
+     * Initializes default command
      */
     protected void initDefaultCommand() {
     }
-
 }
