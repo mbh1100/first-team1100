@@ -3,13 +3,10 @@ package edu.arhs.team1100.ultimateascent.commands;
 import edu.arhs.team1100.ultimateascent.subsystems.IntakeSubsystem;
 
 /**
- *
  * @author Team 1100
  */
 public class IntakeRollerCommand extends CommandBase {
-
-    private long startTime = 0;
-
+    
     /**
      * Constructs a IntakeRollerCommand
      */
@@ -21,21 +18,16 @@ public class IntakeRollerCommand extends CommandBase {
      * Called just before this Command runs the first time
      */
     protected void initialize() {
-        startTime = System.currentTimeMillis();
+        setTimeout(4);
+        IntakeSubsystem.getInstance().intakeRollRight();
     }
 
     /**
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
-        IntakeSubsystem.getInstance().intakeRollLeft();
-
-        if (System.currentTimeMillis() - startTime >= 1000) {
-            IntakeSubsystem.getInstance().intakeRollRight();
-        }
-
-        if (System.currentTimeMillis() - startTime >= 3000) {
-            setTimeout(1.0);
+        if (this.timeSinceInitialized() > 1.0) {
+            IntakeSubsystem.getInstance().intakeRollLeft();
         }
     }
 
@@ -52,6 +44,7 @@ public class IntakeRollerCommand extends CommandBase {
      * Called once after isFinished returns true
      */
     protected void end() {
+        IntakeSubsystem.getInstance().stopRollers();
     }
 
     /**
@@ -59,5 +52,6 @@ public class IntakeRollerCommand extends CommandBase {
      * subsystems is scheduled to run
      */
     protected void interrupted() {
+        end();
     }
 }

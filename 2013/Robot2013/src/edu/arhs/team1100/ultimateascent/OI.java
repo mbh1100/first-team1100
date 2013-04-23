@@ -1,6 +1,7 @@
 package edu.arhs.team1100.ultimateascent;
 
-import edu.arhs.team1100.ultimateascent.autonomous.TiltShooterPositionPIDCommand;
+import edu.arhs.team1100.ultimateascent.commands.IntakeLiftCommand;
+import edu.arhs.team1100.ultimateascent.commands.IntakeRollerCommand;
 import edu.arhs.team1100.ultimateascent.commands.shooter.ChangeShooterSpeedCommand;
 import edu.arhs.team1100.ultimateascent.commands.drive.ToggleDriveModeCommand;
 import edu.arhs.team1100.ultimateascent.commands.drive.CalibrateGyroCommand;
@@ -80,9 +81,11 @@ public class OI {
         xbox.getButtonY().whileHeld(new CameraPIDTiltShooterCommand());
         //  xbox.getButtonY().whenReleased(new TiltShooterPositionPIDCommand(RobotMap.DS_FLAT_ANGLE_CH));
         // xbox.getButtonA().whileHeld(new  CameraPIDTiltShooterCommand());
-        xbox.getButtonB().whileHeld(new TiltShooterPositionPIDCommand(RobotMap.DS_FEEDER_ANGLE_CH));
-        //xbox.getButtonA().whileHeld(new CameraPIDTiltShooterCommand());
-        //xbox.getButtonBack().whileHeld(new CameraTiltShooterCommand());
+        // xbox.getButtonB().whileHeld(new TiltShooterPositionPIDCommand(RobotMap.DS_FEEDER_ANGLE_CH));
+        // xbox.getButtonA().whileHeld(new CameraPIDTiltShooterCommand());
+        // xbox.getButtonBack().whileHeld(new CameraTiltShooterCommand());
+        xbox.getButtonB().whenPressed(new IntakeLiftCommand());
+        xbox.getButtonA().whenPressed(new IntakeRollerCommand());
     }
 
     /**

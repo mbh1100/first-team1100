@@ -20,6 +20,7 @@ import edu.arhs.team1100.ultimateascent.recording.PlayRecordingCommand;
 import edu.arhs.team1100.ultimateascent.recording.RecordCommand;
 import edu.arhs.team1100.ultimateascent.input.Camera;
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
+import edu.arhs.team1100.ultimateascent.subsystems.IntakeSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.LiftSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterPistonSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterTiltSubsystem;
@@ -70,6 +71,7 @@ public class RobotMain extends IterativeRobot {
         Log.addClass(TiltShooterPIDCommand.class, Log.LEVEL_DEBUG);
         Log.addClass(CameraTiltShooterCommand.class, Log.LEVEL_DEBUG);
         Log.addClass(TiltShooterPositionPIDCommand.class, Log.LEVEL_DEBUG);
+        Log.addClass(IntakeSubsystem.class, Log.LEVEL_DEBUG);
 
         // Instantiate the command used for the autonomous period
         // Initialize all subsystems

@@ -4,6 +4,7 @@ import edu.arhs.team1100.ultimateascent.RobotMap;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PWM;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -15,15 +16,15 @@ public class IntakeSubsystem extends Subsystem {
     private Compressor compressor;
     private Solenoid intakePistonLeft;
     private Solenoid intakePistonRight;
-    private PWM intakeMotorLeft;
-    private PWM intakeMotorRight;
+    private Victor intakeMotorLeft;
+    private Victor intakeMotorRight;
 
     /**
      * Constructs an IntakeSubsystem. Initializes compressor, lift pistons,
      * intake motors. Starts compressor.
      */
     public IntakeSubsystem() {
-        compressor = new Compressor(RobotMap.S_COMPRESSOR_PRESSURE_SWITCH, RobotMap.S_COMPRESSOR_RELAY);
+        //compressor = new Compressor(RobotMap.S_COMPRESSOR_PRESSURE_SWITCH, RobotMap.S_COMPRESSOR_RELAY);
 
         intakePistonLeft = new Solenoid(RobotMap.FP_SOLENOID_LEFT);
         intakePistonRight = new Solenoid(RobotMap.FP_SOLENOID_RIGHT);
@@ -31,10 +32,10 @@ public class IntakeSubsystem extends Subsystem {
         intakePistonLeft.set(false);
         intakePistonRight.set(false);
 
-        intakeMotorLeft = new PWM(RobotMap.FP_PWM_INTAKE_LEFT);
-        intakeMotorRight = new PWM(RobotMap.FP_PWM_INTAKE_RIGHT);
+        intakeMotorLeft = new Victor(RobotMap.FP_PWM_INTAKE_LEFT);
+        intakeMotorRight = new Victor(RobotMap.FP_PWM_INTAKE_RIGHT);
 
-        compressor.start();
+        //compressor.start();
     }
 
     /**
@@ -55,11 +56,12 @@ public class IntakeSubsystem extends Subsystem {
      * speed. If moving, set to neutral.
      */
     public void intakeRollLeft() {
-        if (intakeMotorLeft.getRaw() > 127) {
-            intakeMotorLeft.setRaw(127);
-        } else {
-            intakeMotorLeft.setRaw(255);
-        }
+//        if (intakeMotorLeft.getSpeed() > 0) {
+//            intakeMotorLeft.set(0);
+//        } else {
+//            intakeMotorLeft.set(1);
+//        }
+        intakeMotorLeft.set(1);
     }
 
     /**
@@ -67,11 +69,12 @@ public class IntakeSubsystem extends Subsystem {
      * speed. If moving, set to neutral.
      */
     public void intakeRollRight() {
-        if (intakeMotorRight.getRaw() > 127) {
-            intakeMotorRight.setRaw(127);
-        } else {
-            intakeMotorRight.setRaw(255);
-        }
+//        if (intakeMotorRight.getSpeed() > 0) {
+//            intakeMotorRight.set(0);
+//        } else {
+//            intakeMotorRight.set(1);
+//        }
+        intakeMotorRight.set(-1);
     }
 
     /**
@@ -80,6 +83,12 @@ public class IntakeSubsystem extends Subsystem {
     public void pistonLift() {
         intakePistonLeft.set(!intakePistonLeft.get());
         intakePistonRight.set(!intakePistonRight.get());
+    }
+    
+    public void stopRollers()
+    {
+        intakeMotorRight.set(0);
+        intakeMotorLeft.set(0);
     }
 
     /**
