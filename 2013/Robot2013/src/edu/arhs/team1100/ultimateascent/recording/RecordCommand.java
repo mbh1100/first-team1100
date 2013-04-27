@@ -44,9 +44,9 @@ public class RecordCommand extends CommandBase {
     protected void execute() {
         long t = System.currentTimeMillis();
         if (t - last >= interval) {
-            double X = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
-            double Y = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
-            double R = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
+            double X = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
+            double Y = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
+            double R = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
             int mode = DriveSubsystem.getInstance().getDriveMode();
             recording.addElement(new ControllerState(X, Y, R, mode));
             last = t;

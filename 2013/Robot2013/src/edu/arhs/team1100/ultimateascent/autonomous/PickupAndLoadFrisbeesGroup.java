@@ -13,6 +13,6 @@ public class PickupAndLoadFrisbeesGroup extends CommandGroup {
         addSequential(new IntakeLiftCommand());
         addSequential(new DriveInALineCommand(speed, direction, duration));
         addSequential(new IntakeLiftCommand());
-        addSequential(new IntakeRollerCommand());
+        addSequential(new IntakeRollerCommand(4));
     }
 }

@@ -8,6 +8,7 @@ import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.input.Camera;
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
 import edu.arhs.team1100.ultimateascent.util.DSLog;
+import edu.arhs.team1100.ultimateascent.util.DSPID;
 
 /**
  *
@@ -37,6 +38,7 @@ public class CameraPIDMecanumCommand extends CommandBase {
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
+        DSPID.setPIDFromDS(DriveSubsystem.getInstance().getPIDController());
         DSLog.log(5, "Camera PID");
     }
 
@@ -56,6 +58,7 @@ public class CameraPIDMecanumCommand extends CommandBase {
         DriveSubsystem.getInstance().disable();
         DriveSubsystem.getInstance().stop();
         Camera.getInstance().free();
+        DSLog.log(5, "");
     }
 
     /**

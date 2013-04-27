@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class ShooterPistonSubsystem extends Subsystem {
 
     static ShooterPistonSubsystem instance;
-    private Compressor compressor;
+    //private Compressor compressor;
     private Solenoid shooterPiston;
     private DigitalInput limitSwitch;
     private boolean lastLimitState;
@@ -23,11 +23,11 @@ public class ShooterPistonSubsystem extends Subsystem {
      * and starts compressor.
      */
     public ShooterPistonSubsystem() {
-        compressor = new Compressor(RobotMap.S_COMPRESSOR_PRESSURE_SWITCH, RobotMap.S_COMPRESSOR_RELAY);
+      //  compressor = new Compressor(RobotMap.S_COMPRESSOR_PRESSURE_SWITCH, RobotMap.S_COMPRESSOR_RELAY);
         shooterPiston = new Solenoid(RobotMap.S_SOLENOID_SHOOTER_PISTON);
 
         //limitSwitch = new DigitalInput(RobotMap.S_FRISBEE_LIMIT_SWITCH);
-        compressor.start();
+        //compressor.start();
 
     }
 
@@ -89,14 +89,6 @@ public class ShooterPistonSubsystem extends Subsystem {
         return frisbeeCount;
     }
 
-    /**
-     * Gets pressure from switch.
-     *
-     * @return
-     */
-    public boolean getPressureSwitch() {
-        return compressor.getPressureSwitchValue();
-    }
 
     /**
      * Initializes default command

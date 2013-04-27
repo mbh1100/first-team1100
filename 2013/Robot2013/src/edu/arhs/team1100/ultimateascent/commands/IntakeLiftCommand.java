@@ -7,6 +7,7 @@ import edu.arhs.team1100.ultimateascent.subsystems.IntakeSubsystem;
  */
 public class IntakeLiftCommand extends CommandBase {
 
+    private boolean isFinished;
     /**
      * Constructs a IntakeLiftCommand
      */
@@ -18,15 +19,19 @@ public class IntakeLiftCommand extends CommandBase {
      * Called just before this Command runs the first time
      */
     protected void initialize() {
-        IntakeSubsystem.getInstance().pistonLift();
-        setTimeout(0.5);
+        isFinished = false;
     }
 
     /**
      * Called repeatedly when this Command is scheduled to run
      */
-    protected void execute() {
+    protected void execute() {  
+        if(!isFinished){
+            IntakeSubsystem.getInstance().pistonLift();
+            isFinished = true;
+        }
     }
+    
 
     /**
      * Make this return true when this Command no longer needs to run execute()
@@ -34,13 +39,16 @@ public class IntakeLiftCommand extends CommandBase {
      * @return isTimedOut()
      */
     protected boolean isFinished() {
-        return isTimedOut();
+        return isFinished;
     }
 
     /**
      * Called once after isFinished returns true
      */
     protected void end() {
+        if(!isFinished){
+            execute();
+        }
     }
 
     /**
@@ -48,5 +56,6 @@ public class IntakeLiftCommand extends CommandBase {
      * subsystems is scheduled to run
      */
     protected void interrupted() {
+        end();
     }
 }

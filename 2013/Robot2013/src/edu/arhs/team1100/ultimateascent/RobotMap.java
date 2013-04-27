@@ -26,8 +26,8 @@ public class RobotMap {
     public static final int D_TALON_BACK_RIGHT = 4;
     public static final int D_GYRO = 1;
     //[S]HOOTER
-    public static final int S_VICTOR_SHOOTER_WHEEL = 8;
-    public static final int S_VICTOR_SHOOTER_TILT = 7;
+    public static final int S_VICTOR_SHOOTER_WHEEL = 10;
+    public static final int S_VICTOR_SHOOTER_TILT = 9;
     public static final int S_POTENTIOMETER_TILT = 2;
     public static final int S_ENCODER_A = 1;
     public static final int S_ENCODER_B = 2;
@@ -43,6 +43,9 @@ public class RobotMap {
     //[F]loor [P]ickup
     public static final int FP_SOLENOID_LEFT = 2;
     public static final int FP_SOLENOID_RIGHT = 3;
-    public static final int FP_PWM_INTAKE_LEFT = 9;
-    public static final int FP_PWM_INTAKE_RIGHT = 10;
+    public static final int FP_PWM_INTAKE_LEFT = 7;
+    public static final int FP_PWM_INTAKE_RIGHT = 8;
+    
+    public static final int LEG_LEFT = 2;
+    public static final int LEG_RIGHT = 3;
 }

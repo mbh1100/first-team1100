@@ -16,8 +16,8 @@ public class IntakeSubsystem extends Subsystem {
     private Compressor compressor;
     private Solenoid intakePistonLeft;
     private Solenoid intakePistonRight;
-    private Victor intakeMotorLeft;
-    private Victor intakeMotorRight;
+    private PWM intakeMotorLeft;
+    private PWM intakeMotorRight;
 
     /**
      * Constructs an IntakeSubsystem. Initializes compressor, lift pistons,
@@ -26,11 +26,11 @@ public class IntakeSubsystem extends Subsystem {
     public IntakeSubsystem() {
         //compressor = new Compressor(RobotMap.S_COMPRESSOR_PRESSURE_SWITCH, RobotMap.S_COMPRESSOR_RELAY);
 
-        intakePistonLeft = new Solenoid(RobotMap.FP_SOLENOID_LEFT);
-        intakePistonRight = new Solenoid(RobotMap.FP_SOLENOID_RIGHT);
+        //intakePistonLeft = new Solenoid(RobotMap.FP_SOLENOID_LEFT);
+        //intakePistonRight = new Solenoid(RobotMap.FP_SOLENOID_RIGHT);
 
-        intakePistonLeft.set(false);
-        intakePistonRight.set(false);
+        //intakePistonLeft.set(false);
+        //intakePistonRight.set(false);
 
         intakeMotorLeft = new Victor(RobotMap.FP_PWM_INTAKE_LEFT);
         intakeMotorRight = new Victor(RobotMap.FP_PWM_INTAKE_RIGHT);
@@ -51,46 +51,28 @@ public class IntakeSubsystem extends Subsystem {
         return instance;
     }
 
-    /**
-     * Toggle the wheels on the left to move discs. If not moving, set to full
-     * speed. If moving, set to neutral.
-     */
-    public void intakeRollLeft() {
-//        if (intakeMotorLeft.getSpeed() > 0) {
-//            intakeMotorLeft.set(0);
-//        } else {
-//            intakeMotorLeft.set(1);
-//        }
-        intakeMotorLeft.set(1);
-    }
-
-    /**
-     * Toggle the wheels on the right to move discs. If not moving, set to full
-     * speed. If moving, set to neutral.
-     */
-    public void intakeRollRight() {
-//        if (intakeMotorRight.getSpeed() > 0) {
-//            intakeMotorRight.set(0);
-//        } else {
-//            intakeMotorRight.set(1);
-//        }
-        intakeMotorRight.set(-1);
+   
+    public void roll(boolean back){
+        
+        intakeMotorLeft.setRaw(back?0:255);
+        intakeMotorRight.setRaw(back?255:0);
     }
 
     /**
      * Toggle floor pickup position. Reverses position from current position.
      */
     public void pistonLift() {
-        intakePistonLeft.set(!intakePistonLeft.get());
-        intakePistonRight.set(!intakePistonRight.get());
+        //intakePistonLeft.set(!intakePistonLeft.get());
+       // intakePistonRight.set(!intakePistonRight.get());
     }
     
     public void stopRollers()
     {
-        intakeMotorRight.set(0);
-        intakeMotorLeft.set(0);
+        intakeMotorRight.setRaw(128);
+        intakeMotorLeft.setRaw(128);
     }
 
+ 
     /**
      * Initializes intake command. Do nothing.
      */

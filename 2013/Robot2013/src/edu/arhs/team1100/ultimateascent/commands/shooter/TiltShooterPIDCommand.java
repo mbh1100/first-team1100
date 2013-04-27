@@ -8,6 +8,7 @@ import edu.arhs.team1100.ultimateascent.OI;
 import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterTiltSubsystem;
 import edu.arhs.team1100.ultimateascent.util.DSLog;
+import edu.arhs.team1100.ultimateascent.util.DSPID;
 import edu.arhs.team1100.ultimateascent.util.Log;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
 
@@ -17,7 +18,7 @@ import edu.wpi.first.wpilibj.Joystick.AxisType;
  */
 public class TiltShooterPIDCommand extends CommandBase {
 
-    private final double LEVEL = 0.35; //potentiometer value at which tilt is straight
+    private final double LEVEL = 1.5; //potentiometer value at which tilt is straight
     private double setpoint = 0;
 
     public TiltShooterPIDCommand() {
@@ -26,9 +27,9 @@ public class TiltShooterPIDCommand extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        ShooterTiltSubsystem.getInstance().getPIDController().reset();
         ShooterTiltSubsystem.getInstance().setCameraMode(false);
         //ShooterTiltSubsystem.getInstance().setInputRange(0.0, 5.0);
-        ShooterTiltSubsystem.getInstance().setPercentTolerance(5.0);
 
         setpoint = ShooterTiltSubsystem.getInstance().getAngle();
         ShooterTiltSubsystem.getInstance().setSetpoint(setpoint);
@@ -37,6 +38,8 @@ public class TiltShooterPIDCommand extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        
+        DSPID.setPIDFromDS(ShooterTiltSubsystem.getInstance().getPIDController());
         double delta = -OI.getInstance().getXboxController().getAxis(AxisType.kY);
 
         setpoint += delta / 100;
@@ -47,7 +50,7 @@ public class TiltShooterPIDCommand extends CommandBase {
             setpoint = 1.0;
         }
         ShooterTiltSubsystem.getInstance().setSetpoint(setpoint);
-        Log.log(this, "tilting.." + setpoint, Log.LEVEL_DEBUG);
+        //Log.log(this, "tilting.." + setpoint, Log.LEVEL_DEBUG);
         DSLog.log(5, "Tilting..." + setpoint);
 
     }

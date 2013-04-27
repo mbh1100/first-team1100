@@ -15,7 +15,7 @@ import edu.arhs.team1100.ultimateascent.util.*;
  */
 public class CameraTiltShooterCommand extends CommandBase {
 
-    private final double OFFSET = 0.3;
+    private final double OFFSET = 0.0;
     private final double RATIO = .50;
     private boolean tracking;
 

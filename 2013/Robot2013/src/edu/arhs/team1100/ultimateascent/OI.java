@@ -1,7 +1,6 @@
 package edu.arhs.team1100.ultimateascent;
 
-import edu.arhs.team1100.ultimateascent.commands.IntakeLiftCommand;
-import edu.arhs.team1100.ultimateascent.commands.IntakeRollerCommand;
+import edu.arhs.team1100.ultimateascent.commands.ToggleLegCommand;
 import edu.arhs.team1100.ultimateascent.commands.shooter.ChangeShooterSpeedCommand;
 import edu.arhs.team1100.ultimateascent.commands.drive.ToggleDriveModeCommand;
 import edu.arhs.team1100.ultimateascent.commands.drive.CalibrateGyroCommand;
@@ -25,20 +24,21 @@ public class OI {
     /**
      * SETTINGS
      */
-    //LEFT STICK BUTTON SETTINGS
+    //Right STICK BUTTON SETTINGS
     private static final int TOGGLE_DRIVE = 2;
     private static final int CAMERA_PID = 1; //Trigger
-    //RIGHT STICK BUTTON SETTINGS
+    //left STICK BUTTON SETTINGS
     private static final int CALIBRATE_GYRO = 3;
-    private static final int JOYSTICK_PID = 1; //Trigger
+    private static final int JOYSTICK_PID = 1; //Trigger disabled
+    private static final int LEG = 1;//trigger
     private static final int STOP_DRIVE = 4;
     //Recording
     private static final int RECORD = 5;
     private static final int PLAY_RECORDING = 2;
     private static final int PRINT_RECORDING = 7;
     private static OI instance;
-    private AttackThree leftStick;
     private AttackThree rightStick;
+    private AttackThree leftStick;
     private XboxController xbox;
     RecordCommand recorder;
 
@@ -59,21 +59,23 @@ public class OI {
      */
     public OI() {
         //Initialize controllers
-        leftStick = new AttackThree(RobotMap.C_LEFT_JOYSTICK, 0.1);
-        rightStick = new AttackThree(RobotMap.C_RIGHT_JOYSTICK, 0.1);
+        rightStick = new AttackThree(RobotMap.C_LEFT_JOYSTICK, 0.1);
+        leftStick = new AttackThree(RobotMap.C_RIGHT_JOYSTICK, 0.1);
         xbox = new XboxController(RobotMap.C_XBOX_CONTROLLER, 0.1);
 
         //CONTROL ASSIGNMENTS
-        leftStick.getButton(TOGGLE_DRIVE).whenPressed(new ToggleDriveModeCommand());
+        rightStick.getButton(TOGGLE_DRIVE).whenPressed(new ToggleDriveModeCommand());
+        //leftStick.getButton(CAMERA_PID).whileHeld(new CameraPIDMecanumCommand());
+        
+        rightStick.getButton(LEG).whenPressed(new ToggleLegCommand());
+        leftStick.getButton(CALIBRATE_GYRO).whenPressed(new CalibrateGyroCommand());
         leftStick.getButton(CAMERA_PID).whileHeld(new CameraPIDMecanumCommand());
-        rightStick.getButton(CALIBRATE_GYRO).whenPressed(new CalibrateGyroCommand());
-        rightStick.getButton(JOYSTICK_PID).whileHeld(new JoystickPIDMecanumCommand());
-        rightStick.getButton(STOP_DRIVE).whenPressed(new StopDriveCommand(0.1));
+        leftStick.getButton(STOP_DRIVE).whenPressed(new StopDriveCommand(0.1));
 
         recorder = new RecordCommand(20); //interval is 20 ms
-        rightStick.getButton(RECORD).whileHeld(recorder);
-        rightStick.getButton(PLAY_RECORDING).whenPressed(new PlayRecordingCommand(recorder));
-        rightStick.getButton(PRINT_RECORDING).whenPressed(new PrintRecordingCodeCommand(recorder));
+        leftStick.getButton(RECORD).whileHeld(recorder);
+        leftStick.getButton(PLAY_RECORDING).whenPressed(new PlayRecordingCommand(recorder));
+        leftStick.getButton(PRINT_RECORDING).whenPressed(new PrintRecordingCodeCommand(recorder));
 
         xbox.getButtonX().whileHeld(new RapidFireCommandGroup());
         xbox.getButtonRightBumper().whenPressed(new ChangeShooterSpeedCommand(0.1));
@@ -84,8 +86,8 @@ public class OI {
         // xbox.getButtonB().whileHeld(new TiltShooterPositionPIDCommand(RobotMap.DS_FEEDER_ANGLE_CH));
         // xbox.getButtonA().whileHeld(new CameraPIDTiltShooterCommand());
         // xbox.getButtonBack().whileHeld(new CameraTiltShooterCommand());
-        xbox.getButtonB().whenPressed(new IntakeLiftCommand());
-        xbox.getButtonA().whenPressed(new IntakeRollerCommand());
+        //xbox.getButtonB().whenPressed(new ToggleLegCommand());
+        //xbox.getButtonA().whileHeld(new IntakeRollerCommand());
     }
 
     /**
@@ -93,8 +95,8 @@ public class OI {
      *
      * @return left AttackThree object
      */
-    public AttackThree getLeftJoystick() {
-        return leftStick;
+    public AttackThree getRightJoystick() {
+        return rightStick;
     }
 
     /**
@@ -102,8 +104,8 @@ public class OI {
      *
      * @return right AttackThree
      */
-    public AttackThree getRightJoystick() {
-        return rightStick;
+    public AttackThree getLeftJoystick() {
+        return leftStick;
     }
 
     /**

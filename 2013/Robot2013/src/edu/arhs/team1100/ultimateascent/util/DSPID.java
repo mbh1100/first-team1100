@@ -25,5 +25,6 @@ public class DSPID {
 
     public static void setPIDFromDS(PIDController p) {
         p.setPID(getP(), getI(), getD());
+        DSLog.log(6, Log.round(getP(), 2)+" , "+ Log.round(getI(), 2) +" , "+Log.round(getD(), 2));
     }
 }

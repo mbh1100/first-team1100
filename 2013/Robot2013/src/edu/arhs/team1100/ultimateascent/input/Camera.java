@@ -68,7 +68,7 @@ public class Camera {
                 colorImage = axisCamera.getImage();
                 binaryImg = colorImage.thresholdRGB(MIN_RED, MAX_RED, MIN_GREEN, MAX_GREEN, MIN_BLUE, MAX_BLUE);
 
-                particles = binaryImg.getOrderedParticleAnalysisReports(5);  //get one (the largest) particle
+                particles = binaryImg.getOrderedParticleAnalysisReports(3);  //get one (the largest) particle
                 //colorImage.free();
                 //binaryImg.free();
                 enabled = true;
@@ -127,9 +127,12 @@ public class Camera {
      *
      */
     public double getCenterX() {
-        update();
-        if (hasParticle) {
-            return highest.center_mass_x_normalized;
+        try {
+            update();
+            if (hasParticle) {
+                return highest.center_mass_x_normalized;
+            }
+        } catch (Exception e) {
         }
         return 0;
     }

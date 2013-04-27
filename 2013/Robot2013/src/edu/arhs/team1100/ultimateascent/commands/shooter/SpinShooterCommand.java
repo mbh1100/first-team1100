@@ -62,4 +62,8 @@ public class SpinShooterCommand extends CommandBase {
     protected void interrupted() {
         end();
     }
+    
+    public void setSpeed(double speed){
+        this.speed = speed;
+    }
 }

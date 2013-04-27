@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.Victor;
  * @author Team 1100
  */
 public class ShooterWheelSubsystem extends PIDSubsystem {
-
+    public static final double MAX_SPEED = 1f;
     public static final double SHOOTING_SPEED = 0.8;
     private static final double P = 1.0;
     private static final double I = 0.05;

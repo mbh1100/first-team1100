@@ -1,7 +1,7 @@
 package edu.arhs.team1100.ultimateascent.autonomous;
 
 import edu.arhs.team1100.ultimateascent.commands.drive.StopDriveCommand;
-import edu.arhs.team1100.ultimateascent.commands.shooter.CameraTiltShooterCommand;
+import edu.arhs.team1100.ultimateascent.commands.shooter.CameraPIDTiltShooterCommand;
 import edu.arhs.team1100.ultimateascent.commands.shooter.RapidFireCommandGroup;
 import edu.arhs.team1100.ultimateascent.commands.shooter.SpinShooterCommand;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterWheelSubsystem;
@@ -18,25 +18,31 @@ public class AutoAimAndShootCommandGroup extends CommandGroup {
     private long FRISBEES = 5;
     private long sTime = 0;
     private int shots = 0;
+    private boolean isIndependent = true;
     private boolean isFinished = false;
     private RapidFireCommandGroup shootCommand;
-    private CameraTiltShooterCommand cameraTilter;
+    private CameraPIDTiltShooterCommand cameraTilter;
     private SpinShooterCommand spinShootCommand;
 
     /**
      * Constructs AutoAimAndShootCommandGroup
      */
-    public AutoAimAndShootCommandGroup(long frisbees, long wait) {
+    public AutoAimAndShootCommandGroup(long frisbees, float wait, boolean independent) {
         this.FRISBEES = frisbees;
-        this.WAIT_TIME = wait;
+        this.isIndependent = independent;
         shootCommand = new RapidFireCommandGroup();
-        spinShootCommand = new SpinShooterCommand(ShooterWheelSubsystem.SHOOTING_SPEED);
-        cameraTilter = new CameraTiltShooterCommand();
+        if (isIndependent) {
+            cameraTilter = new CameraPIDTiltShooterCommand();
+
+            spinShootCommand = new SpinShooterCommand(ShooterWheelSubsystem.SHOOTING_SPEED);
+            addParallel(cameraTilter);
+
+            addParallel(spinShootCommand); //replace with PID later if possible
+        }
         // addParallel(new CameraPIDMecanumCommand());
-        addParallel(cameraTilter);
-        addParallel(new StopDriveCommand(15));
+        addParallel(new StopDriveCommand(wait));
+        this.WAIT_TIME = (long) (wait * 1000);
         //addParallel(new TiltShooterPositionPIDCommand(RobotMap.DS_SHOOTING_ANGLE_CH));
-        addParallel(spinShootCommand); //replace with PID later if possible
     }
 
     /**
@@ -63,8 +69,11 @@ public class AutoAimAndShootCommandGroup extends CommandGroup {
 
         if (shots == FRISBEES) {
             isFinished = true;
-            cameraTilter.stopTracking();
-            ShooterWheelSubsystem.getInstance().stop();
+            if (isIndependent) {
+                cameraTilter.stopTracking();
+                ShooterWheelSubsystem.getInstance().stop();
+            }
+            //
         }
     }
 

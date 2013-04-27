@@ -1,8 +1,10 @@
 package edu.arhs.team1100.ultimateascent.commands;
 
 import edu.arhs.team1100.ultimateascent.OI;
+import edu.arhs.team1100.ultimateascent.subsystems.CompressorSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.IntakeSubsystem;
+import edu.arhs.team1100.ultimateascent.subsystems.LegSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.LiftSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterPistonSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterTiltSubsystem;
@@ -34,8 +36,10 @@ public abstract class CommandBase extends Command {
         LiftSubsystem.getInstance();
         ShooterWheelSubsystem.getInstance();
         ShooterTiltSubsystem.getInstance();
+        CompressorSubsystem.getInstance();
         ShooterPistonSubsystem.getInstance();
-        IntakeSubsystem.getInstance();
+        //IntakeSubsystem.getInstance();
+        LegSubsystem.getInstance();
         OI.getInstance();
 
 

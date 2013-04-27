@@ -95,9 +95,9 @@ public class DriveSubsystem extends PIDSubsystem {
      * Defines values to drive Cartesian mode. Gets values from controllers.
      */
     private void userDriveCartesian() {
-        double rotation = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
-        double controlX = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
-        double controlY = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
+        double rotation = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
+        double controlX = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
+        double controlY = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
         drive.mecanumDrive_Cartesian(controlX, controlY, rotation, driveGyro.getAngle());
     }
 
@@ -105,9 +105,9 @@ public class DriveSubsystem extends PIDSubsystem {
      * Defines values to drive Polar mode. Gets values from controllers.
      */
     private void userDrivePolar() {
-        double magnitude = -OI.getInstance().getLeftJoystick().getMagnitude();
-        double angle = -OI.getInstance().getLeftJoystick().getAngle();
-        double rotation = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
+        double magnitude = -OI.getInstance().getRightJoystick().getMagnitude();
+        double angle = -OI.getInstance().getRightJoystick().getAngle();
+        double rotation = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
         drive.mecanumDrive_Polar(magnitude, angle, rotation);
     }
 
@@ -133,7 +133,7 @@ public class DriveSubsystem extends PIDSubsystem {
      */
     public void driveSimulate(double x, double y, double rot, int mode) {
         if (mode == MODE_POLAR) {
-            double magnitude = -Math.sqrt(x * x + y * y); // --------------------------------- Switch negative if not working
+            double magnitude = Math.sqrt(x * x + y * y); // --------------------------------- Negative did not work, drives the wrong way
             double angle = Math.toDegrees(MathUtils.atan2(x, y));
 
             while (angle < 0) {
@@ -163,7 +163,7 @@ public class DriveSubsystem extends PIDSubsystem {
     protected double returnPIDInput() {
         if (isCameraMode) {
             double pCenter = Camera.getInstance().getCenterX();
-            //Log.log(this, "pCenter:     "+pCenter, Log.LEVEL_DEBUG);      
+            Log.log(this, "pCenter:     "+pCenter, Log.LEVEL_DEBUG);      
             return pCenter;
         } else {
             return getGyroAngle();
@@ -176,8 +176,8 @@ public class DriveSubsystem extends PIDSubsystem {
      * @param rotationSpeed
      */
     protected void usePIDOutput(double rotationSpeed) {
-        double controlX = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
-        double controlY = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
+        double controlX = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
+        double controlY = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
         drive.mecanumDrive_Cartesian(controlX, controlY, rotationSpeed, driveGyro.getAngle());
     }
 

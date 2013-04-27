@@ -7,11 +7,11 @@
 package edu.arhs.team1100.ultimateascent;
 
 import com.sun.squawk.util.MathUtils;
-import edu.arhs.team1100.ultimateascent.autonomous.AutoAimAndShootCommandGroup;
 import edu.arhs.team1100.ultimateascent.autonomous.AutonomousCommandGroup;
 import edu.arhs.team1100.ultimateascent.autonomous.TiltShooterPositionPIDCommand;
 import edu.arhs.team1100.ultimateascent.commands.drive.CalibrateGyroCommand;
 import edu.arhs.team1100.ultimateascent.commands.CommandBase;
+import edu.arhs.team1100.ultimateascent.commands.IntakeRollerCommand;
 import edu.arhs.team1100.ultimateascent.commands.drive.JoystickPIDMecanumCommand;
 import edu.arhs.team1100.ultimateascent.commands.shooter.CameraTiltShooterCommand;
 import edu.arhs.team1100.ultimateascent.commands.shooter.ShootFrisbeeCommand;
@@ -19,15 +19,16 @@ import edu.arhs.team1100.ultimateascent.commands.shooter.TiltShooterPIDCommand;
 import edu.arhs.team1100.ultimateascent.recording.PlayRecordingCommand;
 import edu.arhs.team1100.ultimateascent.recording.RecordCommand;
 import edu.arhs.team1100.ultimateascent.input.Camera;
+import edu.arhs.team1100.ultimateascent.subsystems.CompressorSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.IntakeSubsystem;
-import edu.arhs.team1100.ultimateascent.subsystems.LiftSubsystem;
-import edu.arhs.team1100.ultimateascent.subsystems.ShooterPistonSubsystem;
+import edu.arhs.team1100.ultimateascent.subsystems.LegSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterTiltSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterWheelSubsystem;
 import edu.arhs.team1100.ultimateascent.util.DSLog;
 import edu.arhs.team1100.ultimateascent.util.Log;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
@@ -40,9 +41,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  */
 public class RobotMain extends IterativeRobot {
 
-    //private Command autonomousCommand;
-    private AutoAimAndShootCommandGroup autonomous;
-    private AutonomousCommandGroup autoCommand;
+    private CommandGroup autoCommand;
     private long lastTime = 0;
     private long totalTime = 0;
     private long cycles = 0;
@@ -72,13 +71,13 @@ public class RobotMain extends IterativeRobot {
         Log.addClass(CameraTiltShooterCommand.class, Log.LEVEL_DEBUG);
         Log.addClass(TiltShooterPositionPIDCommand.class, Log.LEVEL_DEBUG);
         Log.addClass(IntakeSubsystem.class, Log.LEVEL_DEBUG);
+        Log.addClass(IntakeRollerCommand.class, Log.LEVEL_DEBUG);
 
         // Instantiate the command used for the autonomous period
         // Initialize all subsystems
         CommandBase.init();
 
-        //autonomous = new AutoAimAndShootCommandGroup();
-        autoCommand = new AutonomousCommandGroup();
+        autoCommand = /*new AutoShootAndReloadCommandGroup() ;//*/new AutonomousCommandGroup();
 
 
         //Initialize the camera
@@ -123,6 +122,7 @@ public class RobotMain extends IterativeRobot {
      * Called periodically during operator control
      */
     public void teleopPeriodic() {
+        IntakeSubsystem.getInstance().roll(false);
         Scheduler.getInstance().run();
         //trackRate();
         updateDriverStationLog();
@@ -131,21 +131,22 @@ public class RobotMain extends IterativeRobot {
     }
 
     private void updateDriverStationLog() {
-        DSLog.log(1, "pressure :" + ShooterPistonSubsystem.getInstance().getPressureSwitch());
+        DSLog.log(1, "pressure :" + CompressorSubsystem.getInstance().getPressureSwitch());
         // DSLog.log(1, "Drive Mode: " + ((DriveSubsystem.getInstance().getDriveMode() == DriveSubsystem.MODE_POLAR) ? "POLAR" : "CARTESIAN"));
         DSLog.log(2, "Gyro Angle: " + Log.round(DriveSubsystem.getInstance().getGyroAngle(), 2));
         //DSLog.log(3, "Rate      : " + rate);
         DSLog.log(3, "Shooter   : " + MathUtils.round(ShooterWheelSubsystem.getInstance().getSpeed() * 10));
-        if (DriveSubsystem.getInstance().getPIDController().isEnable()) {
-            DSLog.log(4, DriveSubsystem.getInstance().getCameraMode() ? "Camera PID Mode" : "Gyro PID Mode");
-        } else {
-            DSLog.log(4, "pot:" + Log.round(ShooterTiltSubsystem.getInstance().getAngle(), 3));
-        }
+//        if (DriveSubsystem.getInstance().getPIDController().isEnable()) {
+//            DSLog.log(4, DriveSubsystem.getInstance().getCameraMode() ? "Camera PID Mode" : "Gyro PID Mode");
+//        } else {
+//            DSLog.log(4, "pot:" + Log.round(ShooterTiltSubsystem.getInstance().getAngle(), 3));
+//        }
+        DSLog.log(4,"Legs: " + (LegSubsystem.getInstance().isDeployed()?"DEPLOYED":"OFF"));
 
         //DSLog.log(5, "Setpoint value : " + LiftSubsystem.);
 
         //DSLog.log(6, (Runtime.getRuntime().freeMemory()/1024)+"/"+(Runtime.getRuntime().totalMemory()/1000));
-        DSLog.log(6, "Lift: " + Log.round(LiftSubsystem.getInstance().getPosition(), 3));
+        //DSLog.log(6, "Lift: " + Log.round(LiftSubsystem.getInstance().getPosition(), 3));
 
         //DSLog.log(5, "ENCODER : "+ ShooterWheelSubsystem.getInstance().getRate());
 

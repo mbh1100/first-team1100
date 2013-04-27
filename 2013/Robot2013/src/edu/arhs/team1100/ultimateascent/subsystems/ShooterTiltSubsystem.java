@@ -19,16 +19,16 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
     public static final double AUTONOMOUS_ANGLE = 1.7;
     public static final double SHOOTING_ANGLE = 1.7;
     public static final double FEEDER_ANGLE = 1.96;
-    private static final double kCameraP = .5;
-    private static final double kCameraI = 0.0;
-    private static final double kCameraD = -0.25;
+    private static final double kCameraP = .531; //hardcoded from DSPID
+    private static final double kCameraI = 0.112;
+    private static final double kCameraD = .140;
     private static final double kTiltP = 1.0;
     private static final double kTiltI = 0.20;
     private static final double kTiltD = 0.05;
     private static ShooterTiltSubsystem instance;
     private Victor tiltMotor;
     private AnalogChannel potentiometer;
-    private boolean isCameraMode = true;
+    private boolean isCameraMode = false;
 
     /**
      * Creates a ShooterTilitSubsystem object if not already created
@@ -101,8 +101,10 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
     protected double returnPIDInput() {
         try {
             //Log.log(this, "Y :  "+(-Camera.getInstance().getCenterY()), Log.LEVEL_DEBUG);
-            Log.log(this, "tilt PIDGet()", Log.LEVEL_DEBUG);
+           
             if (isCameraMode) {
+                
+            //     Log.log(this, "PIDGet()"+Log.round( -Camera.getInstance().getCenterY(), 3)  , Log.LEVEL_DEBUG);
                 return -Camera.getInstance().getCenterY();
             } else {
                 return potentiometer.getVoltage();
@@ -120,9 +122,10 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
      */
     protected void usePIDOutput(double output) {
         try {
-            Log.log(this, "usePIDOutput()" + output, Log.LEVEL_DEBUG);
+          //  Log.log(this, "usePIDOutput()" + output, Log.LEVEL_DEBUG);
             if (isCameraMode) {
                 tiltMotor.set(output);
+                //Log.log(instance, "                    out: "+Log.round(output, 3), Log.LEVEL_DEBUG);
             } else {
                 tiltMotor.set(-output);
             }
@@ -138,12 +141,12 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
      * joystick PID
      */
     public void setCameraMode(boolean mode) {
-        //isCameraMode = mode;
-        //if (isCameraMode) {
-        //    getPIDController().setPID(kCameraP, kCameraI, kCameraD);
-        //} else {
-        //    getPIDController().setPID(kTiltP, kTiltI, kTiltD);
-        //}
+        isCameraMode = mode;
+        if (isCameraMode) {
+            getPIDController().setPID(kCameraP, kCameraI, kCameraD);
+        } else {
+            getPIDController().setPID(kTiltP, kTiltI, kTiltD);
+        }
     }
 
     /**

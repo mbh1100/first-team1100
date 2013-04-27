@@ -35,8 +35,8 @@ public class JoystickPIDMecanumCommand extends CommandBase {
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
-        double joystickAngle = OI.getInstance().getRightJoystick().getAngle();
-        double joystickMagnitude = OI.getInstance().getRightJoystick().getMagnitude();
+        double joystickAngle = OI.getInstance().getLeftJoystick().getAngle();
+        double joystickMagnitude = OI.getInstance().getLeftJoystick().getMagnitude();
 
         double gyroAngle = DriveSubsystem.getInstance().getGyroAngle();
         double normalizedGyroAngle = gyroAngle % 360;
