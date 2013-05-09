@@ -7,6 +7,7 @@
 package edu.arhs.team1100.ultimateascent;
 
 import com.sun.squawk.util.MathUtils;
+import edu.arhs.team1100.ultimateascent.autonomous.AutoShootAndReloadCommandGroup;
 import edu.arhs.team1100.ultimateascent.autonomous.AutonomousCommandGroup;
 import edu.arhs.team1100.ultimateascent.autonomous.TiltShooterPositionPIDCommand;
 import edu.arhs.team1100.ultimateascent.commands.drive.CalibrateGyroCommand;
@@ -77,8 +78,8 @@ public class RobotMain extends IterativeRobot {
         // Initialize all subsystems
         CommandBase.init();
 
-        autoCommand = /*new AutoShootAndReloadCommandGroup() ;//*/new AutonomousCommandGroup();
-
+        //autoCommand = /*new AutoShootAndReloadCommandGroup() ;//*/new AutonomousCommandGroup();
+        autoCommand = new AutoShootAndReloadCommandGroup();
 
         //Initialize the camera
         Camera.getInstance().getCenterX();

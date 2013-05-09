@@ -1,5 +1,7 @@
 package edu.arhs.team1100.ultimateascent;
 
+import edu.arhs.team1100.ultimateascent.commands.IntakeLiftCommand;
+import edu.arhs.team1100.ultimateascent.commands.IntakeRollerCommand;
 import edu.arhs.team1100.ultimateascent.commands.ToggleLegCommand;
 import edu.arhs.team1100.ultimateascent.commands.shooter.ChangeShooterSpeedCommand;
 import edu.arhs.team1100.ultimateascent.commands.drive.ToggleDriveModeCommand;
@@ -66,7 +68,7 @@ public class OI {
         //CONTROL ASSIGNMENTS
         rightStick.getButton(TOGGLE_DRIVE).whenPressed(new ToggleDriveModeCommand());
         //leftStick.getButton(CAMERA_PID).whileHeld(new CameraPIDMecanumCommand());
-        
+
         rightStick.getButton(LEG).whenPressed(new ToggleLegCommand());
         leftStick.getButton(CALIBRATE_GYRO).whenPressed(new CalibrateGyroCommand());
         leftStick.getButton(CAMERA_PID).whileHeld(new CameraPIDMecanumCommand());
@@ -87,7 +89,8 @@ public class OI {
         // xbox.getButtonA().whileHeld(new CameraPIDTiltShooterCommand());
         // xbox.getButtonBack().whileHeld(new CameraTiltShooterCommand());
         //xbox.getButtonB().whenPressed(new ToggleLegCommand());
-        //xbox.getButtonA().whileHeld(new IntakeRollerCommand());
+        xbox.getButtonB().whenPressed(new IntakeLiftCommand());
+        xbox.getButtonA().whileHeld(new IntakeRollerCommand());
     }
 
     /**

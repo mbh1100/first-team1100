@@ -24,10 +24,10 @@ public class LegSubsystem extends Subsystem {
     public LegSubsystem() {
         //compressor = new Compressor(RobotMap.S_COMPRESSOR_PRESSURE_SWITCH, RobotMap.S_COMPRESSOR_RELAY);
 
-        legLeft = new Solenoid(RobotMap.LEG_LEFT);
-        legRight = new Solenoid(RobotMap.LEG_RIGHT);
+        //legLeft = new Solenoid(RobotMap.LEG_LEFT);
+        //legRight = new Solenoid(RobotMap.LEG_RIGHT);
 
-        unDeploy();
+        //unDeploy();
         //compressor.start();
     }
 
@@ -44,25 +44,25 @@ public class LegSubsystem extends Subsystem {
         return instance;
     }
 
-   
+
     public void unDeploy(){
-        legLeft.set(false);
-        legRight.set(false);
+        //legLeft.set(false);
+        //legRight.set(false);
     }
-    
+
     public boolean isDeployed(){
-        return legLeft.get();
+        return false;//legLeft.get();
     }
 
     /**
      * Toggle floor pickup position. Reverses position from current position.
      */
     public void toggle() {
-        legLeft.set(!legLeft.get());
-        legRight.set(!legRight.get());
+        //legLeft.set(!legLeft.get());
+        //legRight.set(!legRight.get());
         Log.log(this, "toggle()", Log.LEVEL_DEBUG);
     }
-    
+
     /**
      * Initializes intake command. Do nothing.
      */

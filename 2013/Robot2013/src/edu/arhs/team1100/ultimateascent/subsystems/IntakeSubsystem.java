@@ -26,11 +26,11 @@ public class IntakeSubsystem extends Subsystem {
     public IntakeSubsystem() {
         //compressor = new Compressor(RobotMap.S_COMPRESSOR_PRESSURE_SWITCH, RobotMap.S_COMPRESSOR_RELAY);
 
-        //intakePistonLeft = new Solenoid(RobotMap.FP_SOLENOID_LEFT);
-        //intakePistonRight = new Solenoid(RobotMap.FP_SOLENOID_RIGHT);
+        intakePistonLeft = new Solenoid(RobotMap.FP_SOLENOID_LEFT);
+        intakePistonRight = new Solenoid(RobotMap.FP_SOLENOID_RIGHT);
 
-        //intakePistonLeft.set(false);
-        //intakePistonRight.set(false);
+        intakePistonLeft.set(false);
+        intakePistonRight.set(false);
 
         intakeMotorLeft = new Victor(RobotMap.FP_PWM_INTAKE_LEFT);
         intakeMotorRight = new Victor(RobotMap.FP_PWM_INTAKE_RIGHT);
@@ -51,9 +51,9 @@ public class IntakeSubsystem extends Subsystem {
         return instance;
     }
 
-   
+
     public void roll(boolean back){
-        
+
         intakeMotorLeft.setRaw(back?0:255);
         intakeMotorRight.setRaw(back?255:0);
     }
@@ -62,17 +62,17 @@ public class IntakeSubsystem extends Subsystem {
      * Toggle floor pickup position. Reverses position from current position.
      */
     public void pistonLift() {
-        //intakePistonLeft.set(!intakePistonLeft.get());
-       // intakePistonRight.set(!intakePistonRight.get());
+        intakePistonLeft.set(!intakePistonLeft.get());
+        intakePistonRight.set(!intakePistonRight.get());
     }
-    
+
     public void stopRollers()
     {
         intakeMotorRight.setRaw(128);
         intakeMotorLeft.setRaw(128);
     }
 
- 
+
     /**
      * Initializes intake command. Do nothing.
      */
