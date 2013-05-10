@@ -42,10 +42,10 @@ public class RobotMap {
     public static final int L_POTENTIOMETER = 4;
     //[F]loor [P]ickup
     public static final int FP_SOLENOID_LEFT = 2;
-    public static final int FP_SOLENOID_RIGHT = 3;
+    public static final int FP_SOLENOID_RIGHT = 2;
     public static final int FP_PWM_INTAKE_LEFT = 7;
     public static final int FP_PWM_INTAKE_RIGHT = 8;
     
-    public static final int LEG_LEFT = 2;
+    public static final int LEG_LEFT = 3;
     public static final int LEG_RIGHT = 3;
 }

@@ -15,7 +15,7 @@ public class IntakeSubsystem extends Subsystem {
     static IntakeSubsystem instance;
     private Compressor compressor;
     private Solenoid intakePistonLeft;
-    private Solenoid intakePistonRight;
+    //private Solenoid intakePistonRight;
     private PWM intakeMotorLeft;
     private PWM intakeMotorRight;
 
@@ -27,10 +27,10 @@ public class IntakeSubsystem extends Subsystem {
         //compressor = new Compressor(RobotMap.S_COMPRESSOR_PRESSURE_SWITCH, RobotMap.S_COMPRESSOR_RELAY);
 
         intakePistonLeft = new Solenoid(RobotMap.FP_SOLENOID_LEFT);
-        intakePistonRight = new Solenoid(RobotMap.FP_SOLENOID_RIGHT);
+        //intakePistonRight = new Solenoid(RobotMap.FP_SOLENOID_RIGHT);
 
         intakePistonLeft.set(false);
-        intakePistonRight.set(false);
+        //intakePistonRight.set(false);
 
         intakeMotorLeft = new Victor(RobotMap.FP_PWM_INTAKE_LEFT);
         intakeMotorRight = new Victor(RobotMap.FP_PWM_INTAKE_RIGHT);
@@ -63,7 +63,7 @@ public class IntakeSubsystem extends Subsystem {
      */
     public void pistonLift() {
         intakePistonLeft.set(!intakePistonLeft.get());
-        intakePistonRight.set(!intakePistonRight.get());
+        //intakePistonRight.set(!intakePistonRight.get());
     }
 
     public void stopRollers()
