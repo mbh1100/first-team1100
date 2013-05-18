@@ -7,14 +7,13 @@
 package edu.arhs.team1100.ultimateascent;
 
 import com.sun.squawk.util.MathUtils;
-import edu.arhs.team1100.ultimateascent.autonomous.AutoShootAndReloadCommandGroup;
+import edu.arhs.team1100.ultimateascent.autonomous.AutonomousCommandGroup;
 import edu.arhs.team1100.ultimateascent.autonomous.TiltShooterPositionPIDCommand;
 import edu.arhs.team1100.ultimateascent.commands.drive.CalibrateGyroCommand;
 import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.commands.IntakeRollerCommand;
 import edu.arhs.team1100.ultimateascent.commands.drive.JoystickPIDMecanumCommand;
 import edu.arhs.team1100.ultimateascent.commands.shooter.CameraTiltShooterCommand;
-import edu.arhs.team1100.ultimateascent.commands.shooter.ChangeShooterSpeedCommand;
 import edu.arhs.team1100.ultimateascent.commands.shooter.ShootFrisbeeCommand;
 import edu.arhs.team1100.ultimateascent.commands.shooter.TiltShooterPIDCommand;
 import edu.arhs.team1100.ultimateascent.recording.PlayRecordingCommand;
@@ -77,8 +76,8 @@ public class RobotMain extends IterativeRobot {
         // Initialize all subsystems
         CommandBase.init();
 
-        //autoCommand = /*new AutoShootAndReloadCommandGroup() ;//*/new AutonomousCommandGroup();
-        autoCommand = new AutoShootAndReloadCommandGroup();
+        autoCommand = new AutonomousCommandGroup();
+        //autoCommand = new AutoShootAndReloadCommandGroup();
 
         //Initialize the camera
         Camera.getInstance().getCenterX();
@@ -106,7 +105,7 @@ public class RobotMain extends IterativeRobot {
         Scheduler.getInstance().run();
     }
 
-    /**
+    /*
      * Initializes teleop mode
      */
     public void teleopInit() {

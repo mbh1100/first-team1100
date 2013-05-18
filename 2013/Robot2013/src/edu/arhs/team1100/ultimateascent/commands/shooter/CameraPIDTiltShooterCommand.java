@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.DriverStation;
  */
 public class CameraPIDTiltShooterCommand extends CommandBase {
 
-    private double offset = 0.254;//ds = 0.074
+    private double offset = 0.074;//ds = 0.074
     private boolean tracking;
     
     public CameraPIDTiltShooterCommand() {
