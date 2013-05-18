@@ -3,6 +3,7 @@ package edu.arhs.team1100.ultimateascent.subsystems;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.arhs.team1100.ultimateascent.RobotMap;
+import edu.arhs.team1100.ultimateascent.commands.shooter.SpinShooterCommand;
 import edu.wpi.first.wpilibj.Victor;
 
 /**
@@ -120,5 +121,6 @@ public class ShooterWheelSubsystem extends PIDSubsystem {
      * Initializes default command
      */
     protected void initDefaultCommand() {
+        //setDefaultCommand(new SpinShooterCommand(ShooterWheelSubsystem.SHOOTING_SPEED));
     }
 }

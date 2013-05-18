@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.DriverStation;
  */
 public class CameraPIDTiltShooterCommand extends CommandBase {
 
-    private double offset = 0.074;
+    private double offset = 0.254;//ds = 0.074
     private boolean tracking;
     
     public CameraPIDTiltShooterCommand() {
@@ -25,7 +25,7 @@ public class CameraPIDTiltShooterCommand extends CommandBase {
         tracking = true;
         ShooterTiltSubsystem.getInstance().setCameraMode(true);
         ShooterTiltSubsystem.getInstance().setInputRange(-1.0, 1.0);
-        //ShooterTiltSubsystem.getInstance().setPercentTolerance(5.0);//10 %
+        ShooterTiltSubsystem.getInstance().setPercentTolerance(5.0);//5 %
       //  DSPID.setPIDFromDS(ShooterTiltSubsystem.getInstance().getPIDController());
        // offset = DriverStation.getInstance().getAnalogIn(4);
         ShooterTiltSubsystem.getInstance().setSetpoint(0.0);

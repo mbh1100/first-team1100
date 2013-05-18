@@ -14,10 +14,10 @@ import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
 public class Camera {
 
     private int MIN_RED = 0;
-    private int MAX_RED = 30;
-    private int MIN_GREEN = 230;
+    private int MAX_RED = 35;
+    private int MIN_GREEN = 225;
     private int MAX_GREEN = 255;
-    private int MIN_BLUE = 230;
+    private int MIN_BLUE = 225;
     private int MAX_BLUE = 255;
     private AxisCamera axisCamera = null;
     private ColorImage colorImage;

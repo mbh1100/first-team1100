@@ -5,6 +5,7 @@ import edu.arhs.team1100.ultimateascent.OI;
 import edu.arhs.team1100.ultimateascent.RobotMap;
 import edu.arhs.team1100.ultimateascent.commands.drive.JoystickMecanumCommand;
 import edu.arhs.team1100.ultimateascent.input.Camera;
+import edu.arhs.team1100.ultimateascent.util.DSLog;
 import edu.arhs.team1100.ultimateascent.util.Log;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Joystick;
@@ -199,6 +200,7 @@ public class DriveSubsystem extends PIDSubsystem {
      */
     public void toggleDriveMode() {
         driveMode = (driveMode == MODE_CARTESIAN) ? MODE_POLAR : MODE_CARTESIAN;
+        DSLog.log(5, (driveMode == MODE_CARTESIAN) ? "Cartesian" : "Polar");
     }
 
     /**

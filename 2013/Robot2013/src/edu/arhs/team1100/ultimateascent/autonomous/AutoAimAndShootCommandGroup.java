@@ -4,7 +4,9 @@ import edu.arhs.team1100.ultimateascent.commands.drive.StopDriveCommand;
 import edu.arhs.team1100.ultimateascent.commands.shooter.CameraPIDTiltShooterCommand;
 import edu.arhs.team1100.ultimateascent.commands.shooter.RapidFireCommandGroup;
 import edu.arhs.team1100.ultimateascent.commands.shooter.SpinShooterCommand;
+import edu.arhs.team1100.ultimateascent.subsystems.ShooterTiltSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterWheelSubsystem;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -31,6 +33,8 @@ public class AutoAimAndShootCommandGroup extends CommandGroup {
         this.FRISBEES = frisbees;
         this.isIndependent = independent;
         shootCommand = new RapidFireCommandGroup();
+        ShooterTiltSubsystem.getInstance().setInputRange(-1.0,1.0);
+        ShooterTiltSubsystem.getInstance().setPercentTolerance(20.0);
         if (isIndependent) {
             cameraTilter = new CameraPIDTiltShooterCommand();
 
@@ -58,6 +62,8 @@ public class AutoAimAndShootCommandGroup extends CommandGroup {
      * If Drive and Shooter is on target, shoot for as long as its on target
      */
     public void execute() {
+        DriverStation.getInstance();
+        //if(!ShooterTiltSubsystem.getInstance().onTarget()){
         if (System.currentTimeMillis() - sTime <= WAIT_TIME || isFinished) {
             return;
         }

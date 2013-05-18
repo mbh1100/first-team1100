@@ -8,13 +8,13 @@ package edu.arhs.team1100.ultimateascent;
 
 import com.sun.squawk.util.MathUtils;
 import edu.arhs.team1100.ultimateascent.autonomous.AutoShootAndReloadCommandGroup;
-import edu.arhs.team1100.ultimateascent.autonomous.AutonomousCommandGroup;
 import edu.arhs.team1100.ultimateascent.autonomous.TiltShooterPositionPIDCommand;
 import edu.arhs.team1100.ultimateascent.commands.drive.CalibrateGyroCommand;
 import edu.arhs.team1100.ultimateascent.commands.CommandBase;
 import edu.arhs.team1100.ultimateascent.commands.IntakeRollerCommand;
 import edu.arhs.team1100.ultimateascent.commands.drive.JoystickPIDMecanumCommand;
 import edu.arhs.team1100.ultimateascent.commands.shooter.CameraTiltShooterCommand;
+import edu.arhs.team1100.ultimateascent.commands.shooter.ChangeShooterSpeedCommand;
 import edu.arhs.team1100.ultimateascent.commands.shooter.ShootFrisbeeCommand;
 import edu.arhs.team1100.ultimateascent.commands.shooter.TiltShooterPIDCommand;
 import edu.arhs.team1100.ultimateascent.recording.PlayRecordingCommand;
@@ -23,7 +23,6 @@ import edu.arhs.team1100.ultimateascent.input.Camera;
 import edu.arhs.team1100.ultimateascent.subsystems.CompressorSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.DriveSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.IntakeSubsystem;
-import edu.arhs.team1100.ultimateascent.subsystems.LegSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterTiltSubsystem;
 import edu.arhs.team1100.ultimateascent.subsystems.ShooterWheelSubsystem;
 import edu.arhs.team1100.ultimateascent.util.DSLog;
@@ -115,6 +114,7 @@ public class RobotMain extends IterativeRobot {
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
+        ShooterWheelSubsystem.getInstance().setSpeed(ShooterWheelSubsystem.SHOOTING_SPEED);
         lastTime = System.currentTimeMillis();
         Scheduler.getInstance().enable();
     }
@@ -132,8 +132,8 @@ public class RobotMain extends IterativeRobot {
     }
 
     private void updateDriverStationLog() {
-        DSLog.log(1, "pressure :" + CompressorSubsystem.getInstance().getPressureSwitch());
-        // DSLog.log(1, "Drive Mode: " + ((DriveSubsystem.getInstance().getDriveMode() == DriveSubsystem.MODE_POLAR) ? "POLAR" : "CARTESIAN"));
+        DSLog.log(4, "pressure :" + CompressorSubsystem.getInstance().getPressureSwitch());
+         DSLog.log(1, "Drive Mode: " + ((DriveSubsystem.getInstance().getDriveMode() == DriveSubsystem.MODE_POLAR) ? "POLAR" : "CARTESIAN"));
         DSLog.log(2, "Gyro Angle: " + Log.round(DriveSubsystem.getInstance().getGyroAngle(), 2));
         //DSLog.log(3, "Rate      : " + rate);
         DSLog.log(3, "Shooter   : " + MathUtils.round(ShooterWheelSubsystem.getInstance().getSpeed() * 10));
@@ -142,7 +142,7 @@ public class RobotMain extends IterativeRobot {
 //        } else {
 //            DSLog.log(4, "pot:" + Log.round(ShooterTiltSubsystem.getInstance().getAngle(), 3));
 //        }
-        DSLog.log(4,"Legs: " + (LegSubsystem.getInstance().isDeployed()?"DEPLOYED":"OFF"));
+        //DSLog.log(4,"Legs: " + (LegSubsystem.getInstance().isDeployed()?"DEPLOYED":"OFF"));
 
         //DSLog.log(5, "Setpoint value : " + LiftSubsystem.);
 

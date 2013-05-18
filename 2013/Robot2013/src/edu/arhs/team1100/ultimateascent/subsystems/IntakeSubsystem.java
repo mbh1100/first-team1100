@@ -11,6 +11,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * @author Team 1100
  */
 public class IntakeSubsystem extends Subsystem {
+    
+    public static final boolean UP = false;
+    public static final boolean DOWN = true;
 
     static IntakeSubsystem instance;
     private Compressor compressor;
@@ -57,6 +60,12 @@ public class IntakeSubsystem extends Subsystem {
         intakeMotorLeft.setRaw(back?0:255);
         intakeMotorRight.setRaw(back?255:0);
     }
+    
+    public void setPosition(boolean p){
+        System.out.println("set to"+p);
+        intakePistonLeft.set(p);
+    }
+    
 
     /**
      * Toggle floor pickup position. Reverses position from current position.

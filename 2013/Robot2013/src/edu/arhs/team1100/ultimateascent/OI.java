@@ -1,12 +1,11 @@
 package edu.arhs.team1100.ultimateascent;
 
 import edu.arhs.team1100.ultimateascent.commands.IntakeLiftCommand;
-import edu.arhs.team1100.ultimateascent.commands.IntakeRollerCommand;
+import edu.arhs.team1100.ultimateascent.commands.IntakePositionCommand;
 import edu.arhs.team1100.ultimateascent.commands.ToggleLegCommand;
 import edu.arhs.team1100.ultimateascent.commands.shooter.ChangeShooterSpeedCommand;
 import edu.arhs.team1100.ultimateascent.commands.drive.ToggleDriveModeCommand;
 import edu.arhs.team1100.ultimateascent.commands.drive.CalibrateGyroCommand;
-import edu.arhs.team1100.ultimateascent.commands.drive.JoystickPIDMecanumCommand;
 import edu.arhs.team1100.ultimateascent.recording.RecordCommand;
 import edu.arhs.team1100.ultimateascent.recording.PlayRecordingCommand;
 import edu.arhs.team1100.ultimateascent.commands.drive.StopDriveCommand;
@@ -16,6 +15,7 @@ import edu.arhs.team1100.ultimateascent.recording.PrintRecordingCodeCommand;
 import edu.arhs.team1100.ultimateascent.commands.drive.CameraPIDMecanumCommand;
 import edu.arhs.team1100.ultimateascent.commands.shooter.CameraPIDTiltShooterCommand;
 import edu.arhs.team1100.ultimateascent.commands.shooter.RapidFireCommandGroup;
+import edu.arhs.team1100.ultimateascent.subsystems.IntakeSubsystem;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -67,7 +67,7 @@ public class OI {
 
         //CONTROL ASSIGNMENTS
         rightStick.getButton(TOGGLE_DRIVE).whenPressed(new ToggleDriveModeCommand());
-        //leftStick.getButton(CAMERA_PID).whileHeld(new CameraPIDMecanumCommand());
+        leftStick.getButton(CAMERA_PID).whileHeld(new CameraPIDMecanumCommand());
 
         rightStick.getButton(LEG).whenPressed(new ToggleLegCommand());
         leftStick.getButton(CALIBRATE_GYRO).whenPressed(new CalibrateGyroCommand());
@@ -85,12 +85,10 @@ public class OI {
         xbox.getButtonY().whileHeld(new CameraPIDTiltShooterCommand());
         //  xbox.getButtonY().whenReleased(new TiltShooterPositionPIDCommand(RobotMap.DS_FLAT_ANGLE_CH));
         // xbox.getButtonA().whileHeld(new  CameraPIDTiltShooterCommand());
-        // xbox.getButtonB().whileHeld(new TiltShooterPositionPIDCommand(RobotMap.DS_FEEDER_ANGLE_CH));
-        // xbox.getButtonA().whileHeld(new CameraPIDTiltShooterCommand());
-        // xbox.getButtonBack().whileHeld(new CameraTiltShooterCommand());
         //xbox.getButtonB().whenPressed(new ToggleLegCommand());
         xbox.getButtonB().whenPressed(new IntakeLiftCommand());
-        xbox.getButtonA().whileHeld(new IntakeRollerCommand());
+        //xbox.getButtonA().whenPressed(new IntakePositionCommand(IntakeSubsystem.DOWN));
+        //xbox.getButtonBack().whenPressed(new IntakePositionCommand(IntakeSubsystem.UP));
     }
 
     /**

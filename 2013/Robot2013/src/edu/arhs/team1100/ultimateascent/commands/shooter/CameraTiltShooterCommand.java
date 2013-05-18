@@ -39,7 +39,7 @@ public class CameraTiltShooterCommand extends CommandBase {
         double y = Camera.getInstance().getCenterY();
         double error = y - OFFSET;
         error = Math.min(1.0, Math.max(-1.0, error));
-        DSLog.log(5, "Err*rat: " + error * RATIO);
+        //DSLog.log(5, "Err*rat: " + error * RATIO);
         ShooterTiltSubsystem.getInstance().tilt(error * RATIO);
 
     }

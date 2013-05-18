@@ -14,6 +14,8 @@ public class IntakeLiftCommand extends CommandBase {
     public IntakeLiftCommand() {
         requires(IntakeSubsystem.getInstance());
     }
+    
+   
 
     /**
      * Called just before this Command runs the first time
