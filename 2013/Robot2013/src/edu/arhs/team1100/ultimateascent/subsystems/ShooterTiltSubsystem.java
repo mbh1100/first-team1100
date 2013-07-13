@@ -33,7 +33,7 @@ public class ShooterTiltSubsystem extends PIDSubsystem {
     /**
      * Creates a ShooterTilitSubsystem object if not already created
      *
-     * @return
+     * @return instance
      */
     public static ShooterTiltSubsystem getInstance() {
         if (instance == null) {
