@@ -9,8 +9,6 @@ package edu.arhs.team1100.aerialassist;
 import com.sun.squawk.util.MathUtils;
 import edu.arhs.team1100.aerialassist.commands.drive.CalibrateGyroCommand;
 import edu.arhs.team1100.aerialassist.commands.CommandBase;
-import edu.arhs.team1100.aerialassist.recording.PlayRecordingCommand;
-import edu.arhs.team1100.aerialassist.recording.RecordCommand;
 import edu.arhs.team1100.aerialassist.subsystems.DriveSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.IntakeSubsystem;
 import edu.arhs.team1100.aerialassist.util.DSLog;
@@ -49,8 +47,6 @@ public class RobotMain extends IterativeRobot {
         Log.addClass(RobotMain.class, Log.LEVEL_DEBUG);
         Log.addClass(DriveSubsystem.class, Log.LEVEL_DEBUG);
         Log.addClass(CalibrateGyroCommand.class, Log.LEVEL_OFF);
-        Log.addClass(RecordCommand.class, Log.LEVEL_DEBUG);
-        Log.addClass(PlayRecordingCommand.class, Log.LEVEL_DEBUG);
       
 
         // Instantiate the command used for the autonomous period
