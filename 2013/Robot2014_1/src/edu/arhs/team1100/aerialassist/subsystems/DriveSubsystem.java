@@ -23,6 +23,9 @@ public class DriveSubsystem extends PIDSubsystem {
     public static final double DIRECTION_RIGHT = 90;
     public static final int MODE_CARTESIAN = 0;
     public static final int MODE_POLAR = 1;
+    public static final double kJoystickP = 0.02;
+    public static final double kJoystickI = 0.0001;
+    public static final double kJoystickD = 0.0005;
     static DriveSubsystem instance;
     private RobotDrive drive;
     private Gyro driveGyro;
@@ -46,7 +49,9 @@ public class DriveSubsystem extends PIDSubsystem {
      * system, and gyro.
      */
     public DriveSubsystem() {
-        
+                super(kJoystickP, kJoystickI, kJoystickD);
+
+                
     }
 
     /**
