@@ -23,6 +23,7 @@ public class DriveSubsystem extends PIDSubsystem {
     public static final double DIRECTION_RIGHT = 90;
     public static final int MODE_CARTESIAN = 0;
     public static final int MODE_POLAR = 1;
+    public static final int MODE_TANK = 2;
     public static final double kJoystickP = 0.02;
     public static final double kJoystickI = 0.0001;
     public static final double kJoystickD = 0.0005;
@@ -63,13 +64,27 @@ public class DriveSubsystem extends PIDSubsystem {
             userDriveCartesian();
         } else if (driveMode == MODE_POLAR) {
             userDrivePolar();
+        } else if(driveMode == MODE_TANK) {
+            userDriveTank();
         } else {
             Log.log(this, "404: DRIVE MODE NOT FOUND. [W]hat a [T]errible [F]ailure.", driveMode);
-            driveMode = MODE_CARTESIAN;
-            userDriveCartesian();
+            driveMode = MODE_TANK;
+            userDriveTank();
         }
+      
     }
 
+    /**
+     * Defines values to drive Tank mode. Gets values from joysticks.
+     * 
+     */
+    private void userDriveTank()
+    {
+        double leftSpeed = -OI.getInstance().getLeftJoystick().getMagnitude();
+        double rightSpeed = -OI.getInstance().getRightJoystick().getMagnitude();
+        
+        drive.tankDrive(leftSpeed, rightSpeed);
+    }
     /**
      * Defines values to drive Cartesian mode. Gets values from controllers.
      */
@@ -130,10 +145,40 @@ public class DriveSubsystem extends PIDSubsystem {
      * Switches the drive mode between Polar and Cartesian.
      */
     public void toggleDriveMode() {
-        driveMode = (driveMode == MODE_CARTESIAN) ? MODE_POLAR : MODE_CARTESIAN;
+        if(driveMode == MODE_CARTESIAN)
+        {
+            setDriveMode("POLAR");
+        }
+        else
+        {
+            setDriveMode("CARTESIAN");
+        }
         DSLog.log(5, (driveMode == MODE_CARTESIAN) ? "Cartesian" : "Polar");
     }
-
+    
+    /**
+     * Switches the drive mode to the value given. Lowers or Raises wheels if octaconem drive is used.
+     * @param driveMode = driveMode to set.
+     */
+    public void setDriveMode(String driveMode)
+    {
+        if(driveMode.equals("TANK"))
+        {
+            //Lower Tank Wheels
+            this.driveMode = 2;
+        }
+        if(driveMode.equals("CARTESIAN"))
+        {
+            //If tank wheels are lowered, raise them.
+            this.driveMode = 0;
+        }
+        if(driveMode.equals("POLAR"))
+        {
+            //if tank wheels are lowered, raise them.
+            this.driveMode = 2;
+        }
+            
+    }
     /**
      *
      * @return the current drive mode, DriveSubsystem.MODE_POLAR or

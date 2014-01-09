@@ -3,6 +3,7 @@ package edu.arhs.team1100.aerialassist;
 import edu.arhs.team1100.aerialassist.commands.drive.ToggleDriveModeCommand;
 import edu.arhs.team1100.aerialassist.commands.drive.CalibrateGyroCommand;
 import edu.arhs.team1100.aerialassist.commands.drive.StopDriveCommand;
+import edu.arhs.team1100.aerialassist.commands.drive.TankModeCommand;
 import edu.arhs.team1100.aerialassist.input.AttackThree;
 import edu.arhs.team1100.aerialassist.input.XboxController;
 import edu.arhs.team1100.aerialassist.subsystems.IntakeSubsystem;
@@ -18,6 +19,7 @@ public class OI {
      */
     //Right STICK BUTTON SETTINGS
     private static final int TOGGLE_DRIVE = 2;
+    private static final int SET_TANK = 5;
     //left STICK BUTTON SETTINGS
     private static final int CALIBRATE_GYRO = 3;
     private static final int LEG = 1;//trigger
@@ -51,6 +53,7 @@ public class OI {
 
         //CONTROL ASSIGNMENTS
         rightStick.getButton(TOGGLE_DRIVE).whenPressed(new ToggleDriveModeCommand());
+        rightStick.getButton(SET_TANK).whenPressed(new TankModeCommand());
         leftStick.getButton(CALIBRATE_GYRO).whenPressed(new CalibrateGyroCommand());
         leftStick.getButton(STOP_DRIVE).whenPressed(new StopDriveCommand(0.1));
 
