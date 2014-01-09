@@ -165,17 +165,17 @@ public class DriveSubsystem extends PIDSubsystem {
         if(driveMode.equals("TANK"))
         {
             //Lower Tank Wheels
-            this.driveMode = 2;
+            this.driveMode = MODE_TANK;
         }
         if(driveMode.equals("CARTESIAN"))
         {
             //If tank wheels are lowered, raise them.
-            this.driveMode = 0;
+            this.driveMode = MODE_CARTESIAN;
         }
         if(driveMode.equals("POLAR"))
         {
             //if tank wheels are lowered, raise them.
-            this.driveMode = 2;
+            this.driveMode = MODE_POLAR;
         }
             
     }

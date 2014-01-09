@@ -11,15 +11,15 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * @author Team 1100
  */
 public class IntakeSubsystem extends Subsystem {
-    
+
     static IntakeSubsystem instance;
-  
+
     /**
      * Constructs an IntakeSubsystem. Initializes compressor, lift pistons,
      * intake motors. Starts compressor.
      */
     public IntakeSubsystem() {
-        
+
     }
 
     /**
@@ -33,6 +33,26 @@ public class IntakeSubsystem extends Subsystem {
             instance.initDefaultCommand();
         }
         return instance;
+    }
+
+    public void stopRollers() {
+        //stop motors
+    }
+
+    public void rollIn() {
+        //set motors to roll in
+    }
+
+    public void rollout() {
+        //set motors to roll out
+    }
+
+    public void setPostitionOut() {
+        //set out postition
+    }
+
+    public void setPostitionIn() {
+        //set in postition
     }
 
     /**
