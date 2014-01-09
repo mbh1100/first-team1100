@@ -106,21 +106,39 @@ public class DriveSubsystem extends PIDSubsystem {
     }
 
     /**
-     * Drives using given values. Default is Cartesian mode.
+     * Drives using mecanum (if enabled) using given values. Default is Cartesian mode.
      *
      * @param magnitude speed of the robot
      * @param angle direction of the robot
      * @param rotation rate of rotation
      */
-    public void drive(double magnitude, double angle, double rotation) {
-        drive.mecanumDrive_Cartesian((Math.sin(Math.toRadians(angle)) * magnitude), (Math.cos(Math.toRadians(angle)) * magnitude), rotation, driveGyro.getAngle());
+    public void driveMecanum(double magnitude, double angle, double rotation) {
+        if(driveMode == MODE_CARTESIAN || driveMode == MODE_POLAR){
+            drive.mecanumDrive_Cartesian((Math.sin(Math.toRadians(angle)) * magnitude), (Math.cos(Math.toRadians(angle)) * magnitude), rotation, driveGyro.getAngle());
+        }
+    }
+    
+    /**
+     * Drives using tank (if enabled) using given values.
+     *
+     * @param leftValue speed of the left wheels
+     * @param rightValue speed of the right wheels
+     */
+    public void driveTank(double leftValue, double rightValue ){
+        if (driveMode == MODE_TANK){
+            drive.tankDrive(leftValue, rightValue);
+        }
     }
 
     /**
      * Stops the drive movement.
      */
     public void stop() {
-        drive(0, 0, 0);
+        if(driveMode == MODE_CARTESIAN || driveMode == MODE_POLAR){
+            driveMecanum(0, 0, 0);
+        } else if (driveMode == MODE_TANK){
+            drive.tankDrive(0, 0); 
+        }
     }
 
     /**
