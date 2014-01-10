@@ -6,6 +6,7 @@ import edu.arhs.team1100.aerialassist.RobotMap;
 import edu.arhs.team1100.aerialassist.commands.drive.JoystickMecanumCommand;
 import edu.arhs.team1100.aerialassist.util.DSLog;
 import edu.arhs.team1100.aerialassist.util.Log;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -28,7 +29,20 @@ public class DriveSubsystem extends PIDSubsystem {
     public static final double kJoystickI = 0.0001;
     public static final double kJoystickD = 0.0005;
     static DriveSubsystem instance;
-    private RobotDrive drive;
+    private DoubleSolenoid frontRightSolenoid;
+    private DoubleSolenoid frontLeftSolenoid;
+    private DoubleSolenoid backRightSolenoid;
+    private DoubleSolenoid backLeftSolenoid;
+    private Talon MfrontLeftTalon;
+    private Talon MfrontRightTalon;
+    private Talon MbackLeftTalon;
+    private Talon MbackRightTalon;
+    private Talon TfrontLeftTalon;
+    private Talon TfrontRightTalon;
+    private Talon TbackLeftTalon;
+    private Talon TbackRightTalon;
+    private RobotDrive mecDrive;
+    private RobotDrive tankDrive;
     private Gyro driveGyro;
     private int driveMode = MODE_CARTESIAN;
 
@@ -51,7 +65,35 @@ public class DriveSubsystem extends PIDSubsystem {
      */
     public DriveSubsystem() {
                 super(kJoystickP, kJoystickI, kJoystickD);
+        
+        frontLeftSolenoid = new DoubleSolenoid(RobotMap.D_BACK_LEFT_SOLENOID_PORTA, RobotMap.D_BACK_LEFT_SOLENOID_PORTB);
+        frontRightSolenoid = new DoubleSolenoid(RobotMap.D_BACK_RIGHT_SOLENOID_PORTA, RobotMap.D_BACK_RIGHT_SOLENOID_PORTB);
+        backLeftSolenoid = new DoubleSolenoid(RobotMap.D_FRONT_LEFT_SOLENOID_PORTA, RobotMap.D_FRONT_LEFT_SOLENOID_PORTB);
+        backRightSolenoid = new DoubleSolenoid(RobotMap.D_BACK_RIGHT_SOLENOID_PORTA, RobotMap.D_FRONT_RIGHT_SOLENOID_PORTB);
+                
+        MfrontLeftTalon = new Talon(RobotMap.DM_TALON_FRONT_LEFT);
+        MfrontRightTalon = new Talon(RobotMap.DM_TALON_FRONT_RIGHT);
+        MbackLeftTalon = new Talon(RobotMap.DM_TALON_BACK_LEFT);
+        MbackRightTalon = new Talon(RobotMap.DM_TALON_BACK_RIGHT);
 
+        TfrontLeftTalon = new Talon(RobotMap.DT_TALON_FRONT_LEFT);
+        TfrontRightTalon = new Talon(RobotMap.DT_TALON_FRONT_RIGHT);
+        TbackLeftTalon = new Talon(RobotMap.DT_TALON_BACK_LEFT);
+        TbackRightTalon = new Talon(RobotMap.DT_TALON_BACK_RIGHT);
+        
+        mecDrive = new RobotDrive(
+                MfrontLeftTalon,
+                MfrontRightTalon,
+                MbackLeftTalon,
+                MbackRightTalon);
+
+        tankDrive = new RobotDrive( 
+                TfrontLeftTalon,
+                TfrontRightTalon,
+                TbackLeftTalon,
+                TbackRightTalon);
+        
+        driveGyro = new Gyro(RobotMap.D_GYRO);
                 
     }
 
@@ -83,7 +125,7 @@ public class DriveSubsystem extends PIDSubsystem {
         double leftSpeed = -OI.getInstance().getLeftJoystick().getMagnitude();
         double rightSpeed = -OI.getInstance().getRightJoystick().getMagnitude();
         
-        drive.tankDrive(leftSpeed, rightSpeed);
+        tankDrive.tankDrive(leftSpeed, rightSpeed);
     }
     /**
      * Defines values to drive Cartesian mode. Gets values from controllers.
@@ -92,7 +134,7 @@ public class DriveSubsystem extends PIDSubsystem {
         double rotation = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
         double controlX = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
         double controlY = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
-        drive.mecanumDrive_Cartesian(controlX, controlY, rotation, driveGyro.getAngle());
+        mecDrive.mecanumDrive_Cartesian(controlX, controlY, rotation, driveGyro.getAngle());
     }
 
     /**
@@ -102,7 +144,7 @@ public class DriveSubsystem extends PIDSubsystem {
         double magnitude = -OI.getInstance().getRightJoystick().getMagnitude();
         double angle = -OI.getInstance().getRightJoystick().getAngle();
         double rotation = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
-        drive.mecanumDrive_Polar(magnitude, angle, rotation);
+        mecDrive.mecanumDrive_Polar(magnitude, angle, rotation);
     }
 
     /**
@@ -114,7 +156,7 @@ public class DriveSubsystem extends PIDSubsystem {
      */
     public void driveMecanum(double magnitude, double angle, double rotation) {
         if(driveMode == MODE_CARTESIAN || driveMode == MODE_POLAR){
-            drive.mecanumDrive_Cartesian((Math.sin(Math.toRadians(angle)) * magnitude), (Math.cos(Math.toRadians(angle)) * magnitude), rotation, driveGyro.getAngle());
+            mecDrive.mecanumDrive_Cartesian((Math.sin(Math.toRadians(angle)) * magnitude), (Math.cos(Math.toRadians(angle)) * magnitude), rotation, driveGyro.getAngle());
         }
     }
     
@@ -126,7 +168,7 @@ public class DriveSubsystem extends PIDSubsystem {
      */
     public void driveTank(double leftValue, double rightValue ){
         if (driveMode == MODE_TANK){
-            drive.tankDrive(leftValue, rightValue);
+            tankDrive.tankDrive(leftValue, rightValue);
         }
     }
 
@@ -137,7 +179,7 @@ public class DriveSubsystem extends PIDSubsystem {
         if(driveMode == MODE_CARTESIAN || driveMode == MODE_POLAR){
             driveMecanum(0, 0, 0);
         } else if (driveMode == MODE_TANK){
-            drive.tankDrive(0, 0); 
+            driveTank(0, 0);
         }
     }
 
@@ -156,11 +198,12 @@ public class DriveSubsystem extends PIDSubsystem {
     protected void usePIDOutput(double rotationSpeed) {
         double controlX = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
         double controlY = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
-        drive.mecanumDrive_Cartesian(controlX, controlY, rotationSpeed, driveGyro.getAngle());
+        mecDrive.mecanumDrive_Cartesian(controlX, controlY, rotationSpeed, driveGyro.getAngle());
     }
 
     /**
-     * Switches the drive mode between Polar and Cartesian.
+     * Switches the drive mode between Polar and Cartesian. If the user is in tank mode, cartesian is activated.
+     * 
      */
     public void toggleDriveMode() {
         if(driveMode == MODE_CARTESIAN)
@@ -194,13 +237,12 @@ public class DriveSubsystem extends PIDSubsystem {
         {
             //if tank wheels are lowered, raise them.
             this.driveMode = MODE_POLAR;
-        }
-            
+        }            
     }
     /**
      *
      * @return the current drive mode, DriveSubsystem.MODE_POLAR or
-     * DriveSubsystem.MODE_CARTESIAN.
+     * DriveSubsystem.MODE_CARTESIAN or DriveSubsystem.MODE_TANK.
      */
     public int getDriveMode() {
         return driveMode;
