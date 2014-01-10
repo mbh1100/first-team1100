@@ -46,6 +46,8 @@ public class RobotMain extends IterativeRobot {
         //Add all logging classes
         Log.addClass(RobotMain.class, Log.LEVEL_DEBUG);
         Log.addClass(DriveSubsystem.class, Log.LEVEL_DEBUG);
+        Log.addClass(IntakeSubsystem.class, Log.LEVEL_DEBUG);
+
         Log.addClass(CalibrateGyroCommand.class, Log.LEVEL_OFF);
       
 

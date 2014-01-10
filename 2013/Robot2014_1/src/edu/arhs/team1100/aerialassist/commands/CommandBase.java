@@ -28,6 +28,7 @@ public abstract class CommandBase extends Command {
 
         DriveSubsystem.getInstance();
         OI.getInstance();
+        IntakeSubsystem.getInstance();
 
 
         // Show what command your subsystem is running on the SmartDashboard
