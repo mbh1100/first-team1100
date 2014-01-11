@@ -1,4 +1,4 @@
-package edu.arhs.team1100.aerialassist.commands.drive;
+package edu.arhs.team1100.aerialassist.commands;
 
 import edu.arhs.team1100.aerialassist.commands.CommandBase;
 import edu.arhs.team1100.aerialassist.subsystems.DriveSubsystem;
