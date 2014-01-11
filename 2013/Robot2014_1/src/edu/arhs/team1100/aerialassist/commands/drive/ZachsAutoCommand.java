@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 import edu.arhs.team1100.aerialassist.commands.DriveInALineCommand;
 import edu.arhs.team1100.aerialassist.commands.DriveInTankCommand;
 import edu.arhs.team1100.aerialassist.subsystems.DriveSubsystem;
+import edu.arhs.team1100.aerialassist.commands.StopDriveCommand;
 
 /**
  * @author Team 1100's Resident Afro (Zach)
@@ -21,14 +22,22 @@ public class ZachsAutoCommand extends CommandGroup {
      */
     public ZachsAutoCommand(){
         addSequential(new DriveInALineCommand(.4, DriveSubsystem.getInstance().DIRECTION_LEFT, 5));
+        addSequential(new StopDriveCommand(1));
         addSequential(new DriveInTankCommand(.4, -.4, 5));
+        addSequential(new StopDriveCommand(1));
         addSequential(new DriveInTankCommand(-.4, .4, 5));
+        addSequential(new StopDriveCommand(1));
         addSequential(new DriveInALineCommand(.4, DriveSubsystem.getInstance().DIRECTION_RIGHT, 5));
+        addSequential(new StopDriveCommand(1));
         for(int i=0; i<5; i++){
         addSequential(new DriveInALineCommand(.4, DriveSubsystem.getInstance().DIRECTION_FORWARD, 5));
+        addSequential(new StopDriveCommand(1));
         addSequential(new DriveInALineCommand(.4, DriveSubsystem.getInstance().DIRECTION_RIGHT, 5));
+        addSequential(new StopDriveCommand(1));
         addSequential(new DriveInALineCommand(.4, DriveSubsystem.getInstance().DIRECTION_BACK, 5));
+        addSequential(new StopDriveCommand(1));
         addSequential(new DriveInALineCommand(.4, DriveSubsystem.getInstance().DIRECTION_LEFT, 5));
+        addSequential(new StopDriveCommand(1));
     }
     }
 }
