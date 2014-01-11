@@ -7,12 +7,12 @@ import edu.arhs.team1100.aerialassist.subsystems.DriveSubsystem;
  *
  * @author Team 1100
  */
-public class JoystickMecanumCommand extends CommandBase {
+public class UserDriveCommand extends CommandBase {
 
     /**
      * Constructs a DriveSubsystem object
      */
-    public JoystickMecanumCommand() {
+    public UserDriveCommand() {
         requires(DriveSubsystem.getInstance());
     }
 

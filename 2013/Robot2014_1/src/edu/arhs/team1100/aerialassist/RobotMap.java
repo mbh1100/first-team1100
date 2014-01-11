@@ -20,14 +20,10 @@ public class RobotMap {
     public static int DS_I = 2;
     public static int DS_D = 3;
     //[D]RIVE
-    public static final int DM_TALON_FRONT_LEFT = 1;
-    public static final int DM_TALON_FRONT_RIGHT = 2;
-    public static final int DM_TALON_BACK_LEFT = 3;
-    public static final int DM_TALON_BACK_RIGHT = 4;
-    public static final int DT_TALON_FRONT_LEFT = 5;
-    public static final int DT_TALON_FRONT_RIGHT = 6;
-    public static final int DT_TALON_BACK_LEFT = 7;
-    public static final int DT_TALON_BACK_RIGHT = 8;
+    public static final int D_TALON_FRONT_LEFT = 1;
+    public static final int D_TALON_FRONT_RIGHT = 2;
+    public static final int D_TALON_BACK_LEFT = 3;
+    public static final int D_TALON_BACK_RIGHT = 4;
     public static final int D_GYRO = 1;
     public static int D_FRONT_LEFT_SOLENOID_PORTA;
     public static int D_FRONT_LEFT_SOLENOID_PORTB;

@@ -19,7 +19,8 @@ public class ToggleDriveModeCommand extends CommandBase {
     }
 
     /**
-     * Toggles drive mode and turns finish to true
+     * Toggles drive mode and turns finish to true.
+     * 
      */
     protected void execute() {
         DriveSubsystem.getInstance().toggleDriveMode();

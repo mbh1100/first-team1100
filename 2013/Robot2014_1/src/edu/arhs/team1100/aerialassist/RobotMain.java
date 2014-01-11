@@ -105,7 +105,16 @@ public class RobotMain extends IterativeRobot {
     }
 
     private void updateDriverStationLog() {
-        DSLog.log(1, "Drive Mode: " + ((DriveSubsystem.getInstance().getDriveMode() == DriveSubsystem.MODE_POLAR) ? "POLAR" : "CARTESIAN"));
+        if (DriveSubsystem.getInstance().getDriveMode() == DriveSubsystem.MODE_POLAR){
+            DSLog.log(1, "Drive Mode: POLAR");
+        }
+        else if (DriveSubsystem.getInstance().getDriveMode() == DriveSubsystem.MODE_TANK){
+            DSLog.log(1, "Drive Mode: TANK");
+        }
+        else if (DriveSubsystem.getInstance().getDriveMode() == DriveSubsystem.MODE_CARTESIAN){
+            DSLog.log(1, "Drive Mode: CARTESIAN");
+        }
+      
         DSLog.log(2, "Gyro Angle: " + Log.round(DriveSubsystem.getInstance().getGyroAngle(), 2));
     
     }
