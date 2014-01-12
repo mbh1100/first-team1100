@@ -31,8 +31,18 @@ public class Client extends Thread {
     private DataOutputStream out;
     
     private boolean isRunning = false;
-        
+    
+    private boolean noGUI = false;
+    private String argClientName;
+    private String argServerName;
+    
     public Client(){}
+    
+    public Client(String clientName, String serverName){
+        noGUI = true;
+        argClientName = clientName;
+        argServerName = serverName;
+    }
     
     @Override
     public void run(){
@@ -42,14 +52,20 @@ public class Client extends Thread {
         boolean connected = false;   
 
         
-        do {            
-            int setupResult = JOptionPane.showConfirmDialog(new JFrame(), setup, "Setup", JOptionPane.OK_CANCEL_OPTION);
-            if(setupResult != JOptionPane.OK_OPTION){
-                System.exit(0);
-            }   
+        do { 
             
-            ID = setup.clientName.getText();
-            serverName = setup.serverName.getText();           
+            if(noGUI){
+                ID = argClientName;
+                serverName = argServerName;
+            } else {
+                int setupResult = JOptionPane.showConfirmDialog(new JFrame(), setup, "Setup", JOptionPane.OK_CANCEL_OPTION);
+                if(setupResult != JOptionPane.OK_OPTION){
+                    System.exit(0);
+                }   
+
+                ID = setup.clientName.getText();
+                serverName = setup.serverName.getText();  
+            }
         
             if(server == null){
                 try {
@@ -70,16 +86,26 @@ public class Client extends Thread {
                         }
                     }
                     System.out.println("Connected to "+serverName+" as "+ID);
+                    isRunning = true;
                 }catch(Exception e){
+                    e.printStackTrace();
                     if(e.getMessage() != null){
                         if (e.getMessage().toLowerCase().contains(ERROR_CONNECTION_RESET)) {
                             disconnect();
                         }
                     }
-                    //could not connect, ask to try setup again
-                    int result = JOptionPane.showConfirmDialog(new JFrame(), "Could not connect to server \""+serverName+"\". Client Name may already be in use or Server Address may be incorrect. Retry?", "Error", JOptionPane.YES_NO_OPTION);
-                    if(result != JOptionPane.OK_OPTION){
-                        System.exit(0);
+                    if(noGUI){ // no gui, wait 10 seconds and try again
+                      try{
+                          Thread.sleep(10000);
+                      } catch(Exception e1) {
+                          //do nothing
+                      }
+                    } else {
+                        //could not connect, ask to try setup again
+                        int result = JOptionPane.showConfirmDialog(new JFrame(), "Could not connect to server \""+serverName+"\". Client Name may already be in use or Server Address may be incorrect. Retry?", "Error", JOptionPane.YES_NO_OPTION);
+                        if(result != JOptionPane.OK_OPTION){
+                            System.exit(0);
+                        }
                     }
                 }
             }
@@ -88,7 +114,7 @@ public class Client extends Thread {
         try {           
             server.setSoTimeout(0);
         } catch(Exception e){}
-        
+        System.out.printf("isRunning = %b", isRunning);
         while(isRunning){            
             try{
                 if (app != null) {
@@ -116,6 +142,7 @@ public class Client extends Thread {
                     continue;
                 }
                 if(e.getMessage().toLowerCase().contains(ERROR_CONNECTION_RESET)){
+                    e.printStackTrace();
                     disconnect();
                 }
             }       
@@ -147,6 +174,7 @@ public class Client extends Thread {
                 return cmd;
             }
         } catch (Exception e){
+            e.printStackTrace();
             if (e.getMessage().equalsIgnoreCase(ERROR_CONNECTION_RESET)) {
                 disconnect();
             }
@@ -155,6 +183,7 @@ public class Client extends Thread {
     }
     
     private void startApp(String appname){
+        System.out.printf("startApp(%s)", appname);
         endApp();
         app = DisplayGrid.getClientApp(appname);        
         if(app != null){
@@ -165,7 +194,8 @@ public class Client extends Thread {
         }        
     }
 
-    private void endApp(){        
+    private void endApp(){ 
+        System.out.println("endApp()");
         try {
             app.finish();
             app.join();
@@ -175,6 +205,7 @@ public class Client extends Thread {
     }
     
     private void disconnect(){
+        System.out.println("disconnect()");
         endApp();
         isRunning = false;
         try{

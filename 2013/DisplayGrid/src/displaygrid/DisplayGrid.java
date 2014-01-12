@@ -18,12 +18,13 @@ public class DisplayGrid  extends JFrame implements ActionListener {
     
      /**
      * @param args the command line arguments
+     * to run automatically: java -jar DisplayGrid.jar c [Client Name] [Server Address]
      */
     public static void main(String[] args) {
-        new DisplayGrid();
+        new DisplayGrid(args);
     }
     
-    public DisplayGrid(){
+    public DisplayGrid(String[] args){
         super();
         
         //get list of app names
@@ -35,6 +36,11 @@ public class DisplayGrid  extends JFrame implements ActionListener {
                 System.out.println(e.getMessage());
                 Config.appNames[i] = "App "+i;
             }
+        }
+        
+        if(args.length >= 3 && (args[0].startsWith("c") || args[0].startsWith("C"))){
+            new Client(args[1], args[2]).start();
+            return;            
         }
 
         try {
