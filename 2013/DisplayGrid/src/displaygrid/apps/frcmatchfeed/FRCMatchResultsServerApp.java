@@ -23,8 +23,8 @@ public class FRCMatchResultsServerApp extends ServerApp implements UserStreamLis
     private final String CONSUMER_SECRET = "HIG9WI2ISdf3Lau2aJfjmQH6MgI9q8dH5pQYr9Nztts";
     private final String ACCESS_TOKEN = "1260628040-2eWI6BDvlAKeP2RXLQzSaQ0nhYXVz1Nq1tTuY66";
     private final String ACCESS_TOKEN_SECRET = "qI6xDdYwv60beXcUALbicAJMEsizCUWJ7dxd2YD0";
-    private final long FMS_USERID = 20603824;
-    //private final long FMS_USERID = 1260704491;
+    //private final long FMS_USERID = 20603824;
+    private final long FMS_USERID = 1260704491;
     private TwitterStream frcStream;
     
 
@@ -96,7 +96,7 @@ public class FRCMatchResultsServerApp extends ServerApp implements UserStreamLis
                 
                 String header = "";    
                 header += "event:"+m.event.substring(1)+"#";
-                if(! m.event.equalsIgnoreCase("#FRCMABO"))return;
+                if(! m.event.equalsIgnoreCase("#FRCBO"))return;
                 System.out.println("at boston");
                 header += "type:"+m.type+"#";
                 

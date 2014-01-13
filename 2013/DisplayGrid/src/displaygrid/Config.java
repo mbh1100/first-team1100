@@ -6,8 +6,6 @@ import displaygrid.apps.BallBounceVerticleClientApp;
 import displaygrid.apps.BallBounceVerticleServerApp;
 import displaygrid.apps.BlackScreenClientApp;
 import displaygrid.apps.BlackScreenServerApp;
-import displaygrid.apps.PanoramaViewerClientApp;
-import displaygrid.apps.PanoramaViewerServerApp;
 import displaygrid.apps.RandomColorsClientApp;
 import displaygrid.apps.RandomColorsServerApp;
 import displaygrid.apps.TextBannerClientApp;
@@ -34,7 +32,6 @@ public class Config {
         BallBounceClientApp.class,
         BallBounceVerticleClientApp.class,
         TextBannerClientApp.class,
-        PanoramaViewerClientApp.class,
         FRCMatchResultsClientApp.class,
     };
     
@@ -44,7 +41,6 @@ public class Config {
         BallBounceServerApp.class,
         BallBounceVerticleServerApp.class,
         TextBannerServerApp.class,
-        PanoramaViewerServerApp.class,
         FRCMatchResultsServerApp.class,
     };
     

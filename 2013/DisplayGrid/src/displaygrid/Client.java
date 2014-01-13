@@ -133,7 +133,7 @@ public class Client extends Thread {
                     Thread.sleep(targetDelta);                
                     
                 } else {
-                    readUTF(true);
+                    readUTF(false);
                     Thread.sleep(SLEEP_TIME);
                 }
 
