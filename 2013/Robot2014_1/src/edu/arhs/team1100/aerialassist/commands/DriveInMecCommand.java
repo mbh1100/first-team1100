@@ -35,6 +35,7 @@ public class DriveInMecCommand extends CommandBase {
     }
 
     protected void execute() {
+        DriveSubsystem.getInstance().setDriveMode(DriveSubsystem.MODE_CARTESIAN);
         DriveSubsystem.getInstance().driveMecanum(speed, direction, duration);
     }
 

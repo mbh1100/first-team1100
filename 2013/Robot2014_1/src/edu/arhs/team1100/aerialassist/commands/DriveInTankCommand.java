@@ -36,6 +36,7 @@ public class DriveInTankCommand extends CommandBase {
     }
 
     protected void execute() {
+        DriveSubsystem.getInstance().setDriveMode(DriveSubsystem.MODE_TANK);
         DriveSubsystem.getInstance().driveTank(leftValue, rightValue);
     }
 
