@@ -12,7 +12,7 @@ import edu.arhs.team1100.aerialassist.subsystems.DriveSubsystem;
 import edu.arhs.team1100.aerialassist.commands.StopDriveCommand;
 
 /**
- * @author Team 1100's Resident Afro (Zach)
+ * @author Team 1100's Resident Soon to be no Afro (Zach)
  */
 public class ZachsAutoCommand extends CommandGroup {
 
@@ -21,31 +21,28 @@ public class ZachsAutoCommand extends CommandGroup {
      * Then, it will drive in 5 boxes.
      * AFter, it will do some spazzy tank drive.
      */
-    public ZachsAutoCommand(){
-        addSequential(new DriveInALineCommand(.4, DriveSubsystem.getInstance().DIRECTION_LEFT, 5));
+    public ZachsAutoCommand(double speed, double duration){
+        addSequential(new DriveInALineCommand(speed, DriveSubsystem.getInstance().DIRECTION_LEFT, duration));
+        addSequential(new DriveInTankCommand(speed, -speed, duration));
         addSequential(new StopDriveCommand(1));
-        addSequential(new DriveInTankCommand(.4, -.4, 5));
-        addSequential(new StopDriveCommand(1));
-        addSequential(new DriveInTankCommand(-.4, .4, 5));
-        addSequential(new StopDriveCommand(1));
-        addSequential(new DriveInALineCommand(.4, DriveSubsystem.getInstance().DIRECTION_RIGHT, 5));
-        addSequential(new StopDriveCommand(1));
+        addSequential(new DriveInTankCommand(-speed, speed, duration));
+        addSequential(new DriveInALineCommand(speed, DriveSubsystem.getInstance().DIRECTION_RIGHT, duration));
         for(int i=0; i<5; i++){
-            addSequential(new DriveInALineCommand(.4, DriveSubsystem.getInstance().DIRECTION_FORWARD, 5));
-            addSequential(new DriveInALineCommand(.4, DriveSubsystem.getInstance().DIRECTION_RIGHT, 5));
-            addSequential(new DriveInALineCommand(.4, DriveSubsystem.getInstance().DIRECTION_BACK, 5));
-            addSequential(new DriveInALineCommand(.4, DriveSubsystem.getInstance().DIRECTION_LEFT, 5));
+            addSequential(new DriveInALineCommand(speed, DriveSubsystem.getInstance().DIRECTION_FORWARD, duration));
+            addSequential(new DriveInALineCommand(speed, DriveSubsystem.getInstance().DIRECTION_RIGHT, duration));
+            addSequential(new DriveInALineCommand(speed, DriveSubsystem.getInstance().DIRECTION_BACK, duration));
+            addSequential(new DriveInALineCommand(speed, DriveSubsystem.getInstance().DIRECTION_LEFT, duration));
         }
         for(int i=0; i<2; i++){
-        addSequential(new DriveInTankCommand(.4, .2, 5));
-        addSequential(new DriveInTankCommand(-.4, -.2, 5));
+        addSequential(new DriveInTankCommand(speed, speed/2, duration));
+        addSequential(new DriveInTankCommand(-speed, -speed/2, duration));
         }
         addSequential(new StopDriveCommand(1));
         for(int i=0; i<2; i++){
-        addSequential(new DriveInTankCommand(-.4, -.2, 5));
-        addSequential(new DriveInTankCommand(.4, .2, 5));
+        addSequential(new DriveInTankCommand(-speed, -speed/2, duration));
+        addSequential(new DriveInTankCommand(speed, speed/2, duration));
         }
-        addSequential(new DriveInTankCommand(.6, -.6, 5));
+        addSequential(new DriveInTankCommand(speed, -speed, duration));
         
     }
 }
