@@ -35,6 +35,17 @@ public class ZachsAutoCommand extends CommandGroup {
             addSequential(new DriveInALineCommand(.4, DriveSubsystem.getInstance().DIRECTION_BACK, 5));
             addSequential(new DriveInALineCommand(.4, DriveSubsystem.getInstance().DIRECTION_LEFT, 5));
         }
+        for(int i=0; i<2; i++){
+        addSequential(new DriveInTankCommand(.4, .2, 5));
+        addSequential(new DriveInTankCommand(-.4, -.2, 5));
+        }
+        addSequential(new StopDriveCommand(1));
+        for(int i=0; i<2; i++){
+        addSequential(new DriveInTankCommand(-.4, -.2, 5));
+        addSequential(new DriveInTankCommand(.4, .2, 5));
+        }
+        addSequential(new DriveInTankCommand(.6, -.6, 5));
+        
     }
 }
            
