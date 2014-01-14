@@ -19,6 +19,7 @@ public class ZachsAutoCommand extends CommandGroup {
     /**
      * Drives to the left, then in a circle, then un-does its actions.
      * Then, it will drive in 5 boxes.
+     * AFter, it will do some spazzy tank drive.
      */
     public ZachsAutoCommand(){
         addSequential(new DriveInALineCommand(.4, DriveSubsystem.getInstance().DIRECTION_LEFT, 5));
