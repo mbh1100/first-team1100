@@ -116,7 +116,7 @@ public class DriveSubsystem extends PIDSubsystem {
     
     private void raiseMecWheels()
     {
-         if(wheelsLowered)
+        if(wheelsLowered)
         {
             frontLeftSolenoid.set(DoubleSolenoid.Value.kReverse);
             frontRightSolenoid.set(DoubleSolenoid.Value.kReverse);
@@ -247,17 +247,17 @@ public class DriveSubsystem extends PIDSubsystem {
     {
         if(driveMode == MODE_TANK)
         {
-            lowerMecWheels();
+            raiseMecWheels();
             this.driveMode = MODE_TANK;
         }
         if(driveMode == MODE_CARTESIAN)
         {
-            raiseMecWheels();
+            lowerMecWheels();
             this.driveMode = MODE_CARTESIAN;
         }
         if(driveMode == MODE_POLAR)
         {
-            raiseMecWheels();
+            lowerMecWheels();
             this.driveMode = MODE_POLAR;
         }            
         
