@@ -40,6 +40,7 @@ public class DriveSubsystem extends PIDSubsystem {
     private RobotDrive drive;
     private Gyro driveGyro;
     private int driveMode = MODE_CARTESIAN;
+    private boolean wheelsLowered = true;
 
     /**
      * Creates a DriveSubsystem if not already created
@@ -61,10 +62,10 @@ public class DriveSubsystem extends PIDSubsystem {
     public DriveSubsystem() {
                 super(kJoystickP, kJoystickI, kJoystickD);
         
-     //   frontLeftSolenoid = new DoubleSolenoid(RobotMap.D_BACK_LEFT_SOLENOID_PORTA, RobotMap.D_BACK_LEFT_SOLENOID_PORTB);
-      //  frontRightSolenoid = new DoubleSolenoid(RobotMap.D_BACK_RIGHT_SOLENOID_PORTA, RobotMap.D_BACK_RIGHT_SOLENOID_PORTB);
-      //  backLeftSolenoid = new DoubleSolenoid(RobotMap.D_FRONT_LEFT_SOLENOID_PORTA, RobotMap.D_FRONT_LEFT_SOLENOID_PORTB);
-      //  backRightSolenoid = new DoubleSolenoid(RobotMap.D_BACK_RIGHT_SOLENOID_PORTA, RobotMap.D_FRONT_RIGHT_SOLENOID_PORTB);
+        frontLeftSolenoid = new DoubleSolenoid(RobotMap.D_FRONT_LEFT_SOLENOID_PORTA, RobotMap.D_FRONT_LEFT_SOLENOID_PORTB);
+        frontRightSolenoid = new DoubleSolenoid(RobotMap.D_FRONT_RIGHT_SOLENOID_PORTA, RobotMap.D_FRONT_RIGHT_SOLENOID_PORTB);
+        backLeftSolenoid = new DoubleSolenoid(RobotMap.D_BACK_LEFT_SOLENOID_PORTA, RobotMap.D_BACK_LEFT_SOLENOID_PORTB);
+        backRightSolenoid = new DoubleSolenoid(RobotMap.D_BACK_RIGHT_SOLENOID_PORTA, RobotMap.D_BACK_RIGHT_SOLENOID_PORTB);
                 
         frontLeftTalon = new Talon(RobotMap.D_TALON_FRONT_LEFT);
         frontRightTalon = new Talon(RobotMap.D_TALON_FRONT_RIGHT);
@@ -101,6 +102,30 @@ public class DriveSubsystem extends PIDSubsystem {
       
     }
 
+    private void lowerMecWheels()
+    {
+        if(!wheelsLowered)
+        {
+            frontLeftSolenoid.set(DoubleSolenoid.Value.kForward);
+            frontRightSolenoid.set(DoubleSolenoid.Value.kForward);
+            backLeftSolenoid.set(DoubleSolenoid.Value.kForward);
+            backRightSolenoid.set(DoubleSolenoid.Value.kForward);
+            wheelsLowered = true;
+        }
+    }
+    
+    private void raiseMecWheels()
+    {
+         if(wheelsLowered)
+        {
+            frontLeftSolenoid.set(DoubleSolenoid.Value.kReverse);
+            frontRightSolenoid.set(DoubleSolenoid.Value.kReverse);
+            backLeftSolenoid.set(DoubleSolenoid.Value.kReverse);
+            backRightSolenoid.set(DoubleSolenoid.Value.kReverse);
+            wheelsLowered = false;
+        }
+        
+    }
     /**
      * Defines values to drive Tank mode. Gets values from joysticks.
      * 
@@ -153,7 +178,7 @@ public class DriveSubsystem extends PIDSubsystem {
      */
     public void driveTank(double leftValue, double rightValue ){
         if (driveMode == MODE_TANK){
-            drive.tankDrive(leftValue, rightValue);
+            drive.tankDrive(-leftValue, rightValue);
         }
     }
 
@@ -222,17 +247,17 @@ public class DriveSubsystem extends PIDSubsystem {
     {
         if(driveMode == MODE_TANK)
         {
-            //Lower Tank Wheels
+            lowerMecWheels();
             this.driveMode = MODE_TANK;
         }
         if(driveMode == MODE_CARTESIAN)
         {
-            //If tank wheels are lowered, raise them.
+            raiseMecWheels();
             this.driveMode = MODE_CARTESIAN;
         }
         if(driveMode == MODE_POLAR)
         {
-            //if tank wheels are lowered, raise them.
+            raiseMecWheels();
             this.driveMode = MODE_POLAR;
         }            
         

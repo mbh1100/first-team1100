@@ -12,13 +12,11 @@ public class RobotMap {
     public static final int C_LEFT_JOYSTICK = 1;
     public static final int C_RIGHT_JOYSTICK = 2;
     public static final int C_XBOX_CONTROLLER = 3;
-    public static int DS_SHOOTING_ANGLE_CH = 1;
-    public static int DS_FEEDER_ANGLE_CH = 2;
-    public static int DS_FLAT_ANGLE_CH = 3;
-    public static int DS_SETPOINT_TOGGLE = 7;
     public static int DS_P = 1;
     public static int DS_I = 2;
     public static int DS_D = 3;
+
+    
     //[D]RIVE
     public static final int D_TALON_FRONT_LEFT = 1;
     public static final int D_TALON_FRONT_RIGHT = 2;
@@ -33,7 +31,9 @@ public class RobotMap {
     public static int D_BACK_LEFT_SOLENOID_PORTB;
     public static int D_BACK_RIGHT_SOLENOID_PORTA;
     public static int D_BACK_RIGHT_SOLENOID_PORTB;
-
+    public static int D_COMPRESSOR_RELAY;
+    public static int D_COMPRESSOR_PRESSURE_SWITCH;
+   
 
     //[S]HOOTER
    
