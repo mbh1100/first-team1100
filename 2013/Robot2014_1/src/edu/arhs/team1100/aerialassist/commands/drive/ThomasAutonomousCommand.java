@@ -15,8 +15,7 @@ import edu.arhs.team1100.aerialassist.commands.StopDriveCommand;
  * @author Thomas
  */
 public class ThomasAutonomousCommand extends CommandGroup {
-
-    final double duration = 1; 
+ 
     /**
      * WARNING!!!
      * THIS IS CODE BY THOMAS, WITH NO IDEA WHAT THE COMMANDS DO!!!!
@@ -24,7 +23,7 @@ public class ThomasAutonomousCommand extends CommandGroup {
      * SAFTEY PRECAUTIONS INCLUDE: Safety glasses, Fire extinguisher, Anti-aircraft missiles,
      * Medics, fallout shelter, and any other supplies deemed necessary.
      */
-    public ThomasAutonomousCommand(double speed){
+    public ThomasAutonomousCommand(double speed, double duration){
         for(int i = 0; i < 6; i++) {
             addSequential(new DriveInALineCommand(speed, DriveSubsystem.DIRECTION_LEFT, duration));
             addSequential(new DriveInALineCommand(speed, DriveSubsystem.DIRECTION_BACK, duration * 2));
