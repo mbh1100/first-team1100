@@ -52,7 +52,7 @@ public class OI {
         leftStick = new AttackThree(RobotMap.C_LEFT_JOYSTICK, 0.1);
         xbox = new XboxController(RobotMap.C_XBOX_CONTROLLER, 0.1);
 
-        //CONTROL ASSIGNMENTS
+        //CONTROL ASSIGNMENTS       
         rightStick.getButton(TOGGLE_MEC).whenPressed(new ToggleMecModeCommand());
         rightStick.getButton(TOGGLE_DRIVE).whenPressed(new ToggleDriveModeCommand());
         rightStick.getButton(CALIBRATE_GYRO).whenPressed(new CalibrateGyroCommand());
