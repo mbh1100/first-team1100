@@ -1,13 +1,14 @@
-package edu.arhs.team1100.aerialassist.commands;
+package edu.arhs.team1100.aerialassist.commands.drive;
 
 import edu.arhs.team1100.aerialassist.RobotMap;
+import edu.arhs.team1100.aerialassist.commands.CommandBase;
 import edu.arhs.team1100.aerialassist.commands.CommandBase;
 import edu.arhs.team1100.aerialassist.subsystems.DriveSubsystem;
 
 /**
  * @author Team 1100
  */
-public class DriveInMecCommand extends CommandBase {
+public class DriveInALineCommand extends CommandBase {
 
     private double speed = 0.0;
     private double direction = 0.0;
@@ -20,7 +21,7 @@ public class DriveInMecCommand extends CommandBase {
      * @param direction direction in degrees to move
      * @param duration length in seconds of command
      */
-    public DriveInMecCommand(double speed, double direction, double duration) {
+    public DriveInALineCommand(double speed, double direction, double duration) {
         requires(DriveSubsystem.getInstance());
         this.speed = speed;
         this.direction = direction;
@@ -36,7 +37,7 @@ public class DriveInMecCommand extends CommandBase {
 
     protected void execute() {
         DriveSubsystem.getInstance().setDriveMode(DriveSubsystem.MODE_CARTESIAN);
-        DriveSubsystem.getInstance().driveMecanum(speed, direction, duration);
+        DriveSubsystem.getInstance().driveMecanum(speed, direction, 0.0);
     }
 
     protected boolean isFinished() {

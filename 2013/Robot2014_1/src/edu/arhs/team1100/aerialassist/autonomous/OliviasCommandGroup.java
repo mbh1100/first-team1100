@@ -1,7 +1,8 @@
-package edu.arhs.team1100.aerialassist.commands;
+package edu.arhs.team1100.aerialassist.autonomous;
 
 
-import edu.arhs.team1100.aerialassist.commands.DriveInTankCommand;
+import edu.arhs.team1100.aerialassist.commands.drive.DriveInMecCommand;
+import edu.arhs.team1100.aerialassist.commands.drive.DriveInTankCommand;
 import edu.arhs.team1100.aerialassist.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 

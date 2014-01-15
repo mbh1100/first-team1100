@@ -1,6 +1,7 @@
 package edu.arhs.team1100.aerialassist.commands;
 
 import edu.arhs.team1100.aerialassist.OI;
+import edu.arhs.team1100.aerialassist.subsystems.CompressorSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.DriveSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj.command.Command;
@@ -29,6 +30,7 @@ public abstract class CommandBase extends Command {
         DriveSubsystem.getInstance();
         OI.getInstance();
         IntakeSubsystem.getInstance();
+        CompressorSubsystem.getInstance();
 
 
         // Show what command your subsystem is running on the SmartDashboard

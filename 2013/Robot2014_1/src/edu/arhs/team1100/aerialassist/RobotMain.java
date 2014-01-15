@@ -11,6 +11,7 @@ import edu.arhs.team1100.aerialassist.commands.drive.CalibrateGyroCommand;
 import edu.arhs.team1100.aerialassist.commands.CommandBase;
 import edu.arhs.team1100.aerialassist.subsystems.DriveSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.IntakeSubsystem;
+import edu.arhs.team1100.aerialassist.subsystems.CompressorSubsystem;
 import edu.arhs.team1100.aerialassist.util.DSLog;
 import edu.arhs.team1100.aerialassist.util.Log;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -47,7 +48,7 @@ public class RobotMain extends IterativeRobot {
         Log.addClass(RobotMain.class, Log.LEVEL_DEBUG);
         Log.addClass(DriveSubsystem.class, Log.LEVEL_DEBUG);
         Log.addClass(IntakeSubsystem.class, Log.LEVEL_DEBUG);
-
+        Log.addClass(CompressorSubsystem.class, Log.LEVEL_DEBUG);
         Log.addClass(CalibrateGyroCommand.class, Log.LEVEL_OFF);
       
 

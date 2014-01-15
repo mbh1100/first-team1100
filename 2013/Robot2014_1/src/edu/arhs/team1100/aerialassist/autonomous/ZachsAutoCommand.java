@@ -2,15 +2,16 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.arhs.team1100.aerialassist.commands.drive;
+package edu.arhs.team1100.aerialassist.autonomous;
 
+import edu.arhs.team1100.aerialassist.autonomous.ThomasAutonomousCommand;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
-import edu.arhs.team1100.aerialassist.commands.DriveInALineCommand;
-import edu.arhs.team1100.aerialassist.commands.DriveInTankCommand;
+import edu.arhs.team1100.aerialassist.commands.drive.DriveInALineCommand;
+import edu.arhs.team1100.aerialassist.commands.drive.DriveInTankCommand;
 import edu.arhs.team1100.aerialassist.subsystems.DriveSubsystem;
-import edu.arhs.team1100.aerialassist.commands.StopDriveCommand;
-import edu.arhs.team1100.aerialassist.commands.drive.ThomasAutonomousCommand;
+import edu.arhs.team1100.aerialassist.commands.drive.StopDriveCommand;
+import edu.arhs.team1100.aerialassist.commands.drive.StopDriveCommand;
 
 /**
  * @author Team 1100's Resident Soon to be no Afro (Zach)

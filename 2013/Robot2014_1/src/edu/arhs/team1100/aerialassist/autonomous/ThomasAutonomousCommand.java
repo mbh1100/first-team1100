@@ -2,14 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.arhs.team1100.aerialassist.commands.drive;
+package edu.arhs.team1100.aerialassist.autonomous;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
-import edu.arhs.team1100.aerialassist.commands.DriveInALineCommand;
-import edu.arhs.team1100.aerialassist.commands.DriveInTankCommand;
+import edu.arhs.team1100.aerialassist.commands.drive.DriveInALineCommand;
+import edu.arhs.team1100.aerialassist.commands.drive.DriveInTankCommand;
 import edu.arhs.team1100.aerialassist.subsystems.DriveSubsystem;
-import edu.arhs.team1100.aerialassist.commands.StopDriveCommand;
+import edu.arhs.team1100.aerialassist.commands.drive.StopDriveCommand;
 
 /**
  * @author Teamm 1100

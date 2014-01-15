@@ -1,16 +1,16 @@
-package edu.arhs.team1100.aerialassist.commands;
+package edu.arhs.team1100.aerialassist.commands.drive;
 
 import edu.arhs.team1100.aerialassist.RobotMap;
+import edu.arhs.team1100.aerialassist.commands.CommandBase;
 import edu.arhs.team1100.aerialassist.commands.CommandBase;
 import edu.arhs.team1100.aerialassist.subsystems.DriveSubsystem;
 
 /**
  * @author Team 1100
  */
-public class DriveInTankCommand extends CommandBase {
+public class DriveInMecCommand extends CommandBase {
 
-    private double leftValue = 0.0;
-    private double rightValue = 0.0;
+    private double speed = 0.0;
     private double direction = 0.0;
     private double duration = 0;
 
@@ -21,10 +21,10 @@ public class DriveInTankCommand extends CommandBase {
      * @param direction direction in degrees to move
      * @param duration length in seconds of command
      */
-    public DriveInTankCommand(double leftValue, double rightValue, double duration) {
+    public DriveInMecCommand(double speed, double direction, double duration) {
         requires(DriveSubsystem.getInstance());
-        this.leftValue = leftValue;
-        this.rightValue = rightValue;
+        this.speed = speed;
+        this.direction = direction;
         this.duration = duration;
     }
 
@@ -36,8 +36,8 @@ public class DriveInTankCommand extends CommandBase {
     }
 
     protected void execute() {
-        DriveSubsystem.getInstance().setDriveMode(DriveSubsystem.MODE_TANK);
-        DriveSubsystem.getInstance().driveTank(leftValue, rightValue);
+        DriveSubsystem.getInstance().setDriveMode(DriveSubsystem.MODE_CARTESIAN);
+        DriveSubsystem.getInstance().driveMecanum(speed, direction, duration);
     }
 
     protected boolean isFinished() {

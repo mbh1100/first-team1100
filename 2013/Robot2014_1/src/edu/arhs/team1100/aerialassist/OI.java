@@ -1,9 +1,9 @@
 package edu.arhs.team1100.aerialassist;
 
-import edu.arhs.team1100.aerialassist.commands.OliviasCommandGroup;
+import edu.arhs.team1100.aerialassist.autonomous.OliviasCommandGroup;
 import edu.arhs.team1100.aerialassist.commands.drive.ToggleMecModeCommand;
 import edu.arhs.team1100.aerialassist.commands.drive.CalibrateGyroCommand;
-import edu.arhs.team1100.aerialassist.commands.StopDriveCommand;
+import edu.arhs.team1100.aerialassist.commands.drive.StopDriveCommand;
 import edu.arhs.team1100.aerialassist.commands.drive.ToggleDriveModeCommand;
 import edu.arhs.team1100.aerialassist.input.AttackThree;
 import edu.arhs.team1100.aerialassist.input.XboxController;
