@@ -43,7 +43,7 @@ public class IntakeSubsystem extends Subsystem {
         //set motors to roll in
     }
 
-    public void rollout() {
+    public void rollOut() {
         //set motors to roll out
     }
 
