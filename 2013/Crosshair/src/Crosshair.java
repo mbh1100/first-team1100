@@ -14,8 +14,8 @@ import javax.swing.JFrame;
 public class Crosshair extends JFrame implements MouseListener, MouseMotionListener {
 
     //size of the driver station camera feed
-    final int w = 339;
-    final int h = 255;
+    final int w = 534;
+    final int h = 399;
     int dX = 0;
     int dY = 0;
     boolean down = false;
