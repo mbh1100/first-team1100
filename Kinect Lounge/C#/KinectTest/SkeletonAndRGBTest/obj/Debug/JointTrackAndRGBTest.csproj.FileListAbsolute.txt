@@ -1,0 +1,3 @@
+C:\Users\Jason\Documents\VSProjects\KinectTest\SkeletonAndRGBTest\bin\Debug\SkeletonAndRGBTest.exe.config
+C:\Users\Jason\Documents\VSProjects\KinectTest\SkeletonAndRGBTest\obj\Debug\SkeletonAndRGBTest.exe
+C:\Users\Jason\Documents\VSProjects\KinectTest\SkeletonAndRGBTest\obj\Debug\SkeletonAndRGBTest.pdb
