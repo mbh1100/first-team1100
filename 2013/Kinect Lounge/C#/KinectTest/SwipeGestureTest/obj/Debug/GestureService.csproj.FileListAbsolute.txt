@@ -1,4 +1,0 @@
-C:\Users\Jason\Documents\VSProjects\KinectTest\SwipeGestureTest\obj\Debug\GestureService.csprojResolveAssemblyReference.cache
-C:\Users\Jason\Documents\VSProjects\KinectTest\SwipeGestureTest\obj\Debug\GestureService.Properties.Resources.resources
-C:\Users\Jason\Documents\VSProjects\KinectTest\SwipeGestureTest\obj\Debug\GestureService.csproj.GenerateResource.Cache
-C:\Users\Jason\Documents\VSProjects\KinectTest\SwipeGestureTest\obj\Debug\SwipeGestureTest.exe
