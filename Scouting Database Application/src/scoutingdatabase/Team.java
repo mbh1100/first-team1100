@@ -37,7 +37,7 @@ public class Team {
     private ArrayList<Integer> match = new ArrayList<Integer>();
     
     public Team(int teamNumber) {
-        
+        this.teamNumber = teamNumber;
     }
     private void match(){
         match.add(matchNumber);
