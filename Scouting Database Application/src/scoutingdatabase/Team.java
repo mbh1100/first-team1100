@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package scoutingdatabase;
 
 import java.util.ArrayList;
@@ -13,8 +9,6 @@ import java.util.ArrayList;
 public class Team {
 
     int teamNumber; //Team Number
-    int matchNumber; //Match Number
-    
 
     private ArrayList<Match> match = new ArrayList<Match>();//Array of matches this team has played
     

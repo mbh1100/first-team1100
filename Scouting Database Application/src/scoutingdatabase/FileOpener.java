@@ -23,6 +23,7 @@ public class FileOpener {
                 file.createNewFile();
             } catch (IOException e) {
                 System.out.println("Failed creating file");
+                e.printStackTrace();
             }
         }
     }
@@ -63,11 +64,11 @@ public class FileOpener {
             out = new PrintWriter(new BufferedWriter(new FileWriter(file, false)));
         } catch (IOException e) {
             System.out.println("Failed creating writer");
+            e.printStackTrace();
         }
         out.print("");
-        System.out.println("SAVING...");
         for (int i = 0; i < Main.getTeamArraySize(); i++) {
-            Team currentTeam = Main.getTeam(i);
+            Team currentTeam = Main.getTeamAt(i);
             out.println("Team:" + currentTeam.getTeamNumber());
         }
         out.close();
