@@ -27,14 +27,15 @@ public class main {
         for(int i = 0; i < teams.size(); i++) {
             //Test to see if the team already exsists
             if(teams.get(i).getTeamNumber() == teamNumber) {
-                break;
-                
+                break;  
             }
         }
         //Adds the new team.
         teams.add(new Team(teamNumber));
     } 
- 
+    public void setMatch(int teamNumber, int matchNumber){
+    teams.get(0).setMatch(matchNumber);
+}
     
     
 }
