@@ -5,17 +5,14 @@ import edu.arhs.team1100.aerialassist.commands.drive.ToggleMecModeCommand;
 import edu.arhs.team1100.aerialassist.commands.drive.CalibrateGyroCommand;
 import edu.arhs.team1100.aerialassist.commands.drive.StopDriveCommand;
 import edu.arhs.team1100.aerialassist.commands.drive.ToggleDriveModeCommand;
-import edu.arhs.team1100.aerialassist.commands.intake.LowerIntakeCommand;
-import edu.arhs.team1100.aerialassist.commands.intake.RaiseIntakeCommand;
-import edu.arhs.team1100.aerialassist.commands.intake.RollInCommand;
-import edu.arhs.team1100.aerialassist.commands.intake.RollOutCommand;
-import edu.arhs.team1100.aerialassist.commands.net.CloseNetCommand;
-import edu.arhs.team1100.aerialassist.commands.net.OpenNetCommand;
-import edu.arhs.team1100.aerialassist.commands.shooter.FireCatapultCommand;
+import edu.arhs.team1100.aerialassist.commands.net.ToggleNetCommand;
+import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.FireShooterCommand;
+import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.RollInCommand;
+import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.RollOutCommand;
 import edu.arhs.team1100.aerialassist.commands.shooter.LowerCatapultCommand;
 import edu.arhs.team1100.aerialassist.input.AttackThree;
 import edu.arhs.team1100.aerialassist.input.XboxController;
-import edu.arhs.team1100.aerialassist.subsystems.IntakeSubsystem;
+import edu.arhs.team1100.aerialassist.subsystems.ManipulatorSubsystem;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -61,14 +58,10 @@ public class OI {
         xbox = new XboxController(RobotMap.C_XBOX_CONTROLLER, 0.1);
 
         //CONTROL ASSIGNMENTS       
-        xbox.getButtonA().whenPressed(new LowerIntakeCommand());
-        xbox.getButtonB().whenPressed(new RaiseIntakeCommand());
-        xbox.getButtonX().whenPressed(new FireCatapultCommand());
-        xbox.getButtonY().whenPressed(new LowerCatapultCommand());
-        xbox.getButtonRightBumper().whenPressed(new OpenNetCommand());
-        xbox.getButtonLeftBumper().whenPressed(new CloseNetCommand());
-        xbox.getButtonRightStick().whenPressed(new RollInCommand());
-        xbox.getButtonLeftStick().whenPressed(new RollOutCommand());
+        xbox.getButtonX().whenPressed(new FireShooterCommand());
+        xbox.getButtonRightBumper().whenPressed(new ToggleNetCommand());
+        xbox.getButtonY().whenPressed(new RollInCommand());
+        xbox.getButtonA().whenPressed(new RollOutCommand());
         
         
         rightStick.getButton(TOGGLE_MEC).whenPressed(new ToggleMecModeCommand());

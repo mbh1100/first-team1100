@@ -35,9 +35,8 @@ public class RobotMap {
     public static int D_COMPRESSOR_PRESSURE_SWITCH;
    
 
-    //[S]HOOTER
+    //[M]anipulator
+    public static int M_WHEEL;
+    public static int M_ARM;
    
-    //[L]IFT
-    
-    //[F]loor [P]ickup
 }

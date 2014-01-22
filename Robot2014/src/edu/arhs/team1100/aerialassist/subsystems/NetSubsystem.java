@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class NetSubsystem extends Subsystem {
     
     static NetSubsystem instance;
-
+    private boolean isOpen = false;
     /**
      * Constructs an ISubsystem. Initializes compressor, lift pistons,
      * intake motors. Starts compressor.
@@ -40,10 +40,24 @@ public class NetSubsystem extends Subsystem {
 
     public void openNet() {
         //Opens the net
+        isOpen = true;
     }
 
     public void closeNet() {
         //Closes the net
+        isOpen = false;
+    }
+    
+    public void toggleNet()
+    {
+        if(isOpen)
+        {
+            this.closeNet();
+        }
+        else 
+        {
+            this.openNet();
+        }
     }
 
 

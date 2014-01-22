@@ -1,20 +1,20 @@
-package edu.arhs.team1100.aerialassist.commands.net;
+package edu.arhs.team1100.aerialassist.commands.manipulatorcommands;
 
 import edu.arhs.team1100.aerialassist.commands.CommandBase;
-import edu.arhs.team1100.aerialassist.subsystems.NetSubsystem;
+import edu.arhs.team1100.aerialassist.subsystems.ManipulatorSubsystem;
 
 
 /**
  *
  * @author Team 1100
  */
-public class OpenNetCommand extends CommandBase {
+public class FireShooterCommand extends CommandBase {
 
     /**
-     * Constructs a NetSubystem object
+     * Constructs a DriveSubsystem object
      */
-    public OpenNetCommand() {
-        requires(NetSubsystem.getInstance());
+    public FireShooterCommand() {
+        requires(ManipulatorSubsystem.getInstance());
     }
 
     /**
@@ -27,7 +27,7 @@ public class OpenNetCommand extends CommandBase {
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
-        NetSubsystem.getInstance().openNet();
+        ManipulatorSubsystem.getInstance().fireShooter();
     }
 
     /**

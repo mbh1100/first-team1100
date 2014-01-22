@@ -8,12 +8,12 @@ import edu.arhs.team1100.aerialassist.subsystems.NetSubsystem;
  *
  * @author Team 1100
  */
-public class CloseNetCommand extends CommandBase {
+public class ToggleNetCommand extends CommandBase {
 
     /**
      * Constructs a NetSubystem object
      */
-    public CloseNetCommand() {
+    public ToggleNetCommand() {
         requires(NetSubsystem.getInstance());
     }
 
@@ -27,7 +27,7 @@ public class CloseNetCommand extends CommandBase {
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
-        NetSubsystem.getInstance().closeNet();
+        NetSubsystem.getInstance().toggleNet();
     }
 
     /**
