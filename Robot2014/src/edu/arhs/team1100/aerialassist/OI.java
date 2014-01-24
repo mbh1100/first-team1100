@@ -9,10 +9,11 @@ import edu.arhs.team1100.aerialassist.commands.net.ToggleNetCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.FireShooterCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.RollInCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.RollOutCommand;
-import edu.arhs.team1100.aerialassist.commands.shooter.LowerCatapultCommand;
 import edu.arhs.team1100.aerialassist.input.AttackThree;
 import edu.arhs.team1100.aerialassist.input.XboxController;
-import edu.arhs.team1100.aerialassist.subsystems.ManipulatorSubsystem;
+import edu.arhs.team1100.aerialassist.subsystems.IntakeSubsystem;
+import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
+
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -61,7 +62,7 @@ public class OI {
         xbox.getButtonX().whenPressed(new FireShooterCommand());
         xbox.getButtonRightBumper().whenPressed(new ToggleNetCommand());
         xbox.getButtonY().whenPressed(new RollInCommand());
-        xbox.getButtonA().whenPressed(new RollOutCommand());
+        xbox.getButtonA().whenPressed(new RollOutCommand());    
         
         
         rightStick.getButton(TOGGLE_MEC).whenPressed(new ToggleMecModeCommand());
@@ -69,7 +70,6 @@ public class OI {
         rightStick.getButton(CALIBRATE_GYRO).whenPressed(new CalibrateGyroCommand());
         leftStick.getButton(STOP_DRIVE).whenPressed(new StopDriveCommand(0.1));
 
-        //xbox.getButtonBack().whenPressed(new IntakePositionCommand(IntakeSubsystem.UP));
     }
 
     /**

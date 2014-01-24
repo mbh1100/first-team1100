@@ -90,7 +90,7 @@ public class DriveSubsystem extends PIDSubsystem {
         if (driveMode == MODE_CARTESIAN) {
             userDriveCartesian();
         } else if (driveMode == MODE_POLAR) {
-            userDrivePolar();
+               userDrivePolar();
         } else if (driveMode == MODE_TANK) {
             userDriveTank();
         } else {
