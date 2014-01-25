@@ -1,7 +1,8 @@
 package edu.arhs.team1100.aerialassist.commands.manipulatorcommands;
 
 import edu.arhs.team1100.aerialassist.commands.CommandBase;
-import edu.arhs.team1100.aerialassist.subsystems.IntakeSubsystem;
+import edu.arhs.team1100.aerialassist.subsystems.ManipulatorSubsystem;
+import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
 
 
 /**
@@ -14,7 +15,7 @@ public class RollOutCommand extends CommandBase {
      * Constructs a DriveSubsystem object
      */
     public RollOutCommand() {
-        requires(IntakeSubsystem.getInstance());
+        requires(ManipulatorSubsystem.getInstance());
     }
 
     /**
@@ -27,7 +28,7 @@ public class RollOutCommand extends CommandBase {
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
-        IntakeSubsystem.getInstance().rollOut();
+        ManipulatorSubsystem.getInstance().rollOut();
     }
 
     /**

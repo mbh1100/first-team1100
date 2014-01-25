@@ -7,7 +7,9 @@
 package edu.arhs.team1100.aerialassist.subsystems;
 import edu.arhs.team1100.aerialassist.OI;
 import edu.arhs.team1100.aerialassist.RobotMap;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -19,16 +21,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class ShooterSubsystem extends Subsystem {
     
     static ShooterSubsystem instance;
-    private Talon armMotor;
-    private Talon wheelMotor;
-    private double wheelSpeed = .5;
+    DoubleSolenoid shooterSolenoid;
     /**
      * Constructs an ISubsystem. Initializes compressor, lift pistons,
      * intake motors. Starts compressor.
      */
     public ShooterSubsystem() {
-        armMotor = new Talon(RobotMap.M_ARM);
-        wheelMotor = new Talon(RobotMap.M_WHEEL);
+         shooterSolenoid = new DoubleSolenoid(RobotMap.M_FIST_PORTA, RobotMap.M_FIST_PORTB);
+
     }
 
     /**
@@ -45,29 +45,19 @@ public class ShooterSubsystem extends Subsystem {
     }
 
 
-    public void moveArm()
-    {
-        double speed = OI.getInstance().getXboxController().getAxis(Joystick.AxisType.kY) / 1.5;
-        armMotor.set(speed);
-    }
-
     public void fireShooter() {
-        armMotor.set(1);
-        //wait for encoders
-        //set wheel speed for spin
-        this.stopArm();
+        shooterSolenoid.set(DoubleSolenoid.Value.kForward);
+        resetShooter();
     }
     
-    public void stopArm()
+    public void resetShooter()
     {
-        armMotor.set(0);
+        shooterSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
     
-
     /**
      * Initializes shooter command. Do nothing.
      */
     protected void initDefaultCommand() {
-        moveArm();
     }
 }

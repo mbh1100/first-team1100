@@ -38,5 +38,9 @@ public class RobotMap {
     //[M]anipulator
     public static int M_WHEEL;
     public static int M_ARM;
+    public static int M_RIGHT_WHEEL;
+    public static int M_LEFT_WHEEL;
+    public static int M_FIST_PORTA;
+    public static int M_FIST_PORTB;
    
 }

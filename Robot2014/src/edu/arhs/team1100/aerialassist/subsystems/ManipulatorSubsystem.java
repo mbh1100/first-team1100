@@ -16,19 +16,21 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  * @author Team 1100
  */
-public class IntakeSubsystem extends Subsystem {
+public class ManipulatorSubsystem extends Subsystem {
     
-    static IntakeSubsystem instance;
+    static ManipulatorSubsystem instance;
     private Talon armMotor;
-    private Talon wheelMotor;
+    private Talon wheelMotorA;
+    private Talon wheelMotorB;
     private double wheelSpeed = .5;
     /**
      * Constructs an ISubsystem. Initializes compressor, lift pistons,
      * intake motors. Starts compressor.
      */
-    public IntakeSubsystem() {
+    public ManipulatorSubsystem() {
         armMotor = new Talon(RobotMap.M_ARM);
-        wheelMotor = new Talon(RobotMap.M_WHEEL);
+        wheelMotorA = new Talon(RobotMap.M_RIGHT_WHEEL);
+        wheelMotorB = new Talon(RobotMap.M_LEFT_WHEEL);
     }
 
     /**
@@ -36,9 +38,9 @@ public class IntakeSubsystem extends Subsystem {
      *
      * @return instance
      */
-    public static IntakeSubsystem getInstance() {
+    public static ManipulatorSubsystem getInstance() {
         if (instance == null) {
-            instance = new IntakeSubsystem();
+            instance = new ManipulatorSubsystem();
             instance.initDefaultCommand();
         }
         return instance;
@@ -56,17 +58,15 @@ public class IntakeSubsystem extends Subsystem {
         armMotor.set(0);
     }
     
-    public void stopWheel() {
-        wheelMotor.set(0);
-    }
-
     public void rollIn() {
-        wheelMotor.set(wheelSpeed);
+        wheelMotorA.set(wheelSpeed);
+        wheelMotorB.set(wheelSpeed);
     }
     
     
     public void rollOut() {
-        wheelMotor.set(-wheelSpeed);
+        wheelMotorA.set(-wheelSpeed);
+        wheelMotorB.set(-wheelSpeed);
     }
 
 

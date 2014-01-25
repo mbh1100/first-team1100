@@ -11,7 +11,7 @@ import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.RollInCommand
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.RollOutCommand;
 import edu.arhs.team1100.aerialassist.input.AttackThree;
 import edu.arhs.team1100.aerialassist.input.XboxController;
-import edu.arhs.team1100.aerialassist.subsystems.IntakeSubsystem;
+import edu.arhs.team1100.aerialassist.subsystems.ManipulatorSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
 
 
