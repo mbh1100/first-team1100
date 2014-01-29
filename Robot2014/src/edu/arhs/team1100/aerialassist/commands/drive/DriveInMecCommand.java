@@ -12,7 +12,8 @@ public class DriveInMecCommand extends CommandBase {
 
     private double speed = 0.0;
     private double direction = 0.0;
-    private double duration = 0;
+    private double duration = 0.0;
+    private double rotation = 0.0;
 
     /**
      * Drives robot in a line
@@ -21,11 +22,12 @@ public class DriveInMecCommand extends CommandBase {
      * @param direction direction in degrees to move
      * @param duration length in seconds of command
      */
-    public DriveInMecCommand(double speed, double direction, double duration) {
+    public DriveInMecCommand(double speed, double direction, double duration, double rotation) {
         requires(DriveSubsystem.getInstance());
         this.speed = speed;
         this.direction = direction;
         this.duration = duration;
+        this.rotation = rotation;
     }
 
     /**
@@ -37,7 +39,7 @@ public class DriveInMecCommand extends CommandBase {
 
     protected void execute() {
         DriveSubsystem.getInstance().setDriveMode(DriveSubsystem.MODE_CARTESIAN);
-        DriveSubsystem.getInstance().driveMecanum(speed, direction, duration);
+        DriveSubsystem.getInstance().driveMecanum(speed, direction, rotation);
     }
 
     protected boolean isFinished() {
