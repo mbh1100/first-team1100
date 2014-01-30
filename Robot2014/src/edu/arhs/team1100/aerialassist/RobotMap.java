@@ -42,5 +42,17 @@ public class RobotMap {
     public static int M_LEFT_WHEEL;
     public static int M_FIST_PORTA;
     public static int M_FIST_PORTB;
+    
+    //[S]ensor
+    public static int S_AC_1q;
+    public static int S_EN_FR_CNL;
+    public static int S_EN_FL_CNL;
+    public static int S_EN_BR_CNL;
+    public static int S_EN_BL_CNL;
+    public static int S_EN_FR_SLOT;
+    public static int S_EN_FL_SLOT;
+    public static int S_EN_BR_SLOT;
+    public static int S_EN_BL_SLOT;
+    public static int S_GY_CNL;
    
 }

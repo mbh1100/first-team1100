@@ -51,6 +51,7 @@ public class RobotMain extends IterativeRobot {
         Log.addClass(ManipulatorSubsystem.class, Log.LEVEL_DEBUG);
         Log.addClass(ShooterSubsystem.class, Log.LEVEL_DEBUG);
         Log.addClass(CompressorSubsystem.class, Log.LEVEL_DEBUG);
+        Log.addClass(CompressorSubsystem.class, Log.LEVEL_DEBUG);
         Log.addClass(CalibrateGyroCommand.class, Log.LEVEL_OFF);
       
 

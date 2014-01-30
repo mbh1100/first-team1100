@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
@@ -39,8 +40,13 @@ public class DriveSubsystem extends PIDSubsystem {
     private Talon backRightTalon;
     private RobotDrive drive;
     private Gyro driveGyro;
+    private Encoder encoderFrontRight;
+    private Encoder encoderFrontLeft;
+    private Encoder encoderBackRight;
+    private Encoder encoderBackLeft;
     private int driveMode = MODE_CARTESIAN;
     private boolean mecanumWheelsLowered = true;
+    private boolean encoderDrive = false;
 
     /**
      * Creates a DriveSubsystem if not already created
@@ -80,6 +86,11 @@ public class DriveSubsystem extends PIDSubsystem {
                 backRightTalon);
 
         driveGyro = new Gyro(RobotMap.D_GYRO);
+        
+        encoderFrontRight = new Encoder(RobotMap.S_EN_FR_CNL, RobotMap.S_EN_FR_SLOT);
+        encoderFrontLeft = new Encoder(RobotMap.S_EN_FL_CNL, RobotMap.S_EN_FL_SLOT);
+        encoderBackRight = new Encoder(RobotMap.S_EN_BR_CNL, RobotMap.S_EN_BR_SLOT);
+        encoderBackLeft = new Encoder(RobotMap.S_EN_BL_CNL, RobotMap.S_EN_BL_SLOT);
     }
 
     /**
@@ -90,7 +101,7 @@ public class DriveSubsystem extends PIDSubsystem {
         if (driveMode == MODE_CARTESIAN) {
             userDriveCartesian();
         } else if (driveMode == MODE_POLAR) {
-               userDrivePolar();
+            userDrivePolar();
         } else if (driveMode == MODE_TANK) {
             userDriveTank();
         } else {
@@ -177,9 +188,15 @@ public class DriveSubsystem extends PIDSubsystem {
      * @param rightValue speed of the right wheels
      */
     public void driveTank(double leftValue, double rightValue) {
+        if(encoderDrive)driveTankEncoder(leftValue, rightValue);
         if (driveMode == MODE_TANK) {
             drive.tankDrive(-leftValue, rightValue);
         }
+    }
+    
+    public void driveTankEncoder(double leftValue, double RightValue)
+    {
+        
     }
 
     /**
@@ -249,6 +266,14 @@ public class DriveSubsystem extends PIDSubsystem {
         }
     }
 
+    /**
+     * Toggles EncoderDrive 
+     */
+    public void toggleEncoderDrive()
+    {
+        encoderDrive = !encoderDrive;
+    }
+    
     /**
      * @return the current drive mode, DriveSubsystem.MODE_POLAR or
      * DriveSubsystem.MODE_CARTESIAN or DriveSubsystem.MODE_TANK.

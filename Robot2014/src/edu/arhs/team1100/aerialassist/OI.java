@@ -1,6 +1,8 @@
 package edu.arhs.team1100.aerialassist;
 
 import edu.arhs.team1100.aerialassist.autonomous.OliviasCommandGroup;
+import edu.arhs.team1100.aerialassist.commands.AccTestCommand;
+import edu.arhs.team1100.aerialassist.commands.EncoderTestCommand;
 import edu.arhs.team1100.aerialassist.commands.drive.ToggleMecModeCommand;
 import edu.arhs.team1100.aerialassist.commands.drive.CalibrateGyroCommand;
 import edu.arhs.team1100.aerialassist.commands.drive.StopDriveCommand;
@@ -61,8 +63,10 @@ public class OI {
         //CONTROL ASSIGNMENTS       
         xbox.getButtonX().whenPressed(new FireShooterCommand());
         xbox.getButtonRightBumper().whenPressed(new ToggleNetCommand());
-        xbox.getButtonY().whenPressed(new RollInCommand());
-        xbox.getButtonA().whenPressed(new RollOutCommand());    
+        //xbox.getButtonY().whenPressed(new RollInCommand());
+        //xbox.getButtonA().whenPressed(new RollOutCommand());   
+        xbox.getButtonA().whenPressed(new EncoderTestCommand());
+        xbox.getButtonB().whenPressed(new AccTestCommand());
         
         
         rightStick.getButton(TOGGLE_MEC).whenPressed(new ToggleMecModeCommand());

@@ -5,6 +5,7 @@ import edu.arhs.team1100.aerialassist.subsystems.CompressorSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.DriveSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.ManipulatorSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.NetSubsystem;
+import edu.arhs.team1100.aerialassist.subsystems.SensorTestSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -35,6 +36,7 @@ public abstract class CommandBase extends Command {
         ShooterSubsystem.getInstance();
         ManipulatorSubsystem.getInstance();
         CompressorSubsystem.getInstance();
+        SensorTestSubsystem.getInstance();
 
 
         // Show what command your subsystem is running on the SmartDashboard

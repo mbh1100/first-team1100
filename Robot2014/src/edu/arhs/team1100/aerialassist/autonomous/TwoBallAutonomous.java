@@ -29,7 +29,7 @@ public class TwoBallAutonomous extends CommandGroup {
         
         //True will be replace with camera detection method
         boolean hotInFront = true;
-        
+       /** 
         if(hotInFront) {
             addSequential(new FireShooterCommand());
             addSequential(new DriveInMecCommand(0.5, DriveSubsystem.DIRECTION_BACK, 1.5, 0));
@@ -46,5 +46,6 @@ public class TwoBallAutonomous extends CommandGroup {
             addSequential(new FireShooterCommand());
             addSequential(new DriveInMecCommand(0.5, DriveSubsystem.DIRECTION_FORWARD, 3, 0));
         }
+        * */
     }
 }
