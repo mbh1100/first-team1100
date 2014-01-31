@@ -1,6 +1,6 @@
 package edu.arhs.team1100.aerialassist;
 
-import edu.arhs.team1100.aerialassist.autonomous.OliviasCommandGroup;
+import edu.arhs.team1100.aerialassist.commands.useless.OliviasCommandGroup;
 import edu.arhs.team1100.aerialassist.commands.AccTestCommand;
 import edu.arhs.team1100.aerialassist.commands.EncoderTestCommand;
 import edu.arhs.team1100.aerialassist.commands.drive.ToggleMecModeCommand;

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package edu.arhs.team1100.aerialassist.autonomous;
+package edu.arhs.team1100.aerialassist.commands.useless;
 
 import edu.arhs.team1100.aerialassist.commands.drive.DriveInTankCommand;
 import edu.arhs.team1100.aerialassist.commands.drive.StopDriveCommand;

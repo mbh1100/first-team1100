@@ -12,14 +12,13 @@ public class DriveInTankCommand extends CommandBase {
 
     private double leftValue = 0.0;
     private double rightValue = 0.0;
-    private double direction = 0.0;
     private double duration = 0;
 
     /**
      * Drives robot in a line
      *
-     * @param speed motor speed
-     * @param direction direction in degrees to move
+     * @param leftValue speed of left wheels
+     * @param rightValue speed of the right wheels
      * @param duration length in seconds of command
      */
     public DriveInTankCommand(double leftValue, double rightValue, double duration) {

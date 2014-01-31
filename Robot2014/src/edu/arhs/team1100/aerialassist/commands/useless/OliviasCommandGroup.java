@@ -1,4 +1,4 @@
-package edu.arhs.team1100.aerialassist.autonomous;
+package edu.arhs.team1100.aerialassist.commands.useless;
 
 
 import edu.arhs.team1100.aerialassist.commands.drive.DriveInMecCommand;
@@ -24,7 +24,7 @@ public class OliviasCommandGroup extends CommandGroup {
         addSequential(new DriveInTankCommand(.25, .5, 0.25));
         addSequential(new DriveInTankCommand(.5, .25, .5));
         DriveSubsystem.getInstance().setDriveMode(DriveSubsystem.MODE_CARTESIAN);
-        addSequential(new DriveInMecCommand(.7, DriveSubsystem.DIRECTION_RIGHT, .5));
+        addSequential(new DriveInMecCommand(.7, DriveSubsystem.DIRECTION_RIGHT, .5, 0));
         
     }
 }
