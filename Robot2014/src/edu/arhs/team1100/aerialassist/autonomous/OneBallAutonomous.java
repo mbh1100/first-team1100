@@ -12,6 +12,7 @@ import edu.arhs.team1100.aerialassist.commands.drive.DriveInTankCommand;
 import edu.arhs.team1100.aerialassist.subsystems.DriveSubsystem;
 import edu.arhs.team1100.aerialassist.commands.drive.StopDriveCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.FireShooterCommand;
+import edu.arhs.team1100.aerialassist.subsystems.CameraSubsystem;
 
 /**
  *
@@ -20,7 +21,7 @@ import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.FireShooterCo
 public class OneBallAutonomous extends CommandGroup {
 
     /**
-     * Fires one ball. WIll test first to see if drive mode is mehcanum or tank,
+     * Fires one ball. WIll test first to see if drive mode is mechanum or tank,
      * then will test/wait for hot goal, then fire.
      *
      * @param speed = speed of wheels from -1 to 1
@@ -34,8 +35,7 @@ public class OneBallAutonomous extends CommandGroup {
         }//else: run same thing for mehcanum
 
         //Put camera code here after, instead of true ;)
-        boolean replaceWithCameraHotGoalTest = true;
-        if (replaceWithCameraHotGoalTest) {
+        if (CameraSubsystem.getInstance().seeHotGoal()){
             addSequential(new FireShooterCommand());
         } else {
             addSequential(new WaitCommand(5000));

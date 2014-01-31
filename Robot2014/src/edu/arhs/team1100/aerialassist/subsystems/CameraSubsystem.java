@@ -47,13 +47,12 @@ public class CameraSubsystem extends Subsystem {
     }
 
 
-    public void seeHotGoal()
-    {
-        
+    public boolean seeHotGoal(){
+        return true;
     }
     
-    public void seeReflectiveTape(){
-        
+    public boolean seeReflectiveTape(){
+        return true;
     }
     
     
