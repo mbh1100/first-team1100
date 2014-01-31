@@ -9,10 +9,12 @@ package edu.arhs.team1100.aerialassist;
 import com.sun.squawk.util.MathUtils;
 import edu.arhs.team1100.aerialassist.commands.drive.CalibrateGyroCommand;
 import edu.arhs.team1100.aerialassist.commands.CommandBase;
+import edu.arhs.team1100.aerialassist.commands.drive.GyroTestCommand;
 import edu.arhs.team1100.aerialassist.subsystems.DriveSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.ManipulatorSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.CompressorSubsystem;
+import edu.arhs.team1100.aerialassist.subsystems.SensorTestSubsystem;
 import edu.arhs.team1100.aerialassist.util.DSLog;
 import edu.arhs.team1100.aerialassist.util.Log;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -46,19 +48,22 @@ public class RobotMain extends IterativeRobot {
         Log.setMinLevel(Log.LEVEL_DEBUG);
 
         //Add all logging classes
-        Log.addClass(RobotMain.class, Log.LEVEL_DEBUG);
-        Log.addClass(DriveSubsystem.class, Log.LEVEL_DEBUG);
-        Log.addClass(ManipulatorSubsystem.class, Log.LEVEL_DEBUG);
-        Log.addClass(ShooterSubsystem.class, Log.LEVEL_DEBUG);
-        Log.addClass(CompressorSubsystem.class, Log.LEVEL_DEBUG);
-        Log.addClass(CompressorSubsystem.class, Log.LEVEL_DEBUG);
-        Log.addClass(CalibrateGyroCommand.class, Log.LEVEL_OFF);
+        //Log.addClass(RobotMain.class, Log.LEVEL_DEBUG);
+        //Log.addClass(DriveSubsystem.class, Log.LEVEL_DEBUG);
+        //Log.addClass(ManipulatorSubsystem.class, Log.LEVEL_DEBUG);
+        //Log.addClass(ShooterSubsystem.class, Log.LEVEL_DEBUG);
+        //Log.addClass(CompressorSubsystem.class, Log.LEVEL_DEBUG);
+        Log.addClass(SensorTestSubsystem.class, Log.LEVEL_DEBUG);
+        //Log.addClass(CalibrateGyroCommand.class, Log.LEVEL_OFF);
       
 
         // Instantiate the command used for the autonomous period
         // Initialize all subsystems
         CommandBase.init();
-
+        while(true)
+        {
+            SensorTestSubsystem.getInstance().gyroTest();
+        }
         //autoCommand = new AutoShootAndReloadCommandGroup();
 
 

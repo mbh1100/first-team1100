@@ -8,6 +8,7 @@ package edu.arhs.team1100.aerialassist.subsystems;
 import edu.arhs.team1100.aerialassist.util.DSLog;
 import edu.arhs.team1100.aerialassist.OI;
 import edu.arhs.team1100.aerialassist.RobotMap;
+import edu.arhs.team1100.aerialassist.commands.drive.GyroTestCommand;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Accelerometer;
@@ -33,8 +34,8 @@ public class SensorTestSubsystem extends Subsystem {
     public SensorTestSubsystem() {
        // ac = new Accelerometer(RobotMap.S_AC_1q);
         gy = new Gyro(RobotMap.S_GY_CNL);
-        ec = new Encoder(RobotMap.S_EN_FL_SLOT, RobotMap.S_EN_FL_CNL);
-        ec.start();
+       // ec = new Encoder(RobotMap.S_EN_FL_SLOT, RobotMap.S_EN_FL_CNL);
+       // ec.start();
     }
 
     /**
@@ -43,9 +44,11 @@ public class SensorTestSubsystem extends Subsystem {
      * @return instance
      */
     public static SensorTestSubsystem getInstance() {  
+        if(instance == null)
+        {
         instance = new SensorTestSubsystem();
             instance.initDefaultCommand();
-        
+        }
         return instance;
     }
 
@@ -64,7 +67,10 @@ public class SensorTestSubsystem extends Subsystem {
     public void gyroTest()
     {
          DSLog.log(1, Double.toString(gy.getAngle()));
-;
+         
+         System.out.println(gy.getAngle());
+         
+
     }
             
 
@@ -72,6 +78,6 @@ public class SensorTestSubsystem extends Subsystem {
      * Initializes shooter command. Do nothing.
      */
     protected void initDefaultCommand() {
-        encoderTest();
+        setDefaultCommand(new GyroTestCommand());
     }
 }

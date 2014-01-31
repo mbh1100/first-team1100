@@ -30,12 +30,12 @@ public abstract class CommandBase extends Command {
         // yet. Thus, their requires() statements may grab null pointers. Bad
         // news. Don't move it.
 
-        DriveSubsystem.getInstance();
-        OI.getInstance();
-        NetSubsystem.getInstance();
-        ShooterSubsystem.getInstance();
-        ManipulatorSubsystem.getInstance();
-        CompressorSubsystem.getInstance();
+        //DriveSubsystem.getInstance();
+        //OI.getInstance();
+        //NetSubsystem.getInstance();
+        //ShooterSubsystem.getInstance();
+        //ManipulatorSubsystem.getInstance();
+        //CompressorSubsystem.getInstance();
         SensorTestSubsystem.getInstance();
 
 
