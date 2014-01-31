@@ -28,9 +28,7 @@ public class CameraSubsystem extends Subsystem {
      * intake motors. Starts compressor.
      */
     public CameraSubsystem() {
-        armMotor = new Talon(RobotMap.M_ARM);
-        wheelMotorA = new Talon(RobotMap.M_RIGHT_WHEEL);
-        wheelMotorB = new Talon(RobotMap.M_LEFT_WHEEL);
+        
     }
 
     /**
@@ -53,6 +51,10 @@ public class CameraSubsystem extends Subsystem {
     
     public boolean seeReflectiveTape(){
         return true;
+    }
+    
+    public void autoAim(){
+        
     }
     
     

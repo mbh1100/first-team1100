@@ -15,6 +15,8 @@ import edu.arhs.team1100.aerialassist.input.AttackThree;
 import edu.arhs.team1100.aerialassist.input.XboxController;
 import edu.arhs.team1100.aerialassist.subsystems.ManipulatorSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
+import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.ToggleClampCommand;
+import edu.arhs.team1100.aerialassist.commands.cameracommands.AutoAimCommand;
 
 
 /**
@@ -62,11 +64,11 @@ public class OI {
 
         //CONTROL ASSIGNMENTS       
         xbox.getButtonX().whenPressed(new FireShooterCommand());
-        xbox.getButtonRightBumper().whenPressed(new ToggleNetCommand());
-        //xbox.getButtonY().whenPressed(new RollInCommand());
-        //xbox.getButtonA().whenPressed(new RollOutCommand());   
-        xbox.getButtonA().whenPressed(new EncoderTestCommand());
-        xbox.getButtonB().whenPressed(new AccTestCommand());
+        xbox.getButtonY().whenPressed(new AutoAimCommand());
+        xbox.getButtonA().whenPressed(new RollInCommand());
+        xbox.getButtonB().whenPressed(new RollOutCommand()); 
+        
+        xbox.getButtonRightBumper().whenPressed(new ToggleClampCommand());
         
         
         rightStick.getButton(TOGGLE_MEC).whenPressed(new ToggleMecModeCommand());
