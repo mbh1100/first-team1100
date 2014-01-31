@@ -40,12 +40,15 @@ public class RobotMap {
    
 
     //[M]anipulator
-    public static int M_WHEEL = 5;
+    public static int M_CLAMP_OUT = 5;
     public static int M_ARM = 6;
-    public static int M_RIGHT_WHEEL = 7;
-    public static int M_LEFT_WHEEL = 8;
-    public static int M_FIST_PORTA = 9;
-    public static int M_FIST_PORTB = 10;
+    public static int M_CLAMP_IN = 7;
+    public static int M_FIST_PORTA;
+    public static int M_FIST_PORTB;
+    public static int M_RIGHT_VECTOR_SLOT;
+    public static int M_RIGHT_VECTOR_CNL;
+    public static int M_LEFT_VECTOR_SLOT;
+    public static int M_LEFT_VECTOR_CNL;
     
     //[S]ensor
     public static int S_AC_1q = 10;

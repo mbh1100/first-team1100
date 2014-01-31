@@ -1,6 +1,7 @@
 package edu.arhs.team1100.aerialassist.commands.manipulatorcommands;
 
 import edu.arhs.team1100.aerialassist.commands.CommandBase;
+import edu.arhs.team1100.aerialassist.subsystems.ManipulatorSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
 
 
@@ -8,13 +9,13 @@ import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
  *
  * @author Team 1100
  */
-public class RollOutCommand extends CommandBase {
+public class ToggleClampCommand extends CommandBase {
 
     /**
      * Constructs a DriveSubsystem object
      */
-    public RollOutCommand() {
-        requires(ShooterSubsystem.getInstance());
+    public ToggleClampCommand() {
+        requires(ManipulatorSubsystem.getInstance());
     }
 
     /**
@@ -27,7 +28,7 @@ public class RollOutCommand extends CommandBase {
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
-        ShooterSubsystem.getInstance().rollOut();
+        ManipulatorSubsystem.getInstance().toggleClamp();
     }
 
     /**

@@ -7,7 +7,9 @@
 package edu.arhs.team1100.aerialassist.subsystems;
 import edu.arhs.team1100.aerialassist.OI;
 import edu.arhs.team1100.aerialassist.RobotMap;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -20,17 +22,16 @@ public class ManipulatorSubsystem extends Subsystem {
     
     static ManipulatorSubsystem instance;
     private Talon armMotor;
-    private Talon wheelMotorA;
-    private Talon wheelMotorB;
+    private DoubleSolenoid clamp;
     private double wheelSpeed = .5;
+    boolean isClamped = false;
     /**
      * Constructs an ISubsystem. Initializes compressor, lift pistons,
      * intake motors. Starts compressor.
      */
     public ManipulatorSubsystem() {
         armMotor = new Talon(RobotMap.M_ARM);
-        wheelMotorA = new Talon(RobotMap.M_RIGHT_WHEEL);
-        wheelMotorB = new Talon(RobotMap.M_LEFT_WHEEL);
+        clamp = new DoubleSolenoid(RobotMap.M_CLAMP_IN, RobotMap.M_CLAMP_OUT);
     }
 
     /**
@@ -58,15 +59,13 @@ public class ManipulatorSubsystem extends Subsystem {
         armMotor.set(0);
     }
     
-    public void rollIn() {
-        wheelMotorA.set(wheelSpeed);
-        wheelMotorB.set(wheelSpeed);
-    }
-    
-    
-    public void rollOut() {
-        wheelMotorA.set(-wheelSpeed);
-        wheelMotorB.set(-wheelSpeed);
+    /**
+     * Toggles the state of the floor pickup.
+     */
+    public void toggleClamp() {
+        if(isClamped)clamp.set(DoubleSolenoid.Value.kReverse);
+        if(!isClamped)clamp.set(DoubleSolenoid.Value.kForward);
+        isClamped = !isClamped;
     }
 
 
