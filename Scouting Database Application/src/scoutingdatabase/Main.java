@@ -39,12 +39,14 @@ public class Main {
     }
     
     public static void frameSetVisible(boolean b) {
+        //Set the match input to visible
         frame.setVisible(b);
     }
     public static void frame2SetVisible(boolean b) {
+        //Set the input chooser to visibe
         frame2.setVisible(b);
     }
     public static void frame3SetVisible(boolean b) {
-        
+        //Set the pit input to visible
     }
 }
