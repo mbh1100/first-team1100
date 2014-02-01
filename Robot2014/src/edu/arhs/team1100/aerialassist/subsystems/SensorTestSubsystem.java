@@ -3,8 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package edu.arhs.team1100.aerialassist.subsystems;
+
 import edu.arhs.team1100.aerialassist.util.DSLog;
 import edu.arhs.team1100.aerialassist.OI;
 import edu.arhs.team1100.aerialassist.RobotMap;
@@ -14,28 +14,28 @@ import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Accelerometer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-
 /**
  *
  * @author Team 1100
  */
 public class SensorTestSubsystem extends Subsystem {
-    
+
     static SensorTestSubsystem instance;
     Gyro gy;
     Accelerometer ac;
     Encoder ec;
     DSLog ds;
     private double wheelSpeed = .5;
+
     /**
-     * Constructs an ISubsystem. Initializes compressor, lift pistons,
-     * intake motors. Starts compressor.
+     * Constructs an ISubsystem. Initializes compressor, lift pistons, intake
+     * motors. Starts compressor.
      */
     public SensorTestSubsystem() {
        // ac = new Accelerometer(RobotMap.S_AC_1q);
-        gy = new Gyro(RobotMap.S_GY_CNL);
-       // ec = new Encoder(RobotMap.S_EN_FL_SLOT, RobotMap.S_EN_FL_CNL);
-       // ec.start();
+        //gy = new Gyro(RobotMap.S_GY_CNL);
+        ec = new Encoder(RobotMap.S_EN_FL_SLOT, RobotMap.S_EN_FL_CNL);
+        // ec.start();
     }
 
     /**
@@ -43,36 +43,31 @@ public class SensorTestSubsystem extends Subsystem {
      *
      * @return instance
      */
-    public static SensorTestSubsystem getInstance() {  
-        if(instance == null)
-        {
-        instance = new SensorTestSubsystem();
+    public static SensorTestSubsystem getInstance() {
+        if (instance == null) {
+            instance = new SensorTestSubsystem();
             instance.initDefaultCommand();
         }
         return instance;
     }
 
-    public void encoderTest()
-    {
-       
+    public void encoderTest() {
+        System.out.println(ec.getRate());
+
         DSLog.log(1, Double.toString(ec.getRate()));
-        
-    }
-    
-    public void acTest()
-    {
-      //  DSLog.log(1, Double.toString(ac.getAcceleration()));
-    }
-    
-    public void gyroTest()
-    {
-         DSLog.log(1, Double.toString(gy.getAngle()));
-         
-         System.out.println(gy.getAngle());
-         
 
     }
-            
+
+    public void acTest() {
+        //  DSLog.log(1, Double.toString(ac.getAcceleration()));
+    }
+
+    public void gyroTest() {
+        DSLog.log(1, Double.toString(gy.getAngle()));
+
+        System.out.println(gy.getAngle());
+
+    }
 
     /**
      * Initializes shooter command. Do nothing.

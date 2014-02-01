@@ -60,10 +60,6 @@ public class RobotMain extends IterativeRobot {
         // Instantiate the command used for the autonomous period
         // Initialize all subsystems
         CommandBase.init();
-        while(true)
-        {
-            SensorTestSubsystem.getInstance().gyroTest();
-        }
         //autoCommand = new AutoShootAndReloadCommandGroup();
 
 

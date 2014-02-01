@@ -43,6 +43,8 @@ public class RobotMap {
     public static int M_CLAMP_OUT = 5;
     public static int M_ARM = 6;
     public static int M_CLAMP_IN = 7;
+    public static int M_TALON_RIGHT_WHEEL = 10;
+    public static int M_TALON_LEFT_WHEEL = 9;
     public static int M_FIST_PORTA;
     public static int M_FIST_PORTB;
     public static int M_RIGHT_VECTOR_SLOT;
