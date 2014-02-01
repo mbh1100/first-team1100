@@ -1,5 +1,7 @@
 package scoutingdatabase;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -28,11 +30,13 @@ public class Display extends JFrame {
 		setResizable(false);
 		setTitle("Scouting Database 2014");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 504, 844);
+		setBounds(5, 5, 504, 844);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+                Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+                this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
@@ -345,15 +349,35 @@ public class Display extends JFrame {
 				String shildFromBallsIn;
 				String commentsIn;
 				*/
-				int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to enter all the data?");
-				if(option == 1) {
+				int option = JOptionPane.showConfirmDialog(Main.frame, "Are you sure you want to enter all the data?", "Scouting Database 2014", JOptionPane.OK_CANCEL_OPTION);
+				if(option == 0) {
 					//Do entering things
+                                    JOptionPane.showMessageDialog(Main.frame, "Data entered", "Scouting Database 2014", JOptionPane.INFORMATION_MESSAGE);
+                                    Main.frameSetVisible(false);
+                                    Main.frame2SetVisible(true);
 				} else {
-					
+                                        JOptionPane.showMessageDialog(Main.frame, "Data entering canceled", "Scouting Database 2014", JOptionPane.ERROR_MESSAGE);
+                                        
 				}
 			}
 		});
-		enterDataButton.setBounds(0, 746, 422, 43);
+		enterDataButton.setBounds(0, 746, 224, 43);
 		panel.add(enterDataButton);
+                
+                JButton btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent arg0) {
+                        int option = JOptionPane.showConfirmDialog(Main.frame, "Are you sure you want to go back to the main menu?", "Scouting Database 2014", JOptionPane.OK_CANCEL_OPTION);
+				if(option == 0) {
+					//Do entering things
+                                    Main.frameSetVisible(false);
+                                    Main.frame2SetVisible(true);
+				} else {
+                                        
+				}
+                    }
+                });
+                btnBack.setBounds(254, 746, 224, 41);
+		panel.add(btnBack);
 	}
 }
