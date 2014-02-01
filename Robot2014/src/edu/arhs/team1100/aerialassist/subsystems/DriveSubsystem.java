@@ -22,8 +22,7 @@ public class DriveSubsystem extends PIDSubsystem {
     public static final double DIRECTION_FORWARD = 0;
     public static final double DIRECTION_BACK = 180;
     public static final double DIRECTION_LEFT = 270;
-    public static final double DIRECTION_RIGHT = 90;
-    public static final int MODE_CARTESIAN = 0;
+    public static final double DIRECTION_RIGHT = 90;    public static final int MODE_CARTESIAN = 0;
     public static final int MODE_POLAR = 1;
     public static final int MODE_TANK = 2;
     public static final double kJoystickP = 0.02;
@@ -336,5 +335,9 @@ public class DriveSubsystem extends PIDSubsystem {
      */
     protected double returnPIDInput() {
         return 0;
+    }
+    
+    public void reverseDirection(){
+        
     }
 }

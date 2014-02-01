@@ -17,6 +17,9 @@ import edu.arhs.team1100.aerialassist.subsystems.ManipulatorSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.ToggleClampCommand;
 import edu.arhs.team1100.aerialassist.commands.cameracommands.AutoAimCommand;
+import edu.arhs.team1100.aerialassist.commands.drive.ReverseDirectionCommand;
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 
 /**
@@ -75,6 +78,13 @@ public class OI {
         rightStick.getButton(TOGGLE_DRIVE).whenPressed(new ToggleDriveModeCommand());
         rightStick.getButton(CALIBRATE_GYRO).whenPressed(new CalibrateGyroCommand());
         leftStick.getButton(STOP_DRIVE).whenPressed(new StopDriveCommand(0.1));
+        
+        if(rightStick.getTrigger()){
+        /** reverse direction command
+         * not quiet sure how to do this, 
+         * but i figured out the trigger is a boolean, not a button...
+         */
+        }
 
     }
 
