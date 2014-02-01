@@ -8,6 +8,7 @@ package edu.arhs.team1100.aerialassist.subsystems;
 import edu.arhs.team1100.aerialassist.OI;
 import edu.arhs.team1100.aerialassist.RobotMap;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
@@ -21,17 +22,22 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class ManipulatorSubsystem extends Subsystem {
     
     static ManipulatorSubsystem instance;
-    private Talon armMotor;
+    private Talon armMotorOne;
+    private Talon armMotorTwo;
     private DoubleSolenoid clamp;
     private double wheelSpeed = .5;
     boolean isClamped = false;
+    private Encoder ec;
     /**
      * Constructs an ISubsystem. Initializes compressor, lift pistons,
      * intake motors. Starts compressor.
      */
     public ManipulatorSubsystem() {
-        armMotor = new Talon(RobotMap.M_ARM);
+        armMotorOne = new Talon(RobotMap.M_TALON_LEFT_WHEEL);
+        armMotorTwo = new Talon(RobotMap.M_TALON_RIGHT_WHEEL);
         clamp = new DoubleSolenoid(RobotMap.M_CLAMP_IN, RobotMap.M_CLAMP_OUT);
+        ec = new Encoder(RobotMap.M_EN_SLOT, RobotMap.M_EN_CNL);
+        ec.start();
     }
 
     /**
@@ -51,12 +57,34 @@ public class ManipulatorSubsystem extends Subsystem {
     public void moveArm()
     {
         double speed = OI.getInstance().getXboxController().getAxis(Joystick.AxisType.kZ) / 1.5;
-        armMotor.set(speed);
+        armMotorOne.set(speed);
+        armMotorTwo.set(-speed);
     }
     
     public void stopArm()
     {
-        armMotor.set(0);
+        armMotorOne.set(0);
+        armMotorTwo.set(0);
+    }
+    
+    public double getEncoder()
+    {
+        return ec.get();
+    }
+    
+    public void setCount(double count)
+    {
+        while(ec.get() > count+20 || ec.get() < count-20)
+        {
+            while(ec.get() <= count-10)
+            {
+               armMotorOne.set(.2);
+            }
+            while(ec.get() >= count+10)
+            {
+                armMotorTwo.set(.2);
+            }
+        }
     }
     
     /**

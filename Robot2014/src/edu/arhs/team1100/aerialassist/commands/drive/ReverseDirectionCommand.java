@@ -16,7 +16,7 @@ public class ReverseDirectionCommand extends CommandBase {
      */
     public ReverseDirectionCommand() {
         requires(DriveSubsystem.getInstance());
-        DriveSubsystem.getInstance().reverseDirection();
+        DriveSubsystem.getInstance().toggleReverseDirection();
     }
 
     /**

@@ -22,12 +22,16 @@ public class DriveSubsystem extends PIDSubsystem {
     public static final double DIRECTION_FORWARD = 0;
     public static final double DIRECTION_BACK = 180;
     public static final double DIRECTION_LEFT = 270;
-    public static final double DIRECTION_RIGHT = 90;    public static final int MODE_CARTESIAN = 0;
+    public static final double DIRECTION_RIGHT = 90;
+    public static final int MODE_CARTESIAN = 0;
     public static final int MODE_POLAR = 1;
     public static final int MODE_TANK = 2;
     public static final double kJoystickP = 0.02;
     public static final double kJoystickI = 0.0001;
     public static final double kJoystickD = 0.0005;
+    private static final double ratio = 1;
+    private static double offset = 0;
+    private static boolean reverse = false;
     static DriveSubsystem instance;
     private DoubleSolenoid frontRightSolenoid;
     private DoubleSolenoid frontLeftSolenoid;
@@ -81,12 +85,11 @@ public class DriveSubsystem extends PIDSubsystem {
         frontRightTalonOne = new Talon(RobotMap.D_TALON_FRONT_RIGHT);
         backLeftTalonOne = new Talon(RobotMap.D_TALON_BACK_LEFT);
         backRightTalonOne = new Talon(RobotMap.D_TALON_BACK_RIGHT);
-        
+
         frontLeftTalonTwo = new Talon(RobotMap.D_TALON_FRONT_LEFT_TWO);
         frontRightTalonTwo = new Talon(RobotMap.D_TALON_FRONT_RIGHT_TWO);
         backLeftTalonTwo = new Talon(RobotMap.D_TALON_BACK_LEFT_TWO);
         backRightTalonTwo = new Talon(RobotMap.D_TALON_BACK_RIGHT_TWO);
-
 
         driveOne = new RobotDrive(
                 frontLeftTalonOne,
@@ -99,15 +102,18 @@ public class DriveSubsystem extends PIDSubsystem {
                 frontRightTalonTwo,
                 backLeftTalonTwo,
                 backRightTalonTwo);
-       
+
         driveGyro = new Gyro(RobotMap.D_GYRO);
-        
-        
+        encoderFrontRight.start();
+        encoderFrontLeft.start();
+        encoderBackRight.start();
+        encoderBackLeft.start();
+
         encoderFrontRight = new Encoder(RobotMap.S_EN_FR_CNL, RobotMap.S_EN_FR_SLOT);
         encoderFrontLeft = new Encoder(RobotMap.S_EN_FL_CNL, RobotMap.S_EN_FL_SLOT);
         encoderBackRight = new Encoder(RobotMap.S_EN_BR_CNL, RobotMap.S_EN_BR_SLOT);
         encoderBackLeft = new Encoder(RobotMap.S_EN_BL_CNL, RobotMap.S_EN_BL_SLOT);
-        
+
     }
 
     /**
@@ -181,7 +187,7 @@ public class DriveSubsystem extends PIDSubsystem {
      */
     private void userDrivePolar() {
         double magnitude = -OI.getInstance().getLeftJoystick().getMagnitude();
-        double angle = -OI.getInstance().getLeftJoystick().getAngle();
+        double angle = -OI.getInstance().getLeftJoystick().getAngle() + offset;
         double rotation = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
         driveOne.mecanumDrive_Polar(magnitude, angle, rotation);
         driveTwo.mecanumDrive_Polar(magnitude, angle, rotation);
@@ -209,16 +215,41 @@ public class DriveSubsystem extends PIDSubsystem {
      * @param rightValue speed of the right wheels
      */
     public void driveTank(double leftValue, double rightValue) {
-        if(encoderDrive)driveTankEncoder(leftValue, rightValue);
         if (driveMode == MODE_TANK) {
-            driveOne.tankDrive(-leftValue, rightValue);
-            driveTwo.tankDrive(-leftValue, rightValue);
+            if (!reverse) {
+                driveOne.tankDrive(-leftValue, rightValue);
+                driveTwo.tankDrive(-leftValue, rightValue);
+            }
+            if (reverse) {
+                driveOne.tankDrive(leftValue, -rightValue);
+                driveTwo.tankDrive(leftValue, -rightValue);
+            }
+        }
+        if (encoderDrive) {
+            driveTankEncoder(leftValue, rightValue);
         }
     }
-    
-    public void driveTankEncoder(double leftValue, double RightValue)
-    {
-        
+
+    public void driveTankEncoder(double leftValue, double rightValue) {
+        fixMotorSpeed(frontLeftTalonOne, frontLeftTalonTwo, encoderFrontLeft, leftValue);
+        fixMotorSpeed(backLeftTalonOne, backLeftTalonTwo, encoderBackLeft, leftValue);
+        fixMotorSpeed(frontRightTalonOne, frontRightTalonTwo, encoderFrontRight, rightValue);
+        fixMotorSpeed(backRightTalonOne, backRightTalonTwo, encoderBackRight, rightValue);
+
+    }
+
+    public void fixMotorSpeed(Talon wheelOne, Talon wheelTwo, Encoder ec, double speed) {
+        speed = speed*ratio;
+        while (ec.getRate() < speed - 50 || ec.getRate() > speed + 50) {
+            if (ec.getRate() < speed - 50) {
+                wheelOne.set(wheelOne.getRaw() + .01);
+                wheelTwo.set(wheelTwo.getRaw() + .01);
+            }
+            if (ec.getRate() > speed + 50) {
+                wheelOne.set(wheelOne.getRaw() - .01);
+                wheelTwo.set(wheelTwo.getRaw() - .01);
+            }
+        }
     }
 
     /**
@@ -290,13 +321,12 @@ public class DriveSubsystem extends PIDSubsystem {
     }
 
     /**
-     * Toggles EncoderDrive 
+     * Toggles EncoderDrive
      */
-    public void toggleEncoderDrive()
-    {
+    public void toggleEncoderDrive() {
         encoderDrive = !encoderDrive;
     }
-    
+
     /**
      * @return the current drive mode, DriveSubsystem.MODE_POLAR or
      * DriveSubsystem.MODE_CARTESIAN or DriveSubsystem.MODE_TANK.
@@ -336,8 +366,9 @@ public class DriveSubsystem extends PIDSubsystem {
     protected double returnPIDInput() {
         return 0;
     }
-    
-    public void reverseDirection(){
-        
+
+    public void toggleReverseDirection() {
+        offset += 180;
+        reverse = !reverse;
     }
 }
