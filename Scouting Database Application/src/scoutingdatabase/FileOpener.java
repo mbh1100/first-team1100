@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 
 public class FileOpener {
 
+    /*
     static FileOpener instance;
     static String fileName = "Teams";
     private File file;
@@ -81,4 +82,5 @@ public class FileOpener {
             e.printStackTrace();
         }
     }
+    * */
 }
