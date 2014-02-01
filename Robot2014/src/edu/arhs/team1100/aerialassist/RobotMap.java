@@ -18,14 +18,14 @@ public class RobotMap {
 
     
     //[D]RIVE
-    public static final int D_TALON_FRONT_LEFT = 1;
-    public static final int D_TALON_FRONT_RIGHT = 9;
-    public static final int D_TALON_BACK_LEFT = 3;
-    public static final int D_TALON_BACK_RIGHT = 4;
-    public static final int D_TALON_FRONT_LEFT_TWO = 1;
-    public static final int D_TALON_FRONT_RIGHT_TWO = 9;
-    public static final int D_TALON_BACK_LEFT_TWO = 3;
-    public static final int D_TALON_BACK_RIGHT_TWO = 4;
+    public static final int D_TALON_FRONT_LEFT = 4;
+    public static final int D_TALON_FRONT_RIGHT = 8;
+    public static final int D_TALON_BACK_LEFT = 1;
+    public static final int D_TALON_BACK_RIGHT = 2;
+    public static final int D_TALON_FRONT_LEFT_TWO = 3;
+    public static final int D_TALON_FRONT_RIGHT_TWO = 7;
+    public static final int D_TALON_BACK_LEFT_TWO = 5;
+    public static final int D_TALON_BACK_RIGHT_TWO = 6;
     public static final int D_GYRO = 1;
     public static int D_FRONT_LEFT_SOLENOID_PORTA = 8;
     public static int D_FRONT_LEFT_SOLENOID_PORTB = 1;
@@ -53,7 +53,7 @@ public class RobotMap {
     //[S]ensor
     public static int S_AC_1q = 10;
     public static int S_EN_FR_CNL = 1;
-    public static int S_EN_FL_CNL = 8;
+    public static int S_EN_FL_CNL = 2;
     public static int S_EN_BR_CNL = 3;
     public static int S_EN_BL_CNL = 4;
     public static int S_EN_FR_SLOT = 5;
