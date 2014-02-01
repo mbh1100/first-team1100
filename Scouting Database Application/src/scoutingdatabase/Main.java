@@ -3,12 +3,24 @@
  * and open the template in the editor.
  */
 package scoutingdatabase;
+
+import java.awt.EventQueue;
+
 /**
  *
  * @author Thomas
  */
 public class Main {
     public static void main(String[] args) {
-        Display display = new Display();
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+		try {
+                    Display frame = new Display();
+                    frame.setVisible(true);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	});
     }
 }

@@ -1,3 +1,5 @@
+package scoutingdatabase;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -23,12 +25,6 @@ public class Display extends JFrame {
 	 * Create the frame.
 	 */
 	public Display() {
-            try {
-		Display frame = new Display();
-		frame.setVisible(true);
-		} catch (Exception e) {
-                    e.printStackTrace();
-                }
 		setResizable(false);
 		setTitle("Scouting Database 2014");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
