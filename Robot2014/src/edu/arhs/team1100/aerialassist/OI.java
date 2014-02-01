@@ -34,6 +34,7 @@ public class OI {
     //Right STICK BUTTON SETTINGS
     private static final int TOGGLE_MEC = 2;
     private static final int TOGGLE_DRIVE = 5;
+    private static final int REVERSE_DIRECTION = 12; //trigger
     //left STICK BUTTON SETTINGS
     private static final int CALIBRATE_GYRO = 3;
     private static final int LEG = 1;//trigger
@@ -79,12 +80,7 @@ public class OI {
         rightStick.getButton(CALIBRATE_GYRO).whenPressed(new CalibrateGyroCommand());
         leftStick.getButton(STOP_DRIVE).whenPressed(new StopDriveCommand(0.1));
         
-        if(rightStick.getTrigger()){
-        /** reverse direction command
-         * not quiet sure how to do this, 
-         * but i figured out the trigger is a boolean, not a button...
-         */
-        }
+        rightStick.getButton(REVERSE_DIRECTION).whenPressed(new ReverseDirectionCommand());
 
     }
 
