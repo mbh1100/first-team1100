@@ -119,6 +119,8 @@ public class RobotMain extends IterativeRobot {
         else if (DriveSubsystem.getInstance().getDriveMode() == DriveSubsystem.MODE_CARTESIAN){
             DSLog.log(1, "Drive Mode: CARTESIAN");
         }
+        DSLog.log(3, "Encoder Mode:" + DriveSubsystem.getInstance().getEncoderDrive());
+        DSLog.log(4, "Wheel Encoder Value" + DriveSubsystem.getInstance().getEncoderValue(1));
       
         DSLog.log(2, "Gyro Angle: " + Log.round(DriveSubsystem.getInstance().getGyroAngle(), 2));
     

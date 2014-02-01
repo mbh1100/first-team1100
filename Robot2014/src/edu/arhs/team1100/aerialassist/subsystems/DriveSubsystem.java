@@ -350,7 +350,27 @@ public class DriveSubsystem extends PIDSubsystem {
     public void calibrateGyro() {
         driveGyro.reset();
     }
+    
+    public String getEncoderDrive()
+    {
+        String output;
+        if(encoderDrive)output = "Enabled";
+        else output = "Disabled";
+        return output;
+    }
 
+    public double getEncoderValue(int encoder)
+    {
+        switch(encoder)
+        {
+            case 1: return encoderFrontLeft.getRate();
+            case 2: return encoderFrontRight.getRate();          
+            case 3: return encoderBackLeft.getRate();        
+            case 4: return encoderBackRight.getRate();
+        }
+        return 0;
+         
+    }
     /**
      * Initialize default command.
      */
