@@ -18,6 +18,7 @@ import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.ToggleClampCommand;
 import edu.arhs.team1100.aerialassist.commands.cameracommands.AutoAimCommand;
 import edu.arhs.team1100.aerialassist.commands.drive.ReverseDirectionCommand;
+import edu.arhs.team1100.aerialassist.commands.drive.ToggleEncoderCommand;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 
@@ -35,6 +36,7 @@ public class OI {
     private static final int TOGGLE_MEC = 2;
     private static final int TOGGLE_DRIVE = 5;
     private static final int REVERSE_DIRECTION = 12; //trigger
+    private static final int TOGGLE_ENCODER = 3;
     //left STICK BUTTON SETTINGS
     private static final int CALIBRATE_GYRO = 3;
     private static final int LEG = 1;//trigger
@@ -78,6 +80,7 @@ public class OI {
         rightStick.getButton(TOGGLE_MEC).whenPressed(new ToggleMecModeCommand());
         rightStick.getButton(TOGGLE_DRIVE).whenPressed(new ToggleDriveModeCommand());
         rightStick.getButton(CALIBRATE_GYRO).whenPressed(new CalibrateGyroCommand());
+        rightStick.getButton(TOGGLE_ENCODER).whenPressed(new ToggleEncoderCommand());
         leftStick.getButton(STOP_DRIVE).whenPressed(new StopDriveCommand(0.1));
         
         rightStick.getButton(REVERSE_DIRECTION).whenPressed(new ReverseDirectionCommand());
