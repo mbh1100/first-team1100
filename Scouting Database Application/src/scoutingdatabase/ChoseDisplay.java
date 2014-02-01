@@ -1,8 +1,6 @@
 package scoutingdatabase;
 
-import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -21,33 +19,19 @@ public class ChoseDisplay extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ChoseDisplay frame = new ChoseDisplay();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.
 	 */
 	public ChoseDisplay() {
-                setResizable(false);
-                setTitle("Scouting Database 2014");
+		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(5, 5, 345, 239);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-                Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-                this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 		
 		JLabel lblWhatTypeOf = new JLabel("What type of entry would you like to enter?");
 		lblWhatTypeOf.setBounds(10, 11, 249, 14);
@@ -57,7 +41,7 @@ public class ChoseDisplay extends JFrame {
 		btnPitEntry.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Code for pit entry
-				JOptionPane.showMessageDialog(Main.frame2, "This option is currently unavaliable", "Scouting Database 2014", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "This option is currently unavaliable");
 			}
 		});
 		btnPitEntry.setBounds(10, 36, 148, 55);
@@ -66,9 +50,8 @@ public class ChoseDisplay extends JFrame {
 		JButton btnMatchEntry = new JButton("Match Entry");
 		btnMatchEntry.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Code for match entry
-				Main.frame2SetVisible(false);
-				Main.frameSetVisible(true);
+				setVisible(false);
+				new Display();
 			}
 		});
 		btnMatchEntry.setBounds(168, 36, 148, 55);

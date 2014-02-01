@@ -12,15 +12,16 @@ import java.awt.EventQueue;
  */
 public class Main {
     
-    static Display frame;
-    static ChoseDisplay frame2;
+    static Display matchDisplay;
+    static ChoseDisplay choseDisplay;
     
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
 		try {
-                    frame = new Display();
-                    frame.setVisible(false);
+                    matchDisplay = new Display();
+                   
+                    matchDisplay.setVisible(false);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -29,8 +30,8 @@ public class Main {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
 		try {
-                    frame2 = new ChoseDisplay();
-                    frame2.setVisible(true);
+                    choseDisplay = new ChoseDisplay();
+                    choseDisplay.setVisible(true);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -38,13 +39,15 @@ public class Main {
 	});
     }
     
+    /*
+     * Set the match input to visible
+     */
     public static void frameSetVisible(boolean b) {
-        //Set the match input to visible
-        frame.setVisible(b);
+        matchDisplay.setVisible(b);
     }
     public static void frame2SetVisible(boolean b) {
         //Set the input chooser to visibe
-        frame2.setVisible(b);
+        choseDisplay.setVisible(b);
     }
     public static void frame3SetVisible(boolean b) {
         //Set the pit input to visible
