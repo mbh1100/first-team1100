@@ -27,8 +27,8 @@ public class RobotMap {
     public static final int D_TALON_BACK_LEFT_TWO = 5;
     public static final int D_TALON_BACK_RIGHT_TWO = 6;
     public static final int D_GYRO = 1;
-    public static int D_FRONT_LEFT_SOLENOID_PORTA = 8;
-    public static int D_FRONT_LEFT_SOLENOID_PORTB = 1;
+    public static int D_FRONT_LEFT_SOLENOID_PORTA = 1;
+    public static int D_FRONT_LEFT_SOLENOID_PORTB = 2;
     public static int D_FRONT_RIGHT_SOLENOID_PORTA = 5;
     public static int D_FRONT_RIGHT_SOLENOID_PORTB = 3;
     public static int D_BACK_LEFT_SOLENOID_PORTA = 4;
