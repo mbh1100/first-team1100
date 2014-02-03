@@ -69,21 +69,21 @@ public class OI {
         xbox = new XboxController(RobotMap.C_XBOX_CONTROLLER, 0.1);
 
         //CONTROL ASSIGNMENTS       
-        xbox.getButtonX().whenPressed(new FireShooterCommand());
-        xbox.getButtonY().whenPressed(new AutoAimCommand());
-        xbox.getButtonA().whenPressed(new RollInCommand());
-        xbox.getButtonB().whenPressed(new RollOutCommand()); 
+        //xbox.getButtonX().whenPressed(new FireShooterCommand());
+        //xbox.getButtonY().whenPressed(new AutoAimCommand());
+        //xbox.getButtonA().whenPressed(new RollInCommand());
+        //xbox.getButtonB().whenPressed(new RollOutCommand()); 
         
-        xbox.getButtonRightBumper().whenPressed(new ToggleClampCommand());
+        //xbox.getButtonRightBumper().whenPressed(new ToggleClampCommand());
         
         
         rightStick.getButton(TOGGLE_MEC).whenPressed(new ToggleMecModeCommand());
         rightStick.getButton(TOGGLE_DRIVE).whenPressed(new ToggleDriveModeCommand());
         rightStick.getButton(CALIBRATE_GYRO).whenPressed(new CalibrateGyroCommand());
-        rightStick.getButton(TOGGLE_ENCODER).whenPressed(new ToggleEncoderCommand());
+        //rightStick.getButton(TOGGLE_ENCODER).whenPressed(new ToggleEncoderCommand());
         leftStick.getButton(STOP_DRIVE).whenPressed(new StopDriveCommand(0.1));
         
-        rightStick.getButton(REVERSE_DIRECTION).whenPressed(new ReverseDirectionCommand());
+        //rightStick.getButton(REVERSE_DIRECTION).whenPressed(new ReverseDirectionCommand());
 
     }
 
