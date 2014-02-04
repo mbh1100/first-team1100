@@ -49,20 +49,17 @@ public class RobotMain extends IterativeRobot {
 
         //Add all logging classes
         //Log.addClass(RobotMain.class, Log.LEVEL_DEBUG);
-        //Log.addClass(DriveSubsystem.class, Log.LEVEL_DEBUG);
+        Log.addClass(DriveSubsystem.class, Log.LEVEL_DEBUG);
         //Log.addClass(ManipulatorSubsystem.class, Log.LEVEL_DEBUG);
         //Log.addClass(ShooterSubsystem.class, Log.LEVEL_DEBUG);
         //Log.addClass(CompressorSubsystem.class, Log.LEVEL_DEBUG);
-        Log.addClass(SensorTestSubsystem.class, Log.LEVEL_DEBUG);
+        //Log.addClass(SensorTestSubsystem.class, Log.LEVEL_DEBUG);
         //Log.addClass(CalibrateGyroCommand.class, Log.LEVEL_OFF);
-      
 
         // Instantiate the command used for the autonomous period
         // Initialize all subsystems
         CommandBase.init();
         //autoCommand = new AutoShootAndReloadCommandGroup();
-
-
     }
 
     /**
@@ -72,10 +69,8 @@ public class RobotMain extends IterativeRobot {
         //Schedule the autonomous command (example)
         //autonomous.start();
         autoCommand.start();
-
         Scheduler.getInstance().enable();
         //DSLog.log(5, "auto init");
-        //autonomous.start();
     }
 
     /**
@@ -94,7 +89,7 @@ public class RobotMain extends IterativeRobot {
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        lastTime = System.currentTimeMillis();
+        //lastTime = System.currentTimeMillis();
         Scheduler.getInstance().enable();
     }
 
@@ -106,24 +101,19 @@ public class RobotMain extends IterativeRobot {
         //trackRate();
         updateDriverStationLog();
 
-
     }
 
     private void updateDriverStationLog() {
-        if (DriveSubsystem.getInstance().getDriveMode() == DriveSubsystem.MODE_POLAR){
+        if (DriveSubsystem.getInstance().getDriveMode() == DriveSubsystem.MODE_POLAR) {
             DSLog.log(1, "Drive Mode: POLAR");
-        }
-        else if (DriveSubsystem.getInstance().getDriveMode() == DriveSubsystem.MODE_TANK){
+        } else if (DriveSubsystem.getInstance().getDriveMode() == DriveSubsystem.MODE_TANK) {
             DSLog.log(1, "Drive Mode: TANK");
-        }
-        else if (DriveSubsystem.getInstance().getDriveMode() == DriveSubsystem.MODE_CARTESIAN){
+        } else if (DriveSubsystem.getInstance().getDriveMode() == DriveSubsystem.MODE_CARTESIAN) {
             DSLog.log(1, "Drive Mode: CARTESIAN");
         }
-        DSLog.log(3, "Encoder Mode:" + DriveSubsystem.getInstance().getEncoderDrive());
-        DSLog.log(4, "Wheel Encoder Value" + DriveSubsystem.getInstance().getEncoderValue(1));
-      
-        DSLog.log(2, "Gyro Angle: " + Log.round(DriveSubsystem.getInstance().getGyroAngle(), 2));
-    
+        //DSLog.log(3, "Encoder Mode:" + DriveSubsystem.getInstance().getEncoderDrive());
+        //DSLog.log(4, "Wheel Encoder Value" + DriveSubsystem.getInstance().getEncoderValue(1));
+        //DSLog.log(2, "Gyro Angle: " + Log.round(DriveSubsystem.getInstance().getGyroAngle(), 2));
     }
 
     /**

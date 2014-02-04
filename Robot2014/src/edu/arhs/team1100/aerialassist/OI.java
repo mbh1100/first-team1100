@@ -22,7 +22,6 @@ import edu.arhs.team1100.aerialassist.commands.drive.ToggleEncoderCommand;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 
-
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -69,22 +68,21 @@ public class OI {
         xbox = new XboxController(RobotMap.C_XBOX_CONTROLLER, 0.1);
 
         //CONTROL ASSIGNMENTS       
-        //xbox.getButtonX().whenPressed(new FireShooterCommand());
-        //xbox.getButtonY().whenPressed(new AutoAimCommand());
-        //xbox.getButtonA().whenPressed(new RollInCommand());
-        //xbox.getButtonB().whenPressed(new RollOutCommand()); 
-        
-        //xbox.getButtonRightBumper().whenPressed(new ToggleClampCommand());
-        
-        
+//      xbox.getButtonX().whenPressed(new FireShooterCommand());
+//      xbox.getButtonY().whenPressed(new AutoAimCommand());
+//      xbox.getButtonA().whenPressed(new RollInCommand());
+//      xbox.getButtonB().whenPressed(new RollOutCommand());        
+//      xbox.getButtonRightBumper().whenPressed(new ToggleClampCommand());
+//        
+
         rightStick.getButton(TOGGLE_MEC).whenPressed(new ToggleMecModeCommand());
         rightStick.getButton(TOGGLE_DRIVE).whenPressed(new ToggleDriveModeCommand());
-        rightStick.getButton(CALIBRATE_GYRO).whenPressed(new CalibrateGyroCommand());
-        //rightStick.getButton(TOGGLE_ENCODER).whenPressed(new ToggleEncoderCommand());
-        leftStick.getButton(STOP_DRIVE).whenPressed(new StopDriveCommand(0.1));
-        
-        //rightStick.getButton(REVERSE_DIRECTION).whenPressed(new ReverseDirectionCommand());
 
+//      rightStick.getButton(CALIBRATE_GYRO).whenPressed(new CalibrateGyroCommand());
+//      rightStick.getButton(TOGGLE_ENCODER).whenPressed(new ToggleEncoderCommand());
+//      rightStick.getButton(REVERSE_DIRECTION).whenPressed(new ReverseDirectionCommand());        
+//        
+//      leftStick.getButton(STOP_DRIVE).whenPressed(new StopDriveCommand(0.1));
     }
 
     /**

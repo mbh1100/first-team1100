@@ -1,6 +1,5 @@
 package edu.arhs.team1100.aerialassist.subsystems;
 
-import com.sun.squawk.util.MathUtils;
 import edu.arhs.team1100.aerialassist.OI;
 import edu.arhs.team1100.aerialassist.RobotMap;
 import edu.arhs.team1100.aerialassist.commands.drive.UserDriveCommand;
@@ -52,7 +51,7 @@ public class DriveSubsystem extends PIDSubsystem {
     private Encoder encoderFrontLeft;
     private Encoder encoderBackRight;
     private Encoder encoderBackLeft;
-    private int driveMode = MODE_CARTESIAN;
+    private int driveMode = MODE_TANK;
     private boolean mecanumWheelsLowered = true;
     private boolean encoderDrive = false;
 
@@ -77,9 +76,9 @@ public class DriveSubsystem extends PIDSubsystem {
         super(kJoystickP, kJoystickI, kJoystickD);
 
         frontLeftSolenoid = new DoubleSolenoid(RobotMap.D_FRONT_LEFT_SOLENOID_PORTA, RobotMap.D_FRONT_LEFT_SOLENOID_PORTB);
-        frontRightSolenoid = new DoubleSolenoid(RobotMap.D_FRONT_RIGHT_SOLENOID_PORTA, RobotMap.D_FRONT_RIGHT_SOLENOID_PORTB);
-        backLeftSolenoid = new DoubleSolenoid(RobotMap.D_BACK_LEFT_SOLENOID_PORTA, RobotMap.D_BACK_LEFT_SOLENOID_PORTB);
-        backRightSolenoid = new DoubleSolenoid(RobotMap.D_BACK_RIGHT_SOLENOID_PORTA, RobotMap.D_BACK_RIGHT_SOLENOID_PORTB);
+//      frontRightSolenoid = new DoubleSolenoid(RobotMap.D_FRONT_RIGHT_SOLENOID_PORTA, RobotMap.D_FRONT_RIGHT_SOLENOID_PORTB);
+//      backLeftSolenoid = new DoubleSolenoid(RobotMap.D_BACK_LEFT_SOLENOID_PORTA, RobotMap.D_BACK_LEFT_SOLENOID_PORTB);
+//      backRightSolenoid = new DoubleSolenoid(RobotMap.D_BACK_RIGHT_SOLENOID_PORTA, RobotMap.D_BACK_RIGHT_SOLENOID_PORTB);
 
         frontLeftTalonOne = new Talon(RobotMap.D_TALON_FRONT_LEFT);
         frontRightTalonOne = new Talon(RobotMap.D_TALON_FRONT_RIGHT);
@@ -93,27 +92,26 @@ public class DriveSubsystem extends PIDSubsystem {
 
         driveOne = new RobotDrive(
                 frontLeftTalonOne,
-                frontRightTalonOne,
                 backLeftTalonOne,
+                frontRightTalonOne,
                 backRightTalonOne);
 
         driveTwo = new RobotDrive(
                 frontLeftTalonTwo,
-                frontRightTalonTwo,
                 backLeftTalonTwo,
+                frontRightTalonTwo,
                 backRightTalonTwo);
 
-        driveGyro = new Gyro(RobotMap.D_GYRO);
-        encoderFrontRight.start();
-        encoderFrontLeft.start();
-        encoderBackRight.start();
-        encoderBackLeft.start();
-
-        encoderFrontRight = new Encoder(RobotMap.S_EN_FR_CNL, RobotMap.S_EN_FR_SLOT);
-        encoderFrontLeft = new Encoder(RobotMap.S_EN_FL_CNL, RobotMap.S_EN_FL_SLOT);
-        encoderBackRight = new Encoder(RobotMap.S_EN_BR_CNL, RobotMap.S_EN_BR_SLOT);
-        encoderBackLeft = new Encoder(RobotMap.S_EN_BL_CNL, RobotMap.S_EN_BL_SLOT);
-
+//        driveGyro = new Gyro(RobotMap.D_GYRO);
+//        encoderFrontRight.start();
+//        encoderFrontLeft.start();
+//        encoderBackRight.start();
+//        encoderBackLeft.start();
+//
+//        encoderFrontRight = new Encoder(RobotMap.S_EN_FR_CNL, RobotMap.S_EN_FR_SLOT);
+//        encoderFrontLeft = new Encoder(RobotMap.S_EN_FL_CNL, RobotMap.S_EN_FL_SLOT);
+//        encoderBackRight = new Encoder(RobotMap.S_EN_BR_CNL, RobotMap.S_EN_BR_SLOT);
+//        encoderBackLeft = new Encoder(RobotMap.S_EN_BL_CNL, RobotMap.S_EN_BL_SLOT);
     }
 
     /**
@@ -140,9 +138,9 @@ public class DriveSubsystem extends PIDSubsystem {
     private void lowerMecWheels() {
         if (!mecanumWheelsLowered) {
             frontLeftSolenoid.set(DoubleSolenoid.Value.kForward);
-            frontRightSolenoid.set(DoubleSolenoid.Value.kForward);
-            backLeftSolenoid.set(DoubleSolenoid.Value.kForward);
-            backRightSolenoid.set(DoubleSolenoid.Value.kForward);
+            //frontRightSolenoid.set(DoubleSolenoid.Value.kForward);
+            //backLeftSolenoid.set(DoubleSolenoid.Value.kForward);
+            //backRightSolenoid.set(DoubleSolenoid.Value.kForward);
             mecanumWheelsLowered = true;
         }
     }
@@ -153,9 +151,9 @@ public class DriveSubsystem extends PIDSubsystem {
     private void raiseMecWheels() {
         if (mecanumWheelsLowered) {
             frontLeftSolenoid.set(DoubleSolenoid.Value.kReverse);
-            frontRightSolenoid.set(DoubleSolenoid.Value.kReverse);
-            backLeftSolenoid.set(DoubleSolenoid.Value.kReverse);
-            backRightSolenoid.set(DoubleSolenoid.Value.kReverse);
+            //frontRightSolenoid.set(DoubleSolenoid.Value.kReverse);
+            //backLeftSolenoid.set(DoubleSolenoid.Value.kReverse);
+            //backRightSolenoid.set(DoubleSolenoid.Value.kReverse);
             mecanumWheelsLowered = false;
         }
     }
@@ -163,8 +161,8 @@ public class DriveSubsystem extends PIDSubsystem {
     /**
      * Defines values to drive Tank mode. Gets values from joysticks.
      */
-    private void userDriveTank() {
-        double leftSpeed = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
+    public void userDriveTank() {
+        double leftSpeed = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
         double rightSpeed = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
 
         driveOne.tankDrive(leftSpeed, rightSpeed);
@@ -178,8 +176,8 @@ public class DriveSubsystem extends PIDSubsystem {
         double rotation = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
         double controlX = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
         double controlY = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
-        driveOne.mecanumDrive_Cartesian(controlX, controlY, rotation, driveGyro.getAngle());
-        driveTwo.mecanumDrive_Cartesian(controlX, controlY, rotation, driveGyro.getAngle());
+        //driveOne.mecanumDrive_Cartesian(controlX, controlY, rotation, driveGyro.getAngle());
+        //driveTwo.mecanumDrive_Cartesian(controlX, controlY, rotation, driveGyro.getAngle());
     }
 
     /**
@@ -239,7 +237,7 @@ public class DriveSubsystem extends PIDSubsystem {
     }
 
     public void fixMotorSpeed(Talon wheelOne, Talon wheelTwo, Encoder ec, double speed) {
-        speed = speed*ratio;
+        speed = speed * ratio;
         while (ec.getRate() < speed - 50 || ec.getRate() > speed + 50) {
             if (ec.getRate() < speed - 50) {
                 wheelOne.set(wheelOne.getRaw() + .01);
@@ -285,7 +283,6 @@ public class DriveSubsystem extends PIDSubsystem {
         } else {
             setDriveMode(MODE_CARTESIAN);
         }
-        DSLog.log(5, (driveMode == MODE_CARTESIAN) ? "Cartesian" : "Polar");
     }
 
     /**
@@ -350,27 +347,32 @@ public class DriveSubsystem extends PIDSubsystem {
     public void calibrateGyro() {
         driveGyro.reset();
     }
-    
-    public String getEncoderDrive()
-    {
+
+    public String getEncoderDrive() {
         String output;
-        if(encoderDrive)output = "Enabled";
-        else output = "Disabled";
+        if (encoderDrive) {
+            output = "Enabled";
+        } else {
+            output = "Disabled";
+        }
         return output;
     }
 
-    public double getEncoderValue(int encoder)
-    {
-        switch(encoder)
-        {
-            case 1: return encoderFrontLeft.getRate();
-            case 2: return encoderFrontRight.getRate();          
-            case 3: return encoderBackLeft.getRate();        
-            case 4: return encoderBackRight.getRate();
+    public double getEncoderValue(int encoder) {
+        switch (encoder) {
+            case 1:
+                return encoderFrontLeft.getRate();
+            case 2:
+                return encoderFrontRight.getRate();
+            case 3:
+                return encoderBackLeft.getRate();
+            case 4:
+                return encoderBackRight.getRate();
         }
         return 0;
-         
+
     }
+
     /**
      * Initialize default command.
      */

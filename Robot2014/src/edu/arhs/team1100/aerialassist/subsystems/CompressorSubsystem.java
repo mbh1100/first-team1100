@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package edu.arhs.team1100.aerialassist.subsystems;
 
 import edu.arhs.team1100.aerialassist.RobotMap;
@@ -14,11 +13,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  * @author ryanfite
  */
-public class CompressorSubsystem extends Subsystem{
+public class CompressorSubsystem extends Subsystem {
 
-    
     private static CompressorSubsystem instance;
-    
+
     private Compressor compressor;
 
     public static CompressorSubsystem getInstance() {
@@ -28,21 +26,18 @@ public class CompressorSubsystem extends Subsystem{
         }
         return instance;
     }
-    
-    public CompressorSubsystem()
-    {
-        compressor = new Compressor(RobotMap.D_COMPRESSOR_PRESSURE_SWITCH, RobotMap.D_COMPRESSOR_RELAY); 
-        compressor.start();   
+
+    public CompressorSubsystem() {
+        compressor = new Compressor(RobotMap.D_COMPRESSOR_SLOT, RobotMap.D_COMPRESSOR_PRESSURE_SWITCH_CHANNEL, RobotMap.D_COMPRESSOR_SLOT, RobotMap.D_COMPRESSOR_RELAY_CHANNEL);
+        compressor.start();
     }
-    
-    
+
     public boolean getPressureSwitch() {
         return compressor.getPressureSwitchValue();
     }
-    
-    
+
     protected void initDefaultCommand() {
-        
+
     }
-    
+
 }
