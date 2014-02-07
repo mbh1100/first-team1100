@@ -101,17 +101,20 @@ public class DriveSubsystem extends PIDSubsystem {
                 backLeftTalonTwo,
                 frontRightTalonTwo,
                 backRightTalonTwo);
+    
 
-//        driveGyro = new Gyro(RobotMap.D_GYRO);
-//        encoderFrontRight.start();
-//        encoderFrontLeft.start();
-//        encoderBackRight.start();
-//        encoderBackLeft.start();
-//
-//        encoderFrontRight = new Encoder(RobotMap.S_EN_FR_CNL, RobotMap.S_EN_FR_SLOT);
-//        encoderFrontLeft = new Encoder(RobotMap.S_EN_FL_CNL, RobotMap.S_EN_FL_SLOT);
-//        encoderBackRight = new Encoder(RobotMap.S_EN_BR_CNL, RobotMap.S_EN_BR_SLOT);
-//        encoderBackLeft = new Encoder(RobotMap.S_EN_BL_CNL, RobotMap.S_EN_BL_SLOT);
+        //driveGyro = new Gyro(RobotMap.D_GYRO);
+        /*
+        encoderFrontRight.start();
+        encoderFrontLeft.start();
+        encoderBackRight.start();
+        encoderBackLeft.start();
+
+        encoderFrontRight = new Encoder(RobotMap.S_EN_FR_CNL, RobotMap.S_EN_FR_SLOT);
+        encoderFrontLeft = new Encoder(RobotMap.S_EN_FL_CNL, RobotMap.S_EN_FL_SLOT);
+        encoderBackRight = new Encoder(RobotMap.S_EN_BR_CNL, RobotMap.S_EN_BR_SLOT);
+        encoderBackLeft = new Encoder(RobotMap.S_EN_BL_CNL, RobotMap.S_EN_BL_SLOT);
+        */
     }
 
     /**
@@ -144,6 +147,11 @@ public class DriveSubsystem extends PIDSubsystem {
             mecanumWheelsLowered = true;
         }
     }
+    
+    public void testSolenoid()
+    {
+        frontLeftSolenoid.set(DoubleSolenoid.Value.kForward);
+    }
 
     /**
      * Raises mecanum wheels if they have been lowered
@@ -162,13 +170,21 @@ public class DriveSubsystem extends PIDSubsystem {
      * Defines values to drive Tank mode. Gets values from joysticks.
      */
     public void userDriveTank() {
-        double leftSpeed = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
-        double rightSpeed = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
+        double leftSpeed = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
+        double rightSpeed = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
 
         driveOne.tankDrive(leftSpeed, rightSpeed);
         driveTwo.tankDrive(leftSpeed, rightSpeed);
     }
 
+    public void testDriveMotor()
+    {
+        frontLeftTalonOne.set(OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY));
+        frontLeftTalonTwo.set(OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY));
+        backLeftTalonOne.set(OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY));
+        backLeftTalonTwo.set(OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY));
+        System.out.println("Running");
+    }
     /**
      * Defines values to drive Cartesian mode. Gets values from controllers.
      */
@@ -224,15 +240,15 @@ public class DriveSubsystem extends PIDSubsystem {
             }
         }
         if (encoderDrive) {
-            driveTankEncoder(leftValue, rightValue);
+         //   driveTankEncoder(leftValue, rightValue);
         }
     }
 
     public void driveTankEncoder(double leftValue, double rightValue) {
-        fixMotorSpeed(frontLeftTalonOne, frontLeftTalonTwo, encoderFrontLeft, leftValue);
-        fixMotorSpeed(backLeftTalonOne, backLeftTalonTwo, encoderBackLeft, leftValue);
-        fixMotorSpeed(frontRightTalonOne, frontRightTalonTwo, encoderFrontRight, rightValue);
-        fixMotorSpeed(backRightTalonOne, backRightTalonTwo, encoderBackRight, rightValue);
+       // fixMotorSpeed(frontLeftTalonOne, frontLeftTalonTwo, encoderFrontLeft, leftValue);
+       // fixMotorSpeed(backLeftTalonOne, backLeftTalonTwo, encoderBackLeft, leftValue);
+       // fixMotorSpeed(frontRightTalonOne, frontRightTalonTwo, encoderFrontRight, rightValue);
+       //fixMotorSpeed(backRightTalonOne, backRightTalonTwo, encoderBackRight, rightValue);
 
     }
 
@@ -292,6 +308,7 @@ public class DriveSubsystem extends PIDSubsystem {
     public void toggleDriveMode() {
         if (driveMode == MODE_CARTESIAN || driveMode == MODE_POLAR) {
             setDriveMode(MODE_TANK);
+            System.out.println("Set To Tank");
         } else {
             setDriveMode(MODE_CARTESIAN);
         }

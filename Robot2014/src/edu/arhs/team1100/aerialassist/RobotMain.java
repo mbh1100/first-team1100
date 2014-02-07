@@ -9,7 +9,9 @@ package edu.arhs.team1100.aerialassist;
 import com.sun.squawk.util.MathUtils;
 import edu.arhs.team1100.aerialassist.commands.drive.CalibrateGyroCommand;
 import edu.arhs.team1100.aerialassist.commands.CommandBase;
+import edu.arhs.team1100.aerialassist.commands.drive.DriveInALineCommand;
 import edu.arhs.team1100.aerialassist.commands.drive.GyroTestCommand;
+import edu.arhs.team1100.aerialassist.commands.drive.ToggleMecModeCommand;
 import edu.arhs.team1100.aerialassist.subsystems.DriveSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.ManipulatorSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
@@ -51,7 +53,7 @@ public class RobotMain extends IterativeRobot {
         //Log.addClass(RobotMain.class, Log.LEVEL_DEBUG);
         Log.addClass(DriveSubsystem.class, Log.LEVEL_DEBUG);
         //Log.addClass(ManipulatorSubsystem.class, Log.LEVEL_DEBUG);
-        //Log.addClass(ShooterSubsystem.class, Log.LEVEL_DEBUG);
+        //Log.addClass(ShooterSubsystem.class, Log.LEVEL_DEBUG); 
         //Log.addClass(CompressorSubsystem.class, Log.LEVEL_DEBUG);
         //Log.addClass(SensorTestSubsystem.class, Log.LEVEL_DEBUG);
         //Log.addClass(CalibrateGyroCommand.class, Log.LEVEL_OFF);
@@ -59,6 +61,7 @@ public class RobotMain extends IterativeRobot {
         // Instantiate the command used for the autonomous period
         // Initialize all subsystems
         CommandBase.init();
+        
         //autoCommand = new AutoShootAndReloadCommandGroup();
     }
 
@@ -111,6 +114,12 @@ public class RobotMain extends IterativeRobot {
         } else if (DriveSubsystem.getInstance().getDriveMode() == DriveSubsystem.MODE_CARTESIAN) {
             DSLog.log(1, "Drive Mode: CARTESIAN");
         }
+        //DSLog.log(3, "Encoder Mode:" + DriveSubsystem.getInstance().getEncoderDrive());
+        //DSLog.log(4, "Wheel Encoder Value" + DriveSubsystem.getInstance().getEncoderValue(1));
+      
+        //DSLog.log(2, "Gyro Angle: " + Log.round(DriveSubsystem.getInstance().getGyroAngle(), 2));
+    
+
         //DSLog.log(3, "Encoder Mode:" + DriveSubsystem.getInstance().getEncoderDrive());
         //DSLog.log(4, "Wheel Encoder Value" + DriveSubsystem.getInstance().getEncoderValue(1));
         //DSLog.log(2, "Gyro Angle: " + Log.round(DriveSubsystem.getInstance().getGyroAngle(), 2));

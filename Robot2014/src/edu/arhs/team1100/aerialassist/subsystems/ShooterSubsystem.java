@@ -25,6 +25,7 @@ public class ShooterSubsystem extends Subsystem {
     DoubleSolenoid shooterSolenoid;
     Victor rightInMotor;
     Victor leftInMotor;
+    //Ball detector sensor
     private final double IN_MOTOR_SPEED = .5;
 
      

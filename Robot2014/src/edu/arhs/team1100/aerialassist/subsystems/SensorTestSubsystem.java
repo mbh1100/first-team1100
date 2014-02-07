@@ -33,8 +33,8 @@ public class SensorTestSubsystem extends Subsystem {
      */
     public SensorTestSubsystem() {
        // ac = new Accelerometer(RobotMap.S_AC_1q);
-        //gy = new Gyro(RobotMap.S_GY_CNL);
-        ec = new Encoder(RobotMap.S_EN_FL_SLOT, RobotMap.S_EN_FL_CNL);
+        gy = new Gyro(1, RobotMap.S_GY_CNL);
+        //ec = new Encoder(RobotMap.S_EN_FL_SLOT, RobotMap.S_EN_FL_CNL);
         // ec.start();
     }
 
