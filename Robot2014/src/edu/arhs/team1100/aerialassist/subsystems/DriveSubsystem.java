@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**
@@ -86,7 +87,7 @@ public class DriveSubsystem extends PIDSubsystem {
         frontRightTalonOne = new Talon(RobotMap.D_TALON_FRONT_RIGHT);
         backLeftTalonOne = new Talon(RobotMap.D_TALON_BACK_LEFT);
         backRightTalonOne = new Talon(RobotMap.D_TALON_BACK_RIGHT);
-
+        
         frontLeftTalonTwo = new Talon(RobotMap.D_TALON_FRONT_LEFT_TWO);
         frontRightTalonTwo = new Talon(RobotMap.D_TALON_FRONT_RIGHT_TWO);
         backLeftTalonTwo = new Talon(RobotMap.D_TALON_BACK_LEFT_TWO);
@@ -104,20 +105,6 @@ public class DriveSubsystem extends PIDSubsystem {
                 frontRightTalonTwo,
                 backRightTalonTwo);
         
-        
-        driveThree = new RobotDrive(
-                frontLeftTalonOne,
-                frontRightTalonOne,
-                backLeftTalonOne,
-                backRightTalonOne);
-
-        driveFour = new RobotDrive(
-                frontLeftTalonTwo,
-                frontRightTalonTwo,
-                backLeftTalonTwo,
-                backRightTalonTwo);
-    
-    
 
         //driveGyro = new Gyro(RobotMap.D_GYRO);
         /*
@@ -187,7 +174,7 @@ public class DriveSubsystem extends PIDSubsystem {
      */
     public void userDriveTank() {
         double leftValue = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
-        double rightValue = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
+        double rightValue = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
 
          if (driveMode == MODE_TANK) {
             if (!reverse) {
@@ -208,23 +195,23 @@ public class DriveSubsystem extends PIDSubsystem {
      * Defines values to drive Cartesian mode. Gets values from controllers.
      */
     private void userDriveCartesian() {
-        
-        double rotation = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
-        double controlX = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
-        double controlY = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
-        driveOne.mecanumDrive_Cartesian(controlX, controlY, rotation, driveGyro.getAngle());
-        driveTwo.mecanumDrive_Cartesian(controlX, controlY, rotation, driveGyro.getAngle());
+        double rotation = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
+        double controlX = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
+        double controlY = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
+        driveOne.mecanumDrive_Cartesian(controlX, controlY, rotation, 0);
+        driveTwo.mecanumDrive_Cartesian(controlX, controlY, rotation, 0);
     }
 
     /**
      * Defines values to drive Polar mode. Gets values from controllers.
      */
     private void userDrivePolar() {
-        double magnitude = OI.getInstance().getLeftJoystick().getMagnitude();
-        double angle = OI.getInstance().getLeftJoystick().getAngle();
+        double magnitude = -OI.getInstance().getLeftJoystick().getMagnitude();
+        double angle = -OI.getInstance().getLeftJoystick().getAngle();
         double rotation = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
         driveOne.mecanumDrive_Polar(magnitude, angle, rotation);
         driveTwo.mecanumDrive_Polar(magnitude, angle, rotation);
+
     }
 
     /**
@@ -240,6 +227,23 @@ public class DriveSubsystem extends PIDSubsystem {
             driveOne.mecanumDrive_Cartesian((Math.sin(Math.toRadians(angle)) * magnitude), (Math.cos(Math.toRadians(angle)) * magnitude), rotation, driveGyro.getAngle());
             driveTwo.mecanumDrive_Cartesian((Math.sin(Math.toRadians(angle)) * magnitude), (Math.cos(Math.toRadians(angle)) * magnitude), rotation, driveGyro.getAngle());
         }
+    }
+    
+    public void driveEachWheel()
+    {
+        frontLeftTalonOne.set(.6);
+        Timer.delay(.5);
+        frontLeftTalonOne.set(0);
+        frontRightTalonOne.set(.6);
+        Timer.delay(.5);
+        frontRightTalonOne.set(0);
+        backRightTalonOne.set(.6);
+        Timer.delay(.5);
+        backLeftTalonOne.set(.6);
+        Timer.delay(.5);
+        backLeftTalonOne.set(0);
+
+
     }
 
     /**

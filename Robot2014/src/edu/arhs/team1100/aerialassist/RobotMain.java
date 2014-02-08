@@ -117,10 +117,9 @@ public class RobotMain extends IterativeRobot {
          
         }
         
-        DSLog.log(3, "Left Coordinates: (" + OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX) + "," + OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY) + ")");
-        DSLog.log(4, "Left Angle: " + OI.getInstance().getLeftJoystick().getAngle());
-        DSLog.log(5, "Right Coordinates: (" + OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX) + "," + OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY) + ")");
-        DSLog.log(6, "Right Angle: " + OI.getInstance().getRightJoystick().getAngle());
+        DSLog.log(3, "Magnitude: " + OI.getInstance().getLeftJoystick().getMagnitude());
+        DSLog.log(4, "Angle: " + OI.getInstance().getLeftJoystick().getAngle());
+        DSLog.log(5, "Rotation:" +OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX));
         //DSLog.log(3, "Encoder Mode:" + DriveSubsystem.getInstance().getEncoderDrive());
         //DSLog.log(4, "Wheel Encoder Value" + DriveSubsystem.getInstance().getEncoderValue(1));
       

@@ -17,6 +17,7 @@ import edu.arhs.team1100.aerialassist.subsystems.ManipulatorSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.ToggleClampCommand;
 import edu.arhs.team1100.aerialassist.commands.cameracommands.AutoAimCommand;
+import edu.arhs.team1100.aerialassist.commands.drive.TestWheelsCommand;
 import edu.arhs.team1100.aerialassist.commands.drive.ToggleReverseDirectionCommand;
 import edu.arhs.team1100.aerialassist.commands.drive.ToggleEncoderCommand;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -77,7 +78,7 @@ public class OI {
 
         rightStick.getButton(TOGGLE_MEC).whenPressed(new ToggleMecModeCommand());
         rightStick.getButton(TOGGLE_DRIVE).whenPressed(new ToggleDriveModeCommand());
-
+        leftStick.getButton(4).whenPressed(new TestWheelsCommand());
 //      rightStick.getButton(CALIBRATE_GYRO).whenPressed(new CalibrateGyroCommand());
 //      rightStick.getButton(TOGGLE_ENCODER).whenPressed(new ToggleEncoderCommand());
         rightStick.getButton(REVERSE_DIRECTION).whenPressed(new ToggleReverseDirectionCommand());        
