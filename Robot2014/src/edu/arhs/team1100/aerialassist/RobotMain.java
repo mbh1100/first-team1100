@@ -20,6 +20,7 @@ import edu.arhs.team1100.aerialassist.subsystems.SensorTestSubsystem;
 import edu.arhs.team1100.aerialassist.util.DSLog;
 import edu.arhs.team1100.aerialassist.util.Log;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -113,7 +114,13 @@ public class RobotMain extends IterativeRobot {
             DSLog.log(1, "Drive Mode: TANK");
         } else if (DriveSubsystem.getInstance().getDriveMode() == DriveSubsystem.MODE_CARTESIAN) {
             DSLog.log(1, "Drive Mode: CARTESIAN");
+         
         }
+        
+        DSLog.log(3, "Left Coordinates: (" + OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX) + "," + OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY) + ")");
+        DSLog.log(4, "Left Angle: " + OI.getInstance().getLeftJoystick().getAngle());
+        DSLog.log(5, "Right Coordinates: (" + OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX) + "," + OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY) + ")");
+        DSLog.log(6, "Right Angle: " + OI.getInstance().getRightJoystick().getAngle());
         //DSLog.log(3, "Encoder Mode:" + DriveSubsystem.getInstance().getEncoderDrive());
         //DSLog.log(4, "Wheel Encoder Value" + DriveSubsystem.getInstance().getEncoderValue(1));
       
@@ -156,7 +163,7 @@ public class RobotMain extends IterativeRobot {
      * Removes all instances declared
      */
     public void disabledInit() {
-        Scheduler.getInstance().removeAll();
+        //Scheduler.getInstance().removeAll();
         Scheduler.getInstance().disable();
     }
 }

@@ -208,23 +208,23 @@ public class DriveSubsystem extends PIDSubsystem {
      * Defines values to drive Cartesian mode. Gets values from controllers.
      */
     private void userDriveCartesian() {
-        /*
+        
         double rotation = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
         double controlX = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
         double controlY = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
-        driveThree.mecanumDrive_Cartesian(controlX, controlY, rotation, driveGyro.getAngle());
-        driveFour.mecanumDrive_Cartesian(controlX, controlY, rotation, driveGyro.getAngle());*/
+        driveOne.mecanumDrive_Cartesian(controlX, controlY, rotation, driveGyro.getAngle());
+        driveTwo.mecanumDrive_Cartesian(controlX, controlY, rotation, driveGyro.getAngle());
     }
 
     /**
      * Defines values to drive Polar mode. Gets values from controllers.
      */
     private void userDrivePolar() {
-        double magnitude = -OI.getInstance().getLeftJoystick().getMagnitude();
-        double angle = -OI.getInstance().getLeftJoystick().getAngle() + offset;
-        double rotation = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
-        driveThree.mecanumDrive_Polar(magnitude, angle, rotation);
-        driveFour.mecanumDrive_Polar(magnitude, angle, rotation);
+        double magnitude = OI.getInstance().getLeftJoystick().getMagnitude();
+        double angle = OI.getInstance().getLeftJoystick().getAngle();
+        double rotation = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
+        driveOne.mecanumDrive_Polar(magnitude, angle, rotation);
+        driveTwo.mecanumDrive_Polar(magnitude, angle, rotation);
     }
 
     /**

@@ -59,7 +59,7 @@ public class AttackThree extends Joystick {
     public double getAngle() {
         double x = -getAxis(Joystick.AxisType.kX);
         double y = -getAxis(Joystick.AxisType.kY);
-        double angle = Math.toDegrees(MathUtils.atan2(x, y));
+        double angle = Math.toDegrees(MathUtils.atan2(x, y));      //change x and y
         while (angle < 0) {
             angle += 360;
         }
