@@ -3,7 +3,6 @@ package edu.arhs.team1100.aerialassist.subsystems;
 import edu.arhs.team1100.aerialassist.OI;
 import edu.arhs.team1100.aerialassist.RobotMap;
 import edu.arhs.team1100.aerialassist.commands.drive.UserDriveCommand;
-import edu.arhs.team1100.aerialassist.util.DSLog;
 import edu.arhs.team1100.aerialassist.util.Log;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Gyro;
@@ -11,7 +10,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**
@@ -47,8 +45,6 @@ public class DriveSubsystem extends PIDSubsystem {
     private Talon backRightTalonTwo;
     private RobotDrive driveOne;
     private RobotDrive driveTwo;
-    private RobotDrive driveThree;
-    private RobotDrive driveFour;
     private Gyro driveGyro;
     private Encoder encoderFrontRight;
     private Encoder encoderFrontLeft;
@@ -72,8 +68,8 @@ public class DriveSubsystem extends PIDSubsystem {
     }
 
     /**
-     * Constructs a DriveSubsystem. Initialize PID values, drive Talons, drive
-     * system, and gyro.
+     * Constructs a DriveSubsystem. Initialize drive Talons, drive encoders,
+     * drive solenoids and gyro.
      */
     public DriveSubsystem() {
         super(kJoystickP, kJoystickI, kJoystickD);
@@ -87,7 +83,7 @@ public class DriveSubsystem extends PIDSubsystem {
         frontRightTalonOne = new Talon(RobotMap.D_TALON_FRONT_RIGHT);
         backLeftTalonOne = new Talon(RobotMap.D_TALON_BACK_LEFT);
         backRightTalonOne = new Talon(RobotMap.D_TALON_BACK_RIGHT);
-        
+
         frontLeftTalonTwo = new Talon(RobotMap.D_TALON_FRONT_LEFT_TWO);
         frontRightTalonTwo = new Talon(RobotMap.D_TALON_FRONT_RIGHT_TWO);
         backLeftTalonTwo = new Talon(RobotMap.D_TALON_BACK_LEFT_TWO);
@@ -104,25 +100,24 @@ public class DriveSubsystem extends PIDSubsystem {
                 backLeftTalonTwo,
                 frontRightTalonTwo,
                 backRightTalonTwo);
-        
-
-        //driveGyro = new Gyro(RobotMap.D_GYRO);
-        /*
-        encoderFrontRight.start();
-        encoderFrontLeft.start();
-        encoderBackRight.start();
-        encoderBackLeft.start();
-
-        encoderFrontRight = new Encoder(RobotMap.S_EN_FR_CNL, RobotMap.S_EN_FR_SLOT);
-        encoderFrontLeft = new Encoder(RobotMap.S_EN_FL_CNL, RobotMap.S_EN_FL_SLOT);
-        encoderBackRight = new Encoder(RobotMap.S_EN_BR_CNL, RobotMap.S_EN_BR_SLOT);
-        encoderBackLeft = new Encoder(RobotMap.S_EN_BL_CNL, RobotMap.S_EN_BL_SLOT);
-        */
+//
+//        driveGyro = new Gyro(RobotMap.D_GYRO);
+//        
+//         encoderFrontRight.start();
+//         encoderFrontLeft.start();
+//         encoderBackRight.start();
+//         encoderBackLeft.start();
+//
+//         encoderFrontRight = new Encoder(RobotMap.S_EN_FR_CNL, RobotMap.S_EN_FR_SLOT);
+//         encoderFrontLeft = new Encoder(RobotMap.S_EN_FL_CNL, RobotMap.S_EN_FL_SLOT);
+//         encoderBackRight = new Encoder(RobotMap.S_EN_BR_CNL, RobotMap.S_EN_BR_SLOT);
+//         encoderBackLeft = new Encoder(RobotMap.S_EN_BL_CNL, RobotMap.S_EN_BL_SLOT);
+//         
     }
 
     /**
      * Drives the robot using user input interpreted according to the current
-     * drive mode (Polar or Cartesian).
+     * drive mode (Polar, Cartesian, or Tank).
      */
     public void userDrive() {
         if (driveMode == MODE_CARTESIAN) {
@@ -135,59 +130,6 @@ public class DriveSubsystem extends PIDSubsystem {
             Log.log(this, "404: DRIVE MODE NOT FOUND. [W]hat a [T]errible [F]ailure.", driveMode);
             driveMode = MODE_TANK;
             userDriveTank();
-        }
-    }
-
-    /**
-     * Lowers mecanum wheels if they have been raised
-     */
-    private void lowerMecWheels() {
-        if (!mecanumWheelsLowered) {
-            frontLeftSolenoid.set(DoubleSolenoid.Value.kForward);
-            frontRightSolenoid.set(DoubleSolenoid.Value.kForward);
-            backLeftSolenoid.set(DoubleSolenoid.Value.kForward);
-            backRightSolenoid.set(DoubleSolenoid.Value.kForward);
-            mecanumWheelsLowered = true;
-        }
-    }
-    
-    public void testSolenoid()
-    {
-        frontLeftSolenoid.set(DoubleSolenoid.Value.kForward);
-    }
-
-    /**
-     * Raises mecanum wheels if they have been lowered
-     */
-    private void raiseMecWheels() {
-        if (mecanumWheelsLowered) {
-            frontLeftSolenoid.set(DoubleSolenoid.Value.kReverse);
-            frontRightSolenoid.set(DoubleSolenoid.Value.kReverse);
-            backLeftSolenoid.set(DoubleSolenoid.Value.kReverse);
-            backRightSolenoid.set(DoubleSolenoid.Value.kReverse);
-            mecanumWheelsLowered = false;
-        }
-    }
-
-    /**
-     * Defines values to drive Tank mode. Gets values from joysticks.
-     */
-    public void userDriveTank() {
-        double leftValue = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
-        double rightValue = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
-
-         if (driveMode == MODE_TANK) {
-            if (!reverse) {
-                driveOne.tankDrive(leftValue, rightValue);
-                driveTwo.tankDrive(leftValue, rightValue);
-            }
-            if (reverse) {
-                driveOne.tankDrive(-rightValue, -leftValue);
-                driveTwo.tankDrive(-rightValue, -leftValue);
-            }
-        }
-        if (encoderDrive) {
-         //   driveTankEncoder(leftValue, rightValue);
         }
     }
 
@@ -211,7 +153,71 @@ public class DriveSubsystem extends PIDSubsystem {
         double rotation = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
         driveOne.mecanumDrive_Polar(magnitude, angle, rotation);
         driveTwo.mecanumDrive_Polar(magnitude, angle, rotation);
+    }
 
+    /**
+     * Defines values to drive Tank mode. Gets values from joysticks.
+     */
+    private void userDriveTank() {
+        double leftValue = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
+        double rightValue = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
+
+        if (driveMode == MODE_TANK) {
+            if (!reverse) {
+                driveOne.tankDrive(leftValue, rightValue);
+                driveTwo.tankDrive(leftValue, rightValue);
+            } else if (reverse) {
+                driveOne.tankDrive(-rightValue, -leftValue);
+                driveTwo.tankDrive(-rightValue, -leftValue);
+            }
+        }
+        if (encoderDrive) {
+            //   driveTankEncoder(leftValue, rightValue);
+        }
+    }
+
+    /**
+     * Switches the drive mode to the value given. Lowers or raises wheels.
+     *
+     * @param driveMode = driveMode to set.
+     */
+    public void setDriveMode(int driveMode) {
+        if (driveMode == MODE_TANK) {
+            raiseMecWheels();
+            this.driveMode = MODE_TANK;
+        } else if (driveMode == MODE_CARTESIAN) {
+            lowerMecWheels();
+            this.driveMode = MODE_CARTESIAN;
+        } else if (driveMode == MODE_POLAR) {
+            lowerMecWheels();
+            this.driveMode = MODE_POLAR;
+        }
+    }
+
+    /**
+     * Lowers mecanum wheels if they have been raised
+     */
+    private void lowerMecWheels() {
+        if (!mecanumWheelsLowered) {
+            frontLeftSolenoid.set(DoubleSolenoid.Value.kForward);
+            frontRightSolenoid.set(DoubleSolenoid.Value.kForward);
+            backLeftSolenoid.set(DoubleSolenoid.Value.kForward);
+            backRightSolenoid.set(DoubleSolenoid.Value.kForward);
+            mecanumWheelsLowered = true;
+        }
+    }
+
+    /**
+     * Raises mecanum wheels if they have been lowered
+     */
+    private void raiseMecWheels() {
+        if (mecanumWheelsLowered) {
+            frontLeftSolenoid.set(DoubleSolenoid.Value.kReverse);
+            frontRightSolenoid.set(DoubleSolenoid.Value.kReverse);
+            backLeftSolenoid.set(DoubleSolenoid.Value.kReverse);
+            backRightSolenoid.set(DoubleSolenoid.Value.kReverse);
+            mecanumWheelsLowered = false;
+        }
     }
 
     /**
@@ -228,23 +234,6 @@ public class DriveSubsystem extends PIDSubsystem {
             driveTwo.mecanumDrive_Cartesian((Math.sin(Math.toRadians(angle)) * magnitude), (Math.cos(Math.toRadians(angle)) * magnitude), rotation, driveGyro.getAngle());
         }
     }
-    
-    public void driveEachWheel()
-    {
-        frontLeftTalonOne.set(.6);
-        Timer.delay(.5);
-        frontLeftTalonOne.set(0);
-        frontRightTalonOne.set(.6);
-        Timer.delay(.5);
-        frontRightTalonOne.set(0);
-        backRightTalonOne.set(.6);
-        Timer.delay(.5);
-        backLeftTalonOne.set(.6);
-        Timer.delay(.5);
-        backLeftTalonOne.set(0);
-
-
-    }
 
     /**
      * Drives using tank (if enabled) using given values.
@@ -257,26 +246,41 @@ public class DriveSubsystem extends PIDSubsystem {
             if (!reverse) {
                 driveOne.tankDrive(leftValue, rightValue);
                 driveTwo.tankDrive(leftValue, rightValue);
-            }
-            if (reverse) {
+            } else if (reverse) {
                 driveOne.tankDrive(-rightValue, -leftValue);
                 driveTwo.tankDrive(-rightValue, -leftValue);
             }
         }
         if (encoderDrive) {
-         //   driveTankEncoder(leftValue, rightValue);
+            //   driveTankEncoder(leftValue, rightValue);
         }
     }
 
-    public void driveTankEncoder(double leftValue, double rightValue) {
-       // fixMotorSpeed(frontLeftTalonOne, frontLeftTalonTwo, encoderFrontLeft, leftValue);
-       // fixMotorSpeed(backLeftTalonOne, backLeftTalonTwo, encoderBackLeft, leftValue);
-       // fixMotorSpeed(frontRightTalonOne, frontRightTalonTwo, encoderFrontRight, rightValue);
-       //fixMotorSpeed(backRightTalonOne, backRightTalonTwo, encoderBackRight, rightValue);
-
+    /**
+     * Drives using tank and encoders (if enabled) using given values.
+     *
+     * @param leftValue speed of the left wheels
+     * @param rightValue speed of the right wheels
+     */
+    private void driveTankEncoder(double leftValue, double rightValue) {
+//        if (driveMode == MODE_TANK) {
+//            fixMotorSpeed(frontLeftTalonOne, frontLeftTalonTwo, encoderFrontLeft, leftValue);
+//            fixMotorSpeed(backLeftTalonOne, backLeftTalonTwo, encoderBackLeft, leftValue);
+//            fixMotorSpeed(frontRightTalonOne, frontRightTalonTwo, encoderFrontRight, rightValue);
+//            fixMotorSpeed(backRightTalonOne, backRightTalonTwo, encoderBackRight, rightValue);
+//        }
     }
 
-    public void fixMotorSpeed(Talon wheelOne, Talon wheelTwo, Encoder ec, double speed) {
+    /**
+     * Adds more power to the two wheels if the encoders do not a proper value
+     * in the deadband
+     *
+     * @param wheelOne Talon of one of the wheels
+     * @param wheelTwo Talon of the other wheel
+     * @param ec Encoder used it read data
+     * @param speed Speed that the motor should move
+     */
+    private void fixMotorSpeed(Talon wheelOne, Talon wheelTwo, Encoder ec, double speed) {
         speed = speed * ratio;
         while (ec.getRate() < speed - 50 || ec.getRate() > speed + 50) {
             if (ec.getRate() < speed - 50) {
@@ -288,29 +292,6 @@ public class DriveSubsystem extends PIDSubsystem {
                 wheelTwo.set(wheelTwo.getRaw() - .01);
             }
         }
-    }
-
-    /**
-     * Stops the drive movement.
-     */
-    public void stop() {
-        if (driveMode == MODE_CARTESIAN || driveMode == MODE_POLAR) {
-            driveMecanum(0, 0, 0);
-        } else if (driveMode == MODE_TANK) {
-            driveTank(0, 0);
-        }
-    }
-
-    /**
-     * Used for record playback.
-     *
-     * @param rotationSpeed
-     */
-    protected void usePIDOutput(double rotationSpeed) {
-        double controlX = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
-        double controlY = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
-        driveOne.mecanumDrive_Cartesian(controlX, controlY, rotationSpeed, driveGyro.getAngle());
-        driveTwo.mecanumDrive_Cartesian(controlX, controlY, rotationSpeed, driveGyro.getAngle());
     }
 
     /**
@@ -340,29 +321,21 @@ public class DriveSubsystem extends PIDSubsystem {
     }
 
     /**
-     * Switches the drive mode to the value given. Lowers or Raises wheels if
-     * octaconem drive is used.
-     *
-     * @param driveMode = driveMode to set.
-     */
-    public void setDriveMode(int driveMode) {
-        if (driveMode == MODE_TANK) {
-            raiseMecWheels();
-            this.driveMode = MODE_TANK;
-        } else if (driveMode == MODE_CARTESIAN) {
-            lowerMecWheels();
-            this.driveMode = MODE_CARTESIAN;
-        } else if (driveMode == MODE_POLAR) {
-            lowerMecWheels();
-            this.driveMode = MODE_POLAR;
-        }
-    }
-
-    /**
      * Toggles EncoderDrive
      */
     public void toggleEncoderDrive() {
         encoderDrive = !encoderDrive;
+    }
+
+    /**
+     * Stops the drive movement.
+     */
+    public void stop() {
+        if (driveMode == MODE_CARTESIAN || driveMode == MODE_POLAR) {
+            driveMecanum(0, 0, 0);
+        } else if (driveMode == MODE_TANK) {
+            driveTank(0, 0);
+        }
     }
 
     /**
@@ -389,6 +362,11 @@ public class DriveSubsystem extends PIDSubsystem {
         driveGyro.reset();
     }
 
+    /**
+     * Gets whether encoder drive has been enabled, in String form
+     *
+     * @return Enabled or Disabled as a String
+     */
     public String getEncoderDrive() {
         String output;
         if (encoderDrive) {
@@ -399,6 +377,12 @@ public class DriveSubsystem extends PIDSubsystem {
         return output;
     }
 
+    /**
+     * Get the value of a specific encoder
+     *
+     * @param encoder Integer between 1-4,
+     * @return rate of specific encoder
+     */
     public double getEncoderValue(int encoder) {
         switch (encoder) {
             case 1:
@@ -415,10 +399,30 @@ public class DriveSubsystem extends PIDSubsystem {
     }
 
     /**
+     * Toggles the front of the robot
+     */
+    public void toggleReverseDirection() {
+        offset += 180;
+        reverse = !reverse;
+    }
+
+    /**
      * Initialize default command.
      */
     protected void initDefaultCommand() {
         setDefaultCommand(new UserDriveCommand());
+    }
+
+    /**
+     * Used for record playback.
+     *
+     * @param rotationSpeed
+     */
+    protected void usePIDOutput(double rotationSpeed) {
+        double controlX = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
+        double controlY = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
+        driveOne.mecanumDrive_Cartesian(controlX, controlY, rotationSpeed, driveGyro.getAngle());
+        driveTwo.mecanumDrive_Cartesian(controlX, controlY, rotationSpeed, driveGyro.getAngle());
     }
 
     /**
@@ -428,10 +432,5 @@ public class DriveSubsystem extends PIDSubsystem {
      */
     protected double returnPIDInput() {
         return 0;
-    }
-
-    public void toggleReverseDirection() {
-        offset += 180;
-        reverse = !reverse;
     }
 }
