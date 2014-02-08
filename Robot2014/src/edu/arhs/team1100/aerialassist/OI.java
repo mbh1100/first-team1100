@@ -17,7 +17,7 @@ import edu.arhs.team1100.aerialassist.subsystems.ManipulatorSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.ToggleClampCommand;
 import edu.arhs.team1100.aerialassist.commands.cameracommands.AutoAimCommand;
-import edu.arhs.team1100.aerialassist.commands.drive.ReverseDirectionCommand;
+import edu.arhs.team1100.aerialassist.commands.drive.ToggleReverseDirectionCommand;
 import edu.arhs.team1100.aerialassist.commands.drive.ToggleEncoderCommand;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
@@ -34,12 +34,12 @@ public class OI {
     //Right STICK BUTTON SETTINGS
     private static final int TOGGLE_MEC = 2;
     private static final int TOGGLE_DRIVE = 5;
-    private static final int REVERSE_DIRECTION = 12; //trigger
+    private static final int REVERSE_DIRECTION = 4; //trigger
     private static final int TOGGLE_ENCODER = 3;
     //left STICK BUTTON SETTINGS
     private static final int CALIBRATE_GYRO = 3;
     private static final int LEG = 1;//trigger
-    private static final int STOP_DRIVE = 4;
+    private static final int STOP_DRIVE = 12;
     //Recording
     private static OI instance;
     private AttackThree rightStick;
@@ -80,7 +80,7 @@ public class OI {
 
 //      rightStick.getButton(CALIBRATE_GYRO).whenPressed(new CalibrateGyroCommand());
 //      rightStick.getButton(TOGGLE_ENCODER).whenPressed(new ToggleEncoderCommand());
-//      rightStick.getButton(REVERSE_DIRECTION).whenPressed(new ReverseDirectionCommand());        
+        rightStick.getButton(REVERSE_DIRECTION).whenPressed(new ToggleReverseDirectionCommand());        
 //        
 //      leftStick.getButton(STOP_DRIVE).whenPressed(new StopDriveCommand(0.1));
     }

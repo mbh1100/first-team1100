@@ -46,6 +46,8 @@ public class DriveSubsystem extends PIDSubsystem {
     private Talon backRightTalonTwo;
     private RobotDrive driveOne;
     private RobotDrive driveTwo;
+    private RobotDrive driveThree;
+    private RobotDrive driveFour;
     private Gyro driveGyro;
     private Encoder encoderFrontRight;
     private Encoder encoderFrontLeft;
@@ -76,9 +78,9 @@ public class DriveSubsystem extends PIDSubsystem {
         super(kJoystickP, kJoystickI, kJoystickD);
 
         frontLeftSolenoid = new DoubleSolenoid(RobotMap.D_FRONT_LEFT_SOLENOID_PORTA, RobotMap.D_FRONT_LEFT_SOLENOID_PORTB);
-//      frontRightSolenoid = new DoubleSolenoid(RobotMap.D_FRONT_RIGHT_SOLENOID_PORTA, RobotMap.D_FRONT_RIGHT_SOLENOID_PORTB);
-//      backLeftSolenoid = new DoubleSolenoid(RobotMap.D_BACK_LEFT_SOLENOID_PORTA, RobotMap.D_BACK_LEFT_SOLENOID_PORTB);
-//      backRightSolenoid = new DoubleSolenoid(RobotMap.D_BACK_RIGHT_SOLENOID_PORTA, RobotMap.D_BACK_RIGHT_SOLENOID_PORTB);
+        frontRightSolenoid = new DoubleSolenoid(RobotMap.D_FRONT_RIGHT_SOLENOID_PORTA, RobotMap.D_FRONT_RIGHT_SOLENOID_PORTB);
+        backLeftSolenoid = new DoubleSolenoid(RobotMap.D_BACK_LEFT_SOLENOID_PORTA, RobotMap.D_BACK_LEFT_SOLENOID_PORTB);
+        backRightSolenoid = new DoubleSolenoid(RobotMap.D_BACK_RIGHT_SOLENOID_PORTA, RobotMap.D_BACK_RIGHT_SOLENOID_PORTB);
 
         frontLeftTalonOne = new Talon(RobotMap.D_TALON_FRONT_LEFT);
         frontRightTalonOne = new Talon(RobotMap.D_TALON_FRONT_RIGHT);
@@ -101,6 +103,20 @@ public class DriveSubsystem extends PIDSubsystem {
                 backLeftTalonTwo,
                 frontRightTalonTwo,
                 backRightTalonTwo);
+        
+        
+        driveThree = new RobotDrive(
+                frontLeftTalonOne,
+                frontRightTalonOne,
+                backLeftTalonOne,
+                backRightTalonOne);
+
+        driveFour = new RobotDrive(
+                frontLeftTalonTwo,
+                frontRightTalonTwo,
+                backLeftTalonTwo,
+                backRightTalonTwo);
+    
     
 
         //driveGyro = new Gyro(RobotMap.D_GYRO);
@@ -141,9 +157,9 @@ public class DriveSubsystem extends PIDSubsystem {
     private void lowerMecWheels() {
         if (!mecanumWheelsLowered) {
             frontLeftSolenoid.set(DoubleSolenoid.Value.kForward);
-            //frontRightSolenoid.set(DoubleSolenoid.Value.kForward);
-            //backLeftSolenoid.set(DoubleSolenoid.Value.kForward);
-            //backRightSolenoid.set(DoubleSolenoid.Value.kForward);
+            frontRightSolenoid.set(DoubleSolenoid.Value.kForward);
+            backLeftSolenoid.set(DoubleSolenoid.Value.kForward);
+            backRightSolenoid.set(DoubleSolenoid.Value.kForward);
             mecanumWheelsLowered = true;
         }
     }
@@ -159,9 +175,9 @@ public class DriveSubsystem extends PIDSubsystem {
     private void raiseMecWheels() {
         if (mecanumWheelsLowered) {
             frontLeftSolenoid.set(DoubleSolenoid.Value.kReverse);
-            //frontRightSolenoid.set(DoubleSolenoid.Value.kReverse);
-            //backLeftSolenoid.set(DoubleSolenoid.Value.kReverse);
-            //backRightSolenoid.set(DoubleSolenoid.Value.kReverse);
+            frontRightSolenoid.set(DoubleSolenoid.Value.kReverse);
+            backLeftSolenoid.set(DoubleSolenoid.Value.kReverse);
+            backRightSolenoid.set(DoubleSolenoid.Value.kReverse);
             mecanumWheelsLowered = false;
         }
     }
@@ -170,30 +186,34 @@ public class DriveSubsystem extends PIDSubsystem {
      * Defines values to drive Tank mode. Gets values from joysticks.
      */
     public void userDriveTank() {
-        double leftSpeed = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
-        double rightSpeed = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
+        double leftValue = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
+        double rightValue = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
 
-        driveOne.tankDrive(leftSpeed, rightSpeed);
-        driveTwo.tankDrive(leftSpeed, rightSpeed);
+         if (driveMode == MODE_TANK) {
+            if (!reverse) {
+                driveOne.tankDrive(leftValue, rightValue);
+                driveTwo.tankDrive(leftValue, rightValue);
+            }
+            if (reverse) {
+                driveOne.tankDrive(-rightValue, -leftValue);
+                driveTwo.tankDrive(-rightValue, -leftValue);
+            }
+        }
+        if (encoderDrive) {
+         //   driveTankEncoder(leftValue, rightValue);
+        }
     }
 
-    public void testDriveMotor()
-    {
-        frontLeftTalonOne.set(OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY));
-        frontLeftTalonTwo.set(OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY));
-        backLeftTalonOne.set(OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY));
-        backLeftTalonTwo.set(OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY));
-        System.out.println("Running");
-    }
     /**
      * Defines values to drive Cartesian mode. Gets values from controllers.
      */
     private void userDriveCartesian() {
+        /*
         double rotation = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
         double controlX = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
         double controlY = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
-        //driveOne.mecanumDrive_Cartesian(controlX, controlY, rotation, driveGyro.getAngle());
-        //driveTwo.mecanumDrive_Cartesian(controlX, controlY, rotation, driveGyro.getAngle());
+        driveThree.mecanumDrive_Cartesian(controlX, controlY, rotation, driveGyro.getAngle());
+        driveFour.mecanumDrive_Cartesian(controlX, controlY, rotation, driveGyro.getAngle());*/
     }
 
     /**
@@ -203,8 +223,8 @@ public class DriveSubsystem extends PIDSubsystem {
         double magnitude = -OI.getInstance().getLeftJoystick().getMagnitude();
         double angle = -OI.getInstance().getLeftJoystick().getAngle() + offset;
         double rotation = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
-        driveOne.mecanumDrive_Polar(magnitude, angle, rotation);
-        driveTwo.mecanumDrive_Polar(magnitude, angle, rotation);
+        driveThree.mecanumDrive_Polar(magnitude, angle, rotation);
+        driveFour.mecanumDrive_Polar(magnitude, angle, rotation);
     }
 
     /**
@@ -231,12 +251,12 @@ public class DriveSubsystem extends PIDSubsystem {
     public void driveTank(double leftValue, double rightValue) {
         if (driveMode == MODE_TANK) {
             if (!reverse) {
-                driveOne.tankDrive(-leftValue, rightValue);
-                driveTwo.tankDrive(-leftValue, rightValue);
+                driveOne.tankDrive(leftValue, rightValue);
+                driveTwo.tankDrive(leftValue, rightValue);
             }
             if (reverse) {
-                driveOne.tankDrive(leftValue, -rightValue);
-                driveTwo.tankDrive(leftValue, -rightValue);
+                driveOne.tankDrive(-rightValue, -leftValue);
+                driveTwo.tankDrive(-rightValue, -leftValue);
             }
         }
         if (encoderDrive) {
@@ -310,9 +330,9 @@ public class DriveSubsystem extends PIDSubsystem {
             setDriveMode(MODE_TANK);
             System.out.println("Set To Tank");
         } else {
-            setDriveMode(MODE_CARTESIAN);
+            setDriveMode(MODE_POLAR);
+            System.out.println("Set To Mec");
         }
-        DSLog.log(5, (driveMode == MODE_CARTESIAN) ? "Cartesian" : "Polar");
     }
 
     /**
