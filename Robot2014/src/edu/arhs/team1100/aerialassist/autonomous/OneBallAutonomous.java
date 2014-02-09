@@ -13,6 +13,7 @@ import edu.arhs.team1100.aerialassist.subsystems.DriveSubsystem;
 import edu.arhs.team1100.aerialassist.commands.drive.StopDriveCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.FireShooterCommand;
 import edu.arhs.team1100.aerialassist.subsystems.CameraSubsystem;
+import edu.wpi.first.wpilibj.Timer;
 
 
 
@@ -31,16 +32,12 @@ public class OneBallAutonomous extends CommandGroup {
      */
     public void OneBallCommand(double speed, double duration) {
 
-        //Tests drive mode, then moves forward
-        if (DriveSubsystem.getInstance().getDriveMode() == DriveSubsystem.MODE_TANK) {
-            addSequential(new DriveInTankCommand(speed, speed, duration));
-        }//else: run same thing for mehcanum
-
-        //Put camera code here after, instead of true ;)
-        if (CameraSubsystem.getInstance().seeHotGoal()){
+        if (CameraSubsystem.getInstance().isHot()){
             addSequential(new FireShooterCommand());
-        } else {
-            addSequential(new WaitCommand(5000));
+        }
+        else
+        {
+            Timer.delay(5);
             addSequential(new FireShooterCommand());
         }
     }

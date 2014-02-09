@@ -7,7 +7,9 @@
 package edu.arhs.team1100.aerialassist;
 
 import edu.arhs.team1100.aerialassist.commands.CommandBase;
+import edu.arhs.team1100.aerialassist.subsystems.CameraSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.DriveSubsystem;
+import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
 import edu.arhs.team1100.aerialassist.util.DSLog;
 import edu.arhs.team1100.aerialassist.util.Log;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -74,6 +76,7 @@ public class RobotMain extends IterativeRobot {
     public void autonomousPeriodic() {
         //autonomous.execute();
         Scheduler.getInstance().run();
+        if(CameraSubsystem.getInstance().isHot())ShooterSubsystem.getInstance().fireShooter();
     }
 
     /*

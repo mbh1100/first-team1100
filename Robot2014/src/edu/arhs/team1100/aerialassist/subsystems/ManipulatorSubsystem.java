@@ -24,7 +24,6 @@ public class ManipulatorSubsystem extends Subsystem {
     static ManipulatorSubsystem instance;
     private Talon armMotorOne;
     private Talon armMotorTwo;
-    private DoubleSolenoid clamp;
     private double wheelSpeed = .5;
     boolean isClamped = false;
     private Encoder ec;
@@ -35,7 +34,6 @@ public class ManipulatorSubsystem extends Subsystem {
     public ManipulatorSubsystem() {
         armMotorOne = new Talon(RobotMap.M_TALON_LEFT_WHEEL);
         armMotorTwo = new Talon(RobotMap.M_TALON_RIGHT_WHEEL);
-        clamp = new DoubleSolenoid(RobotMap.M_CLAMP_IN, RobotMap.M_CLAMP_OUT);
         ec = new Encoder(RobotMap.M_EN_SLOT, RobotMap.M_EN_CNL);
         ec.start();
     }
@@ -87,15 +85,6 @@ public class ManipulatorSubsystem extends Subsystem {
         }
     }
     
-    /**
-     * Toggles the state of the floor pickup.
-     */
-    public void toggleClamp() {
-        if(isClamped)clamp.set(DoubleSolenoid.Value.kReverse);
-        if(!isClamped)clamp.set(DoubleSolenoid.Value.kForward);
-        isClamped = !isClamped;
-    }
-
 
     /**
      * Initializes shooter command. Do nothing.

@@ -22,9 +22,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class ShooterSubsystem extends Subsystem {
     
     static ShooterSubsystem instance;
-    DoubleSolenoid shooterSolenoid;
+    DoubleSolenoid firingCylinder;
+    DoubleSolenoid latchCylinder;
     Victor rightInMotor;
     Victor leftInMotor;
+    private boolean isClamped = false;  
     //Ball detector sensor
     private final double IN_MOTOR_SPEED = .5;
 
@@ -34,7 +36,7 @@ public class ShooterSubsystem extends Subsystem {
      * intake motors. Starts compressor.
      */
     public ShooterSubsystem() {
-         shooterSolenoid = new DoubleSolenoid(RobotMap.M_FIST_PORTA, RobotMap.M_FIST_PORTB);
+         firingCylinder = new DoubleSolenoid(RobotMap.M_FIST_PORTA, RobotMap.M_FIST_PORTB);
          rightInMotor = new Victor(RobotMap.M_RIGHT_VECTOR_SLOT, RobotMap.M_RIGHT_VECTOR_CNL);
          leftInMotor = new Victor(RobotMap.M_LEFT_VECTOR_SLOT, RobotMap.M_RIGHT_VECTOR_CNL);
 
@@ -55,13 +57,21 @@ public class ShooterSubsystem extends Subsystem {
 
 
     public void fireShooter() {
-        shooterSolenoid.set(DoubleSolenoid.Value.kForward);
+        latchCylinder.set(DoubleSolenoid.Value.kForward);
+        firingCylinder.set(DoubleSolenoid.Value.kForward);
+        
+        /*
+        pull on the firing cylinder to stretch the elastic
+        set the latch to hold the cylinder in place (if the latch is spring-loaded, this may occur before the previous step)
+        push on the firing cylinder to help push the ball
+        release the latch when directed by the operator
+        */
         resetShooter();
     }
     
     public void resetShooter()
     {
-        shooterSolenoid.set(DoubleSolenoid.Value.kReverse);
+        firingCylinder.set(DoubleSolenoid.Value.kReverse);
     }
     
     public void rollIn()
@@ -76,6 +86,17 @@ public class ShooterSubsystem extends Subsystem {
         leftInMotor.set(-IN_MOTOR_SPEED);
 
     }
+    
+    /**
+     * Toggles the state of the floor pickup.
+     */
+    public void toggleClamp() {
+        if(isClamped)latchCylinder.set(DoubleSolenoid.Value.kReverse);
+        if(!isClamped)latchCylinder.set(DoubleSolenoid.Value.kForward);
+        isClamped = !isClamped;
+    }
+
+
     /**
      * Initializes shooter command. Do nothing.
      */

@@ -148,11 +148,16 @@ public class DriveSubsystem extends PIDSubsystem {
      * Defines values to drive Polar mode. Gets values from controllers.
      */
     private void userDrivePolar() {
-        double magnitude = -OI.getInstance().getLeftJoystick().getMagnitude();
+        /*double magnitude = -OI.getInstance().getLeftJoystick().getMagnitude();
         double angle = -OI.getInstance().getLeftJoystick().getAngle();
         double rotation = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
         driveOne.mecanumDrive_Polar(magnitude, angle, rotation);
-        driveTwo.mecanumDrive_Polar(magnitude, angle, rotation);
+        driveTwo.mecanumDrive_Polar(magnitude, angle, rotation);*/
+        double rotation = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
+        double controlX = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
+        double controlY = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
+        driveOne.mecanumDrive_Cartesian(controlX, controlY, rotation, 0);
+        driveTwo.mecanumDrive_Cartesian(controlX, controlY, rotation, 0);
     }
 
     /**
