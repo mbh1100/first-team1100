@@ -55,7 +55,7 @@ public class RobotMain extends IterativeRobot {
         // Instantiate the command used for the autonomous period
         // Initialize all subsystems
         CommandBase.init();
-        
+
         //autoCommand = new AutoShootAndReloadCommandGroup();
     }
 
@@ -76,7 +76,9 @@ public class RobotMain extends IterativeRobot {
     public void autonomousPeriodic() {
         //autonomous.execute();
         Scheduler.getInstance().run();
-        if(CameraSubsystem.getInstance().isHot())ShooterSubsystem.getInstance().fireShooter();
+        if (CameraSubsystem.getInstance().isHot()) {
+            ShooterSubsystem.getInstance().fireShooter();
+        }
     }
 
     /*
@@ -107,11 +109,15 @@ public class RobotMain extends IterativeRobot {
         } else if (DriveSubsystem.getInstance().getDriveMode() == DriveSubsystem.MODE_TANK) {
             DSLog.log(1, "Drive Mode: TANK");
         } else if (DriveSubsystem.getInstance().getDriveMode() == DriveSubsystem.MODE_CARTESIAN) {
-            DSLog.log(1, "Drive Mode: CARTESIAN");     
-        } 
+            DSLog.log(1, "Drive Mode: CARTESIAN");
+        }
         //DSLog.log(2, "Gyro Angle: " + Log.round(DriveSubsystem.getInstance().getGyroAngle(), 2));
         //DSLog.log(3, "Encoder Mode:" + DriveSubsystem.getInstance().getEncoderDrive());
-        //DSLog.log(4, "Wheel Encoder Value" + DriveSubsystem.getInstance().getEncoderValue(1));
+        DSLog.log(3, "Encoder 1: " + Math.floor(DriveSubsystem.getInstance().getEncoderValue(1)/OI.getInstance().getLeftJoystick().getMagnitude()));
+        DSLog.log(4, "Encoder 2: " + Math.floor(DriveSubsystem.getInstance().getEncoderValue(2)/OI.getInstance().getRightJoystick().getMagnitude()));
+        DSLog.log(5, "Encoder 3: " + Math.floor(DriveSubsystem.getInstance().getEncoderValue(3)/OI.getInstance().getLeftJoystick().getMagnitude()));
+        DSLog.log(6, "Encoder 4: " + Math.floor(DriveSubsystem.getInstance().getEncoderValue(4)/OI.getInstance().getRightJoystick().getMagnitude()));
+        
     }
 
     /**

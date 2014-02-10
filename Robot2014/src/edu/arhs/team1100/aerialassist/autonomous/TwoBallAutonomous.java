@@ -21,5 +21,7 @@ public class TwoBallAutonomous extends CommandGroup {
            Timer.delay(2);
            //command to pick up ball
            addSequential(new FireShooterCommand());
+           
+            //drive forward into point zone
     }
 }

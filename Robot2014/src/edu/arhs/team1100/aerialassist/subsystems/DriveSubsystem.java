@@ -102,17 +102,16 @@ public class DriveSubsystem extends PIDSubsystem {
                 backRightTalonTwo);
 //
 //        driveGyro = new Gyro(RobotMap.D_GYRO);
-//        
-//         encoderFrontRight.start();
-//         encoderFrontLeft.start();
-//         encoderBackRight.start();
-//         encoderBackLeft.start();
-//
-//         encoderFrontRight = new Encoder(RobotMap.S_EN_FR_CNL, RobotMap.S_EN_FR_SLOT);
-//         encoderFrontLeft = new Encoder(RobotMap.S_EN_FL_CNL, RobotMap.S_EN_FL_SLOT);
-//         encoderBackRight = new Encoder(RobotMap.S_EN_BR_CNL, RobotMap.S_EN_BR_SLOT);
-//         encoderBackLeft = new Encoder(RobotMap.S_EN_BL_CNL, RobotMap.S_EN_BL_SLOT);
+        encoderFrontRight = new Encoder(RobotMap.S_EN_FR_A, RobotMap.S_EN_FR_B);
+        encoderFrontLeft = new Encoder(RobotMap.S_EN_FL_A, RobotMap.S_EN_FL_B);
+        encoderBackRight = new Encoder(RobotMap.S_EN_BR_A, RobotMap.S_EN_BR_B);
+        encoderBackLeft = new Encoder(RobotMap.S_EN_BL_A, RobotMap.S_EN_BL_B);
 //         
+        encoderFrontRight.start();
+        encoderFrontLeft.start();
+        encoderBackRight.start();
+        encoderBackLeft.start();
+
     }
 
     /**
@@ -149,10 +148,10 @@ public class DriveSubsystem extends PIDSubsystem {
      */
     private void userDrivePolar() {
         /*double magnitude = -OI.getInstance().getLeftJoystick().getMagnitude();
-        double angle = -OI.getInstance().getLeftJoystick().getAngle();
-        double rotation = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
-        driveOne.mecanumDrive_Polar(magnitude, angle, rotation);
-        driveTwo.mecanumDrive_Polar(magnitude, angle, rotation);*/
+         double angle = -OI.getInstance().getLeftJoystick().getAngle();
+         double rotation = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
+         driveOne.mecanumDrive_Polar(magnitude, angle, rotation);
+         driveTwo.mecanumDrive_Polar(magnitude, angle, rotation);*/
         double rotation = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
         double controlX = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
         double controlY = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
@@ -430,6 +429,11 @@ public class DriveSubsystem extends PIDSubsystem {
         driveTwo.mecanumDrive_Cartesian(controlX, controlY, rotationSpeed, driveGyro.getAngle());
     }
 
+    public void driveTankEncoderTicks(double speed, double ticks)
+    {
+        driveOne.tankDrive(speed, speed);
+        driveTwo.tankDrive(speed, speed);
+    }
     /**
      * Returns PID input
      *

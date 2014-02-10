@@ -56,14 +56,14 @@ public class RobotMap {
     
     //[S]ensor
     public static int S_AC_1q = 10;
-    public static int S_EN_FR_CNL = 1;
-    public static int S_EN_FL_CNL = 2;
-    public static int S_EN_BR_CNL = 3;
-    public static int S_EN_BL_CNL = 4;
-    public static int S_EN_FR_SLOT = 5;
-    public static int S_EN_FL_SLOT = 6;
-    public static int S_EN_BR_SLOT = 7;
-    public static int S_EN_BL_SLOT;
+    public static int S_EN_FR_A = 1;
+    public static int S_EN_FL_A = 3;
+    public static int S_EN_BR_A = 5;
+    public static int S_EN_BL_A = 7;
+    public static int S_EN_FR_B = 2;
+    public static int S_EN_FL_B = 4;
+    public static int S_EN_BR_B = 6;
+    public static int S_EN_BL_B = 8;
     public static int S_GY_CNL = 2;
    
 }
