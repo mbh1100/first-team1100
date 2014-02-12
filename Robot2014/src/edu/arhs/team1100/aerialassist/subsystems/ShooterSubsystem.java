@@ -36,9 +36,10 @@ public class ShooterSubsystem extends Subsystem {
      * intake motors. Starts compressor.
      */
     public ShooterSubsystem() {
-         firingCylinder = new DoubleSolenoid(RobotMap.M_FIST_PORTA, RobotMap.M_FIST_PORTB);
-         rightInMotor = new Victor(RobotMap.M_RIGHT_VECTOR_SLOT, RobotMap.M_RIGHT_VECTOR_CNL);
-         leftInMotor = new Victor(RobotMap.M_LEFT_VECTOR_SLOT, RobotMap.M_RIGHT_VECTOR_CNL);
+         //firingCylinder = new DoubleSolenoid(RobotMap.M_FIST_PORTA, RobotMap.M_FIST_PORTB);
+         latchCylinder = new DoubleSolenoid(RobotMap.M_CLAMP_IN, RobotMap.M_CLAMP_OUT);
+         //rightInMotor = new Victor(RobotMap.M_RIGHT_VECTOR_SLOT, RobotMap.M_RIGHT_VECTOR_CNL);
+         //leftInMotor = new Victor(RobotMap.M_LEFT_VECTOR_SLOT, RobotMap.M_RIGHT_VECTOR_CNL);
 
     }
 
@@ -56,7 +57,7 @@ public class ShooterSubsystem extends Subsystem {
     }
 
 
-    public void fireShooter() {
+    public void ShootFireCylinder() {
         latchCylinder.set(DoubleSolenoid.Value.kForward);
         firingCylinder.set(DoubleSolenoid.Value.kForward);
         
@@ -90,7 +91,7 @@ public class ShooterSubsystem extends Subsystem {
     /**
      * Toggles the state of the floor pickup.
      */
-    public void toggleClamp() {
+    public void toggleLatchCylinder() {
         if(isClamped)latchCylinder.set(DoubleSolenoid.Value.kReverse);
         if(!isClamped)latchCylinder.set(DoubleSolenoid.Value.kForward);
         isClamped = !isClamped;
@@ -101,5 +102,10 @@ public class ShooterSubsystem extends Subsystem {
      * Initializes shooter command. Do nothing.
      */
     protected void initDefaultCommand() {
+    }
+
+    public void setLatch(int i) {
+        if(i == 1)latchCylinder.set(DoubleSolenoid.Value.kForward);
+        if(i == 2)latchCylinder.set(DoubleSolenoid.Value.kReverse);
     }
 }

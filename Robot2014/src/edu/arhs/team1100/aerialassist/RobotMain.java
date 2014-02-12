@@ -9,6 +9,7 @@ package edu.arhs.team1100.aerialassist;
 import edu.arhs.team1100.aerialassist.commands.CommandBase;
 import edu.arhs.team1100.aerialassist.subsystems.CameraSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.DriveSubsystem;
+import edu.arhs.team1100.aerialassist.subsystems.ManipulatorSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
 import edu.arhs.team1100.aerialassist.util.DSLog;
 import edu.arhs.team1100.aerialassist.util.Log;
@@ -77,7 +78,7 @@ public class RobotMain extends IterativeRobot {
         //autonomous.execute();
         Scheduler.getInstance().run();
         if (CameraSubsystem.getInstance().isHot()) {
-            ShooterSubsystem.getInstance().fireShooter();
+            ShooterSubsystem.getInstance().ShootFireCylinder();
         }
     }
 
@@ -113,10 +114,8 @@ public class RobotMain extends IterativeRobot {
         }
         //DSLog.log(2, "Gyro Angle: " + Log.round(DriveSubsystem.getInstance().getGyroAngle(), 2));
         //DSLog.log(3, "Encoder Mode:" + DriveSubsystem.getInstance().getEncoderDrive());
-        DSLog.log(3, "Encoder 1: " + Math.floor(DriveSubsystem.getInstance().getEncoderValue(1)/OI.getInstance().getLeftJoystick().getMagnitude()));
-        DSLog.log(4, "Encoder 2: " + Math.floor(DriveSubsystem.getInstance().getEncoderValue(2)/OI.getInstance().getRightJoystick().getMagnitude()));
-        DSLog.log(5, "Encoder 3: " + Math.floor(DriveSubsystem.getInstance().getEncoderValue(3)/OI.getInstance().getLeftJoystick().getMagnitude()));
-        DSLog.log(6, "Encoder 4: " + Math.floor(DriveSubsystem.getInstance().getEncoderValue(4)/OI.getInstance().getRightJoystick().getMagnitude()));
+        //DSLog.log(3, "Arm Encoder: " + ManipulatorSubsystem.getInstance().getEncoderValue());
+        
         
     }
 

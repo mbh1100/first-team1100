@@ -6,7 +6,9 @@
 
 package edu.arhs.team1100.aerialassist.subsystems;
 import edu.arhs.team1100.aerialassist.OI;
-import edu.arhs.team1100.aerialassist.RobotMap;
+import edu.arhs.team1100.aerialassist.RobotMap;      
+import edu.arhs.team1100.aerialassist.commands.drive.UserDriveCommand;
+import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.MoveArmCommandRecur;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
@@ -22,9 +24,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class ManipulatorSubsystem extends Subsystem {
     
     static ManipulatorSubsystem instance;
+    private final int MIDDLE_COUNT = 24000;
     private Talon armMotorOne;
     private Talon armMotorTwo;
-    private double wheelSpeed = .5;
     boolean isClamped = false;
     private Encoder ec;
     /**
@@ -34,8 +36,8 @@ public class ManipulatorSubsystem extends Subsystem {
     public ManipulatorSubsystem() {
         armMotorOne = new Talon(RobotMap.M_TALON_LEFT_WHEEL);
         armMotorTwo = new Talon(RobotMap.M_TALON_RIGHT_WHEEL);
-        ec = new Encoder(RobotMap.M_EN_SLOT, RobotMap.M_EN_CNL);
-        ec.start();
+       // ec = new Encoder(RobotMap.M_EN_SLOT, RobotMap.M_EN_CNL);
+       // ec.start();
     }
 
     /**
@@ -54,20 +56,23 @@ public class ManipulatorSubsystem extends Subsystem {
 
     public void moveArm()
     {
-        double speed = OI.getInstance().getXboxController().getAxis(Joystick.AxisType.kZ) / 1.5;
-        armMotorOne.set(speed);
-        armMotorTwo.set(-speed);
+        double speed = OI.getInstance().getXboxController().getAxis(Joystick.AxisType.kY) / 2;
+        moveArmSet(speed);
     }
     
     public void stopArm()
     {
-        armMotorOne.set(0);
-        armMotorTwo.set(0);
+        moveArmSet(0);
     }
     
     public double getEncoder()
     {
         return ec.get();
+    }
+    
+    public void EncoderReset()
+    {
+        ec.reset();
     }
     
     public void setCount(double count)
@@ -83,6 +88,17 @@ public class ManipulatorSubsystem extends Subsystem {
                 armMotorTwo.set(.2);
             }
         }
+        stopArm();
+    }
+    
+    public void moveArmSet(double speed) {
+        armMotorOne.set(speed);
+        armMotorTwo.set(-speed);
+    }
+    
+    public void setMiddlePos()
+    {
+        setCount(MIDDLE_COUNT);
     }
     
 
@@ -90,6 +106,12 @@ public class ManipulatorSubsystem extends Subsystem {
      * Initializes shooter command. Do nothing.
      */
     protected void initDefaultCommand() {
-        moveArm();
+        setDefaultCommand(new MoveArmCommandRecur());
     }
+
+    public String getEncoderValue() {
+        return ""+ ec.get();
+    }
+
+    
 }

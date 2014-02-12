@@ -9,13 +9,13 @@ import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
  *
  * @author Team 1100
  */
-public class ToggleClampCommand extends CommandBase {
+public class ResetEncoderCommand extends CommandBase {
 
     /**
      * Constructs a DriveSubsystem object
      */
-    public ToggleClampCommand() {
-        requires(ShooterSubsystem.getInstance());
+    public ResetEncoderCommand() {
+        requires(ManipulatorSubsystem.getInstance());
     }
 
     /**
@@ -28,7 +28,7 @@ public class ToggleClampCommand extends CommandBase {
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
-        ShooterSubsystem.getInstance().toggleLatchCylinder();
+        ManipulatorSubsystem.getInstance().EncoderReset();
     }
 
     /**

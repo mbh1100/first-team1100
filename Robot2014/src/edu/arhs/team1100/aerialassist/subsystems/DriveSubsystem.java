@@ -77,7 +77,7 @@ public class DriveSubsystem extends PIDSubsystem {
         frontLeftSolenoid = new DoubleSolenoid(RobotMap.D_FRONT_LEFT_SOLENOID_PORTA, RobotMap.D_FRONT_LEFT_SOLENOID_PORTB);
         frontRightSolenoid = new DoubleSolenoid(RobotMap.D_FRONT_RIGHT_SOLENOID_PORTA, RobotMap.D_FRONT_RIGHT_SOLENOID_PORTB);
         backLeftSolenoid = new DoubleSolenoid(RobotMap.D_BACK_LEFT_SOLENOID_PORTA, RobotMap.D_BACK_LEFT_SOLENOID_PORTB);
-        backRightSolenoid = new DoubleSolenoid(RobotMap.D_BACK_RIGHT_SOLENOID_PORTA, RobotMap.D_BACK_RIGHT_SOLENOID_PORTB);
+        //backRightSolenoid = new DoubleSolenoid(RobotMap.D_BACK_RIGHT_SOLENOID_PORTA, RobotMap.D_BACK_RIGHT_SOLENOID_PORTB);
 
         frontLeftTalonOne = new Talon(RobotMap.D_TALON_FRONT_LEFT);
         frontRightTalonOne = new Talon(RobotMap.D_TALON_FRONT_RIGHT);
@@ -100,13 +100,13 @@ public class DriveSubsystem extends PIDSubsystem {
                 backLeftTalonTwo,
                 frontRightTalonTwo,
                 backRightTalonTwo);
-//
-//        driveGyro = new Gyro(RobotMap.D_GYRO);
+
+//      driveGyro = new Gyro(RobotMap.D_GYRO);
         encoderFrontRight = new Encoder(RobotMap.S_EN_FR_A, RobotMap.S_EN_FR_B);
         encoderFrontLeft = new Encoder(RobotMap.S_EN_FL_A, RobotMap.S_EN_FL_B);
         encoderBackRight = new Encoder(RobotMap.S_EN_BR_A, RobotMap.S_EN_BR_B);
         encoderBackLeft = new Encoder(RobotMap.S_EN_BL_A, RobotMap.S_EN_BL_B);
-//         
+         
         encoderFrontRight.start();
         encoderFrontLeft.start();
         encoderBackRight.start();
@@ -206,7 +206,7 @@ public class DriveSubsystem extends PIDSubsystem {
             frontLeftSolenoid.set(DoubleSolenoid.Value.kForward);
             frontRightSolenoid.set(DoubleSolenoid.Value.kForward);
             backLeftSolenoid.set(DoubleSolenoid.Value.kForward);
-            backRightSolenoid.set(DoubleSolenoid.Value.kForward);
+            //backRightSolenoid.set(DoubleSolenoid.Value.kForward);
             mecanumWheelsLowered = true;
         }
     }
@@ -219,7 +219,7 @@ public class DriveSubsystem extends PIDSubsystem {
             frontLeftSolenoid.set(DoubleSolenoid.Value.kReverse);
             frontRightSolenoid.set(DoubleSolenoid.Value.kReverse);
             backLeftSolenoid.set(DoubleSolenoid.Value.kReverse);
-            backRightSolenoid.set(DoubleSolenoid.Value.kReverse);
+            //backRightSolenoid.set(DoubleSolenoid.Value.kReverse);
             mecanumWheelsLowered = false;
         }
     }
@@ -251,8 +251,8 @@ public class DriveSubsystem extends PIDSubsystem {
                 driveOne.tankDrive(leftValue, rightValue);
                 driveTwo.tankDrive(leftValue, rightValue);
             } else if (reverse) {
-                driveOne.tankDrive(-rightValue, -leftValue);
-                driveTwo.tankDrive(-rightValue, -leftValue);
+                driveOne.tankDrive(rightValue, leftValue);
+                driveTwo.tankDrive(rightValue, leftValue);
             }
         }
         if (encoderDrive) {

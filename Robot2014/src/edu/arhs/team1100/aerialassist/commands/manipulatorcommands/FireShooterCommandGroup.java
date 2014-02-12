@@ -2,18 +2,19 @@ package edu.arhs.team1100.aerialassist.commands.manipulatorcommands;
 
 import edu.arhs.team1100.aerialassist.commands.CommandBase;
 import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
 
 /**
  *
  * @author Team 1100
  */
-public class FireShooterCommand extends CommandBase {
+public class FireShooterCommandGroup extends CommandGroup {
 
     /**
      * Constructs a DriveSubsystem object
      */
-    public FireShooterCommand() {
+    public FireShooterCommandGroup() {
         requires(ShooterSubsystem.getInstance());
     }
 
@@ -27,7 +28,7 @@ public class FireShooterCommand extends CommandBase {
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
-        ShooterSubsystem.getInstance().fireShooter();
+        ShooterSubsystem.getInstance().ShootFireCylinder();
     }
 
     /**

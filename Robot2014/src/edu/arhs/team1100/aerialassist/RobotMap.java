@@ -42,17 +42,11 @@ public class RobotMap {
 
     //[M]anipulator
     public static int M_CLAMP_OUT = 5;
-    public static int M_CLAMP_IN = 7;
+    public static int M_CLAMP_IN = 6;
     public static int M_TALON_RIGHT_WHEEL = 10;
     public static int M_TALON_LEFT_WHEEL = 9;
     public static int M_FIST_PORTA;
     public static int M_FIST_PORTB;
-    public static int M_RIGHT_VECTOR_SLOT;
-    public static int M_RIGHT_VECTOR_CNL;
-    public static int M_LEFT_VECTOR_SLOT;
-    public static int M_LEFT_VECTOR_CNL;
-    public static int M_EN_SLOT;
-    public static int M_EN_CNL;
     
     //[S]ensor
     public static int S_AC_1q = 10;
@@ -64,6 +58,7 @@ public class RobotMap {
     public static int S_EN_FL_B = 4;
     public static int S_EN_BR_B = 6;
     public static int S_EN_BL_B = 8;
+    public static int S_EN_ARM =  1;
     public static int S_GY_CNL = 2;
    
 }

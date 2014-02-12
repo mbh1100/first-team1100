@@ -9,17 +9,17 @@ import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
  *
  * @author Team 1100
  */
-public class ToggleClampCommand extends CommandBase {
+public class ClampOutCommand extends CommandBase {
 
     /**
      * Constructs a DriveSubsystem object
      */
-    public ToggleClampCommand() {
+    public ClampOutCommand() {
         requires(ShooterSubsystem.getInstance());
     }
 
     /**
-     * Called just before this Command runs the first time
+     * Called just before this Cåommand runs the first time
      */
     protected void initialize() {
     }
@@ -28,7 +28,7 @@ public class ToggleClampCommand extends CommandBase {
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
-        ShooterSubsystem.getInstance().toggleLatchCylinder();
+        ShooterSubsystem.getInstance().setLatch(2);
     }
 
     /**
