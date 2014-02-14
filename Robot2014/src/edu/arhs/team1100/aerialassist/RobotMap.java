@@ -47,6 +47,10 @@ public class RobotMap {
     public static int M_TALON_LEFT_WHEEL = 9;
     public static int M_FIST_PORTA;
     public static int M_FIST_PORTB;
+    public static int M_RIN_MODULE = 2;   //fix
+    public static int M_LIN_MODULE = 2;  //fix
+    public static int M_RIN_CHANNEL = 2;
+    public static int M_LIN_CHANNEL = 3;
     
     //[S]ensor
     public static int S_AC_1q = 10;

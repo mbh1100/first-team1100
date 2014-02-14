@@ -1,9 +1,8 @@
-package edu.arhs.team1100.aerialassist.commands.manipulatorcommands;
+package edu.arhs.team1100.aerialassist.commands.drive;
 
 import edu.arhs.team1100.aerialassist.commands.CommandBase;
-import edu.arhs.team1100.aerialassist.subsystems.ManipulatorSubsystem;
+import edu.arhs.team1100.aerialassist.subsystems.DriveSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
-
 
 /**
  *
@@ -11,45 +10,43 @@ import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
  */
 public class ToggleClampCommand extends CommandBase {
 
-    /**
-     * Constructs a DriveSubsystem object
-     */
-    public ToggleClampCommand() {
-        requires(ShooterSubsystem.getInstance());
-    }
+    private boolean finished = false;
 
     /**
-     * Called just before this Command runs the first time
+     * Initializes the shooter
      */
     protected void initialize() {
+        finished = false;
     }
 
     /**
-     * Called repeatedly when this Command is scheduled to run
+     * Toggles drive mode and turns finish to true
      */
     protected void execute() {
         ShooterSubsystem.getInstance().toggleLatchCylinder();
+        finished = true;
     }
 
     /**
-     * Make this return true when this Command no longer needs to run execute()
+     * Returns whether toggling has occurred
      *
-     * @return false
+     * @return finished
      */
     protected boolean isFinished() {
-        return false;
+        return finished;
     }
 
     /**
-     * Called once after isFinished returns true
+     * Toggles drive mode if it has not finished
      */
     protected void end() {
-        
+        if (!finished) {
+            execute();
+        }
     }
 
     /**
-     * Called when another command which requires one or more of the same
-     * subsystems is scheduled to run
+     * Toggles drive mode if interrupted
      */
     protected void interrupted() {
         end();

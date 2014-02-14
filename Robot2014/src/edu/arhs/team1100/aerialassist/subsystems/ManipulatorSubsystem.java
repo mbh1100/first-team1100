@@ -56,8 +56,8 @@ public class ManipulatorSubsystem extends Subsystem {
 
     public void moveArm()
     {
-        double speed = OI.getInstance().getXboxController().getAxis(Joystick.AxisType.kY) / 2;
-        moveArmSet(speed);
+        double speed = OI.getInstance().getXboxController().getAxis(Joystick.AxisType.kY) ;
+        moveArmSet(-speed);
     }
     
     public void stopArm()

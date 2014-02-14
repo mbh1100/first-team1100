@@ -251,8 +251,8 @@ public class DriveSubsystem extends PIDSubsystem {
                 driveOne.tankDrive(leftValue, rightValue);
                 driveTwo.tankDrive(leftValue, rightValue);
             } else if (reverse) {
-                driveOne.tankDrive(rightValue, leftValue);
-                driveTwo.tankDrive(rightValue, leftValue);
+                driveOne.tankDrive(-rightValue, -leftValue);
+                driveTwo.tankDrive(-rightValue, -leftValue);
             }
         }
         if (encoderDrive) {

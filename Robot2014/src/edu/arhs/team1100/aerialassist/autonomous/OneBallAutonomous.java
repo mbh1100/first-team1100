@@ -11,7 +11,7 @@ import edu.arhs.team1100.aerialassist.commands.drive.DriveInALineCommand;
 import edu.arhs.team1100.aerialassist.commands.drive.DriveInTankCommand;
 import edu.arhs.team1100.aerialassist.subsystems.DriveSubsystem;
 import edu.arhs.team1100.aerialassist.commands.drive.StopDriveCommand;
-import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.FireShooterCommandGroup;
+import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.FireShooterCommand;
 import edu.arhs.team1100.aerialassist.subsystems.CameraSubsystem;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -33,12 +33,12 @@ public class OneBallAutonomous extends CommandGroup {
     public void OneBallCommand(double speed, double duration) {
 
         if (CameraSubsystem.getInstance().isHot()){
-            addSequential(new FireShooterCommandGroup());
+            addSequential(new FireShooterCommand());
         }
         else
         {
             Timer.delay(5);
-            addSequential(new FireShooterCommandGroup());
+            addSequential(new FireShooterCommand());
         }
         
         //drive forward into point zone

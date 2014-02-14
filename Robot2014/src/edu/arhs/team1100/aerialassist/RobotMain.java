@@ -78,7 +78,7 @@ public class RobotMain extends IterativeRobot {
         //autonomous.execute();
         Scheduler.getInstance().run();
         if (CameraSubsystem.getInstance().isHot()) {
-            ShooterSubsystem.getInstance().ShootFireCylinder();
+            ShooterSubsystem.getInstance().Shoot();
         }
     }
 

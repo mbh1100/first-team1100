@@ -1,5 +1,7 @@
 package edu.arhs.team1100.aerialassist;
 
+import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.FireShooterCommand;
+import edu.arhs.team1100.aerialassist.commands.drive.ToggleClampCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.MoveArmCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.SetArmMiddleCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.ResetEncoderCommand;
@@ -10,10 +12,10 @@ import edu.arhs.team1100.aerialassist.input.XboxController;
 import edu.arhs.team1100.aerialassist.commands.drive.ToggleReverseDirectionCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.ClampInCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.ClampOutCommand;
-import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.FireShooterCommandGroup;
+import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.FireShooterCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.RollInCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.RollOutCommand;
-import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.ToggleClampCommand;
+import edu.wpi.first.wpilibj.Joystick;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -61,10 +63,10 @@ public class OI {
         xbox = new XboxController(RobotMap.C_XBOX_CONTROLLER, 0.1);
 
         //CONTROL ASSIGNMENTS       
-        xbox.getButtonX().whenPressed(new ToggleClampCommand());
-//      xbox.getButtonY().whenPressed(new AutoAimCommand());
-        xbox.getButtonA().whenPressed(new RollInCommand());
-        xbox.getButtonB().whenPressed(new RollOutCommand());        
+        xbox.getButtonRightBumper().whenPressed(new ToggleClampCommand());
+        xbox.getButtonA().whileHeld(new RollInCommand());
+        xbox.getButtonB().whileHeld(new RollOutCommand());   
+        xbox.getButtonX().whenPressed(new FireShooterCommand());
 //        xbox.getButtonRightBumper().whenPressed(new FireShooterCommandGroup());
 //        xbox.getButtonY().whenPressed(new ClampOutCommand());
         rightStick.getButton(TOGGLE_MEC).whenPressed(new ToggleMecModeCommand());

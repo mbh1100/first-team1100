@@ -9,8 +9,10 @@ import edu.arhs.team1100.aerialassist.OI;
 import edu.arhs.team1100.aerialassist.RobotMap;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -24,8 +26,9 @@ public class ShooterSubsystem extends Subsystem {
     static ShooterSubsystem instance;
     DoubleSolenoid firingCylinder;
     DoubleSolenoid latchCylinder;
-    Victor rightInMotor;
-    Victor leftInMotor;
+    double startTime;
+    Relay rightInMotor;
+    Relay leftInMotor;
     private boolean isClamped = false;  
     //Ball detector sensor
     private final double IN_MOTOR_SPEED = .5;
@@ -38,8 +41,8 @@ public class ShooterSubsystem extends Subsystem {
     public ShooterSubsystem() {
          //firingCylinder = new DoubleSolenoid(RobotMap.M_FIST_PORTA, RobotMap.M_FIST_PORTB);
          latchCylinder = new DoubleSolenoid(RobotMap.M_CLAMP_IN, RobotMap.M_CLAMP_OUT);
-         //rightInMotor = new Victor(RobotMap.M_RIGHT_VECTOR_SLOT, RobotMap.M_RIGHT_VECTOR_CNL);
-         //leftInMotor = new Victor(RobotMap.M_LEFT_VECTOR_SLOT, RobotMap.M_RIGHT_VECTOR_CNL);
+         rightInMotor = new Relay(RobotMap.M_RIN_MODULE, RobotMap.M_RIN_CHANNEL);
+         leftInMotor = new Relay(RobotMap.M_LIN_MODULE, RobotMap.M_LIN_CHANNEL);
 
     }
 
@@ -57,9 +60,12 @@ public class ShooterSubsystem extends Subsystem {
     }
 
 
-    public void ShootFireCylinder() {
-        latchCylinder.set(DoubleSolenoid.Value.kForward);
+    public void Shoot() {
+        startTime = Timer.getFPGATimestamp();
+        latchCylinder.set(DoubleSolenoid.Value.kReverse);
         firingCylinder.set(DoubleSolenoid.Value.kForward);
+        Timer.delay(.2);
+        latchCylinder.set(DoubleSolenoid.Value.kForward);
         
         /*
         pull on the firing cylinder to stretch the elastic
@@ -67,24 +73,27 @@ public class ShooterSubsystem extends Subsystem {
         push on the firing cylinder to help push the ball
         release the latch when directed by the operator
         */
+        Timer.delay(.2);
         resetShooter();
     }
     
     public void resetShooter()
     {
         firingCylinder.set(DoubleSolenoid.Value.kReverse);
+        latchCylinder.set(DoubleSolenoid.Value.kReverse);
     }
     
     public void rollIn()
     {
-        rightInMotor.set(-IN_MOTOR_SPEED);
-        leftInMotor.set(IN_MOTOR_SPEED);
+        rightInMotor.set(Relay.Value.kForward);
+        leftInMotor.set(Relay.Value.kReverse);
+        
     }
     
     public void rollOut()
     {
-        rightInMotor.set(IN_MOTOR_SPEED);
-        leftInMotor.set(-IN_MOTOR_SPEED);
+        rightInMotor.set(Relay.Value.kReverse);
+        leftInMotor.set(Relay.Value.kForward);
 
     }
     
@@ -97,7 +106,17 @@ public class ShooterSubsystem extends Subsystem {
         isClamped = !isClamped;
     }
 
+    public void openLatch()
+    {
+        latchCylinder.set(DoubleSolenoid.Value.kReverse);
+        isClamped = true;
+    }
 
+    public void closeLatch()
+    {
+        latchCylinder.set(DoubleSolenoid.Value.kForward);
+        isClamped = false;
+    }
     /**
      * Initializes shooter command. Do nothing.
      */
