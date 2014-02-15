@@ -66,7 +66,7 @@ public class OI {
         xbox.getButtonRightBumper().whenPressed(new ToggleClampCommand());
         xbox.getButtonA().whileHeld(new RollInCommand());
         xbox.getButtonB().whileHeld(new RollOutCommand());   
-        xbox.getButtonX().whenPressed(new FireShooterCommand());
+      //  xbox.getButtonX().whenPressed(new FireShooterCommand());
 //        xbox.getButtonRightBumper().whenPressed(new FireShooterCommandGroup());
 //        xbox.getButtonY().whenPressed(new ClampOutCommand());
         rightStick.getButton(TOGGLE_MEC).whenPressed(new ToggleMecModeCommand());

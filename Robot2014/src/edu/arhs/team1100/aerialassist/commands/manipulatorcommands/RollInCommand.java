@@ -1,8 +1,8 @@
 package edu.arhs.team1100.aerialassist.commands.manipulatorcommands;
 
 import edu.arhs.team1100.aerialassist.commands.CommandBase;
-import edu.arhs.team1100.aerialassist.subsystems.DriveSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
+
 
 /**
  *
@@ -10,43 +10,45 @@ import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
  */
 public class RollInCommand extends CommandBase {
 
-    private boolean finished = false;
-
     /**
-     * Initializes the shooter
+     * Constructs a DriveSubsystem object
      */
-    protected void initialize() {
-        finished = false;
+    public RollInCommand() {
+        requires(ShooterSubsystem.getInstance());
     }
 
     /**
-     * Toggles drive mode and turns finish to true
+     * Called just before this Command runs the first time
+     */
+    protected void initialize() {
+    }
+
+    /**
+     * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
         ShooterSubsystem.getInstance().rollIn();
-        finished = true;
     }
 
     /**
-     * Returns whether toggling has occurred
+     * Make this return true when this Command no longer needs to run execute()
      *
-     * @return finished
+     * @return false
      */
     protected boolean isFinished() {
-        return finished;
+        return false;
     }
 
     /**
-     * Toggles drive mode if it has not finished
+     * Called once after isFinished returns true
      */
     protected void end() {
-        if (!finished) {
-            execute();
-        }
+        
     }
 
     /**
-     * Toggles drive mode if interrupted
+     * Called when another command which requires one or more of the same
+     * subsystems is scheduled to run
      */
     protected void interrupted() {
         end();

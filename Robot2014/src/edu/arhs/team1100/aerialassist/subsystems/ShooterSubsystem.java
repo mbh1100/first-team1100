@@ -24,7 +24,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class ShooterSubsystem extends Subsystem {
     
     static ShooterSubsystem instance;
-    DoubleSolenoid firingCylinder;
+    DoubleSolenoid firingCylinderOne;
+    DoubleSolenoid firingCylinderTwo;
+    DoubleSolenoid holdingCylinder;
     DoubleSolenoid latchCylinder;
     double startTime;
     Relay rightInMotor;
@@ -39,7 +41,9 @@ public class ShooterSubsystem extends Subsystem {
      * intake motors. Starts compressor.
      */
     public ShooterSubsystem() {
-         //firingCylinder = new DoubleSolenoid(RobotMap.M_FIST_PORTA, RobotMap.M_FIST_PORTB);
+         //firingCylinderOne = new DoubleSolenoid(RobotMap.M_PUNCH_PORTA, RobotMap.M_PUNCH_PORTB);
+         //firingCylinderTwo = new DoubleSolenoid(RobotMap.M_PUNCHTWO_PORTA, RobotMap.M_PUNCHTWO_PORTB);
+         //holdingCylinder = new DoubleSolenoid(RobotMap.M_STOPER_IN, RobotMap.M_STOPER_OUT);
          latchCylinder = new DoubleSolenoid(RobotMap.M_CLAMP_IN, RobotMap.M_CLAMP_OUT);
          rightInMotor = new Relay(RobotMap.M_RIN_MODULE, RobotMap.M_RIN_CHANNEL);
          leftInMotor = new Relay(RobotMap.M_LIN_MODULE, RobotMap.M_LIN_CHANNEL);
@@ -63,9 +67,14 @@ public class ShooterSubsystem extends Subsystem {
     public void Shoot() {
         startTime = Timer.getFPGATimestamp();
         latchCylinder.set(DoubleSolenoid.Value.kReverse);
-        firingCylinder.set(DoubleSolenoid.Value.kForward);
-        Timer.delay(.2);
+        holdingCylinder.set(DoubleSolenoid.Value.kReverse);
+        Timer.delay(.1);
+        firingCylinderOne.set(DoubleSolenoid.Value.kForward);
+        firingCylinderTwo.set(DoubleSolenoid.Value.kForward);
+
+        Timer.delay(.1);
         latchCylinder.set(DoubleSolenoid.Value.kForward);
+        holdingCylinder.set(DoubleSolenoid.Value.kForward);
         
         /*
         pull on the firing cylinder to stretch the elastic
@@ -77,9 +86,16 @@ public class ShooterSubsystem extends Subsystem {
         resetShooter();
     }
     
+    public void testSolenoids()
+    {
+        
+    }
+    
     public void resetShooter()
     {
-        firingCylinder.set(DoubleSolenoid.Value.kReverse);
+        firingCylinderOne.set(DoubleSolenoid.Value.kReverse);
+        firingCylinderTwo.set(DoubleSolenoid.Value.kReverse);
+        holdingCylinder.set(DoubleSolenoid.Value.kReverse);
         latchCylinder.set(DoubleSolenoid.Value.kReverse);
     }
     

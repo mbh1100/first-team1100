@@ -16,7 +16,6 @@ public class RobotMap {
     public static int DS_I = 2;
     public static int DS_D = 3;
 
-    
     //[D]RIVE
     public static final int D_TALON_FRONT_LEFT = 4;
     public static final int D_TALON_FRONT_RIGHT = 8;
@@ -38,20 +37,24 @@ public class RobotMap {
     public static int D_COMPRESSOR_SLOT = 2;
     public static int D_COMPRESSOR_RELAY_CHANNEL = 1;
     public static int D_COMPRESSOR_PRESSURE_SWITCH_CHANNEL = 1;
-   
 
     //[M]anipulator
+    public static int M_STOPER_IN = 8;
+    public static int M_STOPER_OUT = 7;
+    public static int M_PUNCH_IN = 6;
+    public static int M_PUNCHTWO_IN = 4;
+    public static int M_PUNCHTWO_OUT= 3;
+    public static int M_PUNCH_OUT = 5;
+
     public static int M_CLAMP_OUT = 5;
     public static int M_CLAMP_IN = 6;
     public static int M_TALON_RIGHT_WHEEL = 10;
     public static int M_TALON_LEFT_WHEEL = 9;
-    public static int M_FIST_PORTA;
-    public static int M_FIST_PORTB;
     public static int M_RIN_MODULE = 2;   //fix
     public static int M_LIN_MODULE = 2;  //fix
     public static int M_RIN_CHANNEL = 2;
     public static int M_LIN_CHANNEL = 3;
-    
+
     //[S]ensor
     public static int S_AC_1q = 10;
     public static int S_EN_FR_A = 1;
@@ -62,7 +65,7 @@ public class RobotMap {
     public static int S_EN_FL_B = 4;
     public static int S_EN_BR_B = 6;
     public static int S_EN_BL_B = 8;
-    public static int S_EN_ARM =  1;
+    public static int S_EN_ARM = 1;
     public static int S_GY_CNL = 2;
-   
+
 }
