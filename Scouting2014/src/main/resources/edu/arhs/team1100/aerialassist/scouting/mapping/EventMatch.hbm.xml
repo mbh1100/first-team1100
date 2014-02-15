@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="edu.arhs.team1100.aerialassist.scouting.objects">
+    <class name="EventMatch" table="eventMatch">
+        <composite-id>
+            <key-property name="matchNumber" column="matchNumber"/>
+            <key-property name="eventID" column="eventID"/>
+        </composite-id>
+        <property name="redOne"></property>
+        <property name="redTwo"></property>
+        <property name="redThree"></property>
+        <property name="blueOne"></property>
+        <property name="blueTwo"></property>
+        <property name="blueThree"></property>
+        <property name="redScore"></property>
+        <property name="blueScore"></property>
+        
+        
+    </class>
+    
+    
+</hibernate-mapping>

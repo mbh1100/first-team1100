@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="edu.arhs.team1100.aerialassist.scouting.objects">
+    <class name="TeamEventMatch" table="teameventmatch">
+        <composite-id>
+            <key-property name="teamNumber" column="teamNumber"/>
+            <key-property name="matchNumber" column="matchNumber"/>
+            <key-property name="eventID" column="eventID"/>
+        </composite-id>
+        
+        <property name="assists"/>
+        <property name="autoBallHigh"/>
+        <property name="autoBallLow"/>
+        <property name="ballShielding"/>
+        <property name="canCatch"/>
+        <property name="comments"/>
+        <property name="cycles"/>
+        <property name="defensive"/>
+        <property name="highGoalsAttempted"/>
+        <property name="highGoalsScored"/>
+        <property name="lowGoalsAttempted"/>
+        <property name="lowGoalsScored"/>
+        <property name="passes"/>
+        <property name="preloadBall"/>
+        <property name="regularFouls"/>
+        <property name="scouter"/>
+        <property name="stability"/>
+        <property name="startingPosition"/>
+        <property name="trussCatch"/>
+        <property name="trussThrow"/>
+        <property name="unableToUnloadAutoBall"/>
+        <property name="zoneChange"/>
+
+
+    </class>
+    
+    
+</hibernate-mapping>
