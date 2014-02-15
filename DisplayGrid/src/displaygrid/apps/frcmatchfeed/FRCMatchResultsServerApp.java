@@ -23,8 +23,8 @@ public class FRCMatchResultsServerApp extends ServerApp implements UserStreamLis
     private final String CONSUMER_SECRET = "HIG9WI2ISdf3Lau2aJfjmQH6MgI9q8dH5pQYr9Nztts";
     private final String ACCESS_TOKEN = "1260628040-2eWI6BDvlAKeP2RXLQzSaQ0nhYXVz1Nq1tTuY66";
     private final String ACCESS_TOKEN_SECRET = "qI6xDdYwv60beXcUALbicAJMEsizCUWJ7dxd2YD0";
-    //private final long FMS_USERID = 20603824;
-    private final long FMS_USERID = 1260704491;
+    private final long FMS_USERID = 20603824;
+   // private final long FMS_USERID = 1260704491;
     private TwitterStream frcStream;
     
 
@@ -109,7 +109,6 @@ public class FRCMatchResultsServerApp extends ServerApp implements UserStreamLis
                 redCommand += "final:"+m.red_final+"#";
                 redCommand += "auto:"+m.red_auto+"#";
                 redCommand += "teleop:"+m.red_teleop+"#";
-                redCommand += "climb:"+m.red_climb+"#";
                 redCommand += "foul:"+m.red_foul;           
                 
                 blueCommand = "";
@@ -119,7 +118,6 @@ public class FRCMatchResultsServerApp extends ServerApp implements UserStreamLis
                 blueCommand += "final:"+m.blue_final+"#";
                 blueCommand += "auto:"+m.blue_auto+"#";
                 blueCommand += "teleop:"+m.blue_teleop+"#";
-                blueCommand += "climb:"+m.blue_climb+"#";
                 blueCommand += "foul:"+m.blue_foul;
                 
                 redPending = true;

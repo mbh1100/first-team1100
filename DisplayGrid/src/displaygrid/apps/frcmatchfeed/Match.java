@@ -13,14 +13,12 @@ class Match {
     private static final int P_BLUE1 = 14;
     private static final int P_BLUE2 = 15;
     private static final int P_BLUE3 = 16;
-    private static final int P_RED_CLIMB = 18;
-    private static final int P_BLUE_CLIMB = 20;
-    private static final int P_RED_FOUL = 22;
-    private static final int P_BLUE_FOUL = 24;
-    private static final int P_RED_AUTO = 26;
-    private static final int P_BLUE_AUTO = 28;
-    private static final int P_RED_TELEOP = 30;
-    private static final int P_BLUE_TELEOP = 32;
+    private static final int P_RED_FOUL = 18;
+    private static final int P_BLUE_FOUL = 20;
+    private static final int P_RED_AUTO = 22;
+    private static final int P_BLUE_AUTO = 24;
+    private static final int P_RED_TELEOP = 32;
+    private static final int P_BLUE_TELEOP = 34;
     public String event;
     public String type;
     public int num;
@@ -32,8 +30,6 @@ class Match {
     public int blue1;
     public int blue2;
     public int blue3;
-    public int red_climb;
-    public int blue_climb;
     public int red_foul;
     public int blue_foul;
     public int red_auto;
@@ -59,8 +55,6 @@ class Match {
         blue1       = Integer.parseInt(parts[P_BLUE1]);
         blue2       = Integer.parseInt(parts[P_BLUE2]);
         blue3       = Integer.parseInt(parts[P_BLUE3]);
-        red_climb   = Integer.parseInt(parts[P_RED_CLIMB]);
-        blue_climb  = Integer.parseInt(parts[P_BLUE_CLIMB]);
         red_foul    = Integer.parseInt(parts[P_RED_FOUL]);
         blue_foul   = Integer.parseInt(parts[P_BLUE_FOUL]);
         red_auto    = Integer.parseInt(parts[P_RED_AUTO]);

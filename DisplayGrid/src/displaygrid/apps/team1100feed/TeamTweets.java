@@ -13,5 +13,6 @@ package displaygrid.apps.team1100feed;
 public class TeamTweets {
     public TeamTweets(String tweet) throws Exception {
         String tweet1100 = tweet;
+        System.out.println("Tweet Recieved!!!" + tweet1100);
     }
 }
