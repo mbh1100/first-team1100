@@ -10,6 +10,7 @@ import edu.arhs.team1100.aerialassist.RobotMap;
 import edu.arhs.team1100.aerialassist.commands.drive.UserDriveCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.MoveArmCommandRecur;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DriverStationEnhancedIO;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -54,7 +55,7 @@ public class ManipulatorSubsystem extends Subsystem {
     }
 
 
-    public void moveArm()
+    public void moveArm() throws DriverStationEnhancedIO.EnhancedIOException
     {
         double speed = OI.getInstance().getXboxController().getAxis(Joystick.AxisType.kY);
         moveArmSet(-speed);

@@ -8,6 +8,8 @@ package edu.arhs.team1100.aerialassist.subsystems;
 import edu.arhs.team1100.aerialassist.OI;
 import edu.arhs.team1100.aerialassist.RobotMap;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStationEnhancedIO;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -27,26 +29,32 @@ public class ShooterSubsystem extends Subsystem {
     DoubleSolenoid firingCylinderOne;
     DoubleSolenoid firingCylinderTwo;
     DoubleSolenoid holdingCylinder;
-    DoubleSolenoid latchCylinder;
+    DoubleSolenoid clampCylinder;
     double startTime;
     Relay rightInMotor;
     Relay leftInMotor;
     private boolean isClamped = false;  
+    private boolean isHeld = false;
+    private boolean isPunched = false;
     //Ball detector sensor
     private final double IN_MOTOR_SPEED = .5;
+    private double delay;
 
      
     /**
      * Constructs an ISubsystem. Initializes compressor, lift pistons,
      * intake motors. Starts compressor.
      */
-    public ShooterSubsystem() {
-         //firingCylinderOne = new DoubleSolenoid(RobotMap.M_PUNCH_PORTA, RobotMap.M_PUNCH_PORTB);
-         //firingCylinderTwo = new DoubleSolenoid(RobotMap.M_PUNCHTWO_PORTA, RobotMap.M_PUNCHTWO_PORTB);
-         //holdingCylinder = new DoubleSolenoid(RobotMap.M_STOPER_IN, RobotMap.M_STOPER_OUT);
-         latchCylinder = new DoubleSolenoid(RobotMap.M_CLAMP_IN, RobotMap.M_CLAMP_OUT);
+    public ShooterSubsystem() throws DriverStationEnhancedIO.EnhancedIOException {
+         firingCylinderOne = new DoubleSolenoid(2, RobotMap.M_PUNCH_IN, RobotMap.M_PUNCH_OUT);
+         firingCylinderTwo = new DoubleSolenoid(2, RobotMap.M_PUNCHTWO_IN, RobotMap.M_PUNCHTWO_OUT);
+         holdingCylinder = new DoubleSolenoid(2, RobotMap.M_STOPER_IN, RobotMap.M_STOPER_OUT);
+         clampCylinder = new DoubleSolenoid(RobotMap.M_CLAMP_IN, RobotMap.M_CLAMP_OUT);
          rightInMotor = new Relay(RobotMap.M_RIN_MODULE, RobotMap.M_RIN_CHANNEL);
          leftInMotor = new Relay(RobotMap.M_LIN_MODULE, RobotMap.M_LIN_CHANNEL);
+         clampCylinder.set(DoubleSolenoid.Value.kForward);
+         holdingCylinder.set(DoubleSolenoid.Value.kForward);
+         rightInMotor.setDirection(Relay.Direction.kBoth);
 
     }
 
@@ -55,7 +63,7 @@ public class ShooterSubsystem extends Subsystem {
      *
      * @return instance
      */
-    public static ShooterSubsystem getInstance() {
+    public static ShooterSubsystem getInstance() throws DriverStationEnhancedIO.EnhancedIOException {
         if (instance == null) {
             instance = new ShooterSubsystem();
             instance.initDefaultCommand();
@@ -63,40 +71,39 @@ public class ShooterSubsystem extends Subsystem {
         return instance;
     }
 
-
-    public void Shoot() {
-        startTime = Timer.getFPGATimestamp();
-        latchCylinder.set(DoubleSolenoid.Value.kReverse);
-        holdingCylinder.set(DoubleSolenoid.Value.kReverse);
-        Timer.delay(.1);
+   public void setPunchOut()
+   {
         firingCylinderOne.set(DoubleSolenoid.Value.kForward);
         firingCylinderTwo.set(DoubleSolenoid.Value.kForward);
-
-        Timer.delay(.1);
-        latchCylinder.set(DoubleSolenoid.Value.kForward);
-        holdingCylinder.set(DoubleSolenoid.Value.kForward);
+   }
+   
+    public void Shoot() {
+        firingCylinderOne.set(DoubleSolenoid.Value.kForward);
+        firingCylinderTwo.set(DoubleSolenoid.Value.kForward);
+        Timer.delay(.4);
+        holdingCylinder.set(DoubleSolenoid.Value.kReverse);
+        Timer.delay(.05);
+        clampCylinder.set(DoubleSolenoid.Value.kReverse);
         
-        /*
-        pull on the firing cylinder to stretch the elastic
-        set the latch to hold the cylinder in place (if the latch is spring-loaded, this may occur before the previous step)
-        push on the firing cylinder to help push the ball
-        release the latch when directed by the operator
-        */
-        Timer.delay(.2);
-        resetShooter();
-    }
-    
-    public void testSolenoids()
-    {
         
+        
+        //resetShooter();
     }
     
     public void resetShooter()
     {
+        Timer.delay(2);
         firingCylinderOne.set(DoubleSolenoid.Value.kReverse);
         firingCylinderTwo.set(DoubleSolenoid.Value.kReverse);
-        holdingCylinder.set(DoubleSolenoid.Value.kReverse);
-        latchCylinder.set(DoubleSolenoid.Value.kReverse);
+        Timer.delay(1.5);
+        holdingCylinder.set(DoubleSolenoid.Value.kForward);
+        clampCylinder.set(DoubleSolenoid.Value.kForward);
+        Timer.delay(.3);
+        firingCylinderOne.set(DoubleSolenoid.Value.kForward);
+        firingCylinderTwo.set(DoubleSolenoid.Value.kForward);  
+        clampCylinder.set(DoubleSolenoid.Value.kForward);
+        
+       
     }
     
     public void rollIn()
@@ -116,21 +123,43 @@ public class ShooterSubsystem extends Subsystem {
     /**
      * Toggles the state of the floor pickup.
      */
-    public void toggleLatchCylinder() {
-        if(isClamped)latchCylinder.set(DoubleSolenoid.Value.kReverse);
-        if(!isClamped)latchCylinder.set(DoubleSolenoid.Value.kForward);
+    public void toggleClampCylinder() {
+        if(isClamped)clampCylinder.set(DoubleSolenoid.Value.kReverse);
+        if(!isClamped)clampCylinder.set(DoubleSolenoid.Value.kForward);
         isClamped = !isClamped;
+    }
+    
+    public void togglePuncherCylinder()
+    {
+        if(isPunched)
+        {
+            firingCylinderOne.set(DoubleSolenoid.Value.kReverse);
+            firingCylinderTwo.set(DoubleSolenoid.Value.kReverse);
+        }
+        if(!isPunched)
+        {
+            firingCylinderOne.set(DoubleSolenoid.Value.kForward);
+            firingCylinderTwo.set(DoubleSolenoid.Value.kForward);
+        }
+        isPunched = !isPunched;
+    }
+    
+    public void toggleHolderClyinder()
+    {
+        if(isHeld)holdingCylinder.set(DoubleSolenoid.Value.kReverse);
+        if(!isHeld)holdingCylinder.set(DoubleSolenoid.Value.kForward);
+        isHeld = !isHeld;
     }
 
     public void openLatch()
     {
-        latchCylinder.set(DoubleSolenoid.Value.kReverse);
+        clampCylinder.set(DoubleSolenoid.Value.kReverse);
         isClamped = true;
     }
 
     public void closeLatch()
     {
-        latchCylinder.set(DoubleSolenoid.Value.kForward);
+        clampCylinder.set(DoubleSolenoid.Value.kForward);
         isClamped = false;
     }
     /**
@@ -140,7 +169,7 @@ public class ShooterSubsystem extends Subsystem {
     }
 
     public void setLatch(int i) {
-        if(i == 1)latchCylinder.set(DoubleSolenoid.Value.kForward);
-        if(i == 2)latchCylinder.set(DoubleSolenoid.Value.kReverse);
+        if(i == 1)clampCylinder.set(DoubleSolenoid.Value.kForward);
+        if(i == 2)clampCylinder.set(DoubleSolenoid.Value.kReverse);
     }
 }

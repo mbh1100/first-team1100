@@ -2,6 +2,7 @@ package edu.arhs.team1100.aerialassist.commands.manipulatorcommands;
 
 import edu.arhs.team1100.aerialassist.commands.CommandBase;
 import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
+import edu.wpi.first.wpilibj.DriverStationEnhancedIO;
 
 
 /**
@@ -13,7 +14,7 @@ public class RollInCommand extends CommandBase {
     /**
      * Constructs a DriveSubsystem object
      */
-    public RollInCommand() {
+    public RollInCommand() throws DriverStationEnhancedIO.EnhancedIOException {
         requires(ShooterSubsystem.getInstance());
     }
 
@@ -27,7 +28,11 @@ public class RollInCommand extends CommandBase {
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
-        ShooterSubsystem.getInstance().rollIn();
+        try {
+            ShooterSubsystem.getInstance().rollIn();
+        } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**

@@ -3,6 +3,7 @@ package edu.arhs.team1100.aerialassist.commands.manipulatorcommands;
 import edu.arhs.team1100.aerialassist.commands.CommandBase;
 import edu.arhs.team1100.aerialassist.subsystems.DriveSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
+import edu.wpi.first.wpilibj.DriverStationEnhancedIO;
 
 /**
  *
@@ -23,7 +24,11 @@ public class FireShooterCommand extends CommandBase {
      * Toggles drive mode and turns finish to true
      */
     protected void execute() {
-        ShooterSubsystem.getInstance().Shoot();
+        try {
+            ShooterSubsystem.getInstance().Shoot();
+        } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
+            ex.printStackTrace();
+        }
         finished = true;
     }
 

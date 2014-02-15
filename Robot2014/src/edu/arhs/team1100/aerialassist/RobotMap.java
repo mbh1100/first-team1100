@@ -39,19 +39,19 @@ public class RobotMap {
     public static int D_COMPRESSOR_PRESSURE_SWITCH_CHANNEL = 1;
 
     //[M]anipulator
-    public static int M_STOPER_IN = 8;
-    public static int M_STOPER_OUT = 7;
-    public static int M_PUNCH_IN = 6;
-    public static int M_PUNCHTWO_IN = 4;
-    public static int M_PUNCHTWO_OUT= 3;
-    public static int M_PUNCH_OUT = 5;
-
+    public static int M_STOPER_IN = 5;
+    public static int M_STOPER_OUT = 6;
+    public static int M_PUNCH_IN = 3;
+    public static int M_PUNCH_OUT = 4;
+    public static int M_PUNCHTWO_IN = 1;
+    public static int M_PUNCHTWO_OUT = 2;
     public static int M_CLAMP_OUT = 5;
     public static int M_CLAMP_IN = 6;
+    
     public static int M_TALON_RIGHT_WHEEL = 10;
     public static int M_TALON_LEFT_WHEEL = 9;
     public static int M_RIN_MODULE = 2;   //fix
-    public static int M_LIN_MODULE = 2;  //fix
+    public static int M_LIN_MODULE = 2;   //fix
     public static int M_RIN_CHANNEL = 2;
     public static int M_LIN_CHANNEL = 3;
 

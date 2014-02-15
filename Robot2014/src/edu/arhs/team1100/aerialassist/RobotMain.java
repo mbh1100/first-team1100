@@ -13,6 +13,7 @@ import edu.arhs.team1100.aerialassist.subsystems.ManipulatorSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
 import edu.arhs.team1100.aerialassist.util.DSLog;
 import edu.arhs.team1100.aerialassist.util.Log;
+import edu.wpi.first.wpilibj.DriverStationEnhancedIO;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -52,12 +53,15 @@ public class RobotMain extends IterativeRobot {
         //Log.addClass(CompressorSubsystem.class, Log.LEVEL_DEBUG);
         //Log.addClass(SensorTestSubsystem.class, Log.LEVEL_DEBUG);
         //Log.addClass(CalibrateGyroCommand.class, Log.LEVEL_OFF);
-
-        // Instantiate the command used for the autonomous period
-        // Initialize all subsystems
-        CommandBase.init();
-
-        //autoCommand = new AutoShootAndReloadCommandGroup();
+        try {
+            // Instantiate the command used for the autonomous period
+            // Initialize all subsystems
+            CommandBase.init();
+            
+            //autoCommand = new AutoShootAndReloadCommandGroup();
+        } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -78,7 +82,11 @@ public class RobotMain extends IterativeRobot {
         //autonomous.execute();
         Scheduler.getInstance().run();
         if (CameraSubsystem.getInstance().isHot()) {
-            ShooterSubsystem.getInstance().Shoot();
+            try {
+                ShooterSubsystem.getInstance().Shoot();
+            } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 

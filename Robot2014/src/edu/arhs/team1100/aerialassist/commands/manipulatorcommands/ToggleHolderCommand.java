@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.DriverStationEnhancedIO;
  *
  * @author Team 1100
  */
-public class ToggleClampCommand extends CommandBase {
+public class ToggleHolderCommand extends CommandBase {
 
     private boolean finished = false;
 
@@ -25,7 +25,7 @@ public class ToggleClampCommand extends CommandBase {
      */
     protected void execute() {
         try {
-            ShooterSubsystem.getInstance().toggleClampCylinder();
+            ShooterSubsystem.getInstance().toggleHolderClyinder();
         } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
             ex.printStackTrace();
         }

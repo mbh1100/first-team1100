@@ -5,6 +5,7 @@ import edu.arhs.team1100.aerialassist.RobotMap;
 import edu.arhs.team1100.aerialassist.commands.drive.UserDriveCommand;
 import edu.arhs.team1100.aerialassist.util.Log;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DriverStationEnhancedIO;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -118,7 +119,7 @@ public class DriveSubsystem extends PIDSubsystem {
      * Drives the robot using user input interpreted according to the current
      * drive mode (Polar, Cartesian, or Tank).
      */
-    public void userDrive() {
+    public void userDrive() throws DriverStationEnhancedIO.EnhancedIOException {
         if (driveMode == MODE_CARTESIAN) {
             userDriveCartesian();
         } else if (driveMode == MODE_POLAR) {
@@ -135,7 +136,7 @@ public class DriveSubsystem extends PIDSubsystem {
     /**
      * Defines values to drive Cartesian mode. Gets values from controllers.
      */
-    private void userDriveCartesian() {
+    private void userDriveCartesian() throws DriverStationEnhancedIO.EnhancedIOException {
         double rotation = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
         double controlX = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
         double controlY = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
@@ -146,7 +147,7 @@ public class DriveSubsystem extends PIDSubsystem {
     /**
      * Defines values to drive Polar mode. Gets values from controllers.
      */
-    private void userDrivePolar() {
+    private void userDrivePolar() throws DriverStationEnhancedIO.EnhancedIOException {
         /*double magnitude = -OI.getInstance().getLeftJoystick().getMagnitude();
          double angle = -OI.getInstance().getLeftJoystick().getAngle();
          double rotation = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
@@ -162,7 +163,7 @@ public class DriveSubsystem extends PIDSubsystem {
     /**
      * Defines values to drive Tank mode. Gets values from joysticks.
      */
-    private void userDriveTank() {
+    private void userDriveTank() throws DriverStationEnhancedIO.EnhancedIOException {
         double leftValue = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
         double rightValue = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
 
@@ -423,10 +424,14 @@ public class DriveSubsystem extends PIDSubsystem {
      * @param rotationSpeed
      */
     protected void usePIDOutput(double rotationSpeed) {
-        double controlX = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
-        double controlY = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
-        driveOne.mecanumDrive_Cartesian(controlX, controlY, rotationSpeed, driveGyro.getAngle());
-        driveTwo.mecanumDrive_Cartesian(controlX, controlY, rotationSpeed, driveGyro.getAngle());
+        try {
+            double controlX = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
+            double controlY = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
+            driveOne.mecanumDrive_Cartesian(controlX, controlY, rotationSpeed, driveGyro.getAngle());
+            driveTwo.mecanumDrive_Cartesian(controlX, controlY, rotationSpeed, driveGyro.getAngle());
+        } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public void driveTankEncoderTicks(double speed, double ticks)

@@ -7,6 +7,7 @@ import edu.arhs.team1100.aerialassist.subsystems.ManipulatorSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.NetSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.SensorTestSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
+import edu.wpi.first.wpilibj.DriverStationEnhancedIO;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -22,7 +23,7 @@ public abstract class CommandBase extends Command {
     /**
      * Creates instances for the subsystems
      */
-    public static void init() {
+    public static void init() throws DriverStationEnhancedIO.EnhancedIOException {
 
         // This MUST be here. If the OI creates Commands (which it very likely
         // will), constructing it during the construction of CommandBase (from
