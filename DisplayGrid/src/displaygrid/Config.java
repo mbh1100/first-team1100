@@ -12,6 +12,8 @@ import displaygrid.apps.TextBannerClientApp;
 import displaygrid.apps.TextBannerServerApp;
 import displaygrid.apps.frcmatchfeed.FRCMatchResultsClientApp;
 import displaygrid.apps.frcmatchfeed.FRCMatchResultsServerApp;
+import displaygrid.apps.team1100feed.Team1100TweetsClientApp;
+import displaygrid.apps.team1100feed.Team1100TweetsServerApp;
 
 /**
  *
@@ -33,6 +35,8 @@ public class Config {
         BallBounceVerticleClientApp.class,
         TextBannerClientApp.class,
         FRCMatchResultsClientApp.class,
+        Team1100TweetsClientApp.class,
+        
     };
     
     static final Class[] serverAppClasses = {
@@ -42,6 +46,7 @@ public class Config {
         BallBounceVerticleServerApp.class,
         TextBannerServerApp.class,
         FRCMatchResultsServerApp.class,
+        Team1100TweetsServerApp.class,
     };
     
 }
