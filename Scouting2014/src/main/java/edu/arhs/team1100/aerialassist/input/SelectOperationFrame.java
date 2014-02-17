@@ -6,6 +6,9 @@
 
 package edu.arhs.team1100.aerialassist.input;
 
+import edu.arhs.team1100.aerialassist.handlers.ViewEventsHandler;
+import edu.arhs.team1100.aerialassist.handlers.ViewTeamsHandler;
+
 /**
  *
  * @author Eddie
@@ -58,12 +61,27 @@ public class SelectOperationFrame extends javax.swing.JFrame {
         });
 
         addEventButton.setText("Add Event");
+        addEventButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addEventButtonActionPerformed(evt);
+            }
+        });
 
         viewMatchesButton.setText("View Matches");
 
         viewTeamsButton.setText("View Teams");
+        viewTeamsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewTeamsButtonActionPerformed(evt);
+            }
+        });
 
         viewEventsButton.setText("View Events");
+        viewEventsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewEventsButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -116,6 +134,18 @@ public class SelectOperationFrame extends javax.swing.JFrame {
     private void addTeamButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addTeamButtonActionPerformed
         new TeamInput().setVisible(true);
     }//GEN-LAST:event_addTeamButtonActionPerformed
+
+    private void addEventButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEventButtonActionPerformed
+        new EventInput().setVisible(true);
+    }//GEN-LAST:event_addEventButtonActionPerformed
+
+    private void viewTeamsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewTeamsButtonActionPerformed
+        new ViewTeamsHandler().addTeams();
+    }//GEN-LAST:event_viewTeamsButtonActionPerformed
+
+    private void viewEventsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewEventsButtonActionPerformed
+        new ViewEventsHandler().addEvents();
+    }//GEN-LAST:event_viewEventsButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

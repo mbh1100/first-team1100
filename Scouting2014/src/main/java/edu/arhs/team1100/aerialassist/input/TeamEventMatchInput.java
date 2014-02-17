@@ -186,8 +186,9 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
         submitButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Match Input");
+        setResizable(false);
 
         matcnNumberLabel.setText("Match Numer");
 

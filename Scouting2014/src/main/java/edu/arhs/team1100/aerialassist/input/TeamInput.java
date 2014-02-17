@@ -38,8 +38,9 @@ public class TeamInput extends javax.swing.JFrame {
         cancelButton = new javax.swing.JButton();
         teamNumberSpinner = new javax.swing.JSpinner();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("New Team");
+        setResizable(false);
 
         teamNumberLabel.setText("Team Number");
 

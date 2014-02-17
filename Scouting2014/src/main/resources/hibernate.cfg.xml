@@ -6,7 +6,7 @@
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="connection.url">jdbc:mysql://localhost/scouting2014</property>
     <property name="connection.username">root</property>
-    <property name="connection.password">root</property>
+    <property name="connection.password">qqqqqq</property>
     <property name="connection.pool_size">1</property>
     <property name="show_sql">true</property>
     <property name="current_session_context_class">thread</property>

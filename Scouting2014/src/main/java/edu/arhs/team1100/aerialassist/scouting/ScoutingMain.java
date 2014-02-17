@@ -13,16 +13,9 @@ import org.hibernate.Session;
 public class ScoutingMain {
 
     public static void main(String[] args) {
+        HibernateUtil.getSessionFactory().getCurrentSession();
         SelectOperationFrame sof = new SelectOperationFrame();
         sof.setVisible(true);
-    }
-
-    private List listteams() {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        List result = session.createQuery("from Team").list();
-        session.getTransaction().commit();
-        return result;
     }
 
     private void editTeam(int teamNumber, String location) {
@@ -34,17 +27,5 @@ public class ScoutingMain {
         session.getTransaction().commit();
     }
 
-    private void createAndStoreTeam(int teamNumber, String name, String location) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-
-        Team team = new Team();
-        team.setTeamNumber(teamNumber);
-        team.setName(name);
-        team.setLocation(location);
-        session.save(team);
-
-        session.getTransaction().commit();
-    }
 
 }
