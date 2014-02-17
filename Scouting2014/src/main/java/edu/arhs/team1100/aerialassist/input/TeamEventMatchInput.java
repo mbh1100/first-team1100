@@ -192,10 +192,13 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
         matcnNumberLabel.setText("Match Numer");
 
         matchNumberSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 999, 1));
+        matchNumberSpinner.setNextFocusableComponent(teamNumberSpinner);
 
         teamNumberLabel.setText("Team Number");
 
         teamNumberSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 9999, 1));
+        teamNumberSpinner.setToolTipText("");
+        teamNumberSpinner.setNextFocusableComponent(scouterTextField);
 
         scouterLabel.setText("Scouter");
 
@@ -305,12 +308,14 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
 
         stabilityTextArea.setColumns(20);
         stabilityTextArea.setRows(5);
+        stabilityTextArea.setNextFocusableComponent(ballShiledingTextArea);
         stabilityScrollPane.setViewportView(stabilityTextArea);
 
         ballShieldingLabel.setText("Can they shield against opposing balls?");
 
         ballShiledingTextArea.setColumns(20);
         ballShiledingTextArea.setRows(5);
+        ballShiledingTextArea.setNextFocusableComponent(commentsTextArea);
         ballShieldingScrollPane.setViewportView(ballShiledingTextArea);
 
         commentsLabel.setText("Comments");
@@ -511,7 +516,6 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-
         if (!new TeamEventMatchHandler(this).addTeam()) {
             JOptionPane.showMessageDialog(this,
                     "A match with this team number and event has already been entered \nor could not find team with specified number.",

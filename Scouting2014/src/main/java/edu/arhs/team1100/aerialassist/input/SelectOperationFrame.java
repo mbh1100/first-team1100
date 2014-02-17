@@ -114,7 +114,7 @@ public class SelectOperationFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_addMatchButtonActionPerformed
 
     private void addTeamButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addTeamButtonActionPerformed
-        // TODO add your handling code here:
+        new TeamInput().setVisible(true);
     }//GEN-LAST:event_addTeamButtonActionPerformed
 
 
