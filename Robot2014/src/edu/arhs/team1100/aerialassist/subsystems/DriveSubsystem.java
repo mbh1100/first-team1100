@@ -1,4 +1,4 @@
-package edu.arhs.team1100.aerialassist.subsystems;
+    package edu.arhs.team1100.aerialassist.subsystems;
 
 import edu.arhs.team1100.aerialassist.OI;
 import edu.arhs.team1100.aerialassist.RobotMap;
@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.AnalogChannel;
 
 /**
  * @author Team 1100
@@ -32,8 +34,8 @@ public class DriveSubsystem extends PIDSubsystem {
     private static double offset = 0;
     private static boolean reverse = false;
     static DriveSubsystem instance;
-    private DoubleSolenoid frontRightSolenoid;
-    private DoubleSolenoid frontLeftSolenoid;
+    private DoubleSolenoid rightSolenoid;
+    private DoubleSolenoid leftSolenoid;
     private DoubleSolenoid backRightSolenoid;
     private DoubleSolenoid backLeftSolenoid;
     private Talon frontLeftTalonOne;
@@ -47,10 +49,11 @@ public class DriveSubsystem extends PIDSubsystem {
     private RobotDrive driveOne;
     private RobotDrive driveTwo;
     private Gyro driveGyro;
-    private Encoder encoderFrontRight;
+    private Encoder encoderWheels;
     private Encoder encoderFrontLeft;
     private Encoder encoderBackRight;
     private Encoder encoderBackLeft;
+    private AnalogChannel ultra;
     private int driveMode = MODE_TANK;
     private boolean mecanumWheelsLowered = true;
     private boolean encoderDrive = false;
@@ -75,44 +78,24 @@ public class DriveSubsystem extends PIDSubsystem {
     public DriveSubsystem() {
         super(kJoystickP, kJoystickI, kJoystickD);
 
-        frontLeftSolenoid = new DoubleSolenoid(RobotMap.D_FRONT_LEFT_SOLENOID_PORTA, RobotMap.D_FRONT_LEFT_SOLENOID_PORTB);
-        frontRightSolenoid = new DoubleSolenoid(RobotMap.D_FRONT_RIGHT_SOLENOID_PORTA, RobotMap.D_FRONT_RIGHT_SOLENOID_PORTB);
-        backLeftSolenoid = new DoubleSolenoid(RobotMap.D_BACK_LEFT_SOLENOID_PORTA, RobotMap.D_BACK_LEFT_SOLENOID_PORTB);
-        //backRightSolenoid = new DoubleSolenoid(RobotMap.D_BACK_RIGHT_SOLENOID_PORTA, RobotMap.D_BACK_RIGHT_SOLENOID_PORTB);
+        leftSolenoid = new DoubleSolenoid(RobotMap.D_LEFT_SOLENOID_A, RobotMap.D_LEFT_SOLENOID_B);
+        rightSolenoid = new DoubleSolenoid(RobotMap.D_RIGHT_SOLENOID_A, RobotMap.D_RIGHT_SOLENOID_B);
 
         frontLeftTalonOne = new Talon(RobotMap.D_TALON_FRONT_LEFT);
         frontRightTalonOne = new Talon(RobotMap.D_TALON_FRONT_RIGHT);
         backLeftTalonOne = new Talon(RobotMap.D_TALON_BACK_LEFT);
         backRightTalonOne = new Talon(RobotMap.D_TALON_BACK_RIGHT);
-
-        frontLeftTalonTwo = new Talon(RobotMap.D_TALON_FRONT_LEFT_TWO);
-        frontRightTalonTwo = new Talon(RobotMap.D_TALON_FRONT_RIGHT_TWO);
-        backLeftTalonTwo = new Talon(RobotMap.D_TALON_BACK_LEFT_TWO);
-        backRightTalonTwo = new Talon(RobotMap.D_TALON_BACK_RIGHT_TWO);
-
+        
         driveOne = new RobotDrive(
                 frontLeftTalonOne,
                 backLeftTalonOne,
                 frontRightTalonOne,
                 backRightTalonOne);
-
-        driveTwo = new RobotDrive(
-                frontLeftTalonTwo,
-                backLeftTalonTwo,
-                frontRightTalonTwo,
-                backRightTalonTwo);
-
-//      driveGyro = new Gyro(RobotMap.D_GYRO);
-        encoderFrontRight = new Encoder(RobotMap.S_EN_FR_A, RobotMap.S_EN_FR_B);
-        encoderFrontLeft = new Encoder(RobotMap.S_EN_FL_A, RobotMap.S_EN_FL_B);
-        encoderBackRight = new Encoder(RobotMap.S_EN_BR_A, RobotMap.S_EN_BR_B);
-        encoderBackLeft = new Encoder(RobotMap.S_EN_BL_A, RobotMap.S_EN_BL_B);
-         
-        encoderFrontRight.start();
-        encoderFrontLeft.start();
-        encoderBackRight.start();
-        encoderBackLeft.start();
-
+        
+       driveGyro = new Gyro(RobotMap.S_GY_CNL);
+        encoderWheels = new Encoder(RobotMap.S_EN_W_A, RobotMap.S_EN_W_B);
+       ultra = new AnalogChannel(RobotMap.S_ULTRA_B);
+        encoderWheels.start();
     }
 
     /**
@@ -140,24 +123,18 @@ public class DriveSubsystem extends PIDSubsystem {
         double rotation = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
         double controlX = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
         double controlY = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
-        driveOne.mecanumDrive_Cartesian(controlX, controlY, rotation, 0);
-        driveTwo.mecanumDrive_Cartesian(controlX, controlY, rotation, 0);
+        driveOne.mecanumDrive_Cartesian(controlX, controlY, rotation, driveGyro.getAngle());
     }
 
     /**
      * Defines values to drive Polar mode. Gets values from controllers.
      */
     private void userDrivePolar() throws DriverStationEnhancedIO.EnhancedIOException {
-        /*double magnitude = -OI.getInstance().getLeftJoystick().getMagnitude();
-         double angle = -OI.getInstance().getLeftJoystick().getAngle();
-         double rotation = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
-         driveOne.mecanumDrive_Polar(magnitude, angle, rotation);
-         driveTwo.mecanumDrive_Polar(magnitude, angle, rotation);*/
         double rotation = OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
         double controlX = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
         double controlY = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
         driveOne.mecanumDrive_Cartesian(controlX, controlY, rotation, 0);
-        driveTwo.mecanumDrive_Cartesian(controlX, controlY, rotation, 0);
+        
     }
 
     /**
@@ -170,10 +147,8 @@ public class DriveSubsystem extends PIDSubsystem {
         if (driveMode == MODE_TANK) {
             if (!reverse) {
                 driveOne.tankDrive(leftValue, rightValue);
-                driveTwo.tankDrive(leftValue, rightValue);
             } else if (reverse) {
                 driveOne.tankDrive(-rightValue, -leftValue);
-                driveTwo.tankDrive(-rightValue, -leftValue);
             }
         }
         if (encoderDrive) {
@@ -204,10 +179,8 @@ public class DriveSubsystem extends PIDSubsystem {
      */
     private void lowerMecWheels() {
         if (!mecanumWheelsLowered) {
-            frontLeftSolenoid.set(DoubleSolenoid.Value.kForward);
-            frontRightSolenoid.set(DoubleSolenoid.Value.kForward);
-            backLeftSolenoid.set(DoubleSolenoid.Value.kForward);
-            //backRightSolenoid.set(DoubleSolenoid.Value.kForward);
+            leftSolenoid.set(DoubleSolenoid.Value.kForward);
+            rightSolenoid.set(DoubleSolenoid.Value.kForward);
             mecanumWheelsLowered = true;
         }
     }
@@ -217,10 +190,8 @@ public class DriveSubsystem extends PIDSubsystem {
      */
     private void raiseMecWheels() {
         if (mecanumWheelsLowered) {
-            frontLeftSolenoid.set(DoubleSolenoid.Value.kReverse);
-            frontRightSolenoid.set(DoubleSolenoid.Value.kReverse);
-            backLeftSolenoid.set(DoubleSolenoid.Value.kReverse);
-            //backRightSolenoid.set(DoubleSolenoid.Value.kReverse);
+            leftSolenoid.set(DoubleSolenoid.Value.kReverse);
+            rightSolenoid.set(DoubleSolenoid.Value.kReverse);
             mecanumWheelsLowered = false;
         }
     }
@@ -236,7 +207,6 @@ public class DriveSubsystem extends PIDSubsystem {
     public void driveMecanum(double magnitude, double angle, double rotation) {
         if (driveMode == MODE_CARTESIAN || driveMode == MODE_POLAR) {
             driveOne.mecanumDrive_Cartesian((Math.sin(Math.toRadians(angle)) * magnitude), (Math.cos(Math.toRadians(angle)) * magnitude), rotation, driveGyro.getAngle());
-            driveTwo.mecanumDrive_Cartesian((Math.sin(Math.toRadians(angle)) * magnitude), (Math.cos(Math.toRadians(angle)) * magnitude), rotation, driveGyro.getAngle());
         }
     }
 
@@ -250,10 +220,8 @@ public class DriveSubsystem extends PIDSubsystem {
         if (driveMode == MODE_TANK) {
             if (!reverse) {
                 driveOne.tankDrive(leftValue, rightValue);
-                driveTwo.tankDrive(leftValue, rightValue);
             } else if (reverse) {
                 driveOne.tankDrive(-rightValue, -leftValue);
-                driveTwo.tankDrive(-rightValue, -leftValue);
             }
         }
         if (encoderDrive) {
@@ -388,21 +356,19 @@ public class DriveSubsystem extends PIDSubsystem {
      * @param encoder Integer between 1-4,
      * @return rate of specific encoder
      */
-    public double getEncoderValue(int encoder) {
-        switch (encoder) {
-            case 1:
-                return encoderFrontLeft.getRate();
-            case 2:
-                return encoderFrontRight.getRate();
-            case 3:
-                return encoderBackLeft.getRate();
-            case 4:
-                return encoderBackRight.getRate();
-        }
-        return 0;
-
+    public double getEncoderValue() {
+        return encoderWheels.getRate();
     }
 
+    public double getUltrasonic()
+    {
+       return ultra.getValue();
+    }
+    
+    public double getInches()
+    {
+        return getUltrasonic() / 9.76;
+    }
     /**
      * Toggles the front of the robot
      */
@@ -412,7 +378,7 @@ public class DriveSubsystem extends PIDSubsystem {
     }
 
     /**
-     * Initialize default command.
+     * Initialize default command.z
      */
     protected void initDefaultCommand() {
         setDefaultCommand(new UserDriveCommand());
@@ -428,16 +394,19 @@ public class DriveSubsystem extends PIDSubsystem {
             double controlX = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
             double controlY = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
             driveOne.mecanumDrive_Cartesian(controlX, controlY, rotationSpeed, driveGyro.getAngle());
-            driveTwo.mecanumDrive_Cartesian(controlX, controlY, rotationSpeed, driveGyro.getAngle());
         } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
             ex.printStackTrace();
         }
+    }
+    
+    public String getMotorControlerSpeeds()
+    {
+        return "FL: " + Math.floor(frontLeftTalonOne.getSpeed()) + "\nFR: "  + Math.floor(frontRightTalonOne.getSpeed()) + "\nBL: " + Math.floor(backLeftTalonOne.getSpeed()) + "   BR: " + Math.floor(backRightTalonOne.getSpeed());
     }
 
     public void driveTankEncoderTicks(double speed, double ticks)
     {
         driveOne.tankDrive(speed, speed);
-        driveTwo.tankDrive(speed, speed);
     }
     /**
      * Returns PID input

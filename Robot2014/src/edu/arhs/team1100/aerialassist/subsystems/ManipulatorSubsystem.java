@@ -37,8 +37,9 @@ public class ManipulatorSubsystem extends Subsystem {
     public ManipulatorSubsystem() {
         armMotorOne = new Talon(RobotMap.M_TALON_LEFT_WHEEL);
         armMotorTwo = new Talon(RobotMap.M_TALON_RIGHT_WHEEL);
-       // ec = new Encoder(RobotMap.M_EN_SLOT, RobotMap.M_EN_CNL);
-       // ec.start();
+        ec = new Encoder(RobotMap.S_EN_ARM_A, RobotMap.S_EN_ARM_B);
+        ec.start();
+        ec.reset();
     }
 
     /**
@@ -58,7 +59,10 @@ public class ManipulatorSubsystem extends Subsystem {
     public void moveArm() throws DriverStationEnhancedIO.EnhancedIOException
     {
         double speed = OI.getInstance().getXboxController().getAxis(Joystick.AxisType.kY);
+        if(Math.abs(speed) > .2)
         moveArmSet(-speed);
+        else
+         moveArmSet(0);
     }
     
     public void stopArm()
@@ -73,7 +77,7 @@ public class ManipulatorSubsystem extends Subsystem {
     
     public void EncoderReset()
     {
-        ec.reset();
+          ec.reset();
     }
     
     public void setCount(double count)

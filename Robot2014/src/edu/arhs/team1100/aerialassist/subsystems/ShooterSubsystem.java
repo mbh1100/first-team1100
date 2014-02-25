@@ -31,8 +31,8 @@ public class ShooterSubsystem extends Subsystem {
     DoubleSolenoid holdingCylinder;
     DoubleSolenoid clampCylinder;
     double startTime;
-    Relay rightInMotor;
-    Relay leftInMotor;
+    Victor rightInMotor;
+    Victor leftInMotor;
     private boolean isClamped = false;  
     private boolean isHeld = false;
     private boolean isPunched = false;
@@ -48,13 +48,12 @@ public class ShooterSubsystem extends Subsystem {
     public ShooterSubsystem() throws DriverStationEnhancedIO.EnhancedIOException {
          firingCylinderOne = new DoubleSolenoid(2, RobotMap.M_PUNCH_IN, RobotMap.M_PUNCH_OUT);
          firingCylinderTwo = new DoubleSolenoid(2, RobotMap.M_PUNCHTWO_IN, RobotMap.M_PUNCHTWO_OUT);
-         holdingCylinder = new DoubleSolenoid(2, RobotMap.M_STOPER_IN, RobotMap.M_STOPER_OUT);
-         clampCylinder = new DoubleSolenoid(RobotMap.M_CLAMP_IN, RobotMap.M_CLAMP_OUT);
-         rightInMotor = new Relay(RobotMap.M_RIN_MODULE, RobotMap.M_RIN_CHANNEL);
-         leftInMotor = new Relay(RobotMap.M_LIN_MODULE, RobotMap.M_LIN_CHANNEL);
+         holdingCylinder = new DoubleSolenoid(2, RobotMap.M_LATCH_IN, RobotMap.M_LATCH_OUT);
+         clampCylinder = new DoubleSolenoid(2, RobotMap.M_CLAMP_IN, RobotMap.M_CLAMP_OUT);
+         rightInMotor = new Victor(RobotMap.M_RIN_MODULE, RobotMap.M_RIN_CHANNEL);
+         leftInMotor = new Victor(RobotMap.M_LIN_MODULE, RobotMap.M_LIN_CHANNEL);
          clampCylinder.set(DoubleSolenoid.Value.kForward);
          holdingCylinder.set(DoubleSolenoid.Value.kForward);
-         rightInMotor.setDirection(Relay.Direction.kBoth);
 
     }
 
@@ -80,46 +79,44 @@ public class ShooterSubsystem extends Subsystem {
     public void Shoot() {
         firingCylinderOne.set(DoubleSolenoid.Value.kForward);
         firingCylinderTwo.set(DoubleSolenoid.Value.kForward);
-        Timer.delay(.4);
-        holdingCylinder.set(DoubleSolenoid.Value.kReverse);
-        Timer.delay(.05);
+        Timer.delay(.2);       
         clampCylinder.set(DoubleSolenoid.Value.kReverse);
-        
-        
-        
+        holdingCylinder.set(DoubleSolenoid.Value.kReverse);
         //resetShooter();
     }
     
     public void resetShooter()
     {
-        Timer.delay(2);
+        Timer.delay(.6);
         firingCylinderOne.set(DoubleSolenoid.Value.kReverse);
         firingCylinderTwo.set(DoubleSolenoid.Value.kReverse);
-        Timer.delay(1.5);
+        Timer.delay(1.7);
         holdingCylinder.set(DoubleSolenoid.Value.kForward);
         clampCylinder.set(DoubleSolenoid.Value.kForward);
         Timer.delay(.3);
         firingCylinderOne.set(DoubleSolenoid.Value.kForward);
         firingCylinderTwo.set(DoubleSolenoid.Value.kForward);  
         clampCylinder.set(DoubleSolenoid.Value.kForward);
-        
-       
     }
     
     public void rollIn()
     {
-        rightInMotor.set(Relay.Value.kForward);
-        leftInMotor.set(Relay.Value.kReverse);
-        
+        rightInMotor.set(.7);
+        leftInMotor.set(.7);
     }
     
     public void rollOut()
     {
-        rightInMotor.set(Relay.Value.kReverse);
-        leftInMotor.set(Relay.Value.kForward);
+        rightInMotor.set(-.7);
+        leftInMotor.set(-.7);
 
     }
     
+    public void rollStop()
+    {
+        rightInMotor.set(0);
+        leftInMotor.set(0);
+    }
     /**
      * Toggles the state of the floor pickup.
      */

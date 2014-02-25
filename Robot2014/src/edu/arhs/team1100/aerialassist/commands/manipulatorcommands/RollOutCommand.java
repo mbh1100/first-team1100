@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.DriverStationEnhancedIO;
  * @author Team 1100
  */
 public class RollOutCommand extends CommandBase {
+    private boolean finished = false;
 
     /**
      * Constructs a DriveSubsystem object
@@ -22,6 +23,7 @@ public class RollOutCommand extends CommandBase {
      * Called just before this Command runs the first time
      */
     protected void initialize() {
+        finished = false;
     }
 
     /**
@@ -32,6 +34,7 @@ public class RollOutCommand extends CommandBase {
             ShooterSubsystem.getInstance().rollOut();
         } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
             ex.printStackTrace();
+            finished = true;
         }
     }
 
@@ -41,14 +44,16 @@ public class RollOutCommand extends CommandBase {
      * @return false
      */
     protected boolean isFinished() {
-        return false;
+        return finished;
     }
 
     /**
      * Called once after isFinished returns true
      */
     protected void end() {
-        
+         if (!finished) {
+            execute();
+        }
     }
 
     /**

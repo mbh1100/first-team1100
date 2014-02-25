@@ -1,5 +1,7 @@
 package edu.arhs.team1100.aerialassist;
 
+import edu.arhs.team1100.aerialassist.commands.drive.CalibrateGyroCommand;
+import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.StopRollCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.PushOutPuncherCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.FireShooterCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.ToggleClampCommand;
@@ -67,17 +69,18 @@ public class OI {
 
         //CONTROL ASSIGNMENTS       
         xbox.getButtonRightBumper().whenPressed(new ToggleClampCommand());
-        xbox.getButtonA().whileHeld(new RollInCommand());
-        xbox.getButtonB().whileHeld(new RollOutCommand());   
+        xbox.getButtonB().whileHeld(new RollInCommand());
+        xbox.getButtonA().whileHeld(new RollOutCommand());   
         xbox.getButtonX().whenPressed(new FireShooterCommand());
         xbox.getButtonLeftBumper().whenPressed(new TogglePuncherPosCommand());
         xbox.getButtonY().whenPressed(new ToggleHolderCommand());
+        xbox.getButtonA().whenReleased(new StopRollCommand());
+        xbox.getButtonB().whenReleased(new StopRollCommand());
         rightStick.getButton(TOGGLE_MEC).whenPressed(new ToggleMecModeCommand());
         rightStick.getButton(TOGGLE_DRIVE).whenPressed(new ToggleDriveModeCommand());
-//      rightStick.getButton(CALIBRATE_GYRO).whenPressed(new CalibrateGyroCommand());
+        rightStick.getButton(CALIBRATE_GYRO).whenPressed(new CalibrateGyroCommand());
 //      rightStick.getButton(TOGGLE_ENCODER).whenPressed(new ToggleEncoderCommand());
         rightStick.getButton(REVERSE_DIRECTION).whenPressed(new ToggleReverseDirectionCommand());        
- //       leftStick.getButton(3).whenPressed(new PushOutPuncherCommand());
 //        
 //      leftStick.getButton(STOP_DRIVE).whenPressed(new StopDriveCommand(0.1));
     }

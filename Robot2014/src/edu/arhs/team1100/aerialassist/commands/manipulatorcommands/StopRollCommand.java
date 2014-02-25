@@ -9,13 +9,13 @@ import edu.wpi.first.wpilibj.DriverStationEnhancedIO;
  *
  * @author Team 1100
  */
-public class RollInCommand extends CommandBase {
+public class StopRollCommand extends CommandBase {
     private boolean finished = false;
 
     /**
      * Constructs a DriveSubsystem object
      */
-    public RollInCommand() throws DriverStationEnhancedIO.EnhancedIOException {
+    public StopRollCommand() throws DriverStationEnhancedIO.EnhancedIOException {
         requires(ShooterSubsystem.getInstance());
     }
 
@@ -31,7 +31,7 @@ public class RollInCommand extends CommandBase {
      */
     protected void execute() {
         try {
-            ShooterSubsystem.getInstance().rollIn();
+            ShooterSubsystem.getInstance().rollStop();
         } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
             ex.printStackTrace();
             finished = true;

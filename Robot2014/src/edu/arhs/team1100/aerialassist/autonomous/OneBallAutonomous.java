@@ -14,6 +14,7 @@ import edu.arhs.team1100.aerialassist.commands.drive.StopDriveCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.FireShooterCommand;
 import edu.arhs.team1100.aerialassist.subsystems.CameraSubsystem;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.Command;
 
 
 
@@ -31,7 +32,6 @@ public class OneBallAutonomous extends CommandGroup {
      * @param duration = duration of movement
      */
     public void OneBallCommand(double speed, double duration) {
-
         if (CameraSubsystem.getInstance().isHot()){
             addSequential(new FireShooterCommand());
         }
@@ -40,7 +40,5 @@ public class OneBallAutonomous extends CommandGroup {
             Timer.delay(5);
             addSequential(new FireShooterCommand());
         }
-        
-        //drive forward into point zone
-    }
+      }
 }

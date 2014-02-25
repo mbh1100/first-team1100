@@ -6,8 +6,10 @@
 /*----------------------------------------------------------------------------*/
 package edu.arhs.team1100.aerialassist;
 
+import edu.arhs.team1100.aerialassist.autonomous.OneBallAutonomous;
 import edu.arhs.team1100.aerialassist.commands.CommandBase;
 import edu.arhs.team1100.aerialassist.subsystems.CameraSubsystem;
+import edu.arhs.team1100.aerialassist.subsystems.CompressorSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.DriveSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.ManipulatorSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
@@ -44,7 +46,7 @@ public class RobotMain extends IterativeRobot {
         //Initialize the Log utility
         Log.init();
         Log.setMinLevel(Log.LEVEL_DEBUG);
-
+        autoCommand = new OneBallAutonomous();
         //Add all logging classes
         //Log.addClass(RobotMain.class, Log.LEVEL_DEBUG);
         Log.addClass(DriveSubsystem.class, Log.LEVEL_DEBUG);
@@ -81,6 +83,7 @@ public class RobotMain extends IterativeRobot {
     public void autonomousPeriodic() {
         //autonomous.execute();
         Scheduler.getInstance().run();
+        
         if (CameraSubsystem.getInstance().isHot()) {
             try {
                 ShooterSubsystem.getInstance().Shoot();
@@ -120,9 +123,12 @@ public class RobotMain extends IterativeRobot {
         } else if (DriveSubsystem.getInstance().getDriveMode() == DriveSubsystem.MODE_CARTESIAN) {
             DSLog.log(1, "Drive Mode: CARTESIAN");
         }
-        //DSLog.log(2, "Gyro Angle: " + Log.round(DriveSubsystem.getInstance().getGyroAngle(), 2));
+        DSLog.log(2, "Air Full: "+ CompressorSubsystem.getInstance().getPressureSwitch());
+        DSLog.log(5, "Gyro Angle: " + Log.round(DriveSubsystem.getInstance().getGyroAngle(), 2));
         //DSLog.log(3, "Encoder Mode:" + DriveSubsystem.getInstance().getEncoderDrive());
+       // DSLog.log(4, "Wheel Encoder: " + DriveSubsystem.getInstance().getEncoderValue());
         //DSLog.log(3, "Arm Encoder: " + ManipulatorSubsystem.getInstance().getEncoderValue());
+        DSLog.log(4, "Ultrasonic Range: " + DriveSubsystem.getInstance().getInches());
         
         
     }
