@@ -12,14 +12,14 @@ import java.awt.EventQueue;
  */
 public class Main {
     
-    static Display matchDisplay;
+    static MatchEntryBox matchDisplay;
     static ChoseDisplay choseDisplay;
     
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
 		try {
-                    matchDisplay = new Display();
+                    matchDisplay = new MatchEntryBox();
                    
                     matchDisplay.setVisible(false);
 			} catch (Exception e) {

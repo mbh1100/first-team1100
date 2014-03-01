@@ -1,6 +1,5 @@
 package scoutingdatabase;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -17,7 +16,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 
 
-public class Display extends JFrame {
+public class MatchEntryBox extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField scouterField;
@@ -30,7 +29,7 @@ public class Display extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Display() {
+	public MatchEntryBox() {
 		setVisible(true);
 		setResizable(false);
 		setTitle("Scouting Database 2014");

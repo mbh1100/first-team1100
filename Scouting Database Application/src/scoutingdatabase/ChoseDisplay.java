@@ -1,6 +1,5 @@
 package scoutingdatabase;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -27,7 +26,7 @@ public class ChoseDisplay extends JFrame {
 	public ChoseDisplay() {
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(5, 5, 345, 239);
+		setBounds(5, 5, 345, 249);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -41,7 +40,7 @@ public class ChoseDisplay extends JFrame {
 		btnPitEntry.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Code for pit entry
-				JOptionPane.showMessageDialog(null, "This option is currently unavaliable");
+				JOptionPane.showMessageDialog(null, "WHAT ARE YOU DOING!?!?!?!??!\nDON'T YOU UKNOW THAT THIS IS NOT BEING PUT INTO THE COMPUTER!?!?!??!?!");
 			}
 		});
 		btnPitEntry.setBounds(10, 36, 148, 55);
@@ -51,7 +50,7 @@ public class ChoseDisplay extends JFrame {
 		btnMatchEntry.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				new Display();
+				new MatchEntryBox();
 			}
 		});
 		btnMatchEntry.setBounds(168, 36, 148, 55);
@@ -59,14 +58,14 @@ public class ChoseDisplay extends JFrame {
 		
 		JTextPane txtpnChooseThisIf = new JTextPane();
 		txtpnChooseThisIf.setEditable(false);
-		txtpnChooseThisIf.setText("Choose this if you want to enter information on one of the pits. This includes pictures of the robots.");
-		txtpnChooseThisIf.setBounds(10, 102, 148, 90);
+		txtpnChooseThisIf.setText("Choose this if you want to enter information on one of the pits. This includes pictures of the robots, and how the robot is expected to do.");
+		txtpnChooseThisIf.setBounds(10, 102, 148, 100);
 		contentPane.add(txtpnChooseThisIf);
 		
 		JTextPane txtpnChooseThisIf_1 = new JTextPane();
-		txtpnChooseThisIf_1.setText("Choose this if you want to enter data on one of the matches. This includes how the robot did.");
+		txtpnChooseThisIf_1.setText("Choose this if you want to enter data on one of the matches. This includes how the robot actually did.");
 		txtpnChooseThisIf_1.setEditable(false);
-		txtpnChooseThisIf_1.setBounds(168, 102, 148, 90);
+		txtpnChooseThisIf_1.setBounds(168, 102, 148, 100);
 		contentPane.add(txtpnChooseThisIf_1);
 	}
 }
