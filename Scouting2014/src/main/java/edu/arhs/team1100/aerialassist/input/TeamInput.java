@@ -1,10 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.arhs.team1100.aerialassist.input;
 
 import edu.arhs.team1100.aerialassist.handlers.TeamHandler;
+import edu.arhs.team1100.aerialassist.scouting.objects.Team;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,11 +10,28 @@ import javax.swing.JOptionPane;
  */
 public class TeamInput extends javax.swing.JFrame {
 
+    Team parsedTeam;
+    boolean newTeam;
+
     /**
      * Creates new form TeamInput
      */
     public TeamInput() {
         initComponents();
+        newTeam = true;
+    }
+
+    public TeamInput(Team team) {
+        this.parsedTeam = team;
+        initComponents();
+        setTeamNumber(team.getTeamNumber());
+        setTeamName(team.getName());
+        setTeamLocation(team.getLocation());
+        teamNumberSpinner.setEnabled(false);
+
+        newTeam = false;
+        
+        setTitle("Edit Team " + team.getTeamNumber());
     }
 
     /**
@@ -77,13 +91,13 @@ public class TeamInput extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(locationTextField)
+                            .addComponent(nameTextField, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(teamNumberSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(nameTextField, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                .addComponent(teamNumberSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                         .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -102,7 +116,7 @@ public class TeamInput extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(locationLabel)
                     .addComponent(locationTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addButton)
                     .addComponent(cancelButton))
@@ -113,12 +127,25 @@ public class TeamInput extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        if (!new TeamHandler(this).addTeam()) {
-            JOptionPane.showMessageDialog(this,
-                    "A team with number " + getTeamNumber() + " already exists.",
-                    "Error",
-                    JOptionPane.PLAIN_MESSAGE);
+        if (newTeam) {
+            Team team = new Team();
+            team.setTeamNumber(getTeamNumber());
+            team.setName(getTeamName());
+            team.setLocation(getTeamLocation());
+
+            if (!new TeamHandler().addTeam(team)) {
+                JOptionPane.showMessageDialog(this,
+                        "A team with number " + getTeamNumber() + " already exists.",
+                        "Error",
+                        JOptionPane.PLAIN_MESSAGE);
+            } else {
+                dispose();
+            }
         } else {
+            parsedTeam.setTeamNumber(getTeamNumber());
+            parsedTeam.setName(getTeamName());
+            parsedTeam.setLocation(getTeamLocation());
+            new TeamHandler().updateTeam(parsedTeam);
             dispose();
         }
     }//GEN-LAST:event_addButtonActionPerformed
@@ -131,13 +158,26 @@ public class TeamInput extends javax.swing.JFrame {
         return (Integer) teamNumberSpinner.getValue();
     }
 
+    private void setTeamNumber(int number) {
+        teamNumberSpinner.setValue(number);
+    }
+
     public String getTeamName() {
         return nameTextField.getText();
+    }
+
+    private void setTeamName(String name) {
+        nameTextField.setText(name);
     }
 
     public String getTeamLocation() {
         return locationTextField.getText();
     }
+
+    private void setTeamLocation(String location) {
+        locationTextField.setText(location);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JButton cancelButton;

@@ -1,12 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.arhs.team1100.aerialassist.handlers;
 
-import edu.arhs.team1100.aerialassist.input.TeamInput;
 import edu.arhs.team1100.aerialassist.scouting.objects.Team;
 import edu.arhs.team1100.aerialassist.scouting.util.HibernateUtil;
+import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.exception.ConstraintViolationException;
 
@@ -16,23 +12,15 @@ import org.hibernate.exception.ConstraintViolationException;
  */
 public class TeamHandler {
 
-    TeamInput ti;
-
-    public TeamHandler(TeamInput ti) {
-        this.ti = ti;
+    public TeamHandler() {
     }
 
-    public boolean addTeam() {
+    public boolean addTeam(Team team) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 
-        Team team = new Team();
-
-        team.setTeamNumber(ti.getTeamNumber());
-        team.setName(ti.getTeamName());
-        team.setLocation(ti.getTeamLocation());
-        
         session.save(team);
+
         try {
             session.getTransaction().commit();
         } catch (ConstraintViolationException ex) {
@@ -41,6 +29,37 @@ public class TeamHandler {
         }
 
         return true;
-        
+
+    }
+
+    public List getTeams() {
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        List teams = session.createQuery("from Team").list();
+        session.getTransaction().commit();
+
+        return teams;
+    }
+
+    public void updateTeam(Team team) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        session.update(team);
+        session.getTransaction().commit();
+    }
+
+    public boolean deleteTeam(Team team) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        try {
+            session.delete(team);
+            session.getTransaction().commit();
+        } catch (ConstraintViolationException ex) {
+            session.getTransaction().rollback();
+            return false;
+        }
+
+        return true;
     }
 }

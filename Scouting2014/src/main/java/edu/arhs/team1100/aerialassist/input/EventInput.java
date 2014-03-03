@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package edu.arhs.team1100.aerialassist.input;
 
 import edu.arhs.team1100.aerialassist.handlers.EventHandler;
+import edu.arhs.team1100.aerialassist.scouting.objects.Event;
 import java.sql.Date;
 
 /**
@@ -18,8 +13,25 @@ public class EventInput extends javax.swing.JFrame {
     /**
      * Creates new form EventInput
      */
+    boolean newEvent;
+    Event parsedEvent;
+
     public EventInput() {
         initComponents();
+
+        newEvent = true;
+    }
+
+    public EventInput(Event event) {
+        this.parsedEvent = event;
+        initComponents();
+        setEventName(event.getName());
+        setEventLocation(event.getLocation());
+        setDate(event.getDate());
+
+        newEvent = false;
+        
+        setTitle("Edit Team");
     }
 
     /**
@@ -133,7 +145,7 @@ public class EventInput extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addButton)
                     .addComponent(cancelButton))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -144,25 +156,51 @@ public class EventInput extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        new EventHandler(this).addTeam();
+        if (newEvent) {
+            Event event = new Event();
+            event.setName(getEventName());
+            event.setLocation(getEventLocation());
+            event.setDate(getDate());
+            new EventHandler().addEvent(event);
+        } else {
+            parsedEvent.setName(getEventName());
+            parsedEvent.setLocation(getEventLocation());
+            parsedEvent.setDate(getDate());
+            new EventHandler().updateEvent(parsedEvent);
+
+        }
+
         dispose();
     }//GEN-LAST:event_addButtonActionPerformed
 
-    public String getEventName(){
+    public String getEventName() {
         return nameTextField.getText();
     }
-    
-    public String getEventLocation(){
+
+    private void setEventName(String name) {
+        nameTextField.setText(name);
+    }
+
+    public String getEventLocation() {
         return locationTextField.getText();
     }
-    
-    public Date getDate(){
-       int month = Integer.parseInt(monthTextField.getText());
-       int day = Integer.parseInt(dayTextField.getText());
-       
-       return new Date(114, month-1, day);
+
+    private void setEventLocation(String location) {
+        locationTextField.setText(location);
     }
-    
+
+    public Date getDate() {
+        int month = Integer.parseInt(monthTextField.getText());
+        int day = Integer.parseInt(dayTextField.getText());
+
+        return new Date(114, month - 1, day);
+    }
+
+    private void setDate(Date date) {
+        monthTextField.setText("" + date.getMonth());
+        dayTextField.setText("" + date.getDay());
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JButton cancelButton;

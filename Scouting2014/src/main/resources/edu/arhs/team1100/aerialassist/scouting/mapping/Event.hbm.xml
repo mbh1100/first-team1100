@@ -6,5 +6,6 @@
         <property name="name"/>
         <property name="location"/>
         <property name="date"/>
+        <property name="isCurrentEvent"/>
     </class>
 </hibernate-mapping>

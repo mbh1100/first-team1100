@@ -13,6 +13,7 @@ public class Event {
     String name;
     String location;
     Date date;
+    boolean isCurrentEvent;
 
     public int getEventID() {
         return eventID;
@@ -46,4 +47,16 @@ public class Event {
         this.date = date;
     }
     
+    public boolean getIsCurrentEvent(){
+        return isCurrentEvent;
+    }
+    
+    public void setIsCurrentEvent(boolean isCurrentEvent){
+        this.isCurrentEvent = isCurrentEvent;
+    }
+    
+    @Override
+    public String toString(){
+        return name;
+    }
 }

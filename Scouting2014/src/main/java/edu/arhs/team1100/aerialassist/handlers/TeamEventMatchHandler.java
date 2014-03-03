@@ -1,8 +1,9 @@
 package edu.arhs.team1100.aerialassist.handlers;
 
-import edu.arhs.team1100.aerialassist.input.TeamEventMatchInput;
 import edu.arhs.team1100.aerialassist.scouting.objects.TeamEventMatch;
 import edu.arhs.team1100.aerialassist.scouting.util.HibernateUtil;
+import java.util.ArrayList;
+import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.exception.ConstraintViolationException;
 
@@ -12,45 +13,12 @@ import org.hibernate.exception.ConstraintViolationException;
  */
 public class TeamEventMatchHandler {
 
-    TeamEventMatchInput temi;
-
-    public TeamEventMatchHandler(TeamEventMatchInput tmi) {
-        this.temi = tmi;
+    public TeamEventMatchHandler() {
     }
 
-    public boolean addTeam() {
+    public boolean addMatch(TeamEventMatch tem) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-
-        TeamEventMatch tem = new TeamEventMatch();
-
-        tem.setEventID(1);
-        tem.setTeamNumber(temi.getTeamNumber());
-        tem.setMatchNumber(temi.getMatchNumber());
-        tem.setAssists(temi.getAssists());
-        tem.setAutoBallHigh(temi.canAutoBallHigh());
-        tem.setAutoBallLow(temi.canAutoBallLow());
-        tem.setBallShielding(temi.getBallShielding());
-        tem.setCanCatch(temi.canCatch());
-        tem.setComments(temi.getComments());
-        tem.setCycles(temi.getCycles());
-        tem.setDefensive(temi.getDefensive());
-        tem.setFloorPickup(temi.getFloorPickup());
-        tem.setHighGoalsAttempted(temi.getHighGoalsAttempted());
-        tem.setHighGoalsScored(temi.getHighGoalsScored());
-        tem.setLowGoalsAttempted(temi.getLowGoalsAttempted());
-        tem.setLowGoalsScored(temi.getLowGoalsScored());
-        tem.setPasses(temi.getPasses());
-        tem.setPreloadBall(temi.canPreloadBall());
-        tem.setRegularFouls(temi.getRegularFouls());
-        tem.setScouter(temi.getScouter());
-        tem.setStability(temi.getStability());
-        tem.setStartingPosition(temi.getStartingPosition());
-        tem.setTechFouls(temi.getTechFouls());
-        tem.setTrussCatch(temi.canTrussCatch());
-        tem.setTrussThrow(temi.canTrussToss());
-        tem.setUnableToUnloadAutoBall(temi.isUnableToUnloadAutoBall());
-        tem.setZoneChange(temi.getZoneChange());
 
         session.save(tem);
         try {
@@ -61,5 +29,182 @@ public class TeamEventMatchHandler {
         }
 
         return true;
+    }
+
+    public void updateMatch(TeamEventMatch tem) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        session.update(tem);
+        session.getTransaction().commit();
+    }
+
+    public List getMatches() {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+
+        List tem = session.createQuery("from TeamEventMatch").list();
+        session.getTransaction().commit();
+
+        return tem;
+    }
+
+    public void deleteEvent(TeamEventMatch match) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        session.delete(match);
+
+        session.getTransaction().commit();
+
+    }
+    
+    public List getMatches(TeamEventMatch referenceMatch, int eventID) {
+        ArrayList matchedTeams = new ArrayList();
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+
+        List allTeams = session.createQuery("from TeamEventMatch").list();
+        session.getTransaction().commit();
+
+        for (int i = 0; i < allTeams.size(); i++) {
+
+            TeamEventMatch currentMatch = (TeamEventMatch) allTeams.get(i);
+            boolean doesNotFit = false;
+            if (eventID == 0 || currentMatch.getEventID() == eventID) {
+                if (currentMatch.getAssists() >= referenceMatch.getAssists()
+                        && currentMatch.getCycles() >= referenceMatch.getCycles()
+                        && currentMatch.getDefensive() >= referenceMatch.getDefensive()
+                        && currentMatch.getFloorPickup() >= referenceMatch.getFloorPickup()
+                        && currentMatch.getHighGoalAccuracy() >= referenceMatch.getHighGoalAccuracy()
+                        && currentMatch.getHighGoalsScored() >= referenceMatch.getHighGoalsScored()
+                        && currentMatch.getLowGoalAccuracy() >= referenceMatch.getLowGoalAccuracy()
+                        && currentMatch.getLowGoalsScored() >= referenceMatch.getLowGoalsScored()
+                        && currentMatch.getPasses() >= referenceMatch.getPasses()) {
+
+                    if (referenceMatch.isAutoBallHigh()) {
+                        if (!currentMatch.isAutoBallHigh()) {
+                            doesNotFit = true;
+                        }
+                    }
+                    if (referenceMatch.isAutoBallLow()) {
+                        if (!currentMatch.isAutoBallLow()) {
+                            doesNotFit = true;
+                        }
+                    }
+                    if (referenceMatch.isCanCatch()) {
+                        if (!currentMatch.isCanCatch()) {
+                            doesNotFit = true;
+                        }
+                    }
+                    if (referenceMatch.isPreloadBall()) {
+                        if (!currentMatch.isPreloadBall()) {
+                            doesNotFit = true;
+                        }
+                    }
+                    if (referenceMatch.isTrussCatch()) {
+                        if (!currentMatch.isTrussCatch()) {
+                            doesNotFit = true;
+                        }
+                    }
+                    if (referenceMatch.isTrussThrow()) {
+                        if (!currentMatch.isTrussThrow()) {
+                            doesNotFit = true;
+                        }
+                    }
+                    if (referenceMatch.isUnableToUnloadAutoBall()) {
+                        if (!currentMatch.isUnableToUnloadAutoBall()) {
+                            doesNotFit = true;
+                        }
+                    }
+                    if (referenceMatch.isZoneChange()) {
+                        if (!currentMatch.isZoneChange()) {
+                            doesNotFit = true;
+                        }
+                    }
+
+                    if (!doesNotFit) {
+                        matchedTeams.add(currentMatch);
+                    }
+
+                }
+            }
+        }
+
+        return matchedTeams;
+    }
+
+    public List getMatches(TeamEventMatch referenceMatch) {
+        ArrayList matchedTeams = new ArrayList();
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+
+        List allTeams = session.createQuery("from TeamEventMatch").list();
+        session.getTransaction().commit();
+
+        for (int i = 0; i < allTeams.size(); i++) {
+
+            TeamEventMatch currentMatch = (TeamEventMatch) allTeams.get(i);
+            boolean doesNotFit = false;
+
+            if (currentMatch.getAssists() >= referenceMatch.getAssists()
+                    && currentMatch.getCycles() >= referenceMatch.getCycles()
+                    && currentMatch.getDefensive() >= referenceMatch.getDefensive()
+                    && currentMatch.getFloorPickup() >= referenceMatch.getFloorPickup()
+                    && currentMatch.getHighGoalAccuracy() >= referenceMatch.getHighGoalAccuracy()
+                    && currentMatch.getHighGoalsScored() >= referenceMatch.getHighGoalsScored()
+                    && currentMatch.getLowGoalAccuracy() >= referenceMatch.getLowGoalAccuracy()
+                    && currentMatch.getLowGoalsScored() >= referenceMatch.getLowGoalsScored()
+                    && currentMatch.getPasses() >= referenceMatch.getPasses()) {
+
+                if (referenceMatch.isAutoBallHigh()) {
+                    if (!currentMatch.isAutoBallHigh()) {
+                        doesNotFit = true;
+                    }
+                }
+                if (referenceMatch.isAutoBallLow()) {
+                    if (!currentMatch.isAutoBallLow()) {
+                        doesNotFit = true;
+                    }
+                }
+                if (referenceMatch.isCanCatch()) {
+                    if (!currentMatch.isCanCatch()) {
+                        doesNotFit = true;
+                    }
+                }
+                if (referenceMatch.isPreloadBall()) {
+                    if (!currentMatch.isPreloadBall()) {
+                        doesNotFit = true;
+                    }
+                }
+                if (referenceMatch.isTrussCatch()) {
+                    if (!currentMatch.isTrussCatch()) {
+                        doesNotFit = true;
+                    }
+                }
+                if (referenceMatch.isTrussThrow()) {
+                    if (!currentMatch.isTrussThrow()) {
+                        doesNotFit = true;
+                    }
+                }
+                if (referenceMatch.isUnableToUnloadAutoBall()) {
+                    if (!currentMatch.isUnableToUnloadAutoBall()) {
+                        doesNotFit = true;
+                    }
+                }
+                if (referenceMatch.isZoneChange()) {
+                    if (!currentMatch.isZoneChange()) {
+                        doesNotFit = true;
+                    }
+                }
+
+                if (!doesNotFit) {
+                    matchedTeams.add(currentMatch);
+                }
+
+            }
+        }
+
+        return matchedTeams;
     }
 }

@@ -22,8 +22,10 @@ public class TeamEventMatch implements Serializable {
     private int floorPickup;
     private int highGoalsAttempted;
     private int highGoalsScored;
+    private double highGoalAccuracy;
     private int lowGoalsAttempted;
     private int lowGoalsScored;
+    private double lowGoalAccuracy;
     private int passes;
     private boolean preloadBall;
     private int regularFouls;
@@ -252,4 +254,42 @@ public class TeamEventMatch implements Serializable {
         this.zoneChange = zoneChange;
     }
 
+    @Override
+    public String toString() {
+        return "" + matchNumber;
+    }
+
+    public void setHighGoalAccuracy(double highGoalAccuracy) {
+        this.highGoalAccuracy = highGoalAccuracy;
+    }
+
+    public void setLowGoalAccuracy(double lowGoalAccuracy) {
+        this.lowGoalAccuracy = lowGoalAccuracy;
+    }
+
+    public double getHighGoalAccuracy() {
+        updateHighGoalAccuracy();
+        return highGoalAccuracy;
+    }
+
+    public double getLowGoalAccuracy() {
+        updateLowGoalAccuracy();
+        return lowGoalAccuracy;
+    }
+
+    private void updateHighGoalAccuracy() {
+        if (highGoalsAttempted == 0) {
+            highGoalAccuracy = 0;
+        } else {
+            highGoalAccuracy = (double) highGoalsScored / highGoalsAttempted;
+        }
+    }
+
+    private void updateLowGoalAccuracy() {
+        if (lowGoalsAttempted == 0) {
+            lowGoalAccuracy = 0;
+        } else {
+            lowGoalAccuracy = (double) lowGoalsScored / lowGoalsAttempted;
+        }
+    }
 }
