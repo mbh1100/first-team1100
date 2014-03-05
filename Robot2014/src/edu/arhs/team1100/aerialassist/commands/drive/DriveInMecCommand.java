@@ -22,7 +22,7 @@ public class DriveInMecCommand extends CommandBase {
      * @param direction direction in degrees to move
      * @param duration length in seconds of command
      */
-    public DriveInMecCommand(double speed, double direction, double duration, double rotation) {
+    public DriveInMecCommand(double speed, double direction, double rotation, double duration) {
         requires(DriveSubsystem.getInstance());
         this.speed = speed;
         this.direction = direction;

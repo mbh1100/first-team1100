@@ -1,11 +1,11 @@
 package edu.arhs.team1100.aerialassist;
 
+import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.FireCommandGroup;
 import edu.arhs.team1100.aerialassist.commands.drive.CalibrateGyroCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.StopRollCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.PushOutPuncherCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.FireShooterCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.ToggleClampCommand;
-import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.MoveArmCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.SetArmMiddleCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.ResetEncoderCommand;
 import edu.arhs.team1100.aerialassist.commands.drive.ToggleMecModeCommand;
@@ -13,8 +13,6 @@ import edu.arhs.team1100.aerialassist.commands.drive.ToggleDriveModeCommand;
 import edu.arhs.team1100.aerialassist.input.AttackThree;
 import edu.arhs.team1100.aerialassist.input.XboxController;
 import edu.arhs.team1100.aerialassist.commands.drive.ToggleReverseDirectionCommand;
-import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.ClampInCommand;
-import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.ClampOutCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.FireShooterCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.RollInCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.RollOutCommand;
@@ -71,7 +69,7 @@ public class OI {
         xbox.getButtonRightBumper().whenPressed(new ToggleClampCommand());
         xbox.getButtonB().whileHeld(new RollInCommand());
         xbox.getButtonA().whileHeld(new RollOutCommand());   
-        xbox.getButtonX().whenPressed(new FireShooterCommand());
+        xbox.getButtonX().whenPressed(new FireCommandGroup());
         xbox.getButtonLeftBumper().whenPressed(new TogglePuncherPosCommand());
         xbox.getButtonY().whenPressed(new ToggleHolderCommand());
         xbox.getButtonA().whenReleased(new StopRollCommand());

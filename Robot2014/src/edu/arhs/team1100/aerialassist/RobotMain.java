@@ -83,14 +83,6 @@ public class RobotMain extends IterativeRobot {
     public void autonomousPeriodic() {
         //autonomous.execute();
         Scheduler.getInstance().run();
-        
-        if (CameraSubsystem.getInstance().isHot()) {
-            try {
-                ShooterSubsystem.getInstance().Shoot();
-            } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
-                ex.printStackTrace();
-            }
-        }
     }
 
     /*
@@ -127,7 +119,7 @@ public class RobotMain extends IterativeRobot {
         DSLog.log(5, "Gyro Angle: " + Log.round(DriveSubsystem.getInstance().getGyroAngle(), 2));
         //DSLog.log(3, "Encoder Mode:" + DriveSubsystem.getInstance().getEncoderDrive());
        // DSLog.log(4, "Wheel Encoder: " + DriveSubsystem.getInstance().getEncoderValue());
-        //DSLog.log(3, "Arm Encoder: " + ManipulatorSubsystem.getInstance().getEncoderValue());
+        DSLog.log(3, "Arm Encoder: " + ManipulatorSubsystem.getInstance().getEncoderValue());
         DSLog.log(4, "Ultrasonic Range: " + DriveSubsystem.getInstance().getInches());
         
         

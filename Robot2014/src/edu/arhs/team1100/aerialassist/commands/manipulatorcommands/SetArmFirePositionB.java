@@ -3,24 +3,23 @@ package edu.arhs.team1100.aerialassist.commands.manipulatorcommands;
 import edu.arhs.team1100.aerialassist.commands.CommandBase;
 import edu.arhs.team1100.aerialassist.subsystems.ManipulatorSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
-import edu.wpi.first.wpilibj.DriverStationEnhancedIO;
 
 
 /**
  *
  * @author Team 1100
  */
-public class ClampOutCommand extends CommandBase {
+public class SetArmFirePositionB extends CommandBase {
 
     /**
      * Constructs a DriveSubsystem object
      */
-    public ClampOutCommand() throws DriverStationEnhancedIO.EnhancedIOException {
-        requires(ShooterSubsystem.getInstance());
+    public SetArmFirePositionB() {
+        requires(ManipulatorSubsystem.getInstance());
     }
 
     /**
-     * Called just before this Cåommand runs the first time
+     * Called just before this Command runs the first time
      */
     protected void initialize() {
     }
@@ -29,11 +28,7 @@ public class ClampOutCommand extends CommandBase {
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
-        try {
-            ShooterSubsystem.getInstance().openLatch();
-        } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
-            ex.printStackTrace();
-        }
+        ManipulatorSubsystem.getInstance().setFirePositionB();
     }
 
     /**

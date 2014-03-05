@@ -23,12 +23,13 @@ public class FireShooterCommand extends CommandBase {
     /**
      * Toggles drive mode and turns finish to true
      */
-    protected void execute() {
+    protected void execute() {           
         try {
             ShooterSubsystem.getInstance().Shoot();
         } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
             ex.printStackTrace();
         }
+   
         finished = true;
     }
 

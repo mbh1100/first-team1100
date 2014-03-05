@@ -11,7 +11,9 @@ import edu.arhs.team1100.aerialassist.commands.drive.DriveInALineCommand;
 import edu.arhs.team1100.aerialassist.commands.drive.DriveInTankCommand;
 import edu.arhs.team1100.aerialassist.subsystems.DriveSubsystem;
 import edu.arhs.team1100.aerialassist.commands.drive.StopDriveCommand;
+import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.FireCommandGroup;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.FireShooterCommand;
+import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.SetArmFirePositionA;
 import edu.arhs.team1100.aerialassist.subsystems.CameraSubsystem;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -28,17 +30,12 @@ public class OneBallAutonomous extends CommandGroup {
      * Fires one ball. WIll test first to see if drive mode is mechanum or tank,
      * then will test/wait for hot goal, then fire.
      *
-     * @param speed = speed of wheels from -1 to 1
-     * @param duration = duration of movement
      */
-    public void OneBallCommand(double speed, double duration) {
-        if (CameraSubsystem.getInstance().isHot()){
-            addSequential(new FireShooterCommand());
-        }
-        else
-        {
-            Timer.delay(5);
-            addSequential(new FireShooterCommand());
-        }
+    public void OneBallCommand() {
+       addSequential(new DriveInALineCommand(.5, DriveSubsystem.DIRECTION_FORWARD, 1));
+       addParallel(new SetArmFirePositionA());
+       addSequential(new FireCommandGroup());
+       
       }
 }
+    

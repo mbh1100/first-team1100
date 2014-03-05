@@ -54,7 +54,9 @@ public class ShooterSubsystem extends Subsystem {
          leftInMotor = new Victor(RobotMap.M_LIN_MODULE, RobotMap.M_LIN_CHANNEL);
          clampCylinder.set(DoubleSolenoid.Value.kForward);
          holdingCylinder.set(DoubleSolenoid.Value.kForward);
-
+         
+        firingCylinderOne.set(DoubleSolenoid.Value.kForward);
+        firingCylinderTwo.set(DoubleSolenoid.Value.kForward);
     }
 
     /**
@@ -77,26 +79,26 @@ public class ShooterSubsystem extends Subsystem {
    }
    
     public void Shoot() {
-        firingCylinderOne.set(DoubleSolenoid.Value.kForward);
-        firingCylinderTwo.set(DoubleSolenoid.Value.kForward);
-        Timer.delay(.2);       
         clampCylinder.set(DoubleSolenoid.Value.kReverse);
-        holdingCylinder.set(DoubleSolenoid.Value.kReverse);
-        //resetShooter();
+        holdingCylinder.set(DoubleSolenoid.Value.kReverse);     
     }
     
-    public void resetShooter()
+    public void ResetCylindersPartA()
     {
-        Timer.delay(.6);
         firingCylinderOne.set(DoubleSolenoid.Value.kReverse);
-        firingCylinderTwo.set(DoubleSolenoid.Value.kReverse);
-        Timer.delay(1.7);
+        firingCylinderTwo.set(DoubleSolenoid.Value.kReverse);    
+    }
+    
+    public void resetHolders()
+    {
         holdingCylinder.set(DoubleSolenoid.Value.kForward);
-        clampCylinder.set(DoubleSolenoid.Value.kForward);
-        Timer.delay(.3);
+        clampCylinder.set(DoubleSolenoid.Value.kForward);   
+    }
+    
+    public void resetCylindersPartB()
+    {
         firingCylinderOne.set(DoubleSolenoid.Value.kForward);
-        firingCylinderTwo.set(DoubleSolenoid.Value.kForward);  
-        clampCylinder.set(DoubleSolenoid.Value.kForward);
+        firingCylinderTwo.set(DoubleSolenoid.Value.kForward); 
     }
     
     public void rollIn()

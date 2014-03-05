@@ -9,15 +9,13 @@ import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
  *
  * @author Team 1100
  */
-public class MoveArmCommand extends CommandBase {
-    double speed;
+public class SetArmFirePositionA extends CommandBase {
+
     /**
      * Constructs a DriveSubsystem object
      */
-    public MoveArmCommand(double aspeed) {
+    public SetArmFirePositionA() {
         requires(ManipulatorSubsystem.getInstance());
-        speed = aspeed;
-
     }
 
     /**
@@ -30,7 +28,7 @@ public class MoveArmCommand extends CommandBase {
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
-        ManipulatorSubsystem.getInstance().moveArmSet(speed);
+        ManipulatorSubsystem.getInstance().setFirePositionA();
     }
 
     /**

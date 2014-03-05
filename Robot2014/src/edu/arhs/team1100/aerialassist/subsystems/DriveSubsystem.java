@@ -1,4 +1,4 @@
-    package edu.arhs.team1100.aerialassist.subsystems;
+package edu.arhs.team1100.aerialassist.subsystems;
 
 import edu.arhs.team1100.aerialassist.OI;
 import edu.arhs.team1100.aerialassist.RobotMap;
@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.AnalogChannel;
+import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 
 /**
  * @author Team 1100
@@ -42,10 +43,6 @@ public class DriveSubsystem extends PIDSubsystem {
     private Talon frontRightTalonOne;
     private Talon backLeftTalonOne;
     private Talon backRightTalonOne;
-    private Talon frontLeftTalonTwo;
-    private Talon frontRightTalonTwo;
-    private Talon backLeftTalonTwo;
-    private Talon backRightTalonTwo;
     private RobotDrive driveOne;
     private RobotDrive driveTwo;
     private Gyro driveGyro;
@@ -85,16 +82,21 @@ public class DriveSubsystem extends PIDSubsystem {
         frontRightTalonOne = new Talon(RobotMap.D_TALON_FRONT_RIGHT);
         backLeftTalonOne = new Talon(RobotMap.D_TALON_BACK_LEFT);
         backRightTalonOne = new Talon(RobotMap.D_TALON_BACK_RIGHT);
-        
+
         driveOne = new RobotDrive(
                 frontLeftTalonOne,
                 backLeftTalonOne,
                 frontRightTalonOne,
                 backRightTalonOne);
-        
-       driveGyro = new Gyro(RobotMap.S_GY_CNL);
+        MotorType mt;
+        driveOne.setInvertedMotor(MotorType.kFrontRight, true);
+        driveOne.setInvertedMotor(MotorType.kRearRight, true);
+        driveOne.setInvertedMotor(MotorType.kFrontLeft, false);
+        driveOne.setInvertedMotor(MotorType.kRearLeft, false);
+
+        driveGyro = new Gyro(RobotMap.S_GY_CNL);
         encoderWheels = new Encoder(RobotMap.S_EN_W_A, RobotMap.S_EN_W_B);
-       ultra = new AnalogChannel(RobotMap.S_ULTRA_B);
+        ultra = new AnalogChannel(RobotMap.S_ULTRA_B);
         encoderWheels.start();
     }
 
@@ -134,7 +136,7 @@ public class DriveSubsystem extends PIDSubsystem {
         double controlX = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
         double controlY = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
         driveOne.mecanumDrive_Cartesian(controlX, controlY, rotation, 0);
-        
+
     }
 
     /**
@@ -360,15 +362,15 @@ public class DriveSubsystem extends PIDSubsystem {
         return encoderWheels.getRate();
     }
 
-    public double getUltrasonic()
-    {
-       return ultra.getValue();
+    public double getUltrasonic() {
+        return
+                ultra.getAverageVoltage();
     }
-    
-    public double getInches()
-    {
+
+    public double getInches() {
         return getUltrasonic() / 9.76;
     }
+
     /**
      * Toggles the front of the robot
      */
@@ -398,16 +400,15 @@ public class DriveSubsystem extends PIDSubsystem {
             ex.printStackTrace();
         }
     }
-    
-    public String getMotorControlerSpeeds()
-    {
-        return "FL: " + Math.floor(frontLeftTalonOne.getSpeed()) + "\nFR: "  + Math.floor(frontRightTalonOne.getSpeed()) + "\nBL: " + Math.floor(backLeftTalonOne.getSpeed()) + "   BR: " + Math.floor(backRightTalonOne.getSpeed());
+
+    public String getMotorControlerSpeeds() {
+        return "FL: " + Math.floor(frontLeftTalonOne.getSpeed()) + "\nFR: " + Math.floor(frontRightTalonOne.getSpeed()) + "\nBL: " + Math.floor(backLeftTalonOne.getSpeed()) + "   BR: " + Math.floor(backRightTalonOne.getSpeed());
     }
 
-    public void driveTankEncoderTicks(double speed, double ticks)
-    {
+    public void driveTankEncoderTicks(double speed, double ticks) {
         driveOne.tankDrive(speed, speed);
     }
+
     /**
      * Returns PID input
      *
