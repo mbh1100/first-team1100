@@ -12,10 +12,12 @@ import org.hibernate.exception.ConstraintViolationException;
  */
 public class TeamHandler {
 
-    public TeamHandler() {
-    }
-
-    public boolean addTeam(Team team) {
+    /**
+     * Add a team to the database
+     * @param team
+     * @return true if successful
+     */
+    public static boolean addTeam(Team team) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 
@@ -32,7 +34,11 @@ public class TeamHandler {
 
     }
 
-    public List getTeams() {
+    /**
+     * Gets all Teams in the database
+     * @return List of all Teams
+     */
+    public static List getTeams() {
 
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
@@ -42,14 +48,23 @@ public class TeamHandler {
         return teams;
     }
 
-    public void updateTeam(Team team) {
+    /**
+     * Updates a Team to the database
+     * @param team 
+     */
+    public static void updateTeam(Team team) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         session.update(team);
         session.getTransaction().commit();
     }
 
-    public boolean deleteTeam(Team team) {
+    /**
+     * Deletes a Team from the database
+     * @param team
+     * @return 
+     */
+    public static boolean deleteTeam(Team team) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         try {

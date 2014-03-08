@@ -4,15 +4,14 @@
   <session-factory>
     <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="connection.url">jdbc:mysql://localhost/scouting2014</property>
+<!--    <property name="connection.url">jdbc:mysql://localhost/scouting2014</property>
     <property name="connection.username">root</property>
-    <property name="connection.password">qqqqqq</property>
+    <property name="connection.password">qqqqqq</property>-->
     <property name="connection.pool_size">1</property>
     <property name="show_sql">true</property>
     <property name="current_session_context_class">thread</property>
     <mapping resource="edu/arhs/team1100/aerialassist/scouting/mapping/Team.hbm.xml"/>
     <mapping resource="edu/arhs/team1100/aerialassist/scouting/mapping/TeamEventMatch.hbm.xml"/>
-    <mapping resource="edu/arhs/team1100/aerialassist/scouting/mapping/EventMatch.hbm.xml"/>
     <mapping resource="edu/arhs/team1100/aerialassist/scouting/mapping/Event.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

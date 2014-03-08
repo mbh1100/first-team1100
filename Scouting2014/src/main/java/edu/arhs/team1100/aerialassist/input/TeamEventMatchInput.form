@@ -28,64 +28,6 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="preloadBallCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="catchesCheckBox" min="-2" max="-2" attributes="0"/>
-                          <Component id="trussCatchCheckBox" min="-2" max="-2" attributes="0"/>
-                          <Component id="trussTossCheckBox" min="-2" max="-2" attributes="0"/>
-                          <Component id="unableToUnloadAutoBallCheckBox" min="-2" max="-2" attributes="0"/>
-                          <Component id="autoBallHighCheckBox" min="-2" max="-2" attributes="0"/>
-                          <Component id="autoBallLowCheckBox" min="-2" max="-2" attributes="0"/>
-                          <Component id="zoneChangeCheckBox" min="-2" max="-2" attributes="0"/>
-                          <Component id="floorPickupLabel" min="-2" max="-2" attributes="0"/>
-                          <Component id="floorPickupSlider" alignment="0" max="32767" attributes="0"/>
-                          <Component id="stabilitiyLabel" min="-2" max="-2" attributes="0"/>
-                          <Component id="stabilityScrollPane" alignment="0" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="passesLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="assistLabel" min="-2" max="-2" attributes="0"/>
-                                  <Component id="highGoalsScoredLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="highGoalsAttemptedLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lowGoalsScoredLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lowGoalsAttemptedLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="scoringCyclesLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="regularFoulsLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="techFoulsLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="passesSpinner" min="-2" pref="42" max="-2" attributes="0"/>
-                                  <Component id="assistsSpinner" min="-2" pref="42" max="-2" attributes="0"/>
-                                  <Component id="highGoalsScoredSpinner" min="-2" pref="42" max="-2" attributes="0"/>
-                                  <Component id="highGoalsAttemptedSpinner" min="-2" pref="42" max="-2" attributes="0"/>
-                                  <Component id="lowGoalsScoredSpinner" min="-2" pref="42" max="-2" attributes="0"/>
-                                  <Component id="lowGoalsAttemptedSpinner" min="-2" pref="42" max="-2" attributes="0"/>
-                                  <Component id="cyclesSpinner" min="-2" pref="42" max="-2" attributes="0"/>
-                                  <Component id="regularFoulsSpinner" min="-2" pref="42" max="-2" attributes="0"/>
-                                  <Component id="techFoulsSpinner" min="-2" pref="42" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="defensiveLabel" min="-2" max="-2" attributes="0"/>
-                                  <Component id="defensiveSlider" max="32767" attributes="0"/>
-                                  <Component id="ballShieldingLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="ballShieldingScrollPane" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="commentsLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
@@ -118,6 +60,40 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="commentsLabel" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="catchesCheckBox" min="-2" max="-2" attributes="0"/>
+                                  <Component id="trussCatchCheckBox" min="-2" max="-2" attributes="0"/>
+                                  <Component id="trussTossCheckBox" min="-2" max="-2" attributes="0"/>
+                                  <Component id="ableToUnloadAutoBallCheckBox" min="-2" max="-2" attributes="0"/>
+                                  <Component id="floorPickupLabel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="floorPickupSlider" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="stabilitiyLabel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="stabilityScrollPane" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="autoBallsSpinner" min="-2" pref="37" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="autoBallCountLabel" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="zoneChangeCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="autoBallGoalLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="autoBallGoalSlider" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="defensiveLabel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="defensiveSlider" pref="231" max="32767" attributes="0"/>
+                                  <Component id="ballShieldingLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="ballShieldingScrollPane" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="spinnersPanel" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
               </Group>
           </Group>
       </Group>
@@ -143,59 +119,30 @@
                   </Group>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="preloadBallCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="passesLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="passesSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="autoBallCountLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="autoBallsSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="zoneChangeCheckBox" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="autoBallGoalLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="autoBallGoalSlider" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="ableToUnloadAutoBallCheckBox" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="trussTossCheckBox" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="trussCatchCheckBox" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="catchesCheckBox" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="spinnersPanel" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="zoneChangeCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="assistLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="assistsSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="autoBallLowCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="highGoalsScoredLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="highGoalsScoredSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="autoBallHighCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="highGoalsAttemptedLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="highGoalsAttemptedSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="unableToUnloadAutoBallCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lowGoalsScoredLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lowGoalsScoredSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="trussTossCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lowGoalsAttemptedLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lowGoalsAttemptedSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="trussCatchCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="scoringCyclesLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cyclesSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="catchesCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="regularFoulsLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="regularFoulsSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="techFoulsLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="techFoulsSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="defensiveLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="floorPickupLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -299,29 +246,14 @@
         <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="Dictionary&lt;Integer, Component&gt; labelTablePos = new Hashtable&lt;Integer, Component&gt;();&#xd;&#xa;labelTablePos.put(0, new JLabel(&quot;Red 1&quot;));&#xd;&#xa;labelTablePos.put(1, new JLabel(&quot;Red 2&quot;));&#xd;&#xa;labelTablePos.put(2, new JLabel(&quot;Red 3&quot;));&#xd;&#xa;labelTablePos.put(3, new JLabel(&quot;Blue 1&quot;));&#xd;&#xa;labelTablePos.put(4, new JLabel(&quot;Blue 2&quot;));&#xd;&#xa;labelTablePos.put(5, new JLabel(&quot;Blue 3&quot;));&#xd;&#xa;startingPositionSlider.setLabelTable(labelTablePos);"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JCheckBox" name="preloadBallCheckBox">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Preloads Ball"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JCheckBox" name="zoneChangeCheckBox">
       <Properties>
         <Property name="text" type="java.lang.String" value="Zone Change Bonus"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JCheckBox" name="autoBallLowCheckBox">
+    <Component class="javax.swing.JCheckBox" name="ableToUnloadAutoBallCheckBox">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Auto Ball Low"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JCheckBox" name="autoBallHighCheckBox">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Auto Ball High"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JCheckBox" name="unableToUnloadAutoBallCheckBox">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Unalbe to Unload Auto Ball"/>
+        <Property name="text" type="java.lang.String" value="Able to Unload Auto Ball"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="trussTossCheckBox">
@@ -338,114 +270,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Catches Ball In Air"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="passesLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Passes in Tele-op"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="assistLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Assists"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="highGoalsScoredLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="High Goals Scored"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="highGoalsAttemptedLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="High Goals Attempted"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lowGoalsScoredLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Low Goals Scored"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lowGoalsAttemptedLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Low Goals Attempted"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="scoringCyclesLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Scoring Cycles Completed"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="regularFoulsLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Regualr Fouls"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="techFoulsLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Tech Fouls"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JSpinner" name="passesSpinner">
-      <Properties>
-        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JSpinner" name="assistsSpinner">
-      <Properties>
-        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JSpinner" name="highGoalsScoredSpinner">
-      <Properties>
-        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JSpinner" name="highGoalsAttemptedSpinner">
-      <Properties>
-        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JSpinner" name="lowGoalsScoredSpinner">
-      <Properties>
-        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JSpinner" name="lowGoalsAttemptedSpinner">
-      <Properties>
-        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JSpinner" name="cyclesSpinner">
-      <Properties>
-        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JSpinner" name="regularFoulsSpinner">
-      <Properties>
-        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JSpinner" name="techFoulsSpinner">
-      <Properties>
-        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
-        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JSlider" name="floorPickupSlider">
@@ -565,5 +389,220 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelButtonActionPerformed"/>
       </Events>
     </Component>
+    <Component class="javax.swing.JLabel" name="autoBallCountLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Number of Auto Balls"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="autoBallsSpinner">
+      <Properties>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel initial="0" maximum="3" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSlider" name="autoBallGoalSlider">
+      <Properties>
+        <Property name="majorTickSpacing" type="int" value="1"/>
+        <Property name="maximum" type="int" value="2"/>
+        <Property name="minorTickSpacing" type="int" value="1"/>
+        <Property name="paintLabels" type="boolean" value="true"/>
+        <Property name="paintTicks" type="boolean" value="true"/>
+        <Property name="snapToTicks" type="boolean" value="true"/>
+        <Property name="value" type="int" value="0"/>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="Dictionary&lt;Integer, Component&gt; labelTablePos2 = new Hashtable&lt;Integer, Component&gt;();&#xd;&#xa;labelTablePos2.put(0, new JLabel(&quot;None&quot;));&#xd;&#xa;labelTablePos2.put(1, new JLabel(&quot;Low&quot;));&#xd;&#xa;labelTablePos2.put(2, new JLabel(&quot;High&quot;));&#xd;&#xa;autoBallGoalSlider.setLabelTable(labelTablePos2);"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="autoBallGoalLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Auto Ball Goal"/>
+      </Properties>
+    </Component>
+    <Container class="javax.swing.JPanel" name="spinnersPanel">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="ballsCaughtFromHPLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="ballsCaughtHPSpinner" min="-2" pref="40" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="attemptedCatchesFromHPLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="assistsLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="highGoalsScoredLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="highGoalsAttemptedLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lowGoalsScoredLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lowGoalsAttemptedLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="cyclesLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="assistsSpinner" alignment="0" pref="40" max="32767" attributes="0"/>
+                              <Component id="highGoalsScoredSpinner" alignment="0" max="32767" attributes="0"/>
+                              <Component id="highGoalsAttemptedSpinner" alignment="0" max="32767" attributes="0"/>
+                              <Component id="lowGoalsScoredSpinner" alignment="0" max="32767" attributes="0"/>
+                              <Component id="lowGoalsAttemptedSpinner" max="32767" attributes="0"/>
+                              <Component id="cyclesSpinner" alignment="0" max="32767" attributes="0"/>
+                              <Component id="attemptedBallsHPSpinner" alignment="1" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="ballsCaughtHPSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="ballsCaughtFromHPLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="attemptedCatchesFromHPLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="attemptedBallsHPSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="assistsLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="assistsSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="highGoalsScoredLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="highGoalsScoredSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="highGoalsAttemptedLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="highGoalsAttemptedSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lowGoalsScoredLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lowGoalsScoredSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lowGoalsAttemptedLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lowGoalsAttemptedSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="cyclesLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cyclesSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JSpinner" name="ballsCaughtHPSpinner">
+          <Properties>
+            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+              <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="ballsCaughtFromHPLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Balls Caught From HP"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="attemptedCatchesFromHPLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Attempts to Catch From HP"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="attemptedBallsHPSpinner">
+          <Properties>
+            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+              <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="assistsLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Number of Assists"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="assistsSpinner">
+          <Properties>
+            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+              <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="highGoalsScoredLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="High Goals Scored"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="highGoalsScoredSpinner">
+          <Properties>
+            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+              <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="highGoalsAttemptedLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="High Goals Attempted"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="highGoalsAttemptedSpinner">
+          <Properties>
+            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+              <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lowGoalsScoredLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Low Goals Scored"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="lowGoalsScoredSpinner">
+          <Properties>
+            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+              <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lowGoalsAttemptedLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Low Goals Attempted"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="lowGoalsAttemptedSpinner">
+          <Properties>
+            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+              <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="cyclesLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Scoring Cycles"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="cyclesSpinner">
+          <Properties>
+            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+              <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+            </Property>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>

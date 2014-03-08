@@ -133,9 +133,9 @@ public class TeamInput extends javax.swing.JFrame {
             team.setName(getTeamName());
             team.setLocation(getTeamLocation());
 
-            if (!new TeamHandler().addTeam(team)) {
+            if (!TeamHandler.addTeam(team)) {
                 JOptionPane.showMessageDialog(this,
-                        "A team with number " + getTeamNumber() + " already exists.",
+                        "Team " + getTeamNumber() + " already exists.",
                         "Error",
                         JOptionPane.PLAIN_MESSAGE);
             } else {
@@ -145,7 +145,7 @@ public class TeamInput extends javax.swing.JFrame {
             parsedTeam.setTeamNumber(getTeamNumber());
             parsedTeam.setName(getTeamName());
             parsedTeam.setLocation(getTeamLocation());
-            new TeamHandler().updateTeam(parsedTeam);
+            TeamHandler.updateTeam(parsedTeam);
             dispose();
         }
     }//GEN-LAST:event_addButtonActionPerformed
@@ -176,6 +176,11 @@ public class TeamInput extends javax.swing.JFrame {
 
     private void setTeamLocation(String location) {
         locationTextField.setText(location);
+    }
+    
+    public TeamInput display(){
+        setVisible(true);
+        return this;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

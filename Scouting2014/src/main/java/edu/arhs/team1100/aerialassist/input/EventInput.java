@@ -10,12 +10,12 @@ import java.sql.Date;
  */
 public class EventInput extends javax.swing.JFrame {
 
-    /**
-     * Creates new form EventInput
-     */
     boolean newEvent;
     Event parsedEvent;
 
+    /**
+     * Creates new form EventInput
+     */
     public EventInput() {
         initComponents();
 
@@ -30,7 +30,7 @@ public class EventInput extends javax.swing.JFrame {
         setDate(event.getDate());
 
         newEvent = false;
-        
+
         setTitle("Edit Team");
     }
 
@@ -49,9 +49,8 @@ public class EventInput extends javax.swing.JFrame {
         nameTextField = new javax.swing.JTextField();
         locationTextField = new javax.swing.JTextField();
         monthTextField = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         dayTextField = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
+        slashLabel = new javax.swing.JLabel();
         addButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
 
@@ -71,7 +70,7 @@ public class EventInput extends javax.swing.JFrame {
         dayTextField.setColumns(2);
         dayTextField.setToolTipText("DD");
 
-        jLabel5.setText("/");
+        slashLabel.setText("/");
 
         addButton.setText("Add");
         addButton.addActionListener(new java.awt.event.ActionListener() {
@@ -109,11 +108,9 @@ public class EventInput extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(monthTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel5)
+                                .addComponent(slashLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dayTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel4))
+                                .addComponent(dayTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(locationTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
                             .addComponent(nameTextField)))
                     .addGroup(layout.createSequentialGroup()
@@ -139,8 +136,7 @@ public class EventInput extends javax.swing.JFrame {
                     .addComponent(dateLabel)
                     .addComponent(monthTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dayTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel4))
+                    .addComponent(slashLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addButton)
@@ -161,12 +157,12 @@ public class EventInput extends javax.swing.JFrame {
             event.setName(getEventName());
             event.setLocation(getEventLocation());
             event.setDate(getDate());
-            new EventHandler().addEvent(event);
+            EventHandler.addEvent(event);
         } else {
             parsedEvent.setName(getEventName());
             parsedEvent.setLocation(getEventLocation());
             parsedEvent.setDate(getDate());
-            new EventHandler().updateEvent(parsedEvent);
+            EventHandler.updateEvent(parsedEvent);
 
         }
 
@@ -200,18 +196,22 @@ public class EventInput extends javax.swing.JFrame {
         monthTextField.setText("" + date.getMonth());
         dayTextField.setText("" + date.getDay());
     }
+    
+    public EventInput display(){
+        setVisible(true);
+        return this;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel dateLabel;
     private javax.swing.JTextField dayTextField;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel locationLabel;
     private javax.swing.JTextField locationTextField;
     private javax.swing.JTextField monthTextField;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JTextField nameTextField;
+    private javax.swing.JLabel slashLabel;
     // End of variables declaration//GEN-END:variables
 }

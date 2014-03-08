@@ -12,10 +12,8 @@
         </composite-id>
         
         <property name="assists"/>
-        <property name="autoBallHigh"/>
-        <property name="autoBallLow"/>
         <property name="ballShielding"/>
-        <property name="canCatch"/>
+        <property name="ballsCaughtFromHP"/>
         <property name="comments"/>
         <property name="cycles"/>
         <property name="defensive"/>
@@ -23,16 +21,18 @@
         <property name="highGoalsScored"/>
         <property name="lowGoalsAttempted"/>
         <property name="lowGoalsScored"/>
-        <property name="passes"/>
-        <property name="preloadBall"/>
-        <property name="regularFouls"/>
         <property name="scouter"/>
         <property name="stability"/>
         <property name="startingPosition"/>
-        <property name="trussCatch"/>
-        <property name="trussThrow"/>
-        <property name="unableToUnloadAutoBall"/>
+        <property name="ableToTrussCatch"/>
+        <property name="ableToTrussToss"/>
+        <property name="ableToUnloadAutoBall"/>
         <property name="zoneChange"/>
+        <property name="autoBallCount"/>
+        <property name="autoBallGoal"/>
+        <property name="floorPickup"/>
+        <property name="attemptedCatchesFromHP"/>
+        <property name="ableToCatch"/>
 
 
     </class>

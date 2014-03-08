@@ -12,10 +12,12 @@ import org.hibernate.exception.ConstraintViolationException;
  */
 public class EventHandler {
 
-    public EventHandler() {
-    }
-
-    public boolean addEvent(Event event) {
+    /**
+     * Adds an event to the database
+     * @param event
+     * @return true if successful
+     */
+    public static boolean addEvent(Event event) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 
@@ -30,15 +32,23 @@ public class EventHandler {
         return true;
 
     }
-
-    public void updateEvent(Event event) {
+    
+    /**
+     * Updates an event
+     * @param event 
+     */
+    public static void updateEvent(Event event) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         session.update(event);
         session.getTransaction().commit();
     }
 
-    public List getEvents() {
+    /**
+     * Gets all Events from the database
+     * @return 
+     */
+    public static List getEvents() {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         List events = session.createQuery("from Event").list();
@@ -48,7 +58,12 @@ public class EventHandler {
         return events;
     }
 
-    public boolean deleteEvent(Event event) {
+    /**
+     * Deletes an Event from the database
+     * @param event
+     * @return true if successful
+     */
+    public static boolean deleteEvent(Event event) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         try {
@@ -62,7 +77,12 @@ public class EventHandler {
         return true;
     }
 
-    public Event getEventFromId(int id) {
+    /**
+     * Returns Event from ID
+     * @param id
+     * @return Event
+     */
+    public static Event getEventFromId(int id) {
 
         List events = getEvents();
 
@@ -76,7 +96,11 @@ public class EventHandler {
         return null;
     }
 
-    public Event getCurrentEvent() {
+    /**
+     * Gets the current Event that is being used
+     * @return Event
+     */
+    public static Event getCurrentEvent() {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         List events = session.createQuery("from Event").list();
@@ -92,8 +116,16 @@ public class EventHandler {
         return null;
     }
     
-    public void setCurrentEvent(Event event){
-        getCurrentEvent().setIsCurrentEvent(false);
+    /**
+     * Sets the Event to the current one in the database
+     * @param event 
+     */
+    public static void setCurrentEvent(Event event){
+        Event currentEvent = getCurrentEvent();
+        currentEvent.setIsCurrentEvent(false);
+        updateEvent(currentEvent);
         event.setIsCurrentEvent(true);
+        updateEvent(event);
+        System.out.println(getCurrentEvent());
     }
 }

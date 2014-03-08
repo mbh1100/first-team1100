@@ -3,7 +3,12 @@ package edu.arhs.team1100.aerialassist.input;
 import edu.arhs.team1100.aerialassist.handlers.EventHandler;
 import edu.arhs.team1100.aerialassist.handlers.TeamEventMatchHandler;
 import edu.arhs.team1100.aerialassist.scouting.objects.TeamEventMatch;
+import java.awt.Component;
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.List;
+import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -15,16 +20,10 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
     /**
      * Creates new form TeamEventMatchViewer
      */
-    DefaultTableModel model;
-    TeamEventMatchHandler temh;
-    EventHandler eh;
-    List matchesShowing;
+    boolean useSearchMenu = true;
 
     public TeamEventMatchViewer() {
         initComponents();
-        temh = new TeamEventMatchHandler();
-        eh = new EventHandler();
-        matchesShowing = temh.getMatches();
     }
 
     /**
@@ -36,42 +35,53 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        temTable = new javax.swing.JTable();
+        matchScrollPanel = new javax.swing.JScrollPane();
+        matchTable = new javax.swing.JTable();
         addButton = new javax.swing.JButton();
         editButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        preloadBallCheckBox = new javax.swing.JCheckBox();
-        zoneChangeCheckBox = new javax.swing.JCheckBox();
-        autoBallHighCheckBox = new javax.swing.JCheckBox();
-        autoBallLowCheckBox = new javax.swing.JCheckBox();
-        unableToUnloadAutoBallCheckBox = new javax.swing.JCheckBox();
-        trussThrowCheckBox = new javax.swing.JCheckBox();
-        trussCatchCheckBox = new javax.swing.JCheckBox();
-        catchCheckBox = new javax.swing.JCheckBox();
-        passesSpinner = new javax.swing.JSpinner();
-        jLabel1 = new javax.swing.JLabel();
-        assistsSpinner = new javax.swing.JSpinner();
-        jLabel2 = new javax.swing.JLabel();
-        highGoalsScoredSpinner = new javax.swing.JSpinner();
-        jLabel3 = new javax.swing.JLabel();
-        lowGoalsScoredSpinner = new javax.swing.JSpinner();
-        jLabel4 = new javax.swing.JLabel();
-        cyclesSpinner = new javax.swing.JSpinner();
-        jLabel5 = new javax.swing.JLabel();
-        highGoalAccuracySpinner = new javax.swing.JSpinner();
-        jLabel6 = new javax.swing.JLabel();
-        lowGoalAccuracySpinner = new javax.swing.JSpinner();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        floorPickupSlider = new javax.swing.JSlider();
-        jLabel9 = new javax.swing.JLabel();
-        defensiveCapabilitiesSlider = new javax.swing.JSlider();
-        currentEventCheckBox = new javax.swing.JCheckBox();
         updateButton = new javax.swing.JButton();
         viewAllButton = new javax.swing.JButton();
         teamButton = new javax.swing.JButton();
+        searchTabbedPane = new javax.swing.JTabbedPane();
+        autonomousPanel = new javax.swing.JPanel();
+        autoBallCountLabel = new javax.swing.JLabel();
+        autoBallCountSlider = new javax.swing.JSlider();
+        zoneChangeCheckBox = new javax.swing.JCheckBox();
+        autoBallGoalLabel = new javax.swing.JLabel();
+        autoBallGoalSlider = new javax.swing.JSlider();
+        ableToUnloadAutoBallCheckBox = new javax.swing.JCheckBox();
+        teleopScrollPane = new javax.swing.JScrollPane();
+        teleopPanel = new javax.swing.JPanel();
+        ableToTrussTossCheckBox = new javax.swing.JCheckBox();
+        floorPickupSlider = new javax.swing.JSlider();
+        ableToTrussCatchCheckBox = new javax.swing.JCheckBox();
+        ableToCatchCheckBox = new javax.swing.JCheckBox();
+        floorPickupLabel = new javax.swing.JLabel();
+        highGoalAccuracySlider = new javax.swing.JSlider();
+        ballsCaughtFromHPAccuracyLabel = new javax.swing.JLabel();
+        highGoalAccuracyLabel = new javax.swing.JLabel();
+        ballsCaughtFromHPAccuracySlider = new javax.swing.JSlider();
+        lowGoalAccuracyLabel = new javax.swing.JLabel();
+        lowGoalAccuracySlider = new javax.swing.JSlider();
+        ballsCaughtFromHPSpinner = new javax.swing.JSpinner();
+        ballsCaughtFromHPLabel = new javax.swing.JLabel();
+        highGoalsScoredSpinner = new javax.swing.JSpinner();
+        highGoalsScoredLabel = new javax.swing.JLabel();
+        lowGoalsScoredSpinner = new javax.swing.JSpinner();
+        lowGoalsScoredLabel = new javax.swing.JLabel();
+        assistsSpinner = new javax.swing.JSpinner();
+        assistsLabel = new javax.swing.JLabel();
+        cyclesSpinner = new javax.swing.JSpinner();
+        cyclesLabel = new javax.swing.JLabel();
+        defensiveLabel = new javax.swing.JLabel();
+        defensiveSlider = new javax.swing.JSlider();
+        overallPanel = new javax.swing.JPanel();
+        showOnlyFromCurrentEvenCheckBox = new javax.swing.JCheckBox();
+        matchNumberSpinner = new javax.swing.JSpinner();
+        matchNumberLabel = new javax.swing.JLabel();
+        teamNumberSpinner = new javax.swing.JSpinner();
+        teamNumberLabel = new javax.swing.JLabel();
         eventButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -85,7 +95,7 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
             }
         });
 
-        temTable.setModel(new javax.swing.table.DefaultTableModel(
+        matchTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -108,7 +118,7 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(temTable);
+        matchScrollPanel.setViewportView(matchTable);
 
         addButton.setText("Add");
         addButton.addActionListener(new java.awt.event.ActionListener() {
@@ -131,174 +141,6 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
             }
         });
 
-        preloadBallCheckBox.setText("Preloads Ball (Auto)");
-
-        zoneChangeCheckBox.setText("Changes Zone (Auto)");
-
-        autoBallHighCheckBox.setText("Can Shoot into High (Auto)");
-
-        autoBallLowCheckBox.setText("Can Shoot into Low (Auto)");
-
-        unableToUnloadAutoBallCheckBox.setText("Unable to Unload (Auto)");
-
-        trussThrowCheckBox.setText("Can Throw Over Truss");
-
-        trussCatchCheckBox.setText("Can Catch from Truss");
-
-        catchCheckBox.setText("Can Catch in General");
-
-        passesSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
-
-        jLabel1.setText("Passes ");
-
-        assistsSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
-
-        jLabel2.setText("Assists");
-
-        highGoalsScoredSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
-
-        jLabel3.setText("High Goals Scored");
-
-        lowGoalsScoredSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
-
-        jLabel4.setText("Low Goals Scored");
-
-        cyclesSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
-
-        jLabel5.setText("Scoring Cycles Completed");
-
-        highGoalAccuracySpinner.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), Double.valueOf(0.0d), null, Double.valueOf(1.0d)));
-
-        jLabel6.setText("High Goal Accuracy");
-
-        lowGoalAccuracySpinner.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), Double.valueOf(0.0d), null, Double.valueOf(1.0d)));
-
-        jLabel7.setText("Low Goals Accuracy");
-
-        jLabel8.setText("Floor Pickup Ability/Speed");
-
-        floorPickupSlider.setMajorTickSpacing(1);
-        floorPickupSlider.setMaximum(5);
-        floorPickupSlider.setMinorTickSpacing(1);
-        floorPickupSlider.setPaintLabels(true);
-        floorPickupSlider.setPaintTicks(true);
-        floorPickupSlider.setSnapToTicks(true);
-        floorPickupSlider.setValue(0);
-
-        jLabel9.setText("Defensive Capabilities");
-
-        defensiveCapabilitiesSlider.setMajorTickSpacing(1);
-        defensiveCapabilitiesSlider.setMaximum(5);
-        defensiveCapabilitiesSlider.setMinorTickSpacing(1);
-        defensiveCapabilitiesSlider.setPaintLabels(true);
-        defensiveCapabilitiesSlider.setPaintTicks(true);
-        defensiveCapabilitiesSlider.setSnapToTicks(true);
-        defensiveCapabilitiesSlider.setValue(0);
-
-        currentEventCheckBox.setText("View Matches Only From Current Event");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(preloadBallCheckBox)
-                    .addComponent(zoneChangeCheckBox)
-                    .addComponent(autoBallHighCheckBox)
-                    .addComponent(autoBallLowCheckBox)
-                    .addComponent(unableToUnloadAutoBallCheckBox)
-                    .addComponent(trussThrowCheckBox)
-                    .addComponent(trussCatchCheckBox)
-                    .addComponent(catchCheckBox)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(highGoalAccuracySpinner, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cyclesSpinner, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lowGoalsScoredSpinner, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(highGoalsScoredSpinner, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(assistsSpinner)
-                                .addComponent(passesSpinner, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE))
-                            .addComponent(lowGoalAccuracySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel5)))
-                    .addComponent(jLabel8)
-                    .addComponent(floorPickupSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(defensiveCapabilitiesSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(currentEventCheckBox))
-                .addContainerGap(14, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(preloadBallCheckBox)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(zoneChangeCheckBox)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(autoBallHighCheckBox)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(autoBallLowCheckBox)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(unableToUnloadAutoBallCheckBox)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(trussThrowCheckBox)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(trussCatchCheckBox)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(catchCheckBox)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(passesSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(assistsSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(highGoalsScoredSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(highGoalAccuracySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addGap(4, 4, 4)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lowGoalsScoredSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lowGoalAccuracySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cyclesSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(floorPickupSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(defensiveCapabilitiesSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(currentEventCheckBox)
-                .addGap(0, 14, Short.MAX_VALUE))
-        );
-
         updateButton.setText("Update");
         updateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -320,6 +162,299 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
             }
         });
 
+        autoBallCountLabel.setText("Number of Auto Balls");
+
+        autoBallCountSlider.setMajorTickSpacing(1);
+        autoBallCountSlider.setMaximum(3);
+        autoBallCountSlider.setMinorTickSpacing(1);
+        autoBallCountSlider.setPaintLabels(true);
+        autoBallCountSlider.setPaintTicks(true);
+        autoBallCountSlider.setSnapToTicks(true);
+        autoBallCountSlider.setValue(0);
+
+        zoneChangeCheckBox.setText("Changes Zone (Auto)");
+
+        autoBallGoalLabel.setText("Auto Ball Goal");
+
+        autoBallGoalSlider.setMajorTickSpacing(1);
+        autoBallGoalSlider.setMaximum(2);
+        autoBallGoalSlider.setMinorTickSpacing(1);
+        autoBallGoalSlider.setPaintLabels(true);
+        autoBallGoalSlider.setPaintTicks(true);
+        autoBallGoalSlider.setSnapToTicks(true);
+        autoBallGoalSlider.setValue(0);
+        Dictionary<Integer, Component> autoGoalLabel = new Hashtable<Integer, Component>();
+        autoGoalLabel.put(0, new JLabel("None"));
+        autoGoalLabel.put(1, new JLabel("Low"));
+        autoGoalLabel.put(2, new JLabel("High"));
+        autoBallGoalSlider.setLabelTable(autoGoalLabel);
+
+        ableToUnloadAutoBallCheckBox.setText("Able to Unload (Auto)");
+
+        javax.swing.GroupLayout autonomousPanelLayout = new javax.swing.GroupLayout(autonomousPanel);
+        autonomousPanel.setLayout(autonomousPanelLayout);
+        autonomousPanelLayout.setHorizontalGroup(
+            autonomousPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(autonomousPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(autonomousPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ableToUnloadAutoBallCheckBox)
+                    .addComponent(autoBallCountLabel)
+                    .addComponent(autoBallCountSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(zoneChangeCheckBox)
+                    .addComponent(autoBallGoalLabel)
+                    .addComponent(autoBallGoalSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+        autonomousPanelLayout.setVerticalGroup(
+            autonomousPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(autonomousPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(autoBallCountLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(autoBallCountSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(zoneChangeCheckBox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(autoBallGoalLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(autoBallGoalSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ableToUnloadAutoBallCheckBox)
+                .addContainerGap(306, Short.MAX_VALUE))
+        );
+
+        searchTabbedPane.addTab("Autonomous", autonomousPanel);
+
+        teleopScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        ableToTrussTossCheckBox.setText("Can Toss Over Truss");
+
+        floorPickupSlider.setMajorTickSpacing(1);
+        floorPickupSlider.setMaximum(5);
+        floorPickupSlider.setMinorTickSpacing(1);
+        floorPickupSlider.setPaintLabels(true);
+        floorPickupSlider.setPaintTicks(true);
+        floorPickupSlider.setSnapToTicks(true);
+        floorPickupSlider.setValue(0);
+
+        ableToTrussCatchCheckBox.setText("Can Catch from Truss");
+
+        ableToCatchCheckBox.setText("Catches In General");
+
+        floorPickupLabel.setText("Floor Pickup Ability/Speed");
+
+        highGoalAccuracySlider.setMajorTickSpacing(50);
+        highGoalAccuracySlider.setPaintLabels(true);
+        highGoalAccuracySlider.setPaintTicks(true);
+        highGoalAccuracySlider.setValue(0);
+        Dictionary<Integer, Component> precentLabel = new Hashtable<Integer, Component>();
+        precentLabel.put(0, new JLabel("0%"));
+        precentLabel.put(50, new JLabel("50%"));
+        precentLabel.put(100, new JLabel("100%"));
+        highGoalAccuracySlider.setLabelTable(precentLabel);
+        highGoalAccuracySlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                highGoalAccuracySliderStateChanged(evt);
+            }
+        });
+
+        ballsCaughtFromHPAccuracyLabel.setText("Balls Caught From HP Accuracy");
+
+        highGoalAccuracyLabel.setText("High Goal Accuracy");
+
+        ballsCaughtFromHPAccuracySlider.setMajorTickSpacing(50);
+        ballsCaughtFromHPAccuracySlider.setMinorTickSpacing(99);
+        ballsCaughtFromHPAccuracySlider.setPaintLabels(true);
+        ballsCaughtFromHPAccuracySlider.setPaintTicks(true);
+        ballsCaughtFromHPAccuracySlider.setValue(0);
+        ballsCaughtFromHPAccuracySlider.setLabelTable(precentLabel);
+        ballsCaughtFromHPAccuracySlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                ballsCaughtFromHPAccuracySliderStateChanged(evt);
+            }
+        });
+
+        lowGoalAccuracyLabel.setText("Low Goal Accuracy");
+
+        lowGoalAccuracySlider.setMajorTickSpacing(50);
+        lowGoalAccuracySlider.setPaintLabels(true);
+        lowGoalAccuracySlider.setPaintTicks(true);
+        lowGoalAccuracySlider.setValue(0);
+        lowGoalAccuracySlider.setLabelTable(precentLabel);
+        lowGoalAccuracySlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                lowGoalAccuracySliderStateChanged(evt);
+            }
+        });
+
+        ballsCaughtFromHPSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
+
+        ballsCaughtFromHPLabel.setText("Balls Caught From HP");
+
+        highGoalsScoredSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
+
+        highGoalsScoredLabel.setText("High Goals Scored");
+
+        lowGoalsScoredSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
+
+        lowGoalsScoredLabel.setText("Low Goals Scored");
+
+        assistsSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
+
+        assistsLabel.setText("Assists");
+
+        cyclesSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
+
+        cyclesLabel.setText("Scoring Cycles");
+
+        defensiveLabel.setText("Defensive Capibilites");
+
+        defensiveSlider.setMajorTickSpacing(1);
+        defensiveSlider.setMaximum(5);
+        defensiveSlider.setPaintLabels(true);
+        defensiveSlider.setPaintTicks(true);
+        defensiveSlider.setToolTipText("");
+        defensiveSlider.setValue(0);
+
+        javax.swing.GroupLayout teleopPanelLayout = new javax.swing.GroupLayout(teleopPanel);
+        teleopPanel.setLayout(teleopPanelLayout);
+        teleopPanelLayout.setHorizontalGroup(
+            teleopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(teleopPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(teleopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ableToCatchCheckBox)
+                    .addComponent(ableToTrussCatchCheckBox)
+                    .addComponent(ableToTrussTossCheckBox)
+                    .addComponent(floorPickupLabel)
+                    .addComponent(floorPickupSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(highGoalAccuracySlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ballsCaughtFromHPAccuracyLabel)
+                    .addComponent(highGoalAccuracyLabel)
+                    .addComponent(ballsCaughtFromHPAccuracySlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lowGoalAccuracyLabel)
+                    .addComponent(lowGoalAccuracySlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(teleopPanelLayout.createSequentialGroup()
+                        .addGroup(teleopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(cyclesSpinner, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(assistsSpinner, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lowGoalsScoredSpinner, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(highGoalsScoredSpinner, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ballsCaughtFromHPSpinner, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(teleopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ballsCaughtFromHPLabel)
+                            .addComponent(highGoalsScoredLabel)
+                            .addComponent(lowGoalsScoredLabel)
+                            .addComponent(assistsLabel)
+                            .addComponent(cyclesLabel)))
+                    .addComponent(defensiveLabel)
+                    .addComponent(defensiveSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+        teleopPanelLayout.setVerticalGroup(
+            teleopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(teleopPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ableToTrussTossCheckBox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ableToTrussCatchCheckBox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ableToCatchCheckBox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(floorPickupLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(floorPickupSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(defensiveLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(defensiveSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ballsCaughtFromHPAccuracyLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ballsCaughtFromHPAccuracySlider, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(highGoalAccuracyLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(highGoalAccuracySlider, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lowGoalAccuracyLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lowGoalAccuracySlider, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(teleopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ballsCaughtFromHPSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ballsCaughtFromHPLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(teleopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(highGoalsScoredSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(highGoalsScoredLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(teleopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lowGoalsScoredSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lowGoalsScoredLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(teleopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(assistsSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(assistsLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(teleopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cyclesSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cyclesLabel))
+                .addGap(20, 20, 20))
+        );
+
+        teleopScrollPane.setViewportView(teleopPanel);
+
+        searchTabbedPane.addTab("Tele-Op", teleopScrollPane);
+
+        showOnlyFromCurrentEvenCheckBox.setText("Matched Only From Current Event");
+
+        matchNumberSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
+
+        matchNumberLabel.setText("Match Number");
+
+        teamNumberSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
+
+        teamNumberLabel.setText("Team Number");
+
+        javax.swing.GroupLayout overallPanelLayout = new javax.swing.GroupLayout(overallPanel);
+        overallPanel.setLayout(overallPanelLayout);
+        overallPanelLayout.setHorizontalGroup(
+            overallPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(overallPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(overallPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(showOnlyFromCurrentEvenCheckBox)
+                    .addGroup(overallPanelLayout.createSequentialGroup()
+                        .addGroup(overallPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(matchNumberSpinner, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                            .addComponent(teamNumberSpinner))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(overallPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(teamNumberLabel)
+                            .addComponent(matchNumberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        overallPanelLayout.setVerticalGroup(
+            overallPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(overallPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(showOnlyFromCurrentEvenCheckBox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(overallPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(matchNumberSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(matchNumberLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(overallPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(teamNumberSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(teamNumberLabel))
+                .addContainerGap(416, Short.MAX_VALUE))
+        );
+
+        searchTabbedPane.addTab("Overall", overallPanel);
+
         eventButton.setText("Events");
         eventButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -332,99 +467,112 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(updateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(viewAllButton, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(searchTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
+                .addComponent(matchScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(teamButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(eventButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(updateButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(deleteButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
                     .addComponent(editButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
-                    .addComponent(addButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
-                    .addComponent(viewAllButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(addButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(addButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(editButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(deleteButton)
-                .addGap(90, 90, 90)
-                .addComponent(updateButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(viewAllButton)
-                .addGap(107, 107, 107)
-                .addComponent(teamButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(eventButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addComponent(addButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(editButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(deleteButton)
+                        .addGap(64, 64, 64)
+                        .addComponent(teamButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(eventButton)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(matchScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(searchTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(viewAllButton)
+                            .addComponent(updateButton))))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        new TeamEventMatchInput().setVisible(true);
+        new TeamEventMatchInput().display().setLocationRelativeTo(this);
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
-        new TeamEventMatchInput((TeamEventMatch) temTable.getValueAt(temTable.getSelectedRow(), 0)).setVisible(true);
+        new TeamEventMatchInput((TeamEventMatch) matchTable.getValueAt(matchTable.getSelectedRow(), 0)).display().setLocationRelativeTo(this);
     }//GEN-LAST:event_editButtonActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        matchesShowing = getMatchList(getReferenceMatch());
         updateTEMModel();
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        temh.deleteEvent((TeamEventMatch) temTable.getValueAt(temTable.getSelectedRow(), 0));
-        matchesShowing = getMatchList(getReferenceMatch());
+        TeamEventMatchHandler.deleteEvent((TeamEventMatch) matchTable.getValueAt(matchTable.getSelectedRow(), 0));
         updateTEMModel();
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
-        matchesShowing = getMatchList(getReferenceMatch());
+        useSearchMenu = true;
         updateTEMModel();
     }//GEN-LAST:event_updateButtonActionPerformed
 
     private void viewAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewAllButtonActionPerformed
-        matchesShowing = getMatchList(null);
+        useSearchMenu = false;
         updateTEMModel();
     }//GEN-LAST:event_viewAllButtonActionPerformed
 
     private void teamButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teamButtonActionPerformed
-        new TeamViewer().setVisible(true);
+        new TeamViewer().display().setLocationRelativeTo(this);
     }//GEN-LAST:event_teamButtonActionPerformed
 
     private void eventButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eventButtonActionPerformed
-        new EventViewer().setVisible(true);
+        new EventViewer().display().setLocationRelativeTo(this);
     }//GEN-LAST:event_eventButtonActionPerformed
 
-    private List getMatchList(TeamEventMatch referenceMatch) {
-        if (referenceMatch == null && currentEventCheckBox.isSelected() == false) {
-            return temh.getMatches();
-        } else if (referenceMatch == null && currentEventCheckBox.isSelected() == true) {
-            return temh.getMatches(new TeamEventMatch(), eh.getCurrentEvent().getEventID());
-        } else if (referenceMatch != null && currentEventCheckBox.isSelected() == false) {
-            return temh.getMatches(referenceMatch);
-        } else if (referenceMatch != null && currentEventCheckBox.isSelected() == true) {
-            return temh.getMatches(referenceMatch, eh.getCurrentEvent().getEventID());
-        } else {
-            return null;
-        }
-    }
+    private void ballsCaughtFromHPAccuracySliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ballsCaughtFromHPAccuracySliderStateChanged
+        ballsCaughtFromHPAccuracySlider.setToolTipText(getHumanPlayerAccuracy() * 100 + "%");
+    }//GEN-LAST:event_ballsCaughtFromHPAccuracySliderStateChanged
+
+    private void highGoalAccuracySliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_highGoalAccuracySliderStateChanged
+        highGoalAccuracySlider.setToolTipText(getHighGoalAccuracy() * 100 + "%");
+    }//GEN-LAST:event_highGoalAccuracySliderStateChanged
+
+    private void lowGoalAccuracySliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_lowGoalAccuracySliderStateChanged
+        lowGoalAccuracySlider.setToolTipText(getLowGoalAccuracy() * 100 + "%");
+    }//GEN-LAST:event_lowGoalAccuracySliderStateChanged
 
     private void updateTEMModel() {
-        model = (DefaultTableModel) temTable.getModel();
-        int rows = temTable.getRowCount();
+        List matchesShowing;
+        DefaultTableModel model;
+
+        if (useSearchMenu) {
+            matchesShowing = getMatches();
+        } else {
+            matchesShowing = TeamEventMatchHandler.getMatches();
+        }
+
+        model = (DefaultTableModel) matchTable.getModel();
+        int rows = matchTable.getRowCount();
 
         for (int i = rows - 1; i >= 0; i--) {
             model.removeRow(i);
@@ -432,137 +580,234 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
 
         for (int i = 0; i < matchesShowing.size(); i++) {
             TeamEventMatch tem = (TeamEventMatch) matchesShowing.get(i);
-            model.addRow(new Object[]{tem, tem.getTeamNumber(), eh.getEventFromId(tem.getEventID())});
+            model.addRow(new Object[]{tem, tem.getTeamNumber(), new EventHandler().getEventFromId(tem.getEventID())});
         }
 
     }
 
-    public TeamEventMatch getReferenceMatch() {
+    public List getMatches() {
         TeamEventMatch referenceMatch = new TeamEventMatch();
+        referenceMatch.setAbleToCatch(isAbleToCatch());
+        referenceMatch.setAbleToTrussCatch(isAbleToTrussCatch());
+        referenceMatch.setAbleToTrussToss(isAbleToTrussToss());
+        referenceMatch.setAbleToUnloadAutoBall(isAbleToUnloadAutoBall());
         referenceMatch.setAssists(getAssists());
-        referenceMatch.setAutoBallHigh(canAutoBallHigh());
-        referenceMatch.setAutoBallLow(canAutoBallLow());
-        referenceMatch.setCanCatch(canCatch());
+        referenceMatch.setAutoBallCount(getAutoBallCount());
+        referenceMatch.setAutoBallGoal(getAutoBallGoal());
+        referenceMatch.setBallsCaughtFromHP(getBallsCaughtFromHP());
         referenceMatch.setCycles(getCycles());
         referenceMatch.setDefensive(getDefensive());
+        referenceMatch.setEventID(getEventID());
         referenceMatch.setFloorPickup(getFloorPickup());
         referenceMatch.setHighGoalAccuracy(getHighGoalAccuracy());
         referenceMatch.setHighGoalsScored(getHighGoalsScored());
+        referenceMatch.setHumanPlayerAccuracy(getHumanPlayerAccuracy());
         referenceMatch.setLowGoalAccuracy(getLowGoalAccuracy());
         referenceMatch.setLowGoalsScored(getLowGoalsScored());
-        referenceMatch.setPasses(getPasses());
-        referenceMatch.setPreloadBall(getPreloadBall());
-        referenceMatch.setTrussCatch(canTrussCatch());
-        referenceMatch.setTrussThrow(canTrussThrow());
-        referenceMatch.setUnableToUnloadAutoBall(isUnableToUnloadAutoBall());
-        referenceMatch.setZoneChange(canZoneChange());
+        referenceMatch.setMatchNumber(getMatchNumber());
+        referenceMatch.setTeamNumber(getTeamNumber());
+        referenceMatch.setZoneChange(isZoneChange());
 
-        return referenceMatch;
+        List allMatches = TeamEventMatchHandler.getMatches();
+        List foundMatches = new ArrayList();
+
+        for (int i = 0; i < allMatches.size(); i++) {
+            TeamEventMatch currentMatch = (TeamEventMatch) allMatches.get(i);
+            boolean fits = true;
+            if (currentMatch.getAssists() >= getAssists()
+                    && currentMatch.getAutoBallCount() >= getAutoBallCount()
+                    && currentMatch.getBallsCaughtFromHP() >= getBallsCaughtFromHP()
+                    && currentMatch.getCycles() >= getCycles()
+                    && currentMatch.getDefensive() >= getDefensive()
+                    && currentMatch.getFloorPickup() >= getFloorPickup()
+                    && currentMatch.getHighGoalAccuracy() >= getHighGoalAccuracy()
+                    && currentMatch.getHighGoalsScored() >= getHighGoalsScored()
+                    && currentMatch.getHumanPlayerAccuracy() >= getHumanPlayerAccuracy()
+                    && currentMatch.getLowGoalAccuracy() >= getLowGoalAccuracy()
+                    && currentMatch.getLowGoalsScored() >= getLowGoalsScored()) {
+                if (isAbleToCatch()) {
+                    if (!currentMatch.isAbleToCatch()) {
+                        fits = false;
+                    }
+                }
+                if (isAbleToTrussCatch()) {
+                    if (!currentMatch.isAbleToTrussCatch()) {
+                        fits = false;
+                    }
+                }
+                if (isAbleToTrussToss()) {
+                    if (!currentMatch.isAbleToTrussToss()) {
+                        fits = false;
+                    }
+                }
+                if (isAbleToUnloadAutoBall()) {
+                    if (!currentMatch.isAbleToUnloadAutoBall()) {
+                        fits = false;
+                    }
+                }
+                if (isZoneChange()) {
+                    if (!currentMatch.isZoneChange()) {
+                        fits = false;
+                    }
+                }
+                if (getEventID() != 0) {
+                    if (currentMatch.getEventID() != new EventHandler().getCurrentEvent().getEventID()) {
+                        fits = false;
+                    }
+                }
+                if (getMatchNumber() != 0) {
+                    if (currentMatch.getMatchNumber() != getMatchNumber()) {
+                        fits = false;
+                    }
+                }
+                if (getTeamNumber() != 0) {
+                    if (currentMatch.getTeamNumber() != getTeamNumber()) {
+                        fits = false;
+                    }
+                }
+
+                if (fits) {
+                    foundMatches.add(currentMatch);
+                }
+
+            }
+        }
+
+        return foundMatches;
     }
 
-    public boolean getPreloadBall() {
-        return preloadBallCheckBox.isSelected();
+    private int getAutoBallCount() {
+        return autoBallCountSlider.getValue();
     }
 
-    public boolean canZoneChange() {
+    private boolean isZoneChange() {
         return zoneChangeCheckBox.isSelected();
     }
 
-    public boolean canAutoBallHigh() {
-        return autoBallHighCheckBox.isSelected();
+    private int getAutoBallGoal() {
+        return autoBallGoalSlider.getValue();
     }
 
-    public boolean canAutoBallLow() {
-        return autoBallLowCheckBox.isSelected();
+    private boolean isAbleToUnloadAutoBall() {
+        return ableToUnloadAutoBallCheckBox.isSelected();
     }
 
-    public boolean isUnableToUnloadAutoBall() {
-        return unableToUnloadAutoBallCheckBox.isSelected();
+    private boolean isAbleToTrussToss() {
+        return ableToTrussTossCheckBox.isSelected();
     }
 
-    public boolean canTrussThrow() {
-        return trussThrowCheckBox.isSelected();
+    private boolean isAbleToTrussCatch() {
+        return ableToTrussCatchCheckBox.isSelected();
     }
 
-    public boolean canTrussCatch() {
-        return trussCatchCheckBox.isSelected();
+    private boolean isAbleToCatch() {
+        return ableToCatchCheckBox.isSelected();
     }
 
-    public boolean canCatch() {
-        return catchCheckBox.isSelected();
-    }
-
-    public int getPasses() {
-        return (Integer) passesSpinner.getValue();
-    }
-
-    public int getAssists() {
-        return (Integer) assistsSpinner.getValue();
-    }
-
-    public int getHighGoalsScored() {
-        return (Integer) highGoalsScoredSpinner.getValue();
-    }
-
-    public double getHighGoalAccuracy() {
-        return (Double) highGoalAccuracySpinner.getValue() / 100.0;
-    }
-
-    public int getLowGoalsScored() {
-        return (Integer) lowGoalsScoredSpinner.getValue();
-    }
-
-    public double getLowGoalAccuracy() {
-        return (Double) lowGoalAccuracySpinner.getValue() / 100.0;
-    }
-
-    public int getCycles() {
-        return (Integer) cyclesSpinner.getValue();
-    }
-
-    public int getFloorPickup() {
+    private int getFloorPickup() {
         return floorPickupSlider.getValue();
     }
 
-    public int getDefensive() {
-        return defensiveCapabilitiesSlider.getValue();
+    private double getHumanPlayerAccuracy() {
+        return ballsCaughtFromHPAccuracySlider.getValue() / 100.0;
     }
 
+    private double getHighGoalAccuracy() {
+        return highGoalAccuracySlider.getValue() / 100.0;
+    }
+
+    private double getLowGoalAccuracy() {
+        return lowGoalAccuracySlider.getValue() / 100.0;
+    }
+
+    private int getBallsCaughtFromHP() {
+        return (Integer) ballsCaughtFromHPSpinner.getValue();
+    }
+
+    private int getHighGoalsScored() {
+        return (Integer) highGoalsScoredSpinner.getValue();
+    }
+
+    private int getLowGoalsScored() {
+        return (Integer) lowGoalsScoredSpinner.getValue();
+    }
+
+    private int getAssists() {
+        return (Integer) assistsSpinner.getValue();
+    }
+
+    private int getDefensive() {
+        return defensiveSlider.getValue();
+    }
+
+    private int getCycles() {
+        return (Integer) cyclesSpinner.getValue();
+    }
+
+    private int getEventID() {
+        if (showOnlyFromCurrentEvenCheckBox.isSelected()) {
+            return EventHandler.getCurrentEvent().getEventID();
+        } else {
+            return 0;
+        }
+    }
+
+    private int getMatchNumber() {
+        return (Integer) matchNumberSpinner.getValue();
+    }
+
+    private int getTeamNumber() {
+        return (Integer) teamNumberSpinner.getValue();
+    }
+    
+    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox ableToCatchCheckBox;
+    private javax.swing.JCheckBox ableToTrussCatchCheckBox;
+    private javax.swing.JCheckBox ableToTrussTossCheckBox;
+    private javax.swing.JCheckBox ableToUnloadAutoBallCheckBox;
     private javax.swing.JButton addButton;
+    private javax.swing.JLabel assistsLabel;
     private javax.swing.JSpinner assistsSpinner;
-    private javax.swing.JCheckBox autoBallHighCheckBox;
-    private javax.swing.JCheckBox autoBallLowCheckBox;
-    private javax.swing.JCheckBox catchCheckBox;
-    private javax.swing.JCheckBox currentEventCheckBox;
+    private javax.swing.JLabel autoBallCountLabel;
+    private javax.swing.JSlider autoBallCountSlider;
+    private javax.swing.JLabel autoBallGoalLabel;
+    private javax.swing.JSlider autoBallGoalSlider;
+    private javax.swing.JPanel autonomousPanel;
+    private javax.swing.JLabel ballsCaughtFromHPAccuracyLabel;
+    private javax.swing.JSlider ballsCaughtFromHPAccuracySlider;
+    private javax.swing.JLabel ballsCaughtFromHPLabel;
+    private javax.swing.JSpinner ballsCaughtFromHPSpinner;
+    private javax.swing.JLabel cyclesLabel;
     private javax.swing.JSpinner cyclesSpinner;
-    private javax.swing.JSlider defensiveCapabilitiesSlider;
+    private javax.swing.JLabel defensiveLabel;
+    private javax.swing.JSlider defensiveSlider;
     private javax.swing.JButton deleteButton;
     private javax.swing.JButton editButton;
     private javax.swing.JButton eventButton;
+    private javax.swing.JLabel floorPickupLabel;
     private javax.swing.JSlider floorPickupSlider;
-    private javax.swing.JSpinner highGoalAccuracySpinner;
+    private javax.swing.JLabel highGoalAccuracyLabel;
+    private javax.swing.JSlider highGoalAccuracySlider;
+    private javax.swing.JLabel highGoalsScoredLabel;
     private javax.swing.JSpinner highGoalsScoredSpinner;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSpinner lowGoalAccuracySpinner;
+    private javax.swing.JLabel lowGoalAccuracyLabel;
+    private javax.swing.JSlider lowGoalAccuracySlider;
+    private javax.swing.JLabel lowGoalsScoredLabel;
     private javax.swing.JSpinner lowGoalsScoredSpinner;
-    private javax.swing.JSpinner passesSpinner;
-    private javax.swing.JCheckBox preloadBallCheckBox;
+    private javax.swing.JLabel matchNumberLabel;
+    private javax.swing.JSpinner matchNumberSpinner;
+    private javax.swing.JScrollPane matchScrollPanel;
+    private javax.swing.JTable matchTable;
+    private javax.swing.JPanel overallPanel;
+    private javax.swing.JTabbedPane searchTabbedPane;
+    private javax.swing.JCheckBox showOnlyFromCurrentEvenCheckBox;
     private javax.swing.JButton teamButton;
-    private javax.swing.JTable temTable;
-    private javax.swing.JCheckBox trussCatchCheckBox;
-    private javax.swing.JCheckBox trussThrowCheckBox;
-    private javax.swing.JCheckBox unableToUnloadAutoBallCheckBox;
+    private javax.swing.JLabel teamNumberLabel;
+    private javax.swing.JSpinner teamNumberSpinner;
+    private javax.swing.JPanel teleopPanel;
+    private javax.swing.JScrollPane teleopScrollPane;
     private javax.swing.JButton updateButton;
     private javax.swing.JButton viewAllButton;
     private javax.swing.JCheckBox zoneChangeCheckBox;

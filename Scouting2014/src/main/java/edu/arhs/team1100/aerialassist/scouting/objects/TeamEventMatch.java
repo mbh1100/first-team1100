@@ -11,32 +11,41 @@ public class TeamEventMatch implements Serializable {
     private int matchNumber;
     private int eventID;
     private int teamNumber;
+
     private int assists;
-    private boolean autoBallHigh;
-    private boolean autoBallLow;
     private String ballShielding;
-    private boolean canCatch;
+    private int ballsCaughtFromHP;
+    private int attemptedCatchesFromHP;
     private String comments;
     private int cycles;
     private int defensive;
     private int floorPickup;
     private int highGoalsAttempted;
     private int highGoalsScored;
-    private double highGoalAccuracy;
     private int lowGoalsAttempted;
     private int lowGoalsScored;
-    private double lowGoalAccuracy;
-    private int passes;
-    private boolean preloadBall;
-    private int regularFouls;
     private String scouter;
     private String stability;
     private int startingPosition;
-    private int techFouls;
-    private boolean trussCatch;
-    private boolean trussThrow;
-    private boolean unableToUnloadAutoBall;
+    private boolean ableToTrussCatch;
+    private boolean ableToTrussToss;
+    private boolean ableToUnloadAutoBall;
     private boolean zoneChange;
+    private int autoBallCount;
+    private int autoBallGoal;
+    private boolean ableToCatch;
+
+    private double highGoalAccuracy;
+    private double lowGoalAccuracy;
+    private double humanPlayerAccuracy;
+
+    public boolean isAbleToCatch() {
+        return ableToCatch;
+    }
+
+    public void setAbleToCatch(boolean ableToCatch) {
+        this.ableToCatch = ableToCatch;
+    }
 
     public int getEventID() {
         return eventID;
@@ -62,36 +71,12 @@ public class TeamEventMatch implements Serializable {
         this.assists = assists;
     }
 
-    public boolean isAutoBallHigh() {
-        return autoBallHigh;
-    }
-
-    public void setAutoBallHigh(boolean autoBallHigh) {
-        this.autoBallHigh = autoBallHigh;
-    }
-
-    public boolean isAutoBallLow() {
-        return autoBallLow;
-    }
-
-    public void setAutoBallLow(boolean autoBallLow) {
-        this.autoBallLow = autoBallLow;
-    }
-
     public String getBallShielding() {
         return ballShielding;
     }
 
     public void setBallShielding(String ballShielding) {
         this.ballShielding = ballShielding;
-    }
-
-    public boolean isCanCatch() {
-        return canCatch;
-    }
-
-    public void setCanCatch(boolean canCatch) {
-        this.canCatch = canCatch;
     }
 
     public String getComments() {
@@ -158,30 +143,6 @@ public class TeamEventMatch implements Serializable {
         this.lowGoalsScored = lowGoalsScored;
     }
 
-    public int getPasses() {
-        return passes;
-    }
-
-    public void setPasses(int passes) {
-        this.passes = passes;
-    }
-
-    public boolean isPreloadBall() {
-        return preloadBall;
-    }
-
-    public void setPreloadBall(boolean preloadBall) {
-        this.preloadBall = preloadBall;
-    }
-
-    public int getRegularFouls() {
-        return regularFouls;
-    }
-
-    public void setRegularFouls(int regularFouls) {
-        this.regularFouls = regularFouls;
-    }
-
     public String getScouter() {
         return scouter;
     }
@@ -214,36 +175,69 @@ public class TeamEventMatch implements Serializable {
         this.teamNumber = teamNumber;
     }
 
-    public int getTechFouls() {
-        return techFouls;
+    public boolean isAbleToTrussCatch() {
+        return ableToTrussCatch;
     }
 
-    public void setTechFouls(int techFouls) {
-        this.techFouls = techFouls;
+    public void setAbleToTrussCatch(boolean trussCatch) {
+        this.ableToTrussCatch = trussCatch;
     }
 
-    public boolean isTrussCatch() {
-        return trussCatch;
+    public int getBallsCaughtFromHP() {
+        return ballsCaughtFromHP;
     }
 
-    public void setTrussCatch(boolean trussCatch) {
-        this.trussCatch = trussCatch;
+    public void setBallsCaughtFromHP(int caughtBallsFromHP) {
+        this.ballsCaughtFromHP = caughtBallsFromHP;
     }
 
-    public boolean isTrussThrow() {
-        return trussThrow;
+    public int getAttemptedCatchesFromHP() {
+        return attemptedCatchesFromHP;
     }
 
-    public void setTrussThrow(boolean trussThrow) {
-        this.trussThrow = trussThrow;
+    public void setAttemptedCatchesFromHP(int attemptedCatchesFromHP) {
+        this.attemptedCatchesFromHP = attemptedCatchesFromHP;
     }
 
-    public boolean isUnableToUnloadAutoBall() {
-        return unableToUnloadAutoBall;
+    public boolean isAbleToTrussToss() {
+        return ableToTrussToss;
     }
 
-    public void setUnableToUnloadAutoBall(boolean unableToUnloadAutoBall) {
-        this.unableToUnloadAutoBall = unableToUnloadAutoBall;
+    public void setAbleToTrussToss(boolean trussToss) {
+        this.ableToTrussToss = trussToss;
+    }
+
+    public int getAutoBallCount() {
+        return autoBallCount;
+    }
+
+    public void setAutoBallCount(int autoBallCount) {
+        this.autoBallCount = autoBallCount;
+    }
+
+    public int getAutoBallGoal() {
+        return autoBallGoal;
+    }
+
+    public void setAutoBallGoal(int autoBallScored) {
+        this.autoBallGoal = autoBallScored;
+    }
+
+    public double getHumanPlayerAccuracy() {
+        updateHumanPlayerSccuracy();
+        return humanPlayerAccuracy;
+    }
+
+    public void setHumanPlayerAccuracy(double humanPlayerAccuracy) {
+        this.humanPlayerAccuracy = humanPlayerAccuracy;
+    }
+
+    public boolean isAbleToUnloadAutoBall() {
+        return ableToUnloadAutoBall;
+    }
+
+    public void setAbleToUnloadAutoBall(boolean unableToUnloadAutoBall) {
+        this.ableToUnloadAutoBall = unableToUnloadAutoBall;
     }
 
     public boolean isZoneChange() {
@@ -290,6 +284,14 @@ public class TeamEventMatch implements Serializable {
             lowGoalAccuracy = 0;
         } else {
             lowGoalAccuracy = (double) lowGoalsScored / lowGoalsAttempted;
+        }
+    }
+
+    private void updateHumanPlayerSccuracy() {
+        if (attemptedCatchesFromHP == 0) {
+            humanPlayerAccuracy = 0;
+        } else {
+            humanPlayerAccuracy = (double) ballsCaughtFromHP / attemptedCatchesFromHP;
         }
     }
 }

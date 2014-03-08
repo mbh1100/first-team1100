@@ -1,7 +1,6 @@
 package edu.arhs.team1100.aerialassist.input;
 
 import edu.arhs.team1100.aerialassist.handlers.EventHandler;
-import edu.arhs.team1100.aerialassist.scouting.ScoutingMain;
 import edu.arhs.team1100.aerialassist.scouting.objects.Event;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -12,16 +11,11 @@ import javax.swing.table.DefaultTableModel;
  * @author Eddie
  */
 public class EventViewer extends javax.swing.JFrame {
-
-    DefaultTableModel model;
-    EventHandler eh;
-
     /**
      * Creates new form VewEventsFrame
      */
     public EventViewer() {
         initComponents();
-        eh = new EventHandler();
     }
 
     /**
@@ -33,7 +27,7 @@ public class EventViewer extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
+        eventScrollPanel = new javax.swing.JScrollPane();
         eventTable = new javax.swing.JTable();
         addButton = new javax.swing.JButton();
         editButton = new javax.swing.JButton();
@@ -43,10 +37,10 @@ public class EventViewer extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Events");
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);
-            }
-            public void windowLostFocus(java.awt.event.WindowEvent evt) {
             }
         });
 
@@ -73,7 +67,7 @@ public class EventViewer extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(eventTable);
+        eventScrollPanel.setViewportView(eventTable);
 
         addButton.setText("Add");
         addButton.addActionListener(new java.awt.event.ActionListener() {
@@ -108,7 +102,7 @@ public class EventViewer extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(eventScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(addButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -119,7 +113,7 @@ public class EventViewer extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(eventScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(addButton)
@@ -135,36 +129,40 @@ public class EventViewer extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        new EventInput().setVisible(true);
+        new EventInput().display().setLocationRelativeTo(this);
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
-        new EventInput((Event) eventTable.getValueAt(eventTable.getSelectedRow(), 0)).setVisible(true);
+        new EventInput((Event) eventTable.getValueAt(eventTable.getSelectedRow(), 0)).display().setLocationRelativeTo(this);
     }//GEN-LAST:event_editButtonActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        updateEventModel(eh.getEvents());
+        updateEventModel(EventHandler.getEvents());
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
 
-        if (!eh.deleteEvent((Event) eventTable.getValueAt(eventTable.getSelectedRow(), 0))) {
+        if (!EventHandler.deleteEvent((Event) eventTable.getValueAt(eventTable.getSelectedRow(), 0))) {
             JOptionPane.showMessageDialog(this,
                     "Cannot delete event that has matches with it.",
                     "Error",
                     JOptionPane.PLAIN_MESSAGE);
         }
 
-        updateEventModel(eh.getEvents());
+        updateEventModel(EventHandler.getEvents());
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void selectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonActionPerformed
         Event currentEvent = (Event) eventTable.getValueAt(eventTable.getSelectedRow(), 0);
-        eh.setCurrentEvent(currentEvent);
+        EventHandler.setCurrentEvent(currentEvent);
     }//GEN-LAST:event_selectButtonActionPerformed
 
+    /**
+     * Adds all events in the parameter list to the table model
+     * @param events 
+     */
     private void updateEventModel(List events) {
-        model = (DefaultTableModel) eventTable.getModel();
+        DefaultTableModel model = (DefaultTableModel) eventTable.getModel();
         int rows = eventTable.getRowCount();
 
         for (int i = rows - 1; i >= 0; i--) {
@@ -177,13 +175,18 @@ public class EventViewer extends javax.swing.JFrame {
         }
 
     }
+    
+    public EventViewer display(){
+        setVisible(true);
+        return this;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JButton deleteButton;
     private javax.swing.JButton editButton;
+    private javax.swing.JScrollPane eventScrollPanel;
     private javax.swing.JTable eventTable;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton selectButton;
     // End of variables declaration//GEN-END:variables
 }

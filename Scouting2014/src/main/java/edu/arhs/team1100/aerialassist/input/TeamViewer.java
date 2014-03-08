@@ -12,17 +12,11 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TeamViewer extends javax.swing.JFrame {
 
-    DefaultTableModel model;
-    TeamHandler th;
-
     /**
      * Creates new form ViewTeamsFrame
      */
     public TeamViewer() {
         initComponents();
-        th = new TeamHandler();
-
-        //updateTeamModel(th.getTeams());
     }
 
     /**
@@ -34,7 +28,7 @@ public class TeamViewer extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
+        teamScrollPane = new javax.swing.JScrollPane();
         teamTable = new javax.swing.JTable();
         addButton = new javax.swing.JButton();
         editButton = new javax.swing.JButton();
@@ -43,10 +37,10 @@ public class TeamViewer extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Teams");
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);
-            }
-            public void windowLostFocus(java.awt.event.WindowEvent evt) {
             }
         });
 
@@ -73,7 +67,7 @@ public class TeamViewer extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(teamTable);
+        teamScrollPane.setViewportView(teamTable);
 
         addButton.setText("Add");
         addButton.addActionListener(new java.awt.event.ActionListener() {
@@ -101,8 +95,8 @@ public class TeamViewer extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(teamScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(editButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(addButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
@@ -111,7 +105,7 @@ public class TeamViewer extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+            .addComponent(teamScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(addButton)
@@ -126,30 +120,30 @@ public class TeamViewer extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        new TeamInput().setVisible(true);
+        new TeamInput().display().setLocationRelativeTo(this);
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
-        new TeamInput((Team) teamTable.getValueAt(teamTable.getSelectedRow(), 0)).setVisible(true);
+        new TeamInput((Team) teamTable.getValueAt(teamTable.getSelectedRow(), 0)).display().setLocationRelativeTo(this);
     }//GEN-LAST:event_editButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        if (!th.deleteTeam((Team) teamTable.getValueAt(teamTable.getSelectedRow(), 0))) {
+        if (!TeamHandler.deleteTeam((Team) teamTable.getValueAt(teamTable.getSelectedRow(), 0))) {
             JOptionPane.showMessageDialog(this,
                     "Cannot delete team that has matches with it.",
                     "Error",
                     JOptionPane.PLAIN_MESSAGE);
         }
 
-        updateTeamModel(th.getTeams());
+        updateTeamModel(TeamHandler.getTeams());
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        updateTeamModel(th.getTeams());
+        updateTeamModel(TeamHandler.getTeams());
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void updateTeamModel(List teams) {
-        model = (DefaultTableModel) teamTable.getModel();
+        DefaultTableModel model = (DefaultTableModel) teamTable.getModel();
         int rows = teamTable.getRowCount();
 
         for (int i = rows - 1; i >= 0; i--) {
@@ -161,12 +155,17 @@ public class TeamViewer extends javax.swing.JFrame {
             model.addRow(new Object[]{team, team.getName(), team.getLocation()});
         }
     }
+    
+    public TeamViewer display(){
+        setVisible(true);
+        return this;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JButton deleteButton;
     private javax.swing.JButton editButton;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane teamScrollPane;
     private javax.swing.JTable teamTable;
     // End of variables declaration//GEN-END:variables
 
