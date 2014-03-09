@@ -36,7 +36,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="updateButton" min="-2" pref="96" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                      <Component id="viewAllButton" min="-2" pref="95" max="-2" attributes="0"/>
+                      <Component id="resetButton" min="-2" pref="95" max="-2" attributes="0"/>
                   </Group>
                   <Component id="searchTabbedPane" alignment="0" min="-2" pref="239" max="-2" attributes="0"/>
               </Group>
@@ -76,7 +76,7 @@
                       <Component id="searchTabbedPane" pref="0" max="32767" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="viewAllButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="resetButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="updateButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -161,12 +161,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="viewAllButton">
+    <Component class="javax.swing.JButton" name="resetButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="View All"/>
+        <Property name="text" type="java.lang.String" value="Reset"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewAllButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resetButtonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="teamButton">

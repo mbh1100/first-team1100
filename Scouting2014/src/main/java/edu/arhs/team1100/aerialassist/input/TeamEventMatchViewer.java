@@ -41,7 +41,7 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
         editButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
         updateButton = new javax.swing.JButton();
-        viewAllButton = new javax.swing.JButton();
+        resetButton = new javax.swing.JButton();
         teamButton = new javax.swing.JButton();
         searchTabbedPane = new javax.swing.JTabbedPane();
         autonomousPanel = new javax.swing.JPanel();
@@ -88,10 +88,10 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
         setTitle("Matches");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);
-            }
-            public void windowLostFocus(java.awt.event.WindowEvent evt) {
             }
         });
 
@@ -148,10 +148,10 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
             }
         });
 
-        viewAllButton.setText("View All");
-        viewAllButton.addActionListener(new java.awt.event.ActionListener() {
+        resetButton.setText("Reset");
+        resetButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewAllButtonActionPerformed(evt);
+                resetButtonActionPerformed(evt);
             }
         });
 
@@ -472,7 +472,7 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(updateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
-                        .addComponent(viewAllButton, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(resetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(searchTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(matchScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
@@ -506,7 +506,7 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
                         .addComponent(searchTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(viewAllButton)
+                            .addComponent(resetButton)
                             .addComponent(updateButton))))
                 .addContainerGap())
         );
@@ -532,14 +532,16 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
-        useSearchMenu = true;
+        //useSearchMenu = true;
         updateTEMModel();
     }//GEN-LAST:event_updateButtonActionPerformed
 
-    private void viewAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewAllButtonActionPerformed
-        useSearchMenu = false;
+    private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
+        resetSearch();
+
+        //useSearchMenu = false;
         updateTEMModel();
-    }//GEN-LAST:event_viewAllButtonActionPerformed
+    }//GEN-LAST:event_resetButtonActionPerformed
 
     private void teamButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teamButtonActionPerformed
         new TeamViewer().display().setLocationRelativeTo(this);
@@ -562,14 +564,8 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
     }//GEN-LAST:event_lowGoalAccuracySliderStateChanged
 
     private void updateTEMModel() {
-        List matchesShowing;
+        List matchesShowing = getMatches();
         DefaultTableModel model;
-
-        if (useSearchMenu) {
-            matchesShowing = getMatches();
-        } else {
-            matchesShowing = TeamEventMatchHandler.getMatches();
-        }
 
         model = (DefaultTableModel) matchTable.getModel();
         int rows = matchTable.getRowCount();
@@ -759,8 +755,29 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
     private int getTeamNumber() {
         return (Integer) teamNumberSpinner.getValue();
     }
-    
-    
+
+    private void resetSearch() {
+        ableToCatchCheckBox.setSelected(false);
+        ableToTrussCatchCheckBox.setSelected(false);
+        ableToTrussTossCheckBox.setSelected(false);
+        ableToUnloadAutoBallCheckBox.setSelected(false);
+        assistsSpinner.setValue(0);
+        autoBallCountSlider.setValue(0);
+        autoBallGoalSlider.setValue(0);
+        ballsCaughtFromHPAccuracySlider.setValue(0);
+        ballsCaughtFromHPSpinner.setValue(0);
+        cyclesSpinner.setValue(0);
+        defensiveSlider.setValue(0);
+        floorPickupSlider.setValue(0);
+        highGoalAccuracySlider.setValue(0);
+        highGoalsScoredSpinner.setValue(0);
+        lowGoalAccuracySlider.setValue(0);
+        lowGoalsScoredSpinner.setValue(0);
+        matchNumberSpinner.setValue(0);
+        showOnlyFromCurrentEvenCheckBox.setSelected(false);
+        teamNumberSpinner.setValue(0);
+        zoneChangeCheckBox.setSelected(false);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox ableToCatchCheckBox;
@@ -801,6 +818,7 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
     private javax.swing.JScrollPane matchScrollPanel;
     private javax.swing.JTable matchTable;
     private javax.swing.JPanel overallPanel;
+    private javax.swing.JButton resetButton;
     private javax.swing.JTabbedPane searchTabbedPane;
     private javax.swing.JCheckBox showOnlyFromCurrentEvenCheckBox;
     private javax.swing.JButton teamButton;
@@ -809,7 +827,6 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
     private javax.swing.JPanel teleopPanel;
     private javax.swing.JScrollPane teleopScrollPane;
     private javax.swing.JButton updateButton;
-    private javax.swing.JButton viewAllButton;
     private javax.swing.JCheckBox zoneChangeCheckBox;
     // End of variables declaration//GEN-END:variables
 }
