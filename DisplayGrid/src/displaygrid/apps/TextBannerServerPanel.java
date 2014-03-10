@@ -5,14 +5,17 @@
 package displaygrid.apps;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JColorChooser;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JPanel;
 
 /**
@@ -271,11 +274,9 @@ public class TextBannerServerPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bgcolorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bgcolorButtonActionPerformed
-
     }//GEN-LAST:event_bgcolorButtonActionPerformed
 
     private void openButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openButtonActionPerformed
-
     }//GEN-LAST:event_openButtonActionPerformed
 
     private void messageListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_messageListMouseClicked
@@ -323,10 +324,10 @@ public class TextBannerServerPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtonActionPerformed
-        ((DefaultListModel)messageList.getModel()).removeElement(messageList.getSelectedValue());
+        ((DefaultListModel) messageList.getModel()).removeElement(messageList.getSelectedValue());
     }//GEN-LAST:event_removeButtonActionPerformed
 
-        public void paintPanel(Graphics g) {
+    public void paintPanel(Graphics g) {
         g.setColor(bgColor);
         g.fillRect(0, 0, panel.getWidth(), panel.getHeight());
         g.setColor(textColor);
@@ -375,8 +376,8 @@ public class TextBannerServerPanel extends javax.swing.JPanel {
 
     public void listSelected() {
         TextBannerMessage m = (TextBannerMessage) messageList.getSelectedValue();
-        if(m.text != null){
-        messageField.setText(m.text);
+        if (m.text != null) {
+            messageField.setText(m.text);
         } else {
             messageField.setText("");
         }
@@ -393,13 +394,11 @@ public class TextBannerServerPanel extends javax.swing.JPanel {
             messageBgcolorButton.setForeground(null);
         }
     }
-    
     private String message = "";
     private Font font;
     private Color bgColor;
     private Color textColor;
     public boolean useFile = false;
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     public javax.swing.JButton bgcolorButton;
@@ -424,4 +423,17 @@ public class TextBannerServerPanel extends javax.swing.JPanel {
     public javax.swing.JFormattedTextField timeField;
     public javax.swing.JButton updateButton;
     // End of variables declaration//GEN-END:variables
+    class ColorListCellRenderer extends DefaultListCellRenderer {
+
+        @Override
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            if (value != null && value instanceof TextBannerMessage) {
+                setBackground(((TextBannerMessage) value).bgColor);
+                setForeground(((TextBannerMessage) value).textColor);
+            }
+            return this;
+        }
+    }
 }
