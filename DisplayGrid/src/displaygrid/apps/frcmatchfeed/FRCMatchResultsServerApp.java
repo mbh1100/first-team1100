@@ -1,6 +1,8 @@
 package displaygrid.apps.frcmatchfeed;
 
 import displaygrid.ServerApp;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import twitter4j.DirectMessage;
 import twitter4j.StallWarning;
 import twitter4j.Status;
@@ -24,19 +26,35 @@ public class FRCMatchResultsServerApp extends ServerApp implements UserStreamLis
     private final String ACCESS_TOKEN = "1260628040-2eWI6BDvlAKeP2RXLQzSaQ0nhYXVz1Nq1tTuY66";
     private final String ACCESS_TOKEN_SECRET = "qI6xDdYwv60beXcUALbicAJMEsizCUWJ7dxd2YD0";
     private final long FMS_USERID = 20603824;
-   // private final long FMS_USERID = 1260704491;
+    //private final long FMS_USERID = 1260704491;
     private TwitterStream frcStream;
-    
-
-    
+   
     private Match lastMatch;
     private String redCommand;
     private String blueCommand;
     private boolean redPending = false;
     private boolean bluePending = false;
+    
+    private String filter = null;
+    
+    private FRCMatchResultsServerPanel panel;
 
     @Override
     public void init() {
+        
+        panel = new FRCMatchResultsServerPanel();
+        panel.eventFilter.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                if(panel.eventFilter.getText() == null || panel.eventFilter.getText().isEmpty()){
+                    filter = null;
+                } else {
+                    filter = "#FRC"+panel.eventFilter.getText();
+                    filter = filter.toUpperCase();
+                }
+            }
+        });
+        setTabPanel(panel);
 
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true);
@@ -79,6 +97,7 @@ public class FRCMatchResultsServerApp extends ServerApp implements UserStreamLis
 
     @Override
     public void end() {
+       
         frcStream.shutdown();
     }
 
@@ -96,8 +115,11 @@ public class FRCMatchResultsServerApp extends ServerApp implements UserStreamLis
                 
                 String header = "";    
                 header += "event:"+m.event.substring(1)+"#";
-                if(! m.event.equalsIgnoreCase("#FRCBO"))return;
-                System.out.println("at boston");
+                
+               if(filter != null &&! m.event.equalsIgnoreCase(filter)){
+                   return;
+               }
+               
                 header += "type:"+m.type+"#";
                 
                 header += "num:"+m.num+"#";
@@ -147,6 +169,7 @@ public class FRCMatchResultsServerApp extends ServerApp implements UserStreamLis
 
             } catch (Exception e) {
                 //status could not be parsed
+                e.printStackTrace();
                 System.out.println("BAD");
 
             }

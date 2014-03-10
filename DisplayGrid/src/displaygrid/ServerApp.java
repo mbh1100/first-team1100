@@ -4,14 +4,19 @@
  */
 package displaygrid;
 
+import java.awt.BorderLayout;
 import java.util.ArrayList;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Akshay
  */
 public abstract class ServerApp extends Thread {
-        
+    
+    private JPanel panel = null;
+    
     protected ArrayList<String> clients;
     
     private String name;
@@ -19,6 +24,8 @@ public abstract class ServerApp extends Thread {
     private boolean isRunning = false;
     
     public ServerApp(){
+        panel = new JPanel();
+        panel.setLayout(new BorderLayout());
     }
     
     @Override
@@ -41,6 +48,7 @@ public abstract class ServerApp extends Thread {
      * initialized the server app
      */
     public abstract void init();
+
     
     /**
      * updates the server app
@@ -78,7 +86,7 @@ public abstract class ServerApp extends Thread {
         isRunning = false;
     }
     
-    public final void removeClient(String id){
+    protected final void removeClient(String id){
         clients.remove(id);                
     }  
    
@@ -87,7 +95,7 @@ public abstract class ServerApp extends Thread {
      * set clients for this server app
      * @param c 
      */
-    public final void setClients(ArrayList<String> c){
+    protected final void setClients(ArrayList<String> c){
         clients = c;        
     }
     
@@ -99,8 +107,20 @@ public abstract class ServerApp extends Thread {
         return clients.size();
     }
     
-    public final void setNumber(int n){
+    protected final void setNumber(int n){
         name = getServerName() + " " + n;
+    }
+    
+    public final void setTabPanel(JComponent p){
+        System.out.println("setTabPanel");
+        panel.removeAll();
+        panel.add(BorderLayout.CENTER, p);
+        
+    }
+    
+    protected final JPanel getPanel(){
+        System.out.println("getPanel");
+        return panel;
     }
     
     public abstract String getServerName();

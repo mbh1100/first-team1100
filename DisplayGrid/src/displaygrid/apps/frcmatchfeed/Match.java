@@ -17,8 +17,8 @@ class Match {
     private static final int P_BLUE_FOUL = 20;
     private static final int P_RED_AUTO = 22;
     private static final int P_BLUE_AUTO = 24;
-    private static final int P_RED_TELEOP = 32;
-    private static final int P_BLUE_TELEOP = 34;
+    private static final int P_RED_TELEOP = 26;
+    private static final int P_BLUE_TELEOP = 28;
     public String event;
     public String type;
     public int num;
@@ -39,9 +39,6 @@ class Match {
 
     public Match(String tweet) throws Exception {
         String[] parts = tweet.split(" ");
-
-        System.out.println(parts.length);
-        System.out.println("len = " + parts.length);
 
         event             =                  parts[P_EVENT];
         type              =                  parts[P_TYPE];

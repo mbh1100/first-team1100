@@ -39,7 +39,7 @@ public class TextBannerServerApp extends ServerApp implements ActionListener, Ch
     private Color textColor;
     private float x;
     private float speed = 0.01f;
-    private TextBannerServerFrame frame;
+    private TextBannerServerPanel panel;
 
     @Override
     public void init() {
@@ -54,43 +54,44 @@ public class TextBannerServerApp extends ServerApp implements ActionListener, Ch
         commonCmd = "";
         commonCommandPending = new ArrayList<>();
 
-        frame = new TextBannerServerFrame();
-        frame.setPanelDisplay(DEFAULT_MESSAGE, textColor, bgColor);
-        frame.setMessages(messages);
-        frame.messageList.addListSelectionListener(new ListSelectionListener(){
+        panel = new TextBannerServerPanel();        
+        setTabPanel(panel);
+        panel.setPanelDisplay(DEFAULT_MESSAGE, textColor, bgColor);
+        panel.setMessages(messages);
+        panel.messageList.addListSelectionListener(new ListSelectionListener(){
 
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                frame.listSelected();
+                panel.listSelected();
             }
         });
 
-        frame.bgcolorButton.addActionListener(this);
-        frame.bgcolorButton.setBackground(bgColor);
-        frame.bgcolorButton.setForeground(new Color(~bgColor.getRGB()));
+        panel.bgcolorButton.addActionListener(this);
+        panel.bgcolorButton.setBackground(bgColor);
+        panel.bgcolorButton.setForeground(new Color(~bgColor.getRGB()));
 
-        frame.textcolorButton.addActionListener(this);
-        frame.textcolorButton.setBackground(textColor);        
-        frame.textcolorButton.setForeground(new Color(~textColor.getRGB()));
+        panel.textcolorButton.addActionListener(this);
+        panel.textcolorButton.setBackground(textColor);        
+        panel.textcolorButton.setForeground(new Color(~textColor.getRGB()));
 
-        frame.timeField.addActionListener(this);
-        frame.speedSlider.addChangeListener(this);
-        frame.updateButton.addActionListener(this);
-        frame.setTitle(this.toString());
+        panel.timeField.addActionListener(this);
+        panel.speedSlider.addChangeListener(this);
+        panel.updateButton.addActionListener(this);
 
-        frame.openButton.addActionListener(new ActionListener() {
+        panel.openButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 openFile();
             }
         });
-        frame.saveButton.addActionListener(new ActionListener() {
+        panel.saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 saveFile();
             }
         });
-
+        
+        
         updateCommonCommand();
     }
 
@@ -115,14 +116,14 @@ public class TextBannerServerApp extends ServerApp implements ActionListener, Ch
             }
             updateCommonCommand();
         }
-        frame.repaint();
+        panel.repaint();
     }
 
     public void updateCommonCommand() {
         TextBannerMessage m = messages.get(messageIndex);
         Color tmpText = (m.textColor == null) ? textColor : m.textColor;
         Color tmpBg = (m.bgColor == null) ? bgColor : m.bgColor;
-        frame.setPanelDisplay(m.text, tmpText, tmpBg);
+        panel.setPanelDisplay(m.text, tmpText, tmpBg);
         commonCmd = "";
         commonCmd += "msg#" + m.text + ":";
         commonCmd += "bg#" + getColorString(tmpBg) + ":";
@@ -164,7 +165,7 @@ public class TextBannerServerApp extends ServerApp implements ActionListener, Ch
 
     @Override
     public void end() {
-        frame.setVisible(false);
+        panel.setVisible(false);
     }
 
     @Override
@@ -200,7 +201,7 @@ public class TextBannerServerApp extends ServerApp implements ActionListener, Ch
                 messages.add(new TextBannerMessage(msg, fg, bg));
             }
             reader.close();
-            frame.setMessages(messages);
+            panel.setMessages(messages);
             messageIndex = 0;            
             lastSwitchTime = System.currentTimeMillis();
             updateCommonCommand();
@@ -221,7 +222,7 @@ public class TextBannerServerApp extends ServerApp implements ActionListener, Ch
                 f.createNewFile();
             }
             BufferedWriter writer = new BufferedWriter(new FileWriter(f));
-            ArrayList<TextBannerMessage> msgs = frame.getMessages();
+            ArrayList<TextBannerMessage> msgs = panel.getMessages();
             for (TextBannerMessage m : msgs) {
                 writer.write(m.getSaveString() + "\n");
             }
@@ -234,29 +235,29 @@ public class TextBannerServerApp extends ServerApp implements ActionListener, Ch
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == frame.textcolorButton) {
+        if (e.getSource() == panel.textcolorButton) {
             Color newColor = JColorChooser.showDialog(new JFrame(), "Text Color", textColor);
             if (newColor != null) {
                 textColor = newColor;
             }
 
-            frame.textcolorButton.setBackground(textColor);
-            frame.textcolorButton.setForeground(new Color(~textColor.getRGB()));
-        } else if (e.getSource() == frame.bgcolorButton) {
+            panel.textcolorButton.setBackground(textColor);
+            panel.textcolorButton.setForeground(new Color(~textColor.getRGB()));
+        } else if (e.getSource() == panel.bgcolorButton) {
             Color newColor = JColorChooser.showDialog(new JFrame(), "Background Color", bgColor);
             if (newColor != null) {
                 bgColor = newColor;
             }
 
-            frame.bgcolorButton.setBackground(bgColor);
-            frame.bgcolorButton.setForeground(new Color(~bgColor.getRGB()));
+            panel.bgcolorButton.setBackground(bgColor);
+            panel.bgcolorButton.setForeground(new Color(~bgColor.getRGB()));
 
-        } else if (e.getSource() == frame.timeField) {
-            time = (Long) frame.timeField.getValue() * 1000;
+        } else if (e.getSource() == panel.timeField) {
+            time = (Long) panel.timeField.getValue() * 1000;
 
-        } else if(e.getSource() == frame.updateButton){
+        } else if(e.getSource() == panel.updateButton){
             messageIndex = 0;
-            messages = frame.getMessages();
+            messages = panel.getMessages();
             lastSwitchTime = System.currentTimeMillis();
         }
 
@@ -265,8 +266,8 @@ public class TextBannerServerApp extends ServerApp implements ActionListener, Ch
 
     @Override
     public void stateChanged(ChangeEvent e) {
-        if (e.getSource() == frame.speedSlider) {
-            speed = frame.speedSlider.getValue() / 1000f;
+        if (e.getSource() == panel.speedSlider) {
+            speed = panel.speedSlider.getValue() / 1000f;
         }
         updateCommonCommand();
     }

@@ -68,12 +68,14 @@ public class BallBounceClientApp extends ClientApp {
         frame.add(panel);
         frame.setResizable(false);
         frame.setUndecorated(true);
-        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+
+        frame.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+       //frame.setSize(300,400);
+        Dimension d = frame.getSize();
+                
         radius = d.width/30;
         paddleWidth = radius/2;
         paddleHeight = radius*3;
-        frame.setSize(d);
-        //frame.setSize(300,400);
         panel.setDoubleBuffered(true);
         frame.setVisible(true);
         

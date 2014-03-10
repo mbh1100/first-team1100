@@ -18,12 +18,11 @@ public class BallBounceServerApp extends ServerApp{
     
     static final String APPNAME = "Ball Bounce";
     
-    public static final float MAX_X = 2.0f;
+    public static final float MAX_X = 1.0f;
     public static final float MAX_Y = 1.0f;
     public static final float MIN_X = 0.0f;
     public static final float MIN_Y = 0.0f;
     
-    private JFrame frame;
     private JPanel panel;
     
     private float dx, dy;
@@ -32,17 +31,14 @@ public class BallBounceServerApp extends ServerApp{
 
     @Override
     public void init() {
-        frame = new JFrame(this.toString());
         panel = new JPanel(){
             @Override
             public void paint(Graphics g){
                 paintPanel(g);                
             }
         };
-        frame.add(panel);
-        frame.setSize(400,400);
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        frame.setVisible(true);
+        
+        setTabPanel(panel);
         
         dx = dy = 0.01f;
         x = (float)Math.random();
@@ -70,7 +66,7 @@ public class BallBounceServerApp extends ServerApp{
             y = MIN_Y;
             dy *= -1;
         }  
-        frame.repaint();
+        panel.repaint();
     }
     
     public void paintPanel(Graphics g){
@@ -113,7 +109,6 @@ public class BallBounceServerApp extends ServerApp{
     
     @Override
     public void end(){
-        frame.setVisible(false);
     }
 
     @Override

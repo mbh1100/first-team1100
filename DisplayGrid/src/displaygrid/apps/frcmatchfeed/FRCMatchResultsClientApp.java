@@ -87,12 +87,13 @@ public class FRCMatchResultsClientApp extends ClientApp {
     private void createRectangles(){
         titleRect = new Rectangle(0, 0, panel.getWidth(), panel.getHeight()*2 / 10);
         teamRect = new Rectangle(0, (int)titleRect.getMaxY(), panel.getWidth(), panel.getHeight()*1 / 10);
-        scoreRect = new Rectangle(0, (int)teamRect.getMaxY(), panel.getWidth(), panel.getHeight()*1 / 10);
-        finalRect = new Rectangle(0,scoreRect.y+4*scoreRect.height, panel.getWidth(), panel.getHeight()*3 / 10);
+        scoreRect = new Rectangle(0, (int)teamRect.getMaxY(), panel.getWidth(), panel.getHeight()*1 / 8);
+        finalRect = new Rectangle(0,scoreRect.y+3*scoreRect.height, panel.getWidth(), panel.getHeight()*3 / 10);
     }
 
     @Override
     public void update() {
+        
         try {
             if (newInfo) {
                 newInfo = false;
@@ -108,7 +109,6 @@ public class FRCMatchResultsClientApp extends ClientApp {
                 scoreText.clear();
                 scoreText.add("Auto   : " + autoScore);
                 scoreText.add("Teleop : " + teleopScore);
-                scoreText.add("Climb  : " + climbScore);
                 scoreText.add("Foul   : " + foulScore);
                 
                 //scoreRect = new Rectangle(0, teamRect.y + teamRect.height + panel.getHeight() / 20, panel.getWidth(), panel.getHeight() / 12);
@@ -186,7 +186,6 @@ public class FRCMatchResultsClientApp extends ClientApp {
             finalScore = getProperty("final", info);
             autoScore = getProperty("auto", info);
             teleopScore = getProperty("teleop", info);
-            climbScore = getProperty("climb", info);
             foulScore = getProperty("foul", info);
             newInfo = true;
             got = true;

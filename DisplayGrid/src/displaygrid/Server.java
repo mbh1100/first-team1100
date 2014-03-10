@@ -111,11 +111,7 @@ public class Server extends Thread implements ActionListener {
             ServerApp app = i.next();
             if (app.getClientCount() == 0) {
                 app.finish();
-                try {
-                    app.join();
-                } catch (Exception ex) {
-                    System.out.println(ex.getMessage());
-                }
+                window.tabPane.remove(app.getPanel());
                 i.remove();
             }
         }
@@ -152,6 +148,8 @@ public class Server extends Thread implements ActionListener {
             clientHandle.setApp(newApp);
             window.renameTableApp(newApp.toString(), o);
         }
+        
+        window.tabPane.add(newApp.toString(),newApp.getPanel());
         
     }
 
