@@ -54,7 +54,6 @@ public class ServerFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Display Grid Server");
 
-        clientTable.setAutoCreateRowSorter(true);
         clientTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -232,6 +231,7 @@ public class ServerFrame extends javax.swing.JFrame {
 
     private void tableToListButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tableToListButtonActionPerformed
         int[] selectedRows = clientTable.getSelectedRows();
+        
         if(selectedRows.length == 0)return;
         DefaultListModel<Object> listModel = (DefaultListModel<Object>)(pendingAppClientList.getModel());
         for(int i = 0; i < selectedRows.length; i++){

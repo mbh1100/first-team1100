@@ -68,10 +68,10 @@ public class FRCMatchResultsClientApp extends ClientApp {
 
 
         frame = new JFrame();
-        //frame.setUndecorated(true);
+        frame.setUndecorated(true);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setSize(d);
-        frame.setSize(600,400);
+        //frame.setSize(600,400);
         panel = new JComponent() {
             @Override
             public void paint(Graphics g) {
