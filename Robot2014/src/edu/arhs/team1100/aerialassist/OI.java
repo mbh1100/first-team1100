@@ -18,8 +18,8 @@ import edu.arhs.team1100.aerialassist.commands.drive.ToggleReverseDirectionComma
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.FireShooterCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.RollInCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.RollOutCommand;
-import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.SetArmFirePositionA;
-import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.SetArmFirePositionB;
+import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.SetArmFirePositionAtOnePointGoal;
+import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.SetArmFirePositionOneRobotBehindOnePointGoal;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.StopManipulatorPIDSCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.ToggleHolderCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.TogglePuncherPosCommand;
@@ -76,12 +76,12 @@ public class OI {
         xbox.getButtonB().whileHeld(new RollInCommand());
         xbox.getButtonA().whileHeld(new RollOutCommand());   
         xbox.getButtonX().whenPressed(new FireCommandGroup());
-        xbox.getButtonLeftBumper().whenPressed(new TogglePuncherPosCommand());
+        //xbox.getButtonLeftBumper().whenPressed(new TogglePuncherPosCommand());
         xbox.getButtonY().whenPressed(new ToggleHolderCommand());
         xbox.getButtonA().whenReleased(new StopRollCommand());
         xbox.getButtonB().whenReleased(new StopRollCommand());
-        xbox.getButtonStart().whenPressed(new SetArmFirePositionA());
-        xbox.getButtonBack().whenPressed(new SetArmFirePositionB());
+        xbox.getButtonStart().whenPressed(new SetArmFirePositionAtOnePointGoal());
+        xbox.getButtonBack().whenPressed(new SetArmFirePositionOneRobotBehindOnePointGoal());
         xbox.getButtonRightStick().whenPressed(new SetArmMiddleCommand());
         rightStick.getButton(8).whenPressed(new OneBallAutonomous());
         rightStick.getButton(TOGGLE_MEC).whenPressed(new ToggleMecModeCommand());

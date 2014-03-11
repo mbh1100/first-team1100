@@ -14,8 +14,9 @@ import edu.arhs.team1100.aerialassist.commands.drive.StopDriveCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.FireCommandGroup;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.FireShooterCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.ResetCylindersPartBCommand;
-import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.SetArmFirePositionA;
+import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.SetArmFirePositionOneRobotBehindOnePointGoal;
 import edu.arhs.team1100.aerialassist.subsystems.CameraSubsystem;
+import edu.wpi.first.wpilibj.DriverStationEnhancedIO;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -32,11 +33,11 @@ public class OneBallAutonomous extends CommandGroup {
      * then will test/wait for hot goal, then fire.
      *
      */
-    public void OneBallCommand() {
+    public void OneBallCommand() throws DriverStationEnhancedIO.EnhancedIOException {
         System.out.println("Atou go");
          addSequential(new ResetCylindersPartBCommand(), .1);
          addParallel(new DriveInALineCommand(80000));
-         addParallel(new SetArmFirePositionA());
+         addParallel(new SetArmFirePositionOneRobotBehindOnePointGoal());
          addSequential(new FireCommandGroup());
       }
 }
