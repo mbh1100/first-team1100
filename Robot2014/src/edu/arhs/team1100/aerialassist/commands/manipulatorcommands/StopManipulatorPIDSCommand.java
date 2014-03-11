@@ -3,18 +3,20 @@ package edu.arhs.team1100.aerialassist.commands.manipulatorcommands;
 import edu.arhs.team1100.aerialassist.commands.CommandBase;
 import edu.arhs.team1100.aerialassist.subsystems.ManipulatorSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
+import edu.wpi.first.wpilibj.DriverStationEnhancedIO;
 
 
 /**
  *
  * @author Team 1100
  */
-public class SetArmFirePositionB extends CommandBase {
+public class StopManipulatorPIDSCommand extends CommandBase {
+    private boolean finished = false;
 
     /**
      * Constructs a DriveSubsystem object
      */
-    public SetArmFirePositionB() {
+    public StopManipulatorPIDSCommand() throws DriverStationEnhancedIO.EnhancedIOException {
         requires(ManipulatorSubsystem.getInstance());
     }
 
@@ -22,15 +24,17 @@ public class SetArmFirePositionB extends CommandBase {
      * Called just before this Command runs the first time
      */
     protected void initialize() {
-        ManipulatorSubsystem.getInstance().setSetpoint(-1000);
-        ManipulatorSubsystem.getInstance().enable();
+        finished = false;
     }
 
     /**
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
-    }
+            ManipulatorSubsystem.getInstance().disable();
+            finished = true;
+        }
+    
 
     /**
      * Make this return true when this Command no longer needs to run execute()
@@ -38,15 +42,16 @@ public class SetArmFirePositionB extends CommandBase {
      * @return false
      */
     protected boolean isFinished() {
-        return ManipulatorSubsystem.getInstance().onTarget();
+        return finished;
     }
 
     /**
      * Called once after isFinished returns true
      */
     protected void end() {
-        ManipulatorSubsystem.getInstance().disable();
-        ManipulatorSubsystem.getInstance().stopArm();
+         if (!finished) {
+            execute();
+        }
     }
 
     /**

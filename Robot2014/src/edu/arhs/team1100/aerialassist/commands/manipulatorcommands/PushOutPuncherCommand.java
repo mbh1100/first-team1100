@@ -25,7 +25,7 @@ public class PushOutPuncherCommand extends CommandBase {
      */
     protected void execute() {
         try {
-            ShooterSubsystem.getInstance().setPunchOut();
+            ShooterSubsystem.getInstance().resetCylindersPartB();
         } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
             ex.printStackTrace();
         }

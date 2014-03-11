@@ -24,18 +24,22 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * @author Team 1100
  */
 public class ManipulatorSubsystem extends PIDSubsystem {
-    
+
     static ManipulatorSubsystem instance;
-    private final int FIRE_A_COUNT = 0;
-    private final int MIDDLE_COUNT = 24000;
+    private final int FIRE_A_COUNT = 10000;
+    private final int MIDDLE_COUNT = 0;
     private final int FIRE_B_COUNT = 0;
+    private final int MAX_DISTANCE;
     private Talon armMotorOne;
     private Talon armMotorTwo;
     boolean isClamped = false;
     private Encoder ec;
-    private static final double P = 0.6187523487145693102;
-    private static final double I = 0.178695554768894223459;
-    private static final double D = 0.2;
+    public static final double P = .01;
+    public static final double I = 0;
+    public static final double D = 0;
+    public static final double PMIN = -1;
+    public static final double PMAX = 1;
+
 
     /**
      * Constructs an ISubsystem. Initializes compressor, lift pistons, intake
@@ -43,11 +47,14 @@ public class ManipulatorSubsystem extends PIDSubsystem {
      */
     public ManipulatorSubsystem() {
         super(P, I, D);
+        super.setInputRange(-4000, 4000);
+        this.MAX_DISTANCE = 200000000;
         armMotorOne = new Talon(RobotMap.M_TALON_LEFT_WHEEL);
         armMotorTwo = new Talon(RobotMap.M_TALON_RIGHT_WHEEL);
         ec = new Encoder(RobotMap.S_EN_ARM_A, RobotMap.S_EN_ARM_B);
         ec.start();
         ec.reset();
+        super.setAbsoluteTolerance(20);
     }
 
     /**
@@ -62,30 +69,36 @@ public class ManipulatorSubsystem extends PIDSubsystem {
         }
         return instance;
     }
-    
+
     public void moveArm() throws DriverStationEnhancedIO.EnhancedIOException {
         double speed = OI.getInstance().getXboxController().getAxis(Joystick.AxisType.kY);
-        if (Math.abs(speed) > .2) {
+        if (Math.abs(speed) > .2 && getEncoder() < MAX_DISTANCE) {
             moveArmSet(-speed);
         } else {
             moveArmSet(0);
         }
     }
-    
+
     public void stopArm() {
         moveArmSet(0);
     }
-    
+
     public double getEncoder() {
         return ec.get();
     }
-    
+
     public void EncoderReset() {
         ec.reset();
     }
-    
+
+    public boolean onTargetRemake()
+    {
+        if(Math.abs(super.getSetpoint()-getEncoder()) < 100)return true;
+        else return false;
+    }
     public void setCount(double count) {
         super.setSetpoint(count);
+        super.enable();
         /*while (ec.get() > count + 20 || ec.get() < count - 20) {
          while (ec.get() <= count - 10) {
          armMotorOne.set(.2);
@@ -96,22 +109,20 @@ public class ManipulatorSubsystem extends PIDSubsystem {
          }
          stopArm();*/
     }
-    
+
     public void moveArmSet(double speed) {
         armMotorOne.set(speed);
         armMotorTwo.set(-speed);
     }
-    
-    public void setFirePositionA()
-    {
+
+    public void setFirePositionA() {
         setCount(FIRE_A_COUNT);
     }
-    
-    public void setFirePositionB()
-    {
+
+    public void setFirePositionB() {
         setCount(FIRE_B_COUNT);
     }
-    
+
     public void setMiddlePos() {
         setCount(MIDDLE_COUNT);
     }
@@ -122,18 +133,18 @@ public class ManipulatorSubsystem extends PIDSubsystem {
     protected void initDefaultCommand() {
         setDefaultCommand(new MoveArmCommandRecur());
     }
-    
+
     public String getEncoderValue() {
         return "" + ec.get();
     }
-    
+
     protected double returnPIDInput() {
-        return ec.get();
+        return ec.get();    
     }
-    
+
     protected void usePIDOutput(double output) {
-        armMotorOne.pidWrite(output);
-        armMotorTwo.pidWrite(-output);
+        armMotorOne.pidWrite(output/4);
+        armMotorTwo.pidWrite(-output/4);
     }
-    
+
 }

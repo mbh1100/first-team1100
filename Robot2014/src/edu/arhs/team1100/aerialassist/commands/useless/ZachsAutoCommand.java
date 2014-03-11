@@ -26,17 +26,17 @@ public class ZachsAutoCommand extends CommandGroup {
      * @param thomasScript Whether or not to run Thomas|AutonomousCommand after running the ZachAutoCommand (adds 28 times the duration in seconds to runtime)
      */
     public ZachsAutoCommand(double speed, double duration, boolean thomasScript) {
-        addSequential(new DriveInALineCommand(speed, DriveSubsystem.DIRECTION_LEFT, duration));
+        //addSequential(new DriveInALineCommand(speed, DriveSubsystem.DIRECTION_LEFT, duration));
         addSequential(new DriveInTankCommand(speed, -speed, duration));
         addSequential(new StopDriveCommand(1));
         addSequential(new DriveInTankCommand(-speed, speed, duration));
-        addSequential(new DriveInALineCommand(speed, DriveSubsystem.DIRECTION_RIGHT, duration));
+    //    addSequential(new DriveInALineCommand(speed, DriveSubsystem.DIRECTION_RIGHT, duration));
         
         for (int i = 0; i < 5; i++) {
-            addSequential(new DriveInALineCommand(speed, DriveSubsystem.DIRECTION_FORWARD, duration));
+            /*addSequential(new DriveInALineCommand(speed, DriveSubsystem.DIRECTION_FORWARD, duration));
             addSequential(new DriveInALineCommand(speed, DriveSubsystem.DIRECTION_RIGHT, duration));
             addSequential(new DriveInALineCommand(speed, DriveSubsystem.DIRECTION_BACK, duration));
-            addSequential(new DriveInALineCommand(speed, DriveSubsystem.DIRECTION_LEFT, duration));
+            addSequential(new DriveInALineCommand(speed, DriveSubsystem.DIRECTION_LEFT, duration));*/
         }
         
         for (int i = 0; i < 2; i++) {

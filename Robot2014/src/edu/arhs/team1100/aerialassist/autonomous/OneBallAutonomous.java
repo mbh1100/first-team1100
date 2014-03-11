@@ -13,6 +13,7 @@ import edu.arhs.team1100.aerialassist.subsystems.DriveSubsystem;
 import edu.arhs.team1100.aerialassist.commands.drive.StopDriveCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.FireCommandGroup;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.FireShooterCommand;
+import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.ResetCylindersPartBCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.SetArmFirePositionA;
 import edu.arhs.team1100.aerialassist.subsystems.CameraSubsystem;
 import edu.wpi.first.wpilibj.Timer;
@@ -32,10 +33,11 @@ public class OneBallAutonomous extends CommandGroup {
      *
      */
     public void OneBallCommand() {
-       addSequential(new DriveInALineCommand(.5, DriveSubsystem.DIRECTION_FORWARD, 1));
-       addParallel(new SetArmFirePositionA());
-       addSequential(new FireCommandGroup());
-       
+        System.out.println("Atou go");
+         addSequential(new ResetCylindersPartBCommand(), .1);
+         addParallel(new DriveInALineCommand(80000));
+         addParallel(new SetArmFirePositionA());
+         addSequential(new FireCommandGroup());
       }
 }
     

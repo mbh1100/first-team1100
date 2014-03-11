@@ -29,7 +29,6 @@ public class ResetCylindersPartBCommand extends CommandBase {
         } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
             ex.printStackTrace();
         }
-   
         finished = true;
     }
 

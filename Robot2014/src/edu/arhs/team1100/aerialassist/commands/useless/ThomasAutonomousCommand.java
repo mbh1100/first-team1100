@@ -24,7 +24,7 @@ public class ThomasAutonomousCommand extends CommandGroup {
      * Medics, fallout shelter, and any other supplies deemed necessary. And the E-stop button.
      */
     public ThomasAutonomousCommand(double speed, double duration){
-        for(int i = 0; i < 6; i++) {
+      /*  for(int i = 0; i < 6; i++) {
             addSequential(new DriveInALineCommand(speed, DriveSubsystem.DIRECTION_LEFT, duration));
             addSequential(new DriveInALineCommand(speed, DriveSubsystem.DIRECTION_BACK, duration * 2));
             addSequential(new DriveInALineCommand(speed, DriveSubsystem.DIRECTION_RIGHT, duration));
@@ -41,7 +41,7 @@ public class ThomasAutonomousCommand extends CommandGroup {
             addSequential(new DriveInALineCommand(speed, DriveSubsystem.DIRECTION_LEFT, duration));
             addSequential(new DriveInALineCommand(speed, DriveSubsystem.DIRECTION_FORWARD, duration * 2));
             addSequential(new DriveInALineCommand(speed, DriveSubsystem.DIRECTION_RIGHT, duration));
-        }
+        } */
     }
 }
            

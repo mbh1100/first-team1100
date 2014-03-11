@@ -4,7 +4,6 @@ import edu.arhs.team1100.aerialassist.commands.CommandBase;
 import edu.arhs.team1100.aerialassist.subsystems.ManipulatorSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
 
-
 /**
  *
  * @author Team 1100
@@ -22,13 +21,15 @@ public class SetArmFirePositionA extends CommandBase {
      * Called just before this Command runs the first time
      */
     protected void initialize() {
+        ManipulatorSubsystem.getInstance().setSetpoint(1000);
+        ManipulatorSubsystem.getInstance().enable();
     }
 
     /**
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
-        ManipulatorSubsystem.getInstance().setFirePositionA();
+        System.out.println(ManipulatorSubsystem.getInstance().getEncoder());
     }
 
     /**
@@ -37,14 +38,15 @@ public class SetArmFirePositionA extends CommandBase {
      * @return false
      */
     protected boolean isFinished() {
-        return false;
+        return ManipulatorSubsystem.getInstance().onTarget();
     }
 
     /**
      * Called once after isFinished returns true
      */
     protected void end() {
-        
+        ManipulatorSubsystem.getInstance().disable();
+        ManipulatorSubsystem.getInstance().stopArm();
     }
 
     /**

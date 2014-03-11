@@ -16,11 +16,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class FireCommandGroup extends CommandGroup {
     private double delayOne = .6; // 0.6 second delay before reseting shooter
-    private double delayTwo = 1.7;
+    private double delayTwo = 8;
     private double delayThree = 0.3;
-    
         
     public FireCommandGroup() {
+        System.out.println("FireCommandGroupStarted");
         addSequential(new FireShooterCommand(), delayOne);
         addSequential(new ResetCylindersPartACommand(), delayTwo);
         addSequential(new ResetHolders(), delayThree);

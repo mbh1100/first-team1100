@@ -8,6 +8,7 @@ package edu.arhs.team1100.aerialassist;
 
 import edu.arhs.team1100.aerialassist.autonomous.OneBallAutonomous;
 import edu.arhs.team1100.aerialassist.commands.CommandBase;
+import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.PushOutPuncherCommand;
 import edu.arhs.team1100.aerialassist.subsystems.CameraSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.CompressorSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.DriveSubsystem;
@@ -18,6 +19,7 @@ import edu.arhs.team1100.aerialassist.util.Log;
 import edu.wpi.first.wpilibj.DriverStationEnhancedIO;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -32,10 +34,12 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 public class RobotMain extends IterativeRobot {
 
     private CommandGroup autoCommand;
+    private Command readyToShootCommand;
     private long lastTime = 0;
     private long totalTime = 0;
     private long cycles = 0;
     private long rate = 0;
+    LiveWindow lw = new LiveWindow();
 
     /**
      * This function is run when the robot is first started up and should be
@@ -47,6 +51,7 @@ public class RobotMain extends IterativeRobot {
         Log.init();
         Log.setMinLevel(Log.LEVEL_DEBUG);
         autoCommand = new OneBallAutonomous();
+        readyToShootCommand = new PushOutPuncherCommand();
         //Add all logging classes
         //Log.addClass(RobotMain.class, Log.LEVEL_DEBUG);
         Log.addClass(DriveSubsystem.class, Log.LEVEL_DEBUG);
@@ -55,11 +60,13 @@ public class RobotMain extends IterativeRobot {
         //Log.addClass(CompressorSubsystem.class, Log.LEVEL_DEBUG);
         //Log.addClass(SensorTestSubsystem.class, Log.LEVEL_DEBUG);
         //Log.addClass(CalibrateGyroCommand.class, Log.LEVEL_OFF);
+        
+        
         try {
             // Instantiate the command used for the autonomous period
             // Initialize all subsystems
             CommandBase.init();
-            
+
             //autoCommand = new AutoShootAndReloadCommandGroup();
         } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
             ex.printStackTrace();
@@ -102,7 +109,6 @@ public class RobotMain extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        //trackRate();
         updateDriverStationLog();
 
     }
@@ -118,11 +124,11 @@ public class RobotMain extends IterativeRobot {
         DSLog.log(2, "Air Full: "+ CompressorSubsystem.getInstance().getPressureSwitch());
         DSLog.log(5, "Gyro Angle: " + Log.round(DriveSubsystem.getInstance().getGyroAngle(), 2));
         //DSLog.log(3, "Encoder Mode:" + DriveSubsystem.getInstance().getEncoderDrive());
-       // DSLog.log(4, "Wheel Encoder: " + DriveSubsystem.getInstance().getEncoderValue());
+        DSLog.log(4, "Wheel Encoder: " + DriveSubsystem.getInstance().getEncoderTick());
         DSLog.log(3, "Arm Encoder: " + ManipulatorSubsystem.getInstance().getEncoderValue());
-        DSLog.log(4, "Ultrasonic Range: " + DriveSubsystem.getInstance().getInches());
-        
-        
+        //DSLog.log(4, "Ultrasonic Range: " + DriveSubsystem.getInstance().getInches());
+        //DSLog.log(2, "Ultrasonic Range Average: " + DriveSubsystem.getInstance().getInchesAverage());
+
     }
 
     /**
@@ -149,7 +155,11 @@ public class RobotMain extends IterativeRobot {
      * Called periodically during test mode
      */
     public void testPeriodic() {
+        Scheduler.getInstance().run();
+        //trackRate();
+        LiveWindow.setEnabled(true);
         LiveWindow.run();
+        updateDriverStationLog();
     }
 
     /**

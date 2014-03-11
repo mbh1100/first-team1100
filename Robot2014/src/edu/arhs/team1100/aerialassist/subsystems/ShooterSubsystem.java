@@ -55,8 +55,8 @@ public class ShooterSubsystem extends Subsystem {
          clampCylinder.set(DoubleSolenoid.Value.kForward);
          holdingCylinder.set(DoubleSolenoid.Value.kForward);
          
-        firingCylinderOne.set(DoubleSolenoid.Value.kForward);
-        firingCylinderTwo.set(DoubleSolenoid.Value.kForward);
+      //   firingCylinderOne.set(DoubleSolenoid.Value.kForward);
+      //   firingCylinderTwo.set(DoubleSolenoid.Value.kForward);
     }
 
     /**
@@ -72,12 +72,6 @@ public class ShooterSubsystem extends Subsystem {
         return instance;
     }
 
-   public void setPunchOut()
-   {
-        firingCylinderOne.set(DoubleSolenoid.Value.kForward);
-        firingCylinderTwo.set(DoubleSolenoid.Value.kForward);
-   }
-   
     public void Shoot() {
         clampCylinder.set(DoubleSolenoid.Value.kReverse);
         holdingCylinder.set(DoubleSolenoid.Value.kReverse);     

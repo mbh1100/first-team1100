@@ -1,7 +1,9 @@
 package edu.arhs.team1100.aerialassist;
 
+import edu.arhs.team1100.aerialassist.autonomous.OneBallAutonomous;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.FireCommandGroup;
 import edu.arhs.team1100.aerialassist.commands.drive.CalibrateGyroCommand;
+import edu.arhs.team1100.aerialassist.commands.drive.DriveInALineCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.StopRollCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.PushOutPuncherCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.FireShooterCommand;
@@ -16,6 +18,9 @@ import edu.arhs.team1100.aerialassist.commands.drive.ToggleReverseDirectionComma
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.FireShooterCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.RollInCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.RollOutCommand;
+import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.SetArmFirePositionA;
+import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.SetArmFirePositionB;
+import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.StopManipulatorPIDSCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.ToggleHolderCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.TogglePuncherPosCommand;
 import edu.wpi.first.wpilibj.DriverStationEnhancedIO;
@@ -34,6 +39,7 @@ public class OI {
     private static final int TOGGLE_DRIVE = 5;
     private static final int REVERSE_DIRECTION = 4; //trigger
     private static final int TOGGLE_ENCODER = 3;
+    private static final int RESET_ECODER = 9;
     //left STICK BUTTON SETTINGS
     private static final int CALIBRATE_GYRO = 3;
     private static final int LEG = 1;//trigger
@@ -74,6 +80,10 @@ public class OI {
         xbox.getButtonY().whenPressed(new ToggleHolderCommand());
         xbox.getButtonA().whenReleased(new StopRollCommand());
         xbox.getButtonB().whenReleased(new StopRollCommand());
+        xbox.getButtonStart().whenPressed(new SetArmFirePositionA());
+        xbox.getButtonBack().whenPressed(new SetArmFirePositionB());
+        xbox.getButtonRightStick().whenPressed(new SetArmMiddleCommand());
+        rightStick.getButton(8).whenPressed(new OneBallAutonomous());
         rightStick.getButton(TOGGLE_MEC).whenPressed(new ToggleMecModeCommand());
         rightStick.getButton(TOGGLE_DRIVE).whenPressed(new ToggleDriveModeCommand());
         rightStick.getButton(CALIBRATE_GYRO).whenPressed(new CalibrateGyroCommand());

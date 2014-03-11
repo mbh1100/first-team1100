@@ -30,7 +30,6 @@ public class ResetCylindersPartACommand extends CommandBase {
             ex.printStackTrace();
         }
    
-        finished = true;
     }
 
     /**

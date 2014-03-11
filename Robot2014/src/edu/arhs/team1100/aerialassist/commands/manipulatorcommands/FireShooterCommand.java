@@ -29,9 +29,7 @@ public class FireShooterCommand extends CommandBase {
         } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
             ex.printStackTrace();
         }
-   
-        finished = true;
-    }
+     }
 
     /**
      * Returns whether toggling has occurred

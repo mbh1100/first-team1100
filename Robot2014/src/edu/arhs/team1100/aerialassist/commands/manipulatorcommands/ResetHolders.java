@@ -29,8 +29,6 @@ public class ResetHolders extends CommandBase {
         } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
             ex.printStackTrace();
         }
-   
-        finished = true;
     }
 
     /**

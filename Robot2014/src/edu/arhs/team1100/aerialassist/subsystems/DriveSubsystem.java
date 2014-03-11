@@ -28,9 +28,9 @@ public class DriveSubsystem extends PIDSubsystem {
     public static final int MODE_CARTESIAN = 0;
     public static final int MODE_POLAR = 1;
     public static final int MODE_TANK = 2;
-    public static final double kJoystickP = 0.02;
-    public static final double kJoystickI = 0.0001;
-    public static final double kJoystickD = 0.0005;
+    public static final double P = 0.002;
+    public static final double I = 0.000;
+    public static final double D = 0.000;
     private static final double ratio = 1;
     private static double offset = 0;
     private static boolean reverse = false;
@@ -54,6 +54,7 @@ public class DriveSubsystem extends PIDSubsystem {
     private int driveMode = MODE_TANK;
     private boolean mecanumWheelsLowered = true;
     private boolean encoderDrive = false;
+    private double[] ultraArray = new double[10];
 
     /**
      * Creates a DriveSubsystem if not already created
@@ -73,8 +74,8 @@ public class DriveSubsystem extends PIDSubsystem {
      * drive solenoids and gyro.
      */
     public DriveSubsystem() {
-        super(kJoystickP, kJoystickI, kJoystickD);
-
+        super(P, I, D);
+        super.setAbsoluteTolerance(70);
         leftSolenoid = new DoubleSolenoid(RobotMap.D_LEFT_SOLENOID_A, RobotMap.D_LEFT_SOLENOID_B);
         rightSolenoid = new DoubleSolenoid(RobotMap.D_RIGHT_SOLENOID_A, RobotMap.D_RIGHT_SOLENOID_B);
 
@@ -88,7 +89,7 @@ public class DriveSubsystem extends PIDSubsystem {
                 backLeftTalonOne,
                 frontRightTalonOne,
                 backRightTalonOne);
-        MotorType mt;
+
         driveOne.setInvertedMotor(MotorType.kFrontRight, true);
         driveOne.setInvertedMotor(MotorType.kRearRight, true);
         driveOne.setInvertedMotor(MotorType.kFrontLeft, false);
@@ -361,14 +362,33 @@ public class DriveSubsystem extends PIDSubsystem {
     public double getEncoderValue() {
         return encoderWheels.getRate();
     }
+    
+    public double getEncoderTick()
+    {
+        return encoderWheels.get();
+    }
 
     public double getUltrasonic() {
         return
-                ultra.getAverageVoltage();
+                ultra.getVoltage();
     }
-
+    
+    public double getUltrasonicAverage()
+    {
+        int average =0;
+        for(int a = 1; a<=10; a++)
+        {
+            average += getUltrasonic();
+        }
+        return average/10;
+        
+    }
     public double getInches() {
         return getUltrasonic() / 9.76;
+    }
+    
+    public double getInchesAverage() {
+        return getUltrasonicAverage() / 9.76;
     }
 
     /**
@@ -391,14 +411,8 @@ public class DriveSubsystem extends PIDSubsystem {
      *
      * @param rotationSpeed
      */
-    protected void usePIDOutput(double rotationSpeed) {
-        try {
-            double controlX = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kX);
-            double controlY = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
-            driveOne.mecanumDrive_Cartesian(controlX, controlY, rotationSpeed, driveGyro.getAngle());
-        } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
-            ex.printStackTrace();
-        }
+    protected void usePIDOutput(double speed) {
+        driveOne.mecanumDrive_Polar(-speed/2, 0, 0);
     }
 
     public String getMotorControlerSpeeds() {
@@ -415,6 +429,6 @@ public class DriveSubsystem extends PIDSubsystem {
      * @return 0
      */
     protected double returnPIDInput() {
-        return 0;
+        return getEncoderTick();
     }
 }

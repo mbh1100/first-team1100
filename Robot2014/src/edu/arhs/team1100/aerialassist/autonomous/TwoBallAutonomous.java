@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class TwoBallAutonomous extends CommandGroup {
     public TwoBallAutonomous() {
         //one ball auto
-       addSequential(new DriveInALineCommand(.5, DriveSubsystem.DIRECTION_FORWARD, 1));
+    //   addSequential(new DriveInALineCommand(.5, DriveSubsystem.DIRECTION_FORWARD, 1));
        addParallel(new SetArmFirePositionA());
        addSequential(new FireCommandGroup());
     }
