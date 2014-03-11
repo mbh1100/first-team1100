@@ -6,17 +6,16 @@ import edu.arhs.team1100.aerialassist.subsystems.ManipulatorSubsystem;
 import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj.DriverStationEnhancedIO;
 
-
 /**
  *
  * @author Team 1100
  */
-public class SetArmFirePositionAtOnePointGoal extends CommandBase {
+public class SetArmPositionFloorPickup extends CommandBase {
     int mod = 1;
     /**
      * Constructs a DriveSubsystem object
      */
-    public SetArmFirePositionAtOnePointGoal() throws DriverStationEnhancedIO.EnhancedIOException {
+    public SetArmPositionFloorPickup() throws DriverStationEnhancedIO.EnhancedIOException {
         requires(ManipulatorSubsystem.getInstance());
     }
 
@@ -29,8 +28,7 @@ public class SetArmFirePositionAtOnePointGoal extends CommandBase {
         } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
             ex.printStackTrace();
         }
-
-        ManipulatorSubsystem.getInstance().setSetpoint(mod*500);
+        ManipulatorSubsystem.getInstance().setSetpoint(mod*4400);
         ManipulatorSubsystem.getInstance().enable();
     }
 

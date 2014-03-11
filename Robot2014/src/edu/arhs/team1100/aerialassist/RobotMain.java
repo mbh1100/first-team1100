@@ -34,7 +34,6 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 public class RobotMain extends IterativeRobot {
 
     private CommandGroup autoCommand;
-    private Command readyToShootCommand;
     private long lastTime = 0;
     private long totalTime = 0;
     private long cycles = 0;
@@ -51,7 +50,6 @@ public class RobotMain extends IterativeRobot {
         Log.init();
         Log.setMinLevel(Log.LEVEL_DEBUG);
         autoCommand = new OneBallAutonomous();
-        readyToShootCommand = new PushOutPuncherCommand();
         //Add all logging classes
         //Log.addClass(RobotMain.class, Log.LEVEL_DEBUG);
         Log.addClass(DriveSubsystem.class, Log.LEVEL_DEBUG);
@@ -81,14 +79,12 @@ public class RobotMain extends IterativeRobot {
         //autonomous.start();
         autoCommand.start();
         Scheduler.getInstance().enable();
-        //DSLog.log(5, "auto init");
     }
 
     /**
      * Called periodically during autonomous
      */
     public void autonomousPeriodic() {
-        //autonomous.execute();
         Scheduler.getInstance().run();
     }
 

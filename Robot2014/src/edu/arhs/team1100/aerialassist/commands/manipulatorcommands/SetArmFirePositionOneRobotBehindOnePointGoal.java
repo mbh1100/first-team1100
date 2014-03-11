@@ -16,7 +16,6 @@ public class SetArmFirePositionOneRobotBehindOnePointGoal extends CommandBase {
      * Constructs a DriveSubsystem object
      */
     public SetArmFirePositionOneRobotBehindOnePointGoal() throws DriverStationEnhancedIO.EnhancedIOException {
-       if(OI.getInstance().getXboxController().getButtonLeftBumper().equals(this))mod = -1;
         requires(ManipulatorSubsystem.getInstance());
     }
 
@@ -24,6 +23,11 @@ public class SetArmFirePositionOneRobotBehindOnePointGoal extends CommandBase {
      * Called just before this Command runs the first time
      */
     protected void initialize() {
+        try {
+            if(OI.getInstance().getXboxController().getButtonLeftBumper().equals(this))mod = -1;
+        } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
+            ex.printStackTrace();
+        }
         ManipulatorSubsystem.getInstance().setSetpoint(mod*1000);
         ManipulatorSubsystem.getInstance().enable();
     }
@@ -32,7 +36,6 @@ public class SetArmFirePositionOneRobotBehindOnePointGoal extends CommandBase {
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
-        System.out.println(ManipulatorSubsystem.getInstance().getEncoder());
     }
 
     /**
@@ -48,8 +51,8 @@ public class SetArmFirePositionOneRobotBehindOnePointGoal extends CommandBase {
      * Called once after isFinished returns true
      */
     protected void end() {
-        ManipulatorSubsystem.getInstance().disable();
-        ManipulatorSubsystem.getInstance().stopArm();
+        //ManipulatorSubsystem.getInstance().disable();
+        //ManipulatorSubsystem.getInstance().stopArm();
     }
 
     /**

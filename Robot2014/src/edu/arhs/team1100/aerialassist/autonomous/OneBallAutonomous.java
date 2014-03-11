@@ -34,9 +34,9 @@ public class OneBallAutonomous extends CommandGroup {
      *
      */
     public void OneBallCommand() throws DriverStationEnhancedIO.EnhancedIOException {
-        System.out.println("Atou go");
+         System.out.println("Auto go");
          addSequential(new ResetCylindersPartBCommand(), .1);
-         addParallel(new DriveInALineCommand(80000));
+         addParallel(new DriveInALineCommand(8000));
          addParallel(new SetArmFirePositionOneRobotBehindOnePointGoal());
          addSequential(new FireCommandGroup());
       }

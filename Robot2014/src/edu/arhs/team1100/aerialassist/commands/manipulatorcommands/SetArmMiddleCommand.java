@@ -29,7 +29,6 @@ public class SetArmMiddleCommand extends CommandBase {
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
-        System.out.println(ManipulatorSubsystem.getInstance().getEncoder());
     }
 
     /**
@@ -45,8 +44,8 @@ public class SetArmMiddleCommand extends CommandBase {
      * Called once after isFinished returns true
      */
     protected void end() {
-        ManipulatorSubsystem.getInstance().disable();
-        ManipulatorSubsystem.getInstance().stopArm();
+       // ManipulatorSubsystem.getInstance().disable();
+       // ManipulatorSubsystem.getInstance().stopArm();
     }
 
     /**

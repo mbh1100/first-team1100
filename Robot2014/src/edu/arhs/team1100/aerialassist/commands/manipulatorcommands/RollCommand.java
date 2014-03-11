@@ -1,5 +1,6 @@
 package edu.arhs.team1100.aerialassist.commands.manipulatorcommands;
 
+import edu.arhs.team1100.aerialassist.OI;
 import edu.arhs.team1100.aerialassist.commands.CommandBase;
 import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj.DriverStationEnhancedIO;
@@ -9,13 +10,13 @@ import edu.wpi.first.wpilibj.DriverStationEnhancedIO;
  *
  * @author Team 1100
  */
-public class RollOutCommand extends CommandBase {
+public class RollCommand extends CommandBase {
     private boolean finished = false;
 
     /**
      * Constructs a DriveSubsystem object
      */
-    public RollOutCommand() throws DriverStationEnhancedIO.EnhancedIOException {
+    public RollCommand() throws DriverStationEnhancedIO.EnhancedIOException {
         requires(ShooterSubsystem.getInstance());
     }
 
@@ -31,7 +32,9 @@ public class RollOutCommand extends CommandBase {
      */
     protected void execute() {
         try {
-            ShooterSubsystem.getInstance().rollOut();
+            if(OI.getInstance().getXboxController().getButtonLeftBumper().get())
+                 ShooterSubsystem.getInstance().rollOut();
+            else ShooterSubsystem.getInstance().rollIn();
         } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
             ex.printStackTrace();
             finished = true;
