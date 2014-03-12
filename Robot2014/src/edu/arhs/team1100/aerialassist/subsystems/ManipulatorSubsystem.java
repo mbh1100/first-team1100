@@ -100,15 +100,6 @@ public class ManipulatorSubsystem extends PIDSubsystem {
     public void setCount(double count) {
         super.setSetpoint(count);
         super.enable();
-        /*while (ec.get() > count + 20 || ec.get() < count - 20) {
-         while (ec.get() <= count - 10) {
-         armMotorOne.set(.2);
-         }
-         while (ec.get() >= count + 10) {
-         armMotorTwo.set(.2);
-         }
-         }
-         stopArm();*/
     }
 
     public void moveArmSet(double speed) {

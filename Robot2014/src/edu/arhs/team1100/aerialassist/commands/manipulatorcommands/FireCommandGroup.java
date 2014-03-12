@@ -27,7 +27,7 @@ public class FireCommandGroup extends CommandGroup {
         addSequential(new SetArmMiddleCommand());
         addParallel(new ResetCylindersPartACommand(), delayTwo);
         DSLog.log(6, "Clamping..");
-        addSequential(new ResetHolders(), delayThree);
+        addSequential(new ResetHoldersCommand(), delayThree);
         DSLog.log(6, "Reseting Cylinder Pressure..");
         addSequential(new ResetCylindersPartBCommand());
         DSLog.log(6, "Shooter Reset");

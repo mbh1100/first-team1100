@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.DriverStationEnhancedIO;
  *
  * @author Team 1100
  */
-public class ResetHolders extends CommandBase {
+public class ResetHoldersCommand extends CommandBase {
 
     private boolean finished = false;
 

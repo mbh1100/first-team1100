@@ -10,12 +10,12 @@ import edu.wpi.first.wpilibj.DriverStationEnhancedIO;
  *
  * @author Team 1100
  */
-public class SetArmFirePositionOneRobotBehindOnePointGoal extends CommandBase {
+public class SetArmFirePositionOneRobotBehindOnePointGoalCommand extends CommandBase {
     int mod = 1;
     /**
      * Constructs a DriveSubsystem object
      */
-    public SetArmFirePositionOneRobotBehindOnePointGoal() throws DriverStationEnhancedIO.EnhancedIOException {
+    public SetArmFirePositionOneRobotBehindOnePointGoalCommand() throws DriverStationEnhancedIO.EnhancedIOException {
         requires(ManipulatorSubsystem.getInstance());
     }
 

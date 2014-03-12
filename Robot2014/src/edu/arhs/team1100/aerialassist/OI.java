@@ -1,6 +1,6 @@
 package edu.arhs.team1100.aerialassist;
 
-import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.SetArmFirePositionBoards;
+import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.SetArmFirePositionBoardsCommand;
 import edu.arhs.team1100.aerialassist.autonomous.OneBallAutonomous;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.FireCommandGroup;
 import edu.arhs.team1100.aerialassist.commands.drive.CalibrateGyroCommand;
@@ -19,9 +19,9 @@ import edu.arhs.team1100.aerialassist.commands.drive.ToggleReverseDirectionComma
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.FireShooterCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.RollInCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.RollCommand;
-import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.SetArmFirePositionAtOnePointGoal;
-import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.SetArmFirePositionOneRobotBehindOnePointGoal;
-import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.SetArmPositionFloorPickup;
+import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.SetArmFirePositionAtOnePointGoalCommand;
+import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.SetArmFirePositionOneRobotBehindOnePointGoalCommand;
+import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.SetArmPositionFloorPickupCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.StopManipulatorPIDSCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.ToggleHolderCommand;
 import edu.arhs.team1100.aerialassist.commands.manipulatorcommands.TogglePuncherPosCommand;
@@ -78,11 +78,11 @@ public class OI {
         xbox.getButtonA().whileHeld(new RollCommand());   
         xbox.getButtonX().whenPressed(new FireCommandGroup());
         //xbox.getButtonLeftBumper().whenPressed(new TogglePuncherPosCommand());
-        xbox.getButtonB().whenPressed(new SetArmPositionFloorPickup());
+        xbox.getButtonB().whenPressed(new SetArmPositionFloorPickupCommand());
         xbox.getButtonA().whenReleased(new StopRollCommand());
-        xbox.getButtonY().whenPressed(new SetArmFirePositionBoards());
-        xbox.getButtonStart().whenPressed(new SetArmFirePositionAtOnePointGoal());
-        xbox.getButtonBack().whenPressed(new SetArmFirePositionOneRobotBehindOnePointGoal());
+        xbox.getButtonY().whenPressed(new SetArmFirePositionBoardsCommand());
+        xbox.getButtonStart().whenPressed(new SetArmFirePositionAtOnePointGoalCommand());
+        xbox.getButtonBack().whenPressed(new SetArmFirePositionOneRobotBehindOnePointGoalCommand());
         xbox.getButtonRightStick().whenPressed(new SetArmMiddleCommand());
         rightStick.getButton(8).whenPressed(new OneBallAutonomous());
         rightStick.getButton(TOGGLE_MEC).whenPressed(new ToggleMecModeCommand());
