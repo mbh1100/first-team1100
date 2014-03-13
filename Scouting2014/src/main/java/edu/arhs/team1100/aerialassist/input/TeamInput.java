@@ -11,16 +11,20 @@ import javax.swing.JOptionPane;
 public class TeamInput extends javax.swing.JFrame {
 
     Team parsedTeam;
-    boolean newTeam;
 
     /**
-     * Creates new form TeamInput
+     * Creates new blank form TeamInput
      */
     public TeamInput() {
         initComponents();
-        newTeam = true;
     }
 
+    /**
+     * Creates a new form TeamInput with fields filled with the parsed event's
+     * data
+     *
+     * @param team Team to edit
+     */
     public TeamInput(Team team) {
         this.parsedTeam = team;
         initComponents();
@@ -29,8 +33,6 @@ public class TeamInput extends javax.swing.JFrame {
         setTeamLocation(team.getLocation());
         teamNumberSpinner.setEnabled(false);
 
-        newTeam = false;
-        
         setTitle("Edit Team " + team.getTeamNumber());
     }
 
@@ -127,7 +129,7 @@ public class TeamInput extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        if (newTeam) {
+        if (parsedTeam == null) {
             Team team = new Team();
             team.setTeamNumber(getTeamNumber());
             team.setName(getTeamName());
@@ -154,6 +156,26 @@ public class TeamInput extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
+    /**
+     * Displays TeamInput and returns the instance 
+     * @return TeamInput instance
+     */
+    public TeamInput display() {
+        setVisible(true);
+        return this;
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addButton;
+    private javax.swing.JButton cancelButton;
+    private javax.swing.JLabel locationLabel;
+    private javax.swing.JTextField locationTextField;
+    private javax.swing.JLabel nameLabel;
+    private javax.swing.JTextField nameTextField;
+    private javax.swing.JLabel teamNumberLabel;
+    private javax.swing.JSpinner teamNumberSpinner;
+    // End of variables declaration//GEN-END:variables
+
     public int getTeamNumber() {
         return (Integer) teamNumberSpinner.getValue();
     }
@@ -177,20 +199,4 @@ public class TeamInput extends javax.swing.JFrame {
     private void setTeamLocation(String location) {
         locationTextField.setText(location);
     }
-    
-    public TeamInput display(){
-        setVisible(true);
-        return this;
-    }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addButton;
-    private javax.swing.JButton cancelButton;
-    private javax.swing.JLabel locationLabel;
-    private javax.swing.JTextField locationTextField;
-    private javax.swing.JLabel nameLabel;
-    private javax.swing.JTextField nameTextField;
-    private javax.swing.JLabel teamNumberLabel;
-    private javax.swing.JSpinner teamNumberSpinner;
-    // End of variables declaration//GEN-END:variables
 }

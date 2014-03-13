@@ -10,18 +10,19 @@ import java.sql.Date;
  */
 public class EventInput extends javax.swing.JFrame {
 
-    boolean newEvent;
     Event parsedEvent;
 
     /**
-     * Creates new form EventInput
+     * Creates new blank form EventInput
      */
     public EventInput() {
         initComponents();
-
-        newEvent = true;
     }
 
+    /**
+     * Creates a new form EventInput with fields filled with the parsed event's data
+     * @param event Event to edit
+     */
     public EventInput(Event event) {
         this.parsedEvent = event;
         initComponents();
@@ -29,9 +30,7 @@ public class EventInput extends javax.swing.JFrame {
         setEventLocation(event.getLocation());
         setDate(event.getDate());
 
-        newEvent = false;
-
-        setTitle("Edit Team");
+        setTitle("Edit " + event.getName() + " event");
     }
 
     /**
@@ -152,7 +151,7 @@ public class EventInput extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        if (newEvent) {
+        if (parsedEvent == null) {
             Event event = new Event();
             event.setName(getEventName());
             event.setLocation(getEventLocation());
@@ -168,6 +167,28 @@ public class EventInput extends javax.swing.JFrame {
 
         dispose();
     }//GEN-LAST:event_addButtonActionPerformed
+
+    /**
+     * Displays EventInput and returns the instance 
+     * @return EventInput instance
+     */
+    public EventInput display() {
+        setVisible(true);
+        return this;
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addButton;
+    private javax.swing.JButton cancelButton;
+    private javax.swing.JLabel dateLabel;
+    private javax.swing.JTextField dayTextField;
+    private javax.swing.JLabel locationLabel;
+    private javax.swing.JTextField locationTextField;
+    private javax.swing.JTextField monthTextField;
+    private javax.swing.JLabel nameLabel;
+    private javax.swing.JTextField nameTextField;
+    private javax.swing.JLabel slashLabel;
+    // End of variables declaration//GEN-END:variables
 
     public String getEventName() {
         return nameTextField.getText();
@@ -196,22 +217,4 @@ public class EventInput extends javax.swing.JFrame {
         monthTextField.setText("" + date.getMonth());
         dayTextField.setText("" + date.getDay());
     }
-    
-    public EventInput display(){
-        setVisible(true);
-        return this;
-    }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addButton;
-    private javax.swing.JButton cancelButton;
-    private javax.swing.JLabel dateLabel;
-    private javax.swing.JTextField dayTextField;
-    private javax.swing.JLabel locationLabel;
-    private javax.swing.JTextField locationTextField;
-    private javax.swing.JTextField monthTextField;
-    private javax.swing.JLabel nameLabel;
-    private javax.swing.JTextField nameTextField;
-    private javax.swing.JLabel slashLabel;
-    // End of variables declaration//GEN-END:variables
 }

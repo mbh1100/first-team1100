@@ -2,8 +2,6 @@ package edu.arhs.team1100.aerialassist.scouting.objects;
 
 import java.sql.Date;
 
-
-
 /**
  *
  * @author Eddie

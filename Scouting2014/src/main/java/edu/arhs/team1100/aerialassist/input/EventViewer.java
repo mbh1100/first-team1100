@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Eddie
  */
 public class EventViewer extends javax.swing.JFrame {
+    
     /**
      * Creates new form VewEventsFrame
      */
@@ -137,11 +138,10 @@ public class EventViewer extends javax.swing.JFrame {
     }//GEN-LAST:event_editButtonActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        updateEventModel(EventHandler.getEvents());
+        updateEventModel();
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-
         if (!EventHandler.deleteEvent((Event) eventTable.getValueAt(eventTable.getSelectedRow(), 0))) {
             JOptionPane.showMessageDialog(this,
                     "Cannot delete event that has matches with it.",
@@ -149,19 +149,23 @@ public class EventViewer extends javax.swing.JFrame {
                     JOptionPane.PLAIN_MESSAGE);
         }
 
-        updateEventModel(EventHandler.getEvents());
+        updateEventModel();
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void selectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonActionPerformed
-        Event currentEvent = (Event) eventTable.getValueAt(eventTable.getSelectedRow(), 0);
-        EventHandler.setCurrentEvent(currentEvent);
+        Event event = (Event) eventTable.getValueAt(eventTable.getSelectedRow(), 0);
+        Event currentEvent = EventHandler.getCurrentEvent();
+        currentEvent.setIsCurrentEvent(false);
+        EventHandler.updateEvent(currentEvent);
+        event.setIsCurrentEvent(true);
+        EventHandler.updateEvent(event);
     }//GEN-LAST:event_selectButtonActionPerformed
 
     /**
-     * Adds all events in the parameter list to the table model
-     * @param events 
+     * Adds all events to the table model
      */
-    private void updateEventModel(List events) {
+    private void updateEventModel() {
+        List events = EventHandler.getEvents();
         DefaultTableModel model = (DefaultTableModel) eventTable.getModel();
         int rows = eventTable.getRowCount();
 
@@ -176,6 +180,10 @@ public class EventViewer extends javax.swing.JFrame {
 
     }
     
+    /**
+     * Displays EventViewer and returns the instance 
+     * @return EventViewer instance
+     */
     public EventViewer display(){
         setVisible(true);
         return this;

@@ -135,14 +135,18 @@ public class TeamViewer extends javax.swing.JFrame {
                     JOptionPane.PLAIN_MESSAGE);
         }
 
-        updateTeamModel(TeamHandler.getTeams());
+        updateTeamModel();
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        updateTeamModel(TeamHandler.getTeams());
+        updateTeamModel();
     }//GEN-LAST:event_formWindowGainedFocus
 
-    private void updateTeamModel(List teams) {
+    /**
+     * Adds all teams to the table
+     */
+    private void updateTeamModel() {
+        List teams = TeamHandler.getTeams();
         DefaultTableModel model = (DefaultTableModel) teamTable.getModel();
         int rows = teamTable.getRowCount();
 
@@ -155,8 +159,12 @@ public class TeamViewer extends javax.swing.JFrame {
             model.addRow(new Object[]{team, team.getName(), team.getLocation()});
         }
     }
-    
-    public TeamViewer display(){
+
+    /**
+     * Displays TeamViewer and returns the instance 
+     * @return TeamViewer instance
+     */
+    public TeamViewer display() {
         setVisible(true);
         return this;
     }
@@ -168,5 +176,4 @@ public class TeamViewer extends javax.swing.JFrame {
     private javax.swing.JScrollPane teamScrollPane;
     private javax.swing.JTable teamTable;
     // End of variables declaration//GEN-END:variables
-
 }

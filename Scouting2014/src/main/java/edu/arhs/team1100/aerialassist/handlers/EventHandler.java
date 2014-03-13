@@ -115,17 +115,4 @@ public class EventHandler {
 
         return null;
     }
-    
-    /**
-     * Sets the Event to the current one in the database
-     * @param event 
-     */
-    public static void setCurrentEvent(Event event){
-        Event currentEvent = getCurrentEvent();
-        currentEvent.setIsCurrentEvent(false);
-        updateEvent(currentEvent);
-        event.setIsCurrentEvent(true);
-        updateEvent(event);
-        System.out.println(getCurrentEvent());
-    }
 }

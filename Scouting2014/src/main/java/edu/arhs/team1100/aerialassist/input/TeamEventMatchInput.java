@@ -15,14 +15,21 @@ import javax.swing.JOptionPane;
  */
 public class TeamEventMatchInput extends javax.swing.JFrame {
 
-    boolean newMatch;
     TeamEventMatch parsedMatch;
 
+    /**
+     * Creates new blank form TeamEventMatchInput
+     */
     public TeamEventMatchInput() {
         initComponents();
-        newMatch = true;
     }
 
+    /**
+     * Creates a new form TeamEventMatchInput with fields filled with the parsed
+     * match's data
+     *
+     * @param match TeamEventMatch to edit
+     */
     public TeamEventMatchInput(TeamEventMatch match) {
         initComponents();
         parsedMatch = match;
@@ -52,204 +59,10 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
         setBallsCaughtFromHP(match.getBallsCaughtFromHP());
         setAttemptedCatchesFromHP(match.getAttemptedCatchesFromHP());
 
-        newMatch = false;
-
         matchNumberSpinner.setEnabled(false);
         teamNumberSpinner.setEnabled(false);
 
         setTitle("Match " + match.getMatchNumber() + " for Team " + match.getTeamNumber());
-    }
-
-    public int getAssists() {
-        return (Integer) assistsSpinner.getValue();
-    }
-
-    private void setAssists(int assists) {
-        assistsSpinner.setValue(assists);
-    }
-
-    public int getAutoBallCount() {
-        return (Integer) autoBallsSpinner.getValue();
-    }
-
-    private void setAutoBallCount(int autoBalls) {
-        autoBallsSpinner.setValue(autoBalls);
-    }
-
-    public int getAutoBallGoal() {
-        return autoBallGoalSlider.getValue();
-    }
-
-    private void setAutoBallGoal(int autoBallGoal) {
-        autoBallGoalSlider.setValue(autoBallGoal);
-    }
-
-    public String getBallShielding() {
-        return ballShieldingTextArea.getText();
-    }
-
-    private void setBallShielding(String ballShielding) {
-        ballShieldingTextArea.setText(ballShielding);
-    }
-
-    public boolean isAbleToCatch() {
-        return catchesCheckBox.isSelected();
-    }
-
-    private void setAbleToCatch(boolean ableToCatch) {
-        catchesCheckBox.setSelected(ableToCatch);
-    }
-
-    public String getComments() {
-        return commentsTextArea.getText();
-    }
-
-    private void setComments(String comments) {
-        commentsTextArea.setText(comments);
-    }
-
-    public int getCycles() {
-        return (Integer) cyclesSpinner.getValue();
-    }
-
-    private void setCycles(int cycles) {
-        cyclesSpinner.setValue(cycles);
-    }
-
-    public int getDefensive() {
-        return defensiveSlider.getValue();
-    }
-
-    private void setDefensive(int defensive) {
-        defensiveSlider.setValue(defensive);
-    }
-
-    public int getFloorPickup() {
-        return floorPickupSlider.getValue();
-    }
-
-    private void setFloorPickup(int floorPickup) {
-        floorPickupSlider.setValue(floorPickup);
-    }
-
-    public int getHighGoalsAttempted() {
-        return (Integer) highGoalsAttemptedSpinner.getValue();
-    }
-
-    private void setHighGoalsAttempted(int highGoalsAttempted) {
-        highGoalsAttemptedSpinner.setValue(highGoalsAttempted);
-    }
-
-    public int getHighGoalsScored() {
-        return (Integer) highGoalsScoredSpinner.getValue();
-    }
-
-    private void setHighGoalsScored(int highGoalsScored) {
-        highGoalsScoredSpinner.setValue(highGoalsScored);
-    }
-
-    public int getLowGoalsAttempted() {
-        return (Integer) lowGoalsAttemptedSpinner.getValue();
-    }
-
-    private void setLowGoalsAttempted(int lowGoalsAttempted) {
-        lowGoalsAttemptedSpinner.setValue(lowGoalsAttempted);
-    }
-
-    public int getLowGoalsScored() {
-        return (Integer) lowGoalsScoredSpinner.getValue();
-    }
-
-    private void setLowGoalsScored(int lowGoalsScored) {
-        lowGoalsScoredSpinner.setValue(lowGoalsScored);
-    }
-
-    public int getMatchNumber() {
-        return (Integer) matchNumberSpinner.getValue();
-    }
-
-    private void setMatchNumber(int matchNumber) {
-        matchNumberSpinner.setValue(matchNumber);
-    }
-
-    public int getBallsCaughtFromHP() {
-        return (Integer) ballsCaughtHPSpinner.getValue();
-    }
-
-    private void setBallsCaughtFromHP(int ballsCaughtFromHP) {
-        ballsCaughtHPSpinner.setValue(ballsCaughtFromHP);
-    }
-
-    public int getAttemptedCatchesFromHP() {
-        return (Integer) attemptedBallsHPSpinner.getValue();
-    }
-
-    private void setAttemptedCatchesFromHP(int attemptedBallsFromHP) {
-        attemptedBallsHPSpinner.setValue(attemptedBallsFromHP);
-    }
-
-    public String getScouter() {
-        return scouterTextField.getText();
-    }
-
-    private void setScouter(String scouter) {
-        scouterTextField.setText(scouter);
-    }
-
-    public String getStability() {
-        return stabilityTextArea.getText();
-    }
-
-    private void setStability(String stability) {
-        stabilityTextArea.setText(stability);
-    }
-
-    public int getStartingPosition() {
-        return startingPositionSlider.getValue();
-    }
-
-    private void setStartingPosition(int startingPosition) {
-        startingPositionSlider.setValue(startingPosition);
-    }
-
-    public int getTeamNumber() {
-        return (Integer) teamNumberSpinner.getValue();
-    }
-
-    private void setTeamNumber(int teamNumber) {
-        teamNumberSpinner.setValue(teamNumber);
-    }
-
-    public boolean isAbleToTrussCatch() {
-        return trussCatchCheckBox.isSelected();
-    }
-
-    private void setAbleToTrussCatch(boolean ableToTrussCatch) {
-        trussCatchCheckBox.setSelected(ableToTrussCatch);
-    }
-
-    public boolean isAbleToTrussToss() {
-        return trussTossCheckBox.isSelected();
-    }
-
-    private void setAbleToTrussToss(boolean ableToTrussToss) {
-        trussTossCheckBox.setSelected(ableToTrussToss);
-    }
-
-    public boolean isAbleToUnloadAutoBall() {
-        return ableToUnloadAutoBallCheckBox.isSelected();
-    }
-
-    private void setAbleToUnloadAutoBall(boolean unableToUnloadAutoBall) {
-        ableToUnloadAutoBallCheckBox.setSelected(unableToUnloadAutoBall);
-    }
-
-    public boolean getZoneChange() {
-        return zoneChangeCheckBox.isSelected();
-    }
-
-    private void setZoneChange(boolean zoneChange) {
-        zoneChangeCheckBox.setSelected(zoneChange);
     }
 
     /**
@@ -673,7 +486,7 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        if (newMatch) {
+        if (parsedMatch == null) {
             TeamEventMatch match = new TeamEventMatch();
             match.setEventID(EventHandler.getCurrentEvent().getEventID());
             match.setMatchNumber(getMatchNumber());
@@ -741,7 +554,11 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_submitButtonActionPerformed
 
-    public TeamEventMatchInput display(){
+    /**
+     * Displays TeamEventMatchInput and returns the instance 
+     * @return TeamEventMatchInput instance
+     */
+    public TeamEventMatchInput display() {
         setVisible(true);
         return this;
     }
@@ -801,4 +618,196 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
     private javax.swing.JCheckBox trussTossCheckBox;
     private javax.swing.JCheckBox zoneChangeCheckBox;
     // End of variables declaration//GEN-END:variables
+
+    public int getAssists() {
+        return (Integer) assistsSpinner.getValue();
+    }
+
+    private void setAssists(int assists) {
+        assistsSpinner.setValue(assists);
+    }
+
+    public int getAutoBallCount() {
+        return (Integer) autoBallsSpinner.getValue();
+    }
+
+    private void setAutoBallCount(int autoBalls) {
+        autoBallsSpinner.setValue(autoBalls);
+    }
+
+    public int getAutoBallGoal() {
+        return autoBallGoalSlider.getValue();
+    }
+
+    private void setAutoBallGoal(int autoBallGoal) {
+        autoBallGoalSlider.setValue(autoBallGoal);
+    }
+
+    public String getBallShielding() {
+        return ballShieldingTextArea.getText();
+    }
+
+    private void setBallShielding(String ballShielding) {
+        ballShieldingTextArea.setText(ballShielding);
+    }
+
+    public boolean isAbleToCatch() {
+        return catchesCheckBox.isSelected();
+    }
+
+    private void setAbleToCatch(boolean ableToCatch) {
+        catchesCheckBox.setSelected(ableToCatch);
+    }
+
+    public String getComments() {
+        return commentsTextArea.getText();
+    }
+
+    private void setComments(String comments) {
+        commentsTextArea.setText(comments);
+    }
+
+    public int getCycles() {
+        return (Integer) cyclesSpinner.getValue();
+    }
+
+    private void setCycles(int cycles) {
+        cyclesSpinner.setValue(cycles);
+    }
+
+    public int getDefensive() {
+        return defensiveSlider.getValue();
+    }
+
+    private void setDefensive(int defensive) {
+        defensiveSlider.setValue(defensive);
+    }
+
+    public int getFloorPickup() {
+        return floorPickupSlider.getValue();
+    }
+
+    private void setFloorPickup(int floorPickup) {
+        floorPickupSlider.setValue(floorPickup);
+    }
+
+    public int getHighGoalsAttempted() {
+        return (Integer) highGoalsAttemptedSpinner.getValue();
+    }
+
+    private void setHighGoalsAttempted(int highGoalsAttempted) {
+        highGoalsAttemptedSpinner.setValue(highGoalsAttempted);
+    }
+
+    public int getHighGoalsScored() {
+        return (Integer) highGoalsScoredSpinner.getValue();
+    }
+
+    private void setHighGoalsScored(int highGoalsScored) {
+        highGoalsScoredSpinner.setValue(highGoalsScored);
+    }
+
+    public int getLowGoalsAttempted() {
+        return (Integer) lowGoalsAttemptedSpinner.getValue();
+    }
+
+    private void setLowGoalsAttempted(int lowGoalsAttempted) {
+        lowGoalsAttemptedSpinner.setValue(lowGoalsAttempted);
+    }
+
+    public int getLowGoalsScored() {
+        return (Integer) lowGoalsScoredSpinner.getValue();
+    }
+
+    private void setLowGoalsScored(int lowGoalsScored) {
+        lowGoalsScoredSpinner.setValue(lowGoalsScored);
+    }
+
+    public int getMatchNumber() {
+        return (Integer) matchNumberSpinner.getValue();
+    }
+
+    private void setMatchNumber(int matchNumber) {
+        matchNumberSpinner.setValue(matchNumber);
+    }
+
+    public int getBallsCaughtFromHP() {
+        return (Integer) ballsCaughtHPSpinner.getValue();
+    }
+
+    private void setBallsCaughtFromHP(int ballsCaughtFromHP) {
+        ballsCaughtHPSpinner.setValue(ballsCaughtFromHP);
+    }
+
+    public int getAttemptedCatchesFromHP() {
+        return (Integer) attemptedBallsHPSpinner.getValue();
+    }
+
+    private void setAttemptedCatchesFromHP(int attemptedBallsFromHP) {
+        attemptedBallsHPSpinner.setValue(attemptedBallsFromHP);
+    }
+
+    public String getScouter() {
+        return scouterTextField.getText();
+    }
+
+    private void setScouter(String scouter) {
+        scouterTextField.setText(scouter);
+    }
+
+    public String getStability() {
+        return stabilityTextArea.getText();
+    }
+
+    private void setStability(String stability) {
+        stabilityTextArea.setText(stability);
+    }
+
+    public int getStartingPosition() {
+        return startingPositionSlider.getValue();
+    }
+
+    private void setStartingPosition(int startingPosition) {
+        startingPositionSlider.setValue(startingPosition);
+    }
+
+    public int getTeamNumber() {
+        return (Integer) teamNumberSpinner.getValue();
+    }
+
+    private void setTeamNumber(int teamNumber) {
+        teamNumberSpinner.setValue(teamNumber);
+    }
+
+    public boolean isAbleToTrussCatch() {
+        return trussCatchCheckBox.isSelected();
+    }
+
+    private void setAbleToTrussCatch(boolean ableToTrussCatch) {
+        trussCatchCheckBox.setSelected(ableToTrussCatch);
+    }
+
+    public boolean isAbleToTrussToss() {
+        return trussTossCheckBox.isSelected();
+    }
+
+    private void setAbleToTrussToss(boolean ableToTrussToss) {
+        trussTossCheckBox.setSelected(ableToTrussToss);
+    }
+
+    public boolean isAbleToUnloadAutoBall() {
+        return ableToUnloadAutoBallCheckBox.isSelected();
+    }
+
+    private void setAbleToUnloadAutoBall(boolean unableToUnloadAutoBall) {
+        ableToUnloadAutoBallCheckBox.setSelected(unableToUnloadAutoBall);
+    }
+
+    public boolean getZoneChange() {
+        return zoneChangeCheckBox.isSelected();
+    }
+
+    private void setZoneChange(boolean zoneChange) {
+        zoneChangeCheckBox.setSelected(zoneChange);
+    }
 }

@@ -20,8 +20,6 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
     /**
      * Creates new form TeamEventMatchViewer
      */
-    boolean useSearchMenu = true;
-
     public TeamEventMatchViewer() {
         initComponents();
     }
@@ -532,14 +530,11 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
-        //useSearchMenu = true;
         updateTEMModel();
     }//GEN-LAST:event_updateButtonActionPerformed
 
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
         resetSearch();
-
-        //useSearchMenu = false;
         updateTEMModel();
     }//GEN-LAST:event_resetButtonActionPerformed
 
@@ -563,6 +558,9 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
         lowGoalAccuracySlider.setToolTipText(getLowGoalAccuracy() * 100 + "%");
     }//GEN-LAST:event_lowGoalAccuracySliderStateChanged
 
+    /**
+     * Updates the table's model with the all the matches that match the search
+     */
     private void updateTEMModel() {
         List matchesShowing = getMatches();
         DefaultTableModel model;
@@ -581,6 +579,11 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Returns all the matches that match the search
+     *
+     * @return all the matches that match the search
+     */
     public List getMatches() {
         TeamEventMatch referenceMatch = new TeamEventMatch();
         referenceMatch.setAbleToCatch(isAbleToCatch());
@@ -672,6 +675,83 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
         return foundMatches;
     }
 
+    /**
+     * Sets all the search items to 0 or unchecked
+     */
+    private void resetSearch() {
+        ableToCatchCheckBox.setSelected(false);
+        ableToTrussCatchCheckBox.setSelected(false);
+        ableToTrussTossCheckBox.setSelected(false);
+        ableToUnloadAutoBallCheckBox.setSelected(false);
+        assistsSpinner.setValue(0);
+        autoBallCountSlider.setValue(0);
+        autoBallGoalSlider.setValue(0);
+        ballsCaughtFromHPAccuracySlider.setValue(0);
+        ballsCaughtFromHPSpinner.setValue(0);
+        cyclesSpinner.setValue(0);
+        defensiveSlider.setValue(0);
+        floorPickupSlider.setValue(0);
+        highGoalAccuracySlider.setValue(0);
+        highGoalsScoredSpinner.setValue(0);
+        lowGoalAccuracySlider.setValue(0);
+        lowGoalsScoredSpinner.setValue(0);
+        matchNumberSpinner.setValue(0);
+        showOnlyFromCurrentEvenCheckBox.setSelected(false);
+        teamNumberSpinner.setValue(0);
+        zoneChangeCheckBox.setSelected(false);
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox ableToCatchCheckBox;
+    private javax.swing.JCheckBox ableToTrussCatchCheckBox;
+    private javax.swing.JCheckBox ableToTrussTossCheckBox;
+    private javax.swing.JCheckBox ableToUnloadAutoBallCheckBox;
+    private javax.swing.JButton addButton;
+    private javax.swing.JLabel assistsLabel;
+    private javax.swing.JSpinner assistsSpinner;
+    private javax.swing.JLabel autoBallCountLabel;
+    private javax.swing.JSlider autoBallCountSlider;
+    private javax.swing.JLabel autoBallGoalLabel;
+    private javax.swing.JSlider autoBallGoalSlider;
+    private javax.swing.JPanel autonomousPanel;
+    private javax.swing.JLabel ballsCaughtFromHPAccuracyLabel;
+    private javax.swing.JSlider ballsCaughtFromHPAccuracySlider;
+    private javax.swing.JLabel ballsCaughtFromHPLabel;
+    private javax.swing.JSpinner ballsCaughtFromHPSpinner;
+    private javax.swing.JLabel cyclesLabel;
+    private javax.swing.JSpinner cyclesSpinner;
+    private javax.swing.JLabel defensiveLabel;
+    private javax.swing.JSlider defensiveSlider;
+    private javax.swing.JButton deleteButton;
+    private javax.swing.JButton editButton;
+    private javax.swing.JButton eventButton;
+    private javax.swing.JLabel floorPickupLabel;
+    private javax.swing.JSlider floorPickupSlider;
+    private javax.swing.JLabel highGoalAccuracyLabel;
+    private javax.swing.JSlider highGoalAccuracySlider;
+    private javax.swing.JLabel highGoalsScoredLabel;
+    private javax.swing.JSpinner highGoalsScoredSpinner;
+    private javax.swing.JLabel lowGoalAccuracyLabel;
+    private javax.swing.JSlider lowGoalAccuracySlider;
+    private javax.swing.JLabel lowGoalsScoredLabel;
+    private javax.swing.JSpinner lowGoalsScoredSpinner;
+    private javax.swing.JLabel matchNumberLabel;
+    private javax.swing.JSpinner matchNumberSpinner;
+    private javax.swing.JScrollPane matchScrollPanel;
+    private javax.swing.JTable matchTable;
+    private javax.swing.JPanel overallPanel;
+    private javax.swing.JButton resetButton;
+    private javax.swing.JTabbedPane searchTabbedPane;
+    private javax.swing.JCheckBox showOnlyFromCurrentEvenCheckBox;
+    private javax.swing.JButton teamButton;
+    private javax.swing.JLabel teamNumberLabel;
+    private javax.swing.JSpinner teamNumberSpinner;
+    private javax.swing.JPanel teleopPanel;
+    private javax.swing.JScrollPane teleopScrollPane;
+    private javax.swing.JButton updateButton;
+    private javax.swing.JCheckBox zoneChangeCheckBox;
+    // End of variables declaration//GEN-END:variables
+
     private int getAutoBallCount() {
         return autoBallCountSlider.getValue();
     }
@@ -755,78 +835,4 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
     private int getTeamNumber() {
         return (Integer) teamNumberSpinner.getValue();
     }
-
-    private void resetSearch() {
-        ableToCatchCheckBox.setSelected(false);
-        ableToTrussCatchCheckBox.setSelected(false);
-        ableToTrussTossCheckBox.setSelected(false);
-        ableToUnloadAutoBallCheckBox.setSelected(false);
-        assistsSpinner.setValue(0);
-        autoBallCountSlider.setValue(0);
-        autoBallGoalSlider.setValue(0);
-        ballsCaughtFromHPAccuracySlider.setValue(0);
-        ballsCaughtFromHPSpinner.setValue(0);
-        cyclesSpinner.setValue(0);
-        defensiveSlider.setValue(0);
-        floorPickupSlider.setValue(0);
-        highGoalAccuracySlider.setValue(0);
-        highGoalsScoredSpinner.setValue(0);
-        lowGoalAccuracySlider.setValue(0);
-        lowGoalsScoredSpinner.setValue(0);
-        matchNumberSpinner.setValue(0);
-        showOnlyFromCurrentEvenCheckBox.setSelected(false);
-        teamNumberSpinner.setValue(0);
-        zoneChangeCheckBox.setSelected(false);
-    }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox ableToCatchCheckBox;
-    private javax.swing.JCheckBox ableToTrussCatchCheckBox;
-    private javax.swing.JCheckBox ableToTrussTossCheckBox;
-    private javax.swing.JCheckBox ableToUnloadAutoBallCheckBox;
-    private javax.swing.JButton addButton;
-    private javax.swing.JLabel assistsLabel;
-    private javax.swing.JSpinner assistsSpinner;
-    private javax.swing.JLabel autoBallCountLabel;
-    private javax.swing.JSlider autoBallCountSlider;
-    private javax.swing.JLabel autoBallGoalLabel;
-    private javax.swing.JSlider autoBallGoalSlider;
-    private javax.swing.JPanel autonomousPanel;
-    private javax.swing.JLabel ballsCaughtFromHPAccuracyLabel;
-    private javax.swing.JSlider ballsCaughtFromHPAccuracySlider;
-    private javax.swing.JLabel ballsCaughtFromHPLabel;
-    private javax.swing.JSpinner ballsCaughtFromHPSpinner;
-    private javax.swing.JLabel cyclesLabel;
-    private javax.swing.JSpinner cyclesSpinner;
-    private javax.swing.JLabel defensiveLabel;
-    private javax.swing.JSlider defensiveSlider;
-    private javax.swing.JButton deleteButton;
-    private javax.swing.JButton editButton;
-    private javax.swing.JButton eventButton;
-    private javax.swing.JLabel floorPickupLabel;
-    private javax.swing.JSlider floorPickupSlider;
-    private javax.swing.JLabel highGoalAccuracyLabel;
-    private javax.swing.JSlider highGoalAccuracySlider;
-    private javax.swing.JLabel highGoalsScoredLabel;
-    private javax.swing.JSpinner highGoalsScoredSpinner;
-    private javax.swing.JLabel lowGoalAccuracyLabel;
-    private javax.swing.JSlider lowGoalAccuracySlider;
-    private javax.swing.JLabel lowGoalsScoredLabel;
-    private javax.swing.JSpinner lowGoalsScoredSpinner;
-    private javax.swing.JLabel matchNumberLabel;
-    private javax.swing.JSpinner matchNumberSpinner;
-    private javax.swing.JScrollPane matchScrollPanel;
-    private javax.swing.JTable matchTable;
-    private javax.swing.JPanel overallPanel;
-    private javax.swing.JButton resetButton;
-    private javax.swing.JTabbedPane searchTabbedPane;
-    private javax.swing.JCheckBox showOnlyFromCurrentEvenCheckBox;
-    private javax.swing.JButton teamButton;
-    private javax.swing.JLabel teamNumberLabel;
-    private javax.swing.JSpinner teamNumberSpinner;
-    private javax.swing.JPanel teleopPanel;
-    private javax.swing.JScrollPane teleopScrollPane;
-    private javax.swing.JButton updateButton;
-    private javax.swing.JCheckBox zoneChangeCheckBox;
-    // End of variables declaration//GEN-END:variables
 }
