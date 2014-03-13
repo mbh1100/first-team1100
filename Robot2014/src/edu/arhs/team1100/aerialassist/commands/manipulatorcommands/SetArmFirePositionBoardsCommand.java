@@ -25,7 +25,7 @@ public class SetArmFirePositionBoardsCommand extends CommandBase {
      */
     protected void initialize() {
         try {
-            if(OI.getInstance().getXboxController().getButtonLeftBumper().equals(this))mod = -1;
+            if(OI.getInstance().getXboxController().getButtonLeftBumper().get())mod = -1;
         } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
             ex.printStackTrace();
         }

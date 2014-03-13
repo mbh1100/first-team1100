@@ -29,7 +29,7 @@ public class ManipulatorSubsystem extends PIDSubsystem {
     private final int FIRE_A_COUNT = 10000;
     private final int MIDDLE_COUNT = 0;
     private final int FIRE_B_COUNT = 0;
-    private final int MAX_DISTANCE;
+    private final int MAX_DISTANCE = 5000;
     private Talon armMotorOne;
     private Talon armMotorTwo;
     boolean isClamped = false;
@@ -48,7 +48,6 @@ public class ManipulatorSubsystem extends PIDSubsystem {
     public ManipulatorSubsystem() {
         super(P, I, D);
         super.setInputRange(-4000, 4000);
-        this.MAX_DISTANCE = 4800;
         armMotorOne = new Talon(RobotMap.M_TALON_LEFT_WHEEL);
         armMotorTwo = new Talon(RobotMap.M_TALON_RIGHT_WHEEL);
         ec = new Encoder(RobotMap.S_EN_ARM_A, RobotMap.S_EN_ARM_B);
@@ -72,7 +71,7 @@ public class ManipulatorSubsystem extends PIDSubsystem {
 
     public void moveArm() throws DriverStationEnhancedIO.EnhancedIOException {
         double speed = OI.getInstance().getXboxController().getAxis(Joystick.AxisType.kY);
-        if (Math.abs(speed) > .2 && getEncoder() < MAX_DISTANCE) {
+        if (Math.abs(speed) > .2 && Math.abs(getEncoder()) < MAX_DISTANCE) {
             super.disable();
             moveArmSet(-speed);
         } else {

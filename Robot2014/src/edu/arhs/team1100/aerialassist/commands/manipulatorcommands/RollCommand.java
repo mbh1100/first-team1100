@@ -33,8 +33,8 @@ public class RollCommand extends CommandBase {
     protected void execute() {
         try {
             if(OI.getInstance().getXboxController().getButtonLeftBumper().get())
-                 ShooterSubsystem.getInstance().rollOut();
-            else ShooterSubsystem.getInstance().rollIn();
+                 ShooterSubsystem.getInstance().rollIn();
+            else ShooterSubsystem.getInstance().rollOut();
         } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
             ex.printStackTrace();
             finished = true;

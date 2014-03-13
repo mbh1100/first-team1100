@@ -24,11 +24,11 @@ public class SetArmPositionFloorPickupCommand extends CommandBase {
      */
     protected void initialize() {
         try {
-            if(OI.getInstance().getXboxController().getButtonLeftBumper().equals(this))mod = -1;
+            if(OI.getInstance().getXboxController().getButtonLeftBumper().get())mod = -1;
         } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
             ex.printStackTrace();
         }
-        ManipulatorSubsystem.getInstance().setSetpoint(mod*4400);
+        ManipulatorSubsystem.getInstance().setSetpoint(mod*2000);
         ManipulatorSubsystem.getInstance().enable();
     }
 

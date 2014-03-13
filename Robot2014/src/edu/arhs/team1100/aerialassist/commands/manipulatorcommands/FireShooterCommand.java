@@ -37,16 +37,14 @@ public class FireShooterCommand extends CommandBase {
      * @return finished
      */
     protected boolean isFinished() {
-        return finished;
+        return false;
     }
 
     /**
      * Toggles drive mode if it has not finished
      */
     protected void end() {
-        if (!finished) {
-            execute();
-        }
+       
     }
 
     /**

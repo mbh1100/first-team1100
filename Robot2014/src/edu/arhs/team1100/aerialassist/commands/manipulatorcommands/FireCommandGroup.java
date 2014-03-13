@@ -18,14 +18,13 @@ public class FireCommandGroup extends CommandGroup {
 
     private double delayOne = .6; // 0.6 second delay before reseting shooter
     private double delayTwo = 8;
-    private double delayThree = 0.3;
+    private double delayThree = 0.3;  //1300 far back  //1pointgoal 840 //1behing 1270 //
 
     public FireCommandGroup() {
         DSLog.log(6, "Firing..");
         addSequential(new FireShooterCommand(), delayOne);
         DSLog.log(6, "Pulling Cylinders Back..");
-        addSequential(new SetArmMiddleCommand());
-        addParallel(new ResetCylindersPartACommand(), delayTwo);
+        addSequential(new ResetCylindersPartACommand(), delayTwo);
         DSLog.log(6, "Clamping..");
         addSequential(new ResetHoldersCommand(), delayThree);
         DSLog.log(6, "Reseting Cylinder Pressure..");

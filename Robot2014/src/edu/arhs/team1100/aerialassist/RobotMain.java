@@ -49,7 +49,11 @@ public class RobotMain extends IterativeRobot {
         //Initialize the Log utility
         Log.init();
         Log.setMinLevel(Log.LEVEL_DEBUG);
-        autoCommand = new OneBallAutonomous();
+        try {
+            autoCommand = new OneBallAutonomous();
+        } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
+            ex.printStackTrace();
+        }
         //Add all logging classes
         //Log.addClass(RobotMain.class, Log.LEVEL_DEBUG);
         Log.addClass(DriveSubsystem.class, Log.LEVEL_DEBUG);
@@ -77,6 +81,7 @@ public class RobotMain extends IterativeRobot {
     public void autonomousInit() {
         //Schedule the autonomous command (example)
         //autonomous.start();
+        System.out.println("AUTO INT RAN");
         autoCommand.start();
         Scheduler.getInstance().enable();
     }

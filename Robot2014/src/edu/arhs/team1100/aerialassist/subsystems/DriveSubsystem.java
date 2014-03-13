@@ -412,7 +412,7 @@ public class DriveSubsystem extends PIDSubsystem {
      * @param rotationSpeed
      */
     protected void usePIDOutput(double speed) {
-        driveOne.mecanumDrive_Polar(-speed/2, 0, 0);
+        driveOne.mecanumDrive_Polar(-speed/5, 0, 0);
     }
 
     public String getMotorControlerSpeeds() {
@@ -421,6 +421,11 @@ public class DriveSubsystem extends PIDSubsystem {
 
     public void driveTankEncoderTicks(double speed, double ticks) {
         driveOne.tankDrive(speed, speed);
+    }
+    
+    public void resetWheelEncoder()
+    {
+        encoderWheels.reset();
     }
 
     /**

@@ -78,9 +78,11 @@ public class OI {
         xbox.getButtonA().whileHeld(new RollCommand());   
         xbox.getButtonX().whenPressed(new FireCommandGroup());
         //xbox.getButtonLeftBumper().whenPressed(new TogglePuncherPosCommand());
+        //xbox.getButtonRightStick().whenPressed(new StopManipulatorPIDSCommand());
         xbox.getButtonB().whenPressed(new SetArmPositionFloorPickupCommand());
         xbox.getButtonA().whenReleased(new StopRollCommand());
         xbox.getButtonY().whenPressed(new SetArmFirePositionBoardsCommand());
+       // xbox.getButtonY().whenPressed(new ToggleHolderCommand());
         xbox.getButtonStart().whenPressed(new SetArmFirePositionAtOnePointGoalCommand());
         xbox.getButtonBack().whenPressed(new SetArmFirePositionOneRobotBehindOnePointGoalCommand());
         xbox.getButtonRightStick().whenPressed(new SetArmMiddleCommand());
