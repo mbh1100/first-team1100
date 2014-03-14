@@ -1,10 +1,12 @@
 package displaygrid;
 
+import java.awt.EventQueue;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
  
 /**
  *
@@ -14,7 +16,7 @@ public class Client extends Thread {
     
     //lazy error handling
     //if the error has the word connection, just assume that the connection was lost
-    private static final String ERROR_CONNECTION_RESET = "connection";
+    private static final String ERROR_CONNECTION_RESET = "connection reset";
     
     private final int TIMEOUT = 100;
     private final long SLEEP_TIME = 500;
@@ -147,7 +149,6 @@ public class Client extends Thread {
                 }
             }       
         }   
-        System.exit(0);
     }
     
     /**
@@ -175,7 +176,7 @@ public class Client extends Thread {
             }
         } catch (Exception e){
             e.printStackTrace();
-            if (e.getMessage().equalsIgnoreCase(ERROR_CONNECTION_RESET)) {
+            if (e.getMessage().contains(ERROR_CONNECTION_RESET)) {
                 disconnect();
             }
         }
@@ -198,7 +199,6 @@ public class Client extends Thread {
         System.out.println("endApp()");
         try {
             app.finish();
-            app.join();
         } catch(Exception e){}
         app = null;
         targetDelta = Config.TARGET_DELTA;
@@ -209,9 +209,16 @@ public class Client extends Thread {
         endApp();
         isRunning = false;
         try{
-        server.close();
+            server.close();
         } catch(Exception e){
             System.out.println(e.getMessage());
-        }            
+        }  
+        
+        if(noGUI){
+            System.out.println("Attempting to reconnect...");
+            new Client(argClientName, argServerName).start();
+          
+        }
+        
     }
 }

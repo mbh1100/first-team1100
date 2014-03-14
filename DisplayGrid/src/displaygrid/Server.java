@@ -128,7 +128,7 @@ public class Server extends Thread implements ActionListener {
      */
     private void appStarted() {
         String appName = (String) window.appSelection.getSelectedItem();
-        ArrayList<String> selectedClients = window.getAllPendingAppClients();
+        ArrayList<String> selectedClients = window.getSelectedClients();
         if (selectedClients.isEmpty()) {
             return;
         }

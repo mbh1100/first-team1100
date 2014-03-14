@@ -21,6 +21,14 @@ public class DisplayGrid  extends JFrame implements ActionListener {
      * to run automatically: java -jar DisplayGrid.jar c [Client Name] [Server Address]
      */
     public static void main(String[] args) {
+        
+        //Glad you found this
+        //Stop right there and don't change anything in this version of the code
+        // temporary commit 
+        int i = "STAHP";
+        
+        
+        
         new DisplayGrid(args);
     }
     

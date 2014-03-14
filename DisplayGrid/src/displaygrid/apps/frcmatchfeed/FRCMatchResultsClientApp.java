@@ -68,6 +68,7 @@ public class FRCMatchResultsClientApp extends ClientApp {
 
 
         frame = new JFrame();
+        //frame.setResizable(true);
         frame.setUndecorated(true);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setSize(d);
