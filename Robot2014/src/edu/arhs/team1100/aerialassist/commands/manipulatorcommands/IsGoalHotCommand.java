@@ -11,33 +11,32 @@ import edu.wpi.first.wpilibj.DriverStationEnhancedIO;
  *
  * @author Team 1100
  */
-public class SetArmFirePositionBoardsCommand extends CommandBase {
+public class IsGoalHotCommand extends CommandBase {
     int mod = 1;
+    private boolean finished = false;
     /**
      * Constructs a DriveSubsystem object
      */
-    public SetArmFirePositionBoardsCommand() throws DriverStationEnhancedIO.EnhancedIOException {
-        requires(ManipulatorSubsystem.getInstance());
+    public IsGoalHotCommand() throws DriverStationEnhancedIO.EnhancedIOException {
+        requires(ShooterSubsystem.getInstance());
     }
 
     /**
      * Called just before this Command runs the first time
      */
     protected void initialize() {
-        try {
-            if(OI.getInstance().getXboxController().getButtonLeftBumper().get())mod = -1;
-        } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
-            ex.printStackTrace();
-        }
-        ManipulatorSubsystem.getInstance().disable();
-        ManipulatorSubsystem.getInstance().setSetpoint(mod*300);
-        ManipulatorSubsystem.getInstance().enable();
+      
     }
 
     /**
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
+        try {
+            if(ShooterSubsystem.getInstance().getIsHot())finished = true;
+        } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -46,19 +45,13 @@ public class SetArmFirePositionBoardsCommand extends CommandBase {
      * @return false
      */
     protected boolean isFinished() {
-                mod = 1;
-
-        return ManipulatorSubsystem.getInstance().onTarget();
+        return finished;
     }
 
     /**
      * Called once after isFinished returns true
      */
     protected void end() {
-                mod = 1;
-
-        //ManipulatorSubsystem.getInstance().disable();
-        //ManipulatorSubsystem.getInstance().stopArm();
     }
 
     /**

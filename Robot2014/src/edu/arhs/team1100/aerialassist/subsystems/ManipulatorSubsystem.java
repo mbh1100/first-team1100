@@ -34,11 +34,12 @@ public class ManipulatorSubsystem extends PIDSubsystem {
     private Talon armMotorTwo;
     boolean isClamped = false;
     private Encoder ec;
-    public static final double P = .01;
+    public static final double P = .02;
     public static final double I = 0;
     public static final double D = 0;
     public static final double PMIN = -1;
     public static final double PMAX = 1;
+    public boolean goingToMiddle;
 
 
     /**
@@ -47,7 +48,7 @@ public class ManipulatorSubsystem extends PIDSubsystem {
      */
     public ManipulatorSubsystem() {
         super(P, I, D);
-        super.setInputRange(-4000, 4000);
+        super.setInputRange(-5000, 5000);
         armMotorOne = new Talon(RobotMap.M_TALON_LEFT_WHEEL);
         armMotorTwo = new Talon(RobotMap.M_TALON_RIGHT_WHEEL);
         ec = new Encoder(RobotMap.S_EN_ARM_A, RobotMap.S_EN_ARM_B);
@@ -73,6 +74,7 @@ public class ManipulatorSubsystem extends PIDSubsystem {
         double speed = OI.getInstance().getXboxController().getAxis(Joystick.AxisType.kY);
         if (Math.abs(speed) > .2 && Math.abs(getEncoder()) < MAX_DISTANCE) {
             super.disable();
+            goingToMiddle = false;
             moveArmSet(-speed);
         } else {
             moveArmSet(0);
@@ -134,8 +136,15 @@ public class ManipulatorSubsystem extends PIDSubsystem {
     }
 
     protected void usePIDOutput(double output) {
+        if(this.getSetpoint() > 3500 || goingToMiddle)
+        {
+            armMotorOne.pidWrite(output/2);
+            armMotorTwo.pidWrite(-output/2);
+        }
+        else{
         armMotorOne.pidWrite(output/4);
         armMotorTwo.pidWrite(-output/4);
+        }
     }
 
 }

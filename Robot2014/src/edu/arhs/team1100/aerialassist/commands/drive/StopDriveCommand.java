@@ -17,22 +17,23 @@ public class StopDriveCommand extends CommandBase {
      *
      * @param duration
      */
-    public StopDriveCommand(double duration) {
+    public StopDriveCommand() {
         requires(DriveSubsystem.getInstance());
-        this.duration = duration;
     }
 
     /**
      * Called just before this Command runs the first time
      */
     protected void initialize() {
-        setTimeout(duration);
+        DriveSubsystem.getInstance().disable();
+        DriveSubsystem.getInstance().stop();
     }
 
     /**
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
+        
         DriveSubsystem.getInstance().stop();
     }
 
@@ -42,7 +43,7 @@ public class StopDriveCommand extends CommandBase {
      * @return isTimedOut()
      */
     protected boolean isFinished() {
-        return isTimedOut();
+        return false;
     }
 
     /**

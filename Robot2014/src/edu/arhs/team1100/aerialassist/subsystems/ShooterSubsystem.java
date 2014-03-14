@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
-
+import edu.wpi.first.wpilibj.DigitalInput;
 
 /**
  *
@@ -30,6 +30,7 @@ public class ShooterSubsystem extends Subsystem {
     DoubleSolenoid firingCylinderTwo;
     DoubleSolenoid holdingCylinder;
     DoubleSolenoid clampCylinder;
+    DigitalInput hotGoalSensor;
     double startTime;
     Victor rightInMotor;
     Victor leftInMotor;
@@ -54,10 +55,11 @@ public class ShooterSubsystem extends Subsystem {
          leftInMotor = new Victor(RobotMap.M_LIN_MODULE, RobotMap.M_LIN_CHANNEL);
          clampCylinder.set(DoubleSolenoid.Value.kForward);
          holdingCylinder.set(DoubleSolenoid.Value.kForward);
+       //  hotGoalSensor = new DigitalInput();
          
       //   firingCylinderOne.set(DoubleSolenoid.Value.kForward);
       //   firingCylinderTwo.set(DoubleSolenoid.Value.kForward);
-    }
+     }
 
     /**
      * Creates a IntakeSubsystem if not already created
@@ -70,6 +72,11 @@ public class ShooterSubsystem extends Subsystem {
             instance.initDefaultCommand();
         }
         return instance;
+    }
+    
+    public boolean getIsHot()
+    {
+        return hotGoalSensor.get();
     }
 
     public void Shoot() {

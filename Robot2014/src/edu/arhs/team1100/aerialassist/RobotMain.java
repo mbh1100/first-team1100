@@ -90,6 +90,7 @@ public class RobotMain extends IterativeRobot {
      * Called periodically during autonomous
      */
     public void autonomousPeriodic() {
+         updateDriverStationLog();
         Scheduler.getInstance().run();
     }
 

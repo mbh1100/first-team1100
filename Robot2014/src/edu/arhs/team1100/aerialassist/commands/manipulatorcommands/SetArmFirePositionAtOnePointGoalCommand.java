@@ -46,6 +46,7 @@ public class SetArmFirePositionAtOnePointGoalCommand extends CommandBase {
      * @return false
      */
     protected boolean isFinished() {
+        mod = 1;
         return ManipulatorSubsystem.getInstance().onTarget();
     }
 
@@ -53,6 +54,7 @@ public class SetArmFirePositionAtOnePointGoalCommand extends CommandBase {
      * Called once after isFinished returns true
      */
     protected void end() {
+        mod = 1;
         //ManipulatorSubsystem.getInstance().disable();
         //ManipulatorSubsystem.getInstance().stopArm();
     }

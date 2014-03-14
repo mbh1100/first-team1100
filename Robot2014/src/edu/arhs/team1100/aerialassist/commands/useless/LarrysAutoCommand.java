@@ -26,6 +26,6 @@ public class LarrysAutoCommand extends CommandGroup
         addSequential(new DriveInTankCommand(0.5, 0.5, 2));
         addSequential(new DriveInTankCommand(0.25, -0.25, 2));
         addSequential(new DriveInTankCommand(-0.5, -0.5, 2));
-        addSequential(new StopDriveCommand(0));
+        addSequential(new StopDriveCommand());
     }
 }

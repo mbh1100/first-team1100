@@ -28,6 +28,7 @@ public class SetArmFirePositionOneRobotBehindOnePointGoalCommand extends Command
         } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
             ex.printStackTrace();
         }
+        ManipulatorSubsystem.getInstance().disable();
         ManipulatorSubsystem.getInstance().setSetpoint(mod*1270);                            
         ManipulatorSubsystem.getInstance().enable();
     }
@@ -43,7 +44,8 @@ public class SetArmFirePositionOneRobotBehindOnePointGoalCommand extends Command
      *
      * @return false
      */
-    protected boolean isFinished() {
+    protected boolean isFinished() {     
+        mod = 1;
         return ManipulatorSubsystem.getInstance().onTarget();
     }
 
@@ -51,6 +53,8 @@ public class SetArmFirePositionOneRobotBehindOnePointGoalCommand extends Command
      * Called once after isFinished returns true
      */
     protected void end() {
+                mod = 1;
+
         //ManipulatorSubsystem.getInstance().disable();
         //ManipulatorSubsystem.getInstance().stopArm();
     }

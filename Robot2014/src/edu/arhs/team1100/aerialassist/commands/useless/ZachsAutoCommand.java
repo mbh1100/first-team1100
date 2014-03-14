@@ -28,7 +28,7 @@ public class ZachsAutoCommand extends CommandGroup {
     public ZachsAutoCommand(double speed, double duration, boolean thomasScript) {
         //addSequential(new DriveInALineCommand(speed, DriveSubsystem.DIRECTION_LEFT, duration));
         addSequential(new DriveInTankCommand(speed, -speed, duration));
-        addSequential(new StopDriveCommand(1));
+        addSequential(new StopDriveCommand());
         addSequential(new DriveInTankCommand(-speed, speed, duration));
     //    addSequential(new DriveInALineCommand(speed, DriveSubsystem.DIRECTION_RIGHT, duration));
         
@@ -43,7 +43,7 @@ public class ZachsAutoCommand extends CommandGroup {
             addSequential(new DriveInTankCommand(speed, speed / 2, duration));
             addSequential(new DriveInTankCommand(-speed, -speed / 2, duration));
         }
-        addSequential(new StopDriveCommand(1));
+        addSequential(new StopDriveCommand());
         
         for (int i = 0; i < 2; i++) {
             addSequential(new DriveInTankCommand(-speed, -speed / 2, duration));

@@ -21,7 +21,9 @@ public class SetArmMiddleCommand extends CommandBase {
      * Called just before this Command runs the first time
      */
     protected void initialize() {
+        ManipulatorSubsystem.getInstance().disable();
         ManipulatorSubsystem.getInstance().setSetpoint(0);
+        ManipulatorSubsystem.getInstance().goingToMiddle = true;
         ManipulatorSubsystem.getInstance().enable();
     }
 
@@ -44,6 +46,7 @@ public class SetArmMiddleCommand extends CommandBase {
      * Called once after isFinished returns true
      */
     protected void end() {
+        ManipulatorSubsystem.getInstance().goingToMiddle = false;
        // ManipulatorSubsystem.getInstance().disable();
        // ManipulatorSubsystem.getInstance().stopArm();
     }

@@ -55,6 +55,7 @@ public class DriveSubsystem extends PIDSubsystem {
     private boolean mecanumWheelsLowered = true;
     private boolean encoderDrive = false;
     private double[] ultraArray = new double[10];
+    private AnalogChannel lightSensor;
 
     /**
      * Creates a DriveSubsystem if not already created
@@ -76,6 +77,7 @@ public class DriveSubsystem extends PIDSubsystem {
     public DriveSubsystem() {
         super(P, I, D);
         super.setAbsoluteTolerance(70);
+        lightSensor = new AnalogChannel(4);
         leftSolenoid = new DoubleSolenoid(RobotMap.D_LEFT_SOLENOID_A, RobotMap.D_LEFT_SOLENOID_B);
         rightSolenoid = new DoubleSolenoid(RobotMap.D_RIGHT_SOLENOID_A, RobotMap.D_RIGHT_SOLENOID_B);
 
@@ -117,6 +119,15 @@ public class DriveSubsystem extends PIDSubsystem {
             driveMode = MODE_TANK;
             userDriveTank();
         }
+    }
+    
+    public boolean getLightSensor()
+    {
+        if(lightSensor.getValue() == 2)
+        {
+            return true;
+        }
+        else return false;
     }
 
     /**
@@ -209,7 +220,7 @@ public class DriveSubsystem extends PIDSubsystem {
      */
     public void driveMecanum(double magnitude, double angle, double rotation) {
         if (driveMode == MODE_CARTESIAN || driveMode == MODE_POLAR) {
-            driveOne.mecanumDrive_Cartesian((Math.sin(Math.toRadians(angle)) * magnitude), (Math.cos(Math.toRadians(angle)) * magnitude), rotation, driveGyro.getAngle());
+            driveOne.mecanumDrive_Cartesian((Math.sin(Math.toRadians(angle)) * magnitude), (Math.cos(Math.toRadians(angle)) * magnitude), rotation, -driveGyro.getAngle());
         }
     }
 
@@ -412,7 +423,7 @@ public class DriveSubsystem extends PIDSubsystem {
      * @param rotationSpeed
      */
     protected void usePIDOutput(double speed) {
-        driveOne.mecanumDrive_Polar(-speed/5, 0, 0);
+        driveOne.mecanumDrive_Polar(-speed/2.5, 0, 0);
     }
 
     public String getMotorControlerSpeeds() {
