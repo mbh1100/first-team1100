@@ -20,15 +20,7 @@ public class DisplayGrid  extends JFrame implements ActionListener {
      * @param args the command line arguments
      * to run automatically: java -jar DisplayGrid.jar c [Client Name] [Server Address]
      */
-    public static void main(String[] args) {
-        
-        //Glad you found this
-        //Stop right there and don't change anything in this version of the code
-        // temporary commit 
-        int i = "STAHP";
-        
-        
-        
+    public static void main(String[] args) { 
         new DisplayGrid(args);
     }
     

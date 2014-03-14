@@ -1,12 +1,10 @@
 package displaygrid;
 
-import java.awt.EventQueue;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
  
 /**
  *
