@@ -11,7 +11,8 @@ public class ScoutingMain {
 
     public static String URL = "127.0.0.1";
     public static String USER = "root";
-    public static String PASSWORD = "qqqqqq";
+    public static String PASSWORD = "root";
+    public static int LAST_MATCH = 1;
 
     public static void main(String[] args) {
 

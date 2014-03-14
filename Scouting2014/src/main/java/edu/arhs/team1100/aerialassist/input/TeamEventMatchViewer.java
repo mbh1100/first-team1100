@@ -10,6 +10,8 @@ import java.util.Hashtable;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -86,10 +88,10 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
         setTitle("Matches");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
-            public void windowLostFocus(java.awt.event.WindowEvent evt) {
-            }
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
             }
         });
 
@@ -116,6 +118,7 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        matchTable.getTableHeader().setReorderingAllowed(false);
         matchScrollPanel.setViewportView(matchTable);
 
         addButton.setText("Add");
@@ -433,7 +436,7 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
                         .addGroup(overallPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(teamNumberLabel)
                             .addComponent(matchNumberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         overallPanelLayout.setVerticalGroup(
             overallPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -574,7 +577,7 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
 
         for (int i = 0; i < matchesShowing.size(); i++) {
             TeamEventMatch tem = (TeamEventMatch) matchesShowing.get(i);
-            model.addRow(new Object[]{tem, tem.getTeamNumber(), new EventHandler().getEventFromId(tem.getEventID())});
+            model.addRow(new Object[]{tem, tem.getTeamNumber(), EventHandler.getEventFromId(tem.getEventID())});
         }
 
     }
@@ -585,28 +588,6 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
      * @return all the matches that match the search
      */
     public List getMatches() {
-        TeamEventMatch referenceMatch = new TeamEventMatch();
-        referenceMatch.setAbleToCatch(isAbleToCatch());
-        referenceMatch.setAbleToTrussCatch(isAbleToTrussCatch());
-        referenceMatch.setAbleToTrussToss(isAbleToTrussToss());
-        referenceMatch.setAbleToUnloadAutoBall(isAbleToUnloadAutoBall());
-        referenceMatch.setAssists(getAssists());
-        referenceMatch.setAutoBallCount(getAutoBallCount());
-        referenceMatch.setAutoBallGoal(getAutoBallGoal());
-        referenceMatch.setBallsCaughtFromHP(getBallsCaughtFromHP());
-        referenceMatch.setCycles(getCycles());
-        referenceMatch.setDefensive(getDefensive());
-        referenceMatch.setEventID(getEventID());
-        referenceMatch.setFloorPickup(getFloorPickup());
-        referenceMatch.setHighGoalAccuracy(getHighGoalAccuracy());
-        referenceMatch.setHighGoalsScored(getHighGoalsScored());
-        referenceMatch.setHumanPlayerAccuracy(getHumanPlayerAccuracy());
-        referenceMatch.setLowGoalAccuracy(getLowGoalAccuracy());
-        referenceMatch.setLowGoalsScored(getLowGoalsScored());
-        referenceMatch.setMatchNumber(getMatchNumber());
-        referenceMatch.setTeamNumber(getTeamNumber());
-        referenceMatch.setZoneChange(isZoneChange());
-
         List allMatches = TeamEventMatchHandler.getMatches();
         List foundMatches = new ArrayList();
 
@@ -650,7 +631,7 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
                     }
                 }
                 if (getEventID() != 0) {
-                    if (currentMatch.getEventID() != new EventHandler().getCurrentEvent().getEventID()) {
+                    if (currentMatch.getEventID() != EventHandler.getCurrentEvent().getEventID()) {
                         fits = false;
                     }
                 }
@@ -661,6 +642,12 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
                 }
                 if (getTeamNumber() != 0) {
                     if (currentMatch.getTeamNumber() != getTeamNumber()) {
+                        fits = false;
+                    }
+                }
+
+                if (getAutoBallGoal() != 0) {
+                    if (currentMatch.getAutoBallGoal() != getAutoBallGoal()) {
                         fits = false;
                     }
                 }
@@ -696,11 +683,10 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
         lowGoalAccuracySlider.setValue(0);
         lowGoalsScoredSpinner.setValue(0);
         matchNumberSpinner.setValue(0);
-        showOnlyFromCurrentEvenCheckBox.setSelected(false);
+        //showOnlyFromCurrentEvenCheckBox.setSelected(false);
         teamNumberSpinner.setValue(0);
         zoneChangeCheckBox.setSelected(false);
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox ableToCatchCheckBox;
     private javax.swing.JCheckBox ableToTrussCatchCheckBox;

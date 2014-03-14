@@ -42,7 +42,7 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="teamNumberLabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="teamNumberSpinner" min="-2" pref="60" max="-2" attributes="0"/>
+                              <Component id="teamNumberTextField" min="-2" pref="60" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="scouterLabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -106,9 +106,9 @@
                   <Component id="matcnNumberLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="matchNumberSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="teamNumberLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="teamNumberSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="scouterLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="scouterTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="teamNumberTextField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -193,7 +193,7 @@
           <SpinnerModel initial="1" maximum="999" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
         </Property>
         <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="teamNumberSpinner"/>
+          <ComponentRef name="default"/>
         </Property>
       </Properties>
       <AuxValues>
@@ -205,23 +205,17 @@
         <Property name="text" type="java.lang.String" value="Team Number"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JSpinner" name="teamNumberSpinner">
-      <Properties>
-        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="1" maximum="9999" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
-        </Property>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
-        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="scouterTextField"/>
-        </Property>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="scouterLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Scouter"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="scouterTextField">
+      <Properties>
+        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="startingPositionSlider"/>
+        </Property>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="startingPositionLabel">
       <Properties>
@@ -241,6 +235,9 @@
           <Color id="Default Cursor"/>
         </Property>
         <Property name="name" type="java.lang.String" value="Starting Position" noResource="true"/>
+        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="autoBallsSpinner"/>
+        </Property>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="Dictionary&lt;Integer, Component&gt; labelTablePos = new Hashtable&lt;Integer, Component&gt;();&#xd;&#xa;labelTablePos.put(0, new JLabel(&quot;Red 1&quot;));&#xd;&#xa;labelTablePos.put(1, new JLabel(&quot;Red 2&quot;));&#xd;&#xa;labelTablePos.put(2, new JLabel(&quot;Red 3&quot;));&#xd;&#xa;labelTablePos.put(3, new JLabel(&quot;Blue 1&quot;));&#xd;&#xa;labelTablePos.put(4, new JLabel(&quot;Blue 2&quot;));&#xd;&#xa;labelTablePos.put(5, new JLabel(&quot;Blue 3&quot;));&#xd;&#xa;startingPositionSlider.setLabelTable(labelTablePos);"/>
@@ -249,27 +246,42 @@
     <Component class="javax.swing.JCheckBox" name="zoneChangeCheckBox">
       <Properties>
         <Property name="text" type="java.lang.String" value="Zone Change Bonus"/>
+        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="autoBallGoalSlider"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="ableToUnloadAutoBallCheckBox">
       <Properties>
         <Property name="text" type="java.lang.String" value="Able to Unload Auto Ball"/>
+        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="trussTossCheckBox"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="trussTossCheckBox">
       <Properties>
         <Property name="text" type="java.lang.String" value="Truss Toss"/>
+        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="trussCatchCheckBox"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="trussCatchCheckBox">
       <Properties>
         <Property name="text" type="java.lang.String" value="Truss Catch"/>
+        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="catchesCheckBox"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="catchesCheckBox">
       <Properties>
         <Property name="text" type="java.lang.String" value="Catches Ball In Air"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="floorPickupSlider"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JSlider" name="floorPickupSlider">
@@ -281,6 +293,9 @@
         <Property name="paintTicks" type="boolean" value="true"/>
         <Property name="snapToTicks" type="boolean" value="true"/>
         <Property name="value" type="int" value="0"/>
+        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="defensiveSlider"/>
+        </Property>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="Dictionary&lt;Integer, Component&gt; labelTableFloor = new Hashtable&lt;Integer, Component&gt;();&#xd;&#xa;labelTableFloor.put(0, new JLabel(&quot;None&quot;));&#xd;&#xa;labelTableFloor.put(1, new JLabel(&quot;1&quot;));&#xd;&#xa;labelTableFloor.put(2, new JLabel(&quot;2&quot;));&#xd;&#xa;labelTableFloor.put(3, new JLabel(&quot;3&quot;));&#xd;&#xa;labelTableFloor.put(4, new JLabel(&quot;4&quot;));&#xd;&#xa;labelTableFloor.put(5, new JLabel(&quot;5&quot;));&#xd;&#xa;floorPickupSlider.setLabelTable(labelTableFloor);"/>
@@ -305,6 +320,9 @@
         <Property name="paintTicks" type="boolean" value="true"/>
         <Property name="snapToTicks" type="boolean" value="true"/>
         <Property name="value" type="int" value="0"/>
+        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="ballsCaughtHPSpinner"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="stabilitiyLabel">
@@ -322,6 +340,7 @@
         <Component class="javax.swing.JTextArea" name="stabilityTextArea">
           <Properties>
             <Property name="columns" type="int" value="20"/>
+            <Property name="lineWrap" type="boolean" value="true"/>
             <Property name="rows" type="int" value="5"/>
             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="ballShieldingTextArea"/>
@@ -345,6 +364,7 @@
         <Component class="javax.swing.JTextArea" name="ballShieldingTextArea">
           <Properties>
             <Property name="columns" type="int" value="20"/>
+            <Property name="lineWrap" type="boolean" value="true"/>
             <Property name="rows" type="int" value="5"/>
             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="commentsTextArea"/>
@@ -368,6 +388,7 @@
         <Component class="javax.swing.JTextArea" name="commentsTextArea">
           <Properties>
             <Property name="columns" type="int" value="20"/>
+            <Property name="lineWrap" type="boolean" value="true"/>
             <Property name="rows" type="int" value="5"/>
           </Properties>
         </Component>
@@ -399,6 +420,9 @@
         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
           <SpinnerModel initial="0" maximum="3" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
         </Property>
+        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="zoneChangeCheckBox"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JSlider" name="autoBallGoalSlider">
@@ -410,6 +434,9 @@
         <Property name="paintTicks" type="boolean" value="true"/>
         <Property name="snapToTicks" type="boolean" value="true"/>
         <Property name="value" type="int" value="0"/>
+        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="ableToUnloadAutoBallCheckBox"/>
+        </Property>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="Dictionary&lt;Integer, Component&gt; labelTablePos2 = new Hashtable&lt;Integer, Component&gt;();&#xd;&#xa;labelTablePos2.put(0, new JLabel(&quot;None&quot;));&#xd;&#xa;labelTablePos2.put(1, new JLabel(&quot;Low&quot;));&#xd;&#xa;labelTablePos2.put(2, new JLabel(&quot;High&quot;));&#xd;&#xa;autoBallGoalSlider.setLabelTable(labelTablePos2);"/>
@@ -421,6 +448,11 @@
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="spinnersPanel">
+      <Properties>
+        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="stabilityTextArea"/>
+        </Property>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -600,9 +632,17 @@
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
               <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
             </Property>
+            <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="stabilityTextArea"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JTextField" name="teamNumberTextField">
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="teamNumberTextFieldFocusGained"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

@@ -2,6 +2,7 @@ package edu.arhs.team1100.aerialassist.input;
 
 import edu.arhs.team1100.aerialassist.handlers.EventHandler;
 import edu.arhs.team1100.aerialassist.handlers.TeamEventMatchHandler;
+import edu.arhs.team1100.aerialassist.scouting.ScoutingMain;
 import edu.arhs.team1100.aerialassist.scouting.objects.TeamEventMatch;
 import java.awt.Component;
 import java.util.Dictionary;
@@ -22,6 +23,7 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
      */
     public TeamEventMatchInput() {
         initComponents();
+        matchNumberSpinner.setValue(ScoutingMain.LAST_MATCH);
     }
 
     /**
@@ -60,7 +62,7 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
         setAttemptedCatchesFromHP(match.getAttemptedCatchesFromHP());
 
         matchNumberSpinner.setEnabled(false);
-        teamNumberSpinner.setEnabled(false);
+        teamNumberTextField.setEnabled(false);
 
         setTitle("Match " + match.getMatchNumber() + " for Team " + match.getTeamNumber());
     }
@@ -77,7 +79,6 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
         matcnNumberLabel = new javax.swing.JLabel();
         matchNumberSpinner = new javax.swing.JSpinner();
         teamNumberLabel = new javax.swing.JLabel();
-        teamNumberSpinner = new javax.swing.JSpinner();
         scouterLabel = new javax.swing.JLabel();
         scouterTextField = new javax.swing.JTextField();
         startingPositionLabel = new javax.swing.JLabel();
@@ -123,6 +124,7 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
         lowGoalsAttemptedSpinner = new javax.swing.JSpinner();
         cyclesLabel = new javax.swing.JLabel();
         cyclesSpinner = new javax.swing.JSpinner();
+        teamNumberTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Match Input");
@@ -131,15 +133,12 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
         matcnNumberLabel.setText("Match Numer");
 
         matchNumberSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 999, 1));
-        matchNumberSpinner.setNextFocusableComponent(teamNumberSpinner);
 
         teamNumberLabel.setText("Team Number");
 
-        teamNumberSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 9999, 1));
-        teamNumberSpinner.setToolTipText("");
-        teamNumberSpinner.setNextFocusableComponent(scouterTextField);
-
         scouterLabel.setText("Scouter");
+
+        scouterTextField.setNextFocusableComponent(startingPositionSlider);
 
         startingPositionLabel.setText("Starting Position");
 
@@ -152,6 +151,7 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
         startingPositionSlider.setValue(0);
         startingPositionSlider.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         startingPositionSlider.setName("Starting Position"); // NOI18N
+        startingPositionSlider.setNextFocusableComponent(autoBallsSpinner);
         Dictionary<Integer, Component> labelTablePos = new Hashtable<Integer, Component>();
         labelTablePos.put(0, new JLabel("Red 1"));
         labelTablePos.put(1, new JLabel("Red 2"));
@@ -162,15 +162,20 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
         startingPositionSlider.setLabelTable(labelTablePos);
 
         zoneChangeCheckBox.setText("Zone Change Bonus");
+        zoneChangeCheckBox.setNextFocusableComponent(autoBallGoalSlider);
 
         ableToUnloadAutoBallCheckBox.setText("Able to Unload Auto Ball");
+        ableToUnloadAutoBallCheckBox.setNextFocusableComponent(trussTossCheckBox);
 
         trussTossCheckBox.setText("Truss Toss");
+        trussTossCheckBox.setNextFocusableComponent(trussCatchCheckBox);
 
         trussCatchCheckBox.setText("Truss Catch");
+        trussCatchCheckBox.setNextFocusableComponent(catchesCheckBox);
 
         catchesCheckBox.setText("Catches Ball In Air");
         catchesCheckBox.setToolTipText("");
+        catchesCheckBox.setNextFocusableComponent(floorPickupSlider);
 
         floorPickupSlider.setMajorTickSpacing(1);
         floorPickupSlider.setMaximum(5);
@@ -179,6 +184,7 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
         floorPickupSlider.setPaintTicks(true);
         floorPickupSlider.setSnapToTicks(true);
         floorPickupSlider.setValue(0);
+        floorPickupSlider.setNextFocusableComponent(defensiveSlider);
         Dictionary<Integer, Component> labelTableFloor = new Hashtable<Integer, Component>();
         labelTableFloor.put(0, new JLabel("None"));
         labelTableFloor.put(1, new JLabel("1"));
@@ -199,10 +205,12 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
         defensiveSlider.setPaintTicks(true);
         defensiveSlider.setSnapToTicks(true);
         defensiveSlider.setValue(0);
+        defensiveSlider.setNextFocusableComponent(ballsCaughtHPSpinner);
 
         stabilitiyLabel.setText("Speed and Stability of Robot");
 
         stabilityTextArea.setColumns(20);
+        stabilityTextArea.setLineWrap(true);
         stabilityTextArea.setRows(5);
         stabilityTextArea.setNextFocusableComponent(ballShieldingTextArea);
         stabilityScrollPane.setViewportView(stabilityTextArea);
@@ -210,6 +218,7 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
         ballShieldingLabel.setText("Can they shield against opposing balls?");
 
         ballShieldingTextArea.setColumns(20);
+        ballShieldingTextArea.setLineWrap(true);
         ballShieldingTextArea.setRows(5);
         ballShieldingTextArea.setNextFocusableComponent(commentsTextArea);
         ballShieldingScrollPane.setViewportView(ballShieldingTextArea);
@@ -217,6 +226,7 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
         commentsLabel.setText("Comments");
 
         commentsTextArea.setColumns(20);
+        commentsTextArea.setLineWrap(true);
         commentsTextArea.setRows(5);
         commentsScrollPane.setViewportView(commentsTextArea);
 
@@ -237,6 +247,7 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
         autoBallCountLabel.setText("Number of Auto Balls");
 
         autoBallsSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 3, 1));
+        autoBallsSpinner.setNextFocusableComponent(zoneChangeCheckBox);
 
         autoBallGoalSlider.setMajorTickSpacing(1);
         autoBallGoalSlider.setMaximum(2);
@@ -245,6 +256,7 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
         autoBallGoalSlider.setPaintTicks(true);
         autoBallGoalSlider.setSnapToTicks(true);
         autoBallGoalSlider.setValue(0);
+        autoBallGoalSlider.setNextFocusableComponent(ableToUnloadAutoBallCheckBox);
         Dictionary<Integer, Component> labelTablePos2 = new Hashtable<Integer, Component>();
         labelTablePos2.put(0, new JLabel("None"));
         labelTablePos2.put(1, new JLabel("Low"));
@@ -252,6 +264,8 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
         autoBallGoalSlider.setLabelTable(labelTablePos2);
 
         autoBallGoalLabel.setText("Auto Ball Goal");
+
+        spinnersPanel.setNextFocusableComponent(stabilityTextArea);
 
         ballsCaughtHPSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
 
@@ -284,6 +298,7 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
         cyclesLabel.setText("Scoring Cycles");
 
         cyclesSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
+        cyclesSpinner.setNextFocusableComponent(stabilityTextArea);
 
         javax.swing.GroupLayout spinnersPanelLayout = new javax.swing.GroupLayout(spinnersPanel);
         spinnersPanel.setLayout(spinnersPanelLayout);
@@ -352,6 +367,12 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
                     .addComponent(cyclesSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
+        teamNumberTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                teamNumberTextFieldFocusGained(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -372,7 +393,7 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(teamNumberLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(teamNumberSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(teamNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(scouterLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -422,9 +443,9 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
                     .addComponent(matcnNumberLabel)
                     .addComponent(matchNumberSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(teamNumberLabel)
-                    .addComponent(teamNumberSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(scouterLabel)
-                    .addComponent(scouterTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(scouterTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(teamNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(startingPositionSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -520,6 +541,7 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
                         "Error",
                         JOptionPane.PLAIN_MESSAGE);
             } else {
+                ScoutingMain.LAST_MATCH = getMatchNumber();
                 dispose();
             }
         } else {
@@ -555,7 +577,8 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
     }//GEN-LAST:event_submitButtonActionPerformed
 
     /**
-     * Displays TeamEventMatchInput and returns the instance 
+     * Displays TeamEventMatchInput and returns the instance
+     *
      * @return TeamEventMatchInput instance
      */
     public TeamEventMatchInput display() {
@@ -566,6 +589,10 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
+
+    private void teamNumberTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_teamNumberTextFieldFocusGained
+        teamNumberTextField.selectAll();
+    }//GEN-LAST:event_teamNumberTextFieldFocusGained
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox ableToUnloadAutoBallCheckBox;
@@ -613,7 +640,7 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
     private javax.swing.JSlider startingPositionSlider;
     private javax.swing.JButton submitButton;
     private javax.swing.JLabel teamNumberLabel;
-    private javax.swing.JSpinner teamNumberSpinner;
+    private javax.swing.JTextField teamNumberTextField;
     private javax.swing.JCheckBox trussCatchCheckBox;
     private javax.swing.JCheckBox trussTossCheckBox;
     private javax.swing.JCheckBox zoneChangeCheckBox;
@@ -772,11 +799,15 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
     }
 
     public int getTeamNumber() {
-        return (Integer) teamNumberSpinner.getValue();
+        try {
+            return Integer.parseInt(teamNumberTextField.getText());
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     private void setTeamNumber(int teamNumber) {
-        teamNumberSpinner.setValue(teamNumber);
+        teamNumberTextField.setText("" + teamNumber);
     }
 
     public boolean isAbleToTrussCatch() {
