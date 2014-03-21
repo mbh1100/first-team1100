@@ -28,7 +28,8 @@ public class SetArmPositionFloorPickupCommand extends CommandBase {
         } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
             ex.printStackTrace();
         }
-        ManipulatorSubsystem.getInstance().setSetpoint(mod*4247);
+        if(mod ==1)ManipulatorSubsystem.getInstance().setSetpoint(4000);
+        else ManipulatorSubsystem.getInstance().setSetpoint(-4000);
         ManipulatorSubsystem.getInstance().enable();
     }
 
@@ -44,8 +45,7 @@ public class SetArmPositionFloorPickupCommand extends CommandBase {
      * @return false
      */
     protected boolean isFinished() {
-                mod = 1;
-
+        mod = 1;
         return ManipulatorSubsystem.getInstance().onTarget();
     }
 
@@ -53,9 +53,8 @@ public class SetArmPositionFloorPickupCommand extends CommandBase {
      * Called once after isFinished returns true
      */
     protected void end() {
-                mod = 1;
-
-        //ManipulatorSubsystem.getInstance().disable();
+        mod = 1;
+        ManipulatorSubsystem.getInstance().disable();
         //ManipulatorSubsystem.getInstance().stopArm();
     }
 

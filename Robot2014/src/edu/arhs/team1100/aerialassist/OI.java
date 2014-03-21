@@ -86,7 +86,6 @@ public class OI {
         xbox.getButtonStart().whenPressed(new SetArmFirePositionAtOnePointGoalCommand());
         xbox.getButtonBack().whenPressed(new SetArmFirePositionOneRobotBehindOnePointGoalCommand());
         xbox.getButtonRightStick().whenPressed(new SetArmMiddleCommand());
-        rightStick.getButton(8).whenPressed(new OneBallAutonomous());
         rightStick.getButton(TOGGLE_MEC).whenPressed(new ToggleMecModeCommand());
         rightStick.getButton(TOGGLE_DRIVE).whenPressed(new ToggleDriveModeCommand());
         rightStick.getButton(CALIBRATE_GYRO).whenPressed(new CalibrateGyroCommand());

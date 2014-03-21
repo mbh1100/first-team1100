@@ -8,9 +8,10 @@ import edu.arhs.team1100.aerialassist.subsystems.DriveSubsystem;
 /**
  * @author Team 1100
  */
-public class DriveInALineCommand extends CommandBase {
+public class DriveTillUltraValueCommand extends CommandBase {
 
-   private double setPoint;
+    private double setPoint;
+    private boolean finished = false;
 
     /**
      * Drives robot in a line
@@ -19,24 +20,25 @@ public class DriveInALineCommand extends CommandBase {
      * @param direction direction in degrees to move
      * @param duration length in seconds of command
      */
-     public DriveInALineCommand(double asetPoint) {
+    public DriveTillUltraValueCommand(double asetPoint) {
         requires(DriveSubsystem.getInstance());
-        this.setPoint = asetPoint;
+        setPoint = asetPoint;
     }
 
-  
     /**
      * Called just before this Command runs the first time
      */
     protected void initialize() {
-        DriveSubsystem.getInstance().setSetpoint(setPoint);
-        DriveSubsystem.getInstance().enable();
     }
 
     /**
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
+        DriveSubsystem.getInstance().driveMecanum(.15, DriveSubsystem.DIRECTION_FORWARD, 0);
+        if (DriveSubsystem.getInstance().getUltrasonic() <= 2.8) {
+            finished = true;
+        }
     }
 
     /**
@@ -45,17 +47,15 @@ public class DriveInALineCommand extends CommandBase {
      * @return false
      */
     protected boolean isFinished() {
-        System.out.println("At correct ultrasonic value");
-        if(DriveSubsystem.getInstance().getUltrasonic() > 2.5 && DriveSubsystem.getInstance().getUltrasonic() < 2.9) return true;
-        else return false;
-     //   return DriveSubsystem.getInstance().onTarget();
+        return finished;
     }
 
     /**
      * Called once after isFinished returns true
      */
     protected void end() {
-        DriveSubsystem.getInstance().disable();
+        System.out.println("Ultrasonic stoped drive at: " + DriveSubsystem.getInstance().getUltrasonic());
+        DriveSubsystem.getInstance().stop();
     }
 
     /**

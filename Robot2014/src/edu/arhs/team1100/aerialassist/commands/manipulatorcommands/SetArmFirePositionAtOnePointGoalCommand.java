@@ -29,8 +29,8 @@ public class SetArmFirePositionAtOnePointGoalCommand extends CommandBase {
         } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
             ex.printStackTrace();
         }
-
-        ManipulatorSubsystem.getInstance().setSetpoint(mod*840);
+        if(mod==1)ManipulatorSubsystem.getInstance().setSetpoint(840);
+        else ManipulatorSubsystem.getInstance().setSetpoint(-930);
         ManipulatorSubsystem.getInstance().enable();
     }
 

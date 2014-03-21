@@ -53,6 +53,8 @@ public class RobotMain extends IterativeRobot {
             autoCommand = new OneBallAutonomous();
         } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
             ex.printStackTrace();
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
         }
         //Add all logging classes
         //Log.addClass(RobotMain.class, Log.LEVEL_DEBUG);
@@ -90,7 +92,8 @@ public class RobotMain extends IterativeRobot {
      * Called periodically during autonomous
      */
     public void autonomousPeriodic() {
-         updateDriverStationLog();
+        ManipulatorSubsystem.getInstance().goingToMiddle = false;
+        updateDriverStationLog();
         Scheduler.getInstance().run();
     }
 
@@ -110,6 +113,7 @@ public class RobotMain extends IterativeRobot {
      * Called periodically during operator control
      */
     public void teleopPeriodic() {
+        ManipulatorSubsystem.getInstance().goingToMiddle = true;
         Scheduler.getInstance().run();
         updateDriverStationLog();
 
@@ -125,11 +129,12 @@ public class RobotMain extends IterativeRobot {
         }
         DSLog.log(2, "Air Full: "+ CompressorSubsystem.getInstance().getPressureSwitch());
         DSLog.log(5, "Gyro Angle: " + Log.round(DriveSubsystem.getInstance().getGyroAngle(), 2));
+        DSLog.log(3, "Drive Reversed: " + DriveSubsystem.reverse);
         //DSLog.log(3, "Encoder Mode:" + DriveSubsystem.getInstance().getEncoderDrive());
-        DSLog.log(4, "Wheel Encoder: " + DriveSubsystem.getInstance().getEncoderTick());
-        DSLog.log(3, "Arm Encoder: " + ManipulatorSubsystem.getInstance().getEncoderValue());
-        //DSLog.log(4, "Ultrasonic Range: " + DriveSubsystem.getInstance().getInches());
-        //DSLog.log(2, "Ultrasonic Range Average: " + DriveSubsystem.getInstance().getInchesAverage());
+        //DSLog.log(4, "Wheel Encoder: " + DriveSubsystem.getInstance().getEncoderTick());
+        DSLog.log(4, "Arm Encoder: " + ManipulatorSubsystem.getInstance().getEncoderValue());
+        //DSLog.log(3, "Ultrasonic Range: " + DriveSubsystem.getInstance().getUltrasonic());
+        //DSLog.log(2, "Ultrasonic Range Average: " + DriveSubsystem.getInstance().getInches());
 
     }
 

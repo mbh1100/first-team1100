@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class CompressorSubsystem extends Subsystem {
 
     private static CompressorSubsystem instance;
-
+    public boolean on = false;
     private Compressor compressor;
 
     public static CompressorSubsystem getInstance() {
@@ -30,10 +30,21 @@ public class CompressorSubsystem extends Subsystem {
     public CompressorSubsystem() {
         compressor = new Compressor(RobotMap.D_COMPRESSOR_SLOT, RobotMap.D_COMPRESSOR_PRESSURE_SWITCH_CHANNEL, RobotMap.D_COMPRESSOR_SLOT, RobotMap.D_COMPRESSOR_RELAY_CHANNEL);
         compressor.start();
+        on = true;
     }
 
     public boolean getPressureSwitch() {
         return compressor.getPressureSwitchValue();
+    }
+
+    public void toggle() {
+        if (on) {
+            compressor.stop();
+            on = false;
+        } else {
+            compressor.start();
+            on = true;
+        }
     }
 
     protected void initDefaultCommand() {

@@ -8,7 +8,7 @@ import edu.arhs.team1100.aerialassist.subsystems.DriveSubsystem;
 /**
  * @author Team 1100
  */
-public class DriveInMecCommand extends CommandBase {
+public class DriveCommand extends CommandBase {
 
     private double speed = 0.0;
     private double direction = 0.0;
@@ -22,12 +22,9 @@ public class DriveInMecCommand extends CommandBase {
      * @param direction direction in degrees to move
      * @param duration length in seconds of command
      */
-    public DriveInMecCommand(double speed, double direction, double rotation, double duration) {
+    public DriveCommand(double speed) {
         requires(DriveSubsystem.getInstance());
         this.speed = speed;
-        this.direction = direction;
-        this.duration = duration;
-        this.rotation = rotation;
     }
 
     
@@ -35,20 +32,20 @@ public class DriveInMecCommand extends CommandBase {
      * Initializes timeout to duration
      */
     protected void initialize() {
-        setTimeout(duration);
     }
 
     protected void execute() {
         DriveSubsystem.getInstance().setDriveMode(DriveSubsystem.MODE_CARTESIAN);
-        DriveSubsystem.getInstance().driveMecanum(speed, direction, rotation);
+        DriveSubsystem.getInstance().driveMecanum(speed, DriveSubsystem.DIRECTION_FORWARD, 0);
     }
 
     protected boolean isFinished() {
-        return isTimedOut();
+        return false;
     }
 
     protected void end() {
         DriveSubsystem.getInstance().stop();
+        DriveSubsystem.getInstance().setDriveMode(DriveSubsystem.MODE_POLAR);
     }
 
     protected void interrupted() {

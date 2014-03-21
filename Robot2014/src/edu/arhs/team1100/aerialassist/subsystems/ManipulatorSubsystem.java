@@ -34,7 +34,7 @@ public class ManipulatorSubsystem extends PIDSubsystem {
     private Talon armMotorTwo;
     boolean isClamped = false;
     private Encoder ec;
-    public static final double P = .02;
+    public static final double P = .01;
     public static final double I = 0;
     public static final double D = 0;
     public static final double PMIN = -1;
@@ -138,8 +138,8 @@ public class ManipulatorSubsystem extends PIDSubsystem {
     protected void usePIDOutput(double output) {
         if(this.getSetpoint() > 3500 || goingToMiddle)
         {
-            armMotorOne.pidWrite(output/2);
-            armMotorTwo.pidWrite(-output/2);
+            armMotorOne.pidWrite((.5)*output);
+            armMotorTwo.pidWrite((.5)*-output);
         }
         else{
         armMotorOne.pidWrite(output/4);
