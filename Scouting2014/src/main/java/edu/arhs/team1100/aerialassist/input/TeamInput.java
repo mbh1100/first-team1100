@@ -64,6 +64,12 @@ public class TeamInput extends javax.swing.JFrame {
 
         locationLabel.setText("Location");
 
+        locationTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                locationTextFieldActionPerformed(evt);
+            }
+        });
+
         addButton.setText("Add");
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,7 +135,19 @@ public class TeamInput extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        if (parsedTeam == null) {
+        setTeam();
+    }//GEN-LAST:event_addButtonActionPerformed
+
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+        dispose();
+    }//GEN-LAST:event_cancelButtonActionPerformed
+
+    private void locationTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_locationTextFieldActionPerformed
+        setTeam();
+    }//GEN-LAST:event_locationTextFieldActionPerformed
+
+    private void setTeam(){
+                if (parsedTeam == null) {
             Team team = new Team();
             team.setTeamNumber(getTeamNumber());
             team.setName(getTeamName());
@@ -150,12 +168,8 @@ public class TeamInput extends javax.swing.JFrame {
             TeamHandler.updateTeam(parsedTeam);
             dispose();
         }
-    }//GEN-LAST:event_addButtonActionPerformed
-
-    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        dispose();
-    }//GEN-LAST:event_cancelButtonActionPerformed
-
+    }
+    
     /**
      * Displays TeamInput and returns the instance 
      * @return TeamInput instance

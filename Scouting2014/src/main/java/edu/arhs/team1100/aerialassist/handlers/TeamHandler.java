@@ -20,7 +20,6 @@ public class TeamHandler {
     public static boolean addTeam(Team team) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-
         session.save(team);
 
         try {

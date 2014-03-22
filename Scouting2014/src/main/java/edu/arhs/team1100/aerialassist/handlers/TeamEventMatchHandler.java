@@ -5,6 +5,7 @@ import edu.arhs.team1100.aerialassist.scouting.util.HibernateUtil;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.exception.ConstraintViolationException;
+import org.hibernate.exception.JDBCConnectionException;
 
 /**
  *
@@ -26,6 +27,9 @@ public class TeamEventMatchHandler {
         try {
             session.getTransaction().commit();
         } catch (ConstraintViolationException ex) {
+            session.getTransaction().rollback();
+            return false;
+        } catch (JDBCConnectionException ex) {
             session.getTransaction().rollback();
             return false;
         }
@@ -53,8 +57,16 @@ public class TeamEventMatchHandler {
     public static List getMatches() {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-
         List tem = session.createQuery("from TeamEventMatch").list();
+        session.getTransaction().commit();
+
+        return tem;
+    }
+    
+      public static List getMatchesFromEvent(int eventID) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        List tem = session.createQuery("from TeamEventMatch where eventID = :event").setParameter("event", eventID).list();
         session.getTransaction().commit();
 
         return tem;

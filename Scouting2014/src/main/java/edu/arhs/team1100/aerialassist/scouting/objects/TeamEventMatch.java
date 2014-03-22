@@ -15,14 +15,14 @@ public class TeamEventMatch implements Serializable {
     private int assists;
     private String ballShielding;
     private int ballsCaughtFromHP;
-    private int attemptedCatchesFromHP;
+    private int missedCatchesFromHP;
     private String comments;
     private int cycles;
     private int defensive;
     private int floorPickup;
-    private int highGoalsAttempted;
+    private int highGoalsMissed;
     private int highGoalsScored;
-    private int lowGoalsAttempted;
+    private int lowGoalsMissed;
     private int lowGoalsScored;
     private String scouter;
     private String stability;
@@ -111,12 +111,12 @@ public class TeamEventMatch implements Serializable {
         this.floorPickup = floorPickup;
     }
 
-    public int getHighGoalsAttempted() {
-        return highGoalsAttempted;
+    public int getHighGoalsMissed() {
+        return highGoalsMissed;
     }
 
-    public void setHighGoalsAttempted(int highGoalsAttempted) {
-        this.highGoalsAttempted = highGoalsAttempted;
+    public void setHighGoalsMissed(int highGoalsMissed) {
+        this.highGoalsMissed = highGoalsMissed;
     }
 
     public int getHighGoalsScored() {
@@ -127,12 +127,12 @@ public class TeamEventMatch implements Serializable {
         this.highGoalsScored = highGoalsScored;
     }
 
-    public int getLowGoalsAttempted() {
-        return lowGoalsAttempted;
+    public int getLowGoalsMissed() {
+        return lowGoalsMissed;
     }
 
-    public void setLowGoalsAttempted(int lowGoalsAttempted) {
-        this.lowGoalsAttempted = lowGoalsAttempted;
+    public void setLowGoalsMissed(int lowGoalsMissed) {
+        this.lowGoalsMissed = lowGoalsMissed;
     }
 
     public int getLowGoalsScored() {
@@ -191,12 +191,12 @@ public class TeamEventMatch implements Serializable {
         this.ballsCaughtFromHP = caughtBallsFromHP;
     }
 
-    public int getAttemptedCatchesFromHP() {
-        return attemptedCatchesFromHP;
+    public int getMissedCatchesFromHP() {
+        return missedCatchesFromHP;
     }
 
-    public void setAttemptedCatchesFromHP(int attemptedCatchesFromHP) {
-        this.attemptedCatchesFromHP = attemptedCatchesFromHP;
+    public void setMissedCatchesFromHP(int missedCatchesFromHP) {
+        this.missedCatchesFromHP = missedCatchesFromHP;
     }
 
     public boolean isAbleToTrussToss() {
@@ -272,26 +272,26 @@ public class TeamEventMatch implements Serializable {
     }
 
     private void updateHighGoalAccuracy() {
-        if (highGoalsAttempted == 0) {
+        if (highGoalsMissed + highGoalsScored == 0) {
             highGoalAccuracy = 0;
         } else {
-            highGoalAccuracy = (double) highGoalsScored / highGoalsAttempted;
+            highGoalAccuracy = (double) highGoalsScored / (highGoalsScored + lowGoalsMissed);
         }
     }
 
     private void updateLowGoalAccuracy() {
-        if (lowGoalsAttempted == 0) {
+        if (lowGoalsMissed +  lowGoalsScored == 0) {
             lowGoalAccuracy = 0;
         } else {
-            lowGoalAccuracy = (double) lowGoalsScored / lowGoalsAttempted;
+            lowGoalAccuracy = (double) lowGoalsScored / (lowGoalsScored + lowGoalAccuracy);
         }
     }
 
     private void updateHumanPlayerSccuracy() {
-        if (attemptedCatchesFromHP == 0) {
+        if (missedCatchesFromHP + ballsCaughtFromHP == 0) {
             humanPlayerAccuracy = 0;
         } else {
-            humanPlayerAccuracy = (double) ballsCaughtFromHP / attemptedCatchesFromHP;
+            humanPlayerAccuracy = (double) ballsCaughtFromHP / (ballsCaughtFromHP + missedCatchesFromHP);
         }
     }
 }

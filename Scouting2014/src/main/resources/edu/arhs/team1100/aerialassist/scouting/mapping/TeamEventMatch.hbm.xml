@@ -17,9 +17,9 @@
         <property name="comments"/>
         <property name="cycles"/>
         <property name="defensive"/>
-        <property name="highGoalsAttempted"/>
+        <property name="highGoalsMissed"/>
         <property name="highGoalsScored"/>
-        <property name="lowGoalsAttempted"/>
+        <property name="lowGoalsMissed"/>
         <property name="lowGoalsScored"/>
         <property name="scouter"/>
         <property name="stability"/>
@@ -31,7 +31,7 @@
         <property name="autoBallCount"/>
         <property name="autoBallGoal"/>
         <property name="floorPickup"/>
-        <property name="attemptedCatchesFromHP"/>
+        <property name="missedCatchesFromHP"/>
         <property name="ableToCatch"/>
 
 

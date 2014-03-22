@@ -25,6 +25,8 @@ public class ScoutingMain {
                 PASSWORD = args[i + 1];
             }
         }
+        
+        
 
         HibernateUtil.getSessionFactory().getCurrentSession();
         new TeamEventMatchViewer().setVisible(true);

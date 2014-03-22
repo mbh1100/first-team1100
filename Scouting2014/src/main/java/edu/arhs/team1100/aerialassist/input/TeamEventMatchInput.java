@@ -45,9 +45,9 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
         setCycles(match.getCycles());
         setDefensive(match.getDefensive());
         setFloorPickup(match.getFloorPickup());
-        setHighGoalsAttempted(match.getHighGoalsAttempted());
+        setHighGoalsMissed(match.getHighGoalsMissed());
         setHighGoalsScored(match.getHighGoalsScored());
-        setLowGoalsAttempted(match.getLowGoalsAttempted());
+        setLowGoalsMissed(match.getLowGoalsMissed());
         setLowGoalsScored(match.getLowGoalsScored());
         setScouter(match.getScouter());
         setStability(match.getStability());
@@ -59,7 +59,7 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
         setAutoBallCount(match.getAutoBallCount());
         setAutoBallGoal(match.getAutoBallGoal());
         setBallsCaughtFromHP(match.getBallsCaughtFromHP());
-        setAttemptedCatchesFromHP(match.getAttemptedCatchesFromHP());
+        setMissedCatchesFromHP(match.getMissedCatchesFromHP());
 
         matchNumberSpinner.setEnabled(false);
         teamNumberTextField.setEnabled(false);
@@ -76,13 +76,13 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        startingPositionSlider = new javax.swing.JSlider();
         matcnNumberLabel = new javax.swing.JLabel();
         matchNumberSpinner = new javax.swing.JSpinner();
         teamNumberLabel = new javax.swing.JLabel();
         scouterLabel = new javax.swing.JLabel();
         scouterTextField = new javax.swing.JTextField();
         startingPositionLabel = new javax.swing.JLabel();
-        startingPositionSlider = new javax.swing.JSlider();
         zoneChangeCheckBox = new javax.swing.JCheckBox();
         ableToUnloadAutoBallCheckBox = new javax.swing.JCheckBox();
         trussTossCheckBox = new javax.swing.JCheckBox();
@@ -110,18 +110,18 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
         spinnersPanel = new javax.swing.JPanel();
         ballsCaughtHPSpinner = new javax.swing.JSpinner();
         ballsCaughtFromHPLabel = new javax.swing.JLabel();
-        attemptedCatchesFromHPLabel = new javax.swing.JLabel();
-        attemptedBallsHPSpinner = new javax.swing.JSpinner();
+        missedCatchesFromHPLabel = new javax.swing.JLabel();
+        missedBallsHPSpinner = new javax.swing.JSpinner();
         assistsLabel = new javax.swing.JLabel();
         assistsSpinner = new javax.swing.JSpinner();
         highGoalsScoredLabel = new javax.swing.JLabel();
         highGoalsScoredSpinner = new javax.swing.JSpinner();
-        highGoalsAttemptedLabel = new javax.swing.JLabel();
-        highGoalsAttemptedSpinner = new javax.swing.JSpinner();
+        highGoalsMissedLabel = new javax.swing.JLabel();
+        highGoalsMissedSpinner = new javax.swing.JSpinner();
         lowGoalsScoredLabel = new javax.swing.JLabel();
         lowGoalsScoredSpinner = new javax.swing.JSpinner();
-        lowGoalsAttemptedLabel = new javax.swing.JLabel();
-        lowGoalsAttemptedSpinner = new javax.swing.JSpinner();
+        lowGoalsMissedLabel = new javax.swing.JLabel();
+        lowGoalsMissedSpinner = new javax.swing.JSpinner();
         cyclesLabel = new javax.swing.JLabel();
         cyclesSpinner = new javax.swing.JSpinner();
         teamNumberTextField = new javax.swing.JTextField();
@@ -129,18 +129,6 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Match Input");
         setResizable(false);
-
-        matcnNumberLabel.setText("Match Numer");
-
-        matchNumberSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 999, 1));
-
-        teamNumberLabel.setText("Team Number");
-
-        scouterLabel.setText("Scouter");
-
-        scouterTextField.setNextFocusableComponent(startingPositionSlider);
-
-        startingPositionLabel.setText("Starting Position");
 
         startingPositionSlider.setMaximum(5);
         startingPositionSlider.setMinorTickSpacing(1);
@@ -160,6 +148,18 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
         labelTablePos.put(4, new JLabel("Blue 2"));
         labelTablePos.put(5, new JLabel("Blue 3"));
         startingPositionSlider.setLabelTable(labelTablePos);
+
+        matcnNumberLabel.setText("Match Numer");
+
+        matchNumberSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 999, 1));
+
+        teamNumberLabel.setText("Team Number");
+
+        scouterLabel.setText("Scouter");
+
+        scouterTextField.setNextFocusableComponent(startingPositionSlider);
+
+        startingPositionLabel.setText("Starting Position");
 
         zoneChangeCheckBox.setText("Zone Change Bonus");
         zoneChangeCheckBox.setNextFocusableComponent(autoBallGoalSlider);
@@ -200,10 +200,8 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
 
         defensiveSlider.setMajorTickSpacing(1);
         defensiveSlider.setMaximum(5);
-        defensiveSlider.setMinorTickSpacing(1);
         defensiveSlider.setPaintLabels(true);
         defensiveSlider.setPaintTicks(true);
-        defensiveSlider.setSnapToTicks(true);
         defensiveSlider.setValue(0);
         defensiveSlider.setNextFocusableComponent(ballsCaughtHPSpinner);
 
@@ -271,9 +269,9 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
 
         ballsCaughtFromHPLabel.setText("Balls Caught From HP");
 
-        attemptedCatchesFromHPLabel.setText("Attempts to Catch From HP");
+        missedCatchesFromHPLabel.setText("Missed Catches From HP");
 
-        attemptedBallsHPSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
+        missedBallsHPSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
 
         assistsLabel.setText("Number of Assists");
 
@@ -283,17 +281,17 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
 
         highGoalsScoredSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
 
-        highGoalsAttemptedLabel.setText("High Goals Attempted");
+        highGoalsMissedLabel.setText("High Goals Missed");
 
-        highGoalsAttemptedSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
+        highGoalsMissedSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
 
         lowGoalsScoredLabel.setText("Low Goals Scored");
 
         lowGoalsScoredSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
 
-        lowGoalsAttemptedLabel.setText("Low Goals Attempted");
+        lowGoalsMissedLabel.setText("Low Goals Missed");
 
-        lowGoalsAttemptedSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
+        lowGoalsMissedSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
 
         cyclesLabel.setText("Scoring Cycles");
 
@@ -307,28 +305,24 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
             .addGroup(spinnersPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(spinnersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, spinnersPanelLayout.createSequentialGroup()
-                        .addComponent(ballsCaughtFromHPLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(ballsCaughtHPSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(spinnersPanelLayout.createSequentialGroup()
-                        .addGroup(spinnersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(attemptedCatchesFromHPLabel)
-                            .addComponent(assistsLabel)
-                            .addComponent(highGoalsScoredLabel)
-                            .addComponent(highGoalsAttemptedLabel)
-                            .addComponent(lowGoalsScoredLabel)
-                            .addComponent(lowGoalsAttemptedLabel)
-                            .addComponent(cyclesLabel))
-                        .addGap(18, 18, 18)
-                        .addGroup(spinnersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(assistsSpinner, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                            .addComponent(highGoalsScoredSpinner)
-                            .addComponent(highGoalsAttemptedSpinner)
-                            .addComponent(lowGoalsScoredSpinner)
-                            .addComponent(lowGoalsAttemptedSpinner)
-                            .addComponent(cyclesSpinner)
-                            .addComponent(attemptedBallsHPSpinner, javax.swing.GroupLayout.Alignment.TRAILING))))
+                    .addComponent(missedCatchesFromHPLabel)
+                    .addComponent(assistsLabel)
+                    .addComponent(highGoalsScoredLabel)
+                    .addComponent(highGoalsMissedLabel)
+                    .addComponent(lowGoalsScoredLabel)
+                    .addComponent(lowGoalsMissedLabel)
+                    .addComponent(cyclesLabel)
+                    .addComponent(ballsCaughtFromHPLabel))
+                .addGap(18, 18, 18)
+                .addGroup(spinnersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ballsCaughtHPSpinner, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                    .addComponent(assistsSpinner)
+                    .addComponent(highGoalsScoredSpinner)
+                    .addComponent(highGoalsMissedSpinner)
+                    .addComponent(lowGoalsScoredSpinner)
+                    .addComponent(lowGoalsMissedSpinner)
+                    .addComponent(cyclesSpinner)
+                    .addComponent(missedBallsHPSpinner, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(32, 32, 32))
         );
         spinnersPanelLayout.setVerticalGroup(
@@ -339,8 +333,8 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
                     .addComponent(ballsCaughtFromHPLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(spinnersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(attemptedCatchesFromHPLabel)
-                    .addComponent(attemptedBallsHPSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(missedCatchesFromHPLabel)
+                    .addComponent(missedBallsHPSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(spinnersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(assistsLabel)
@@ -351,16 +345,16 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
                     .addComponent(highGoalsScoredSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(spinnersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(highGoalsAttemptedLabel)
-                    .addComponent(highGoalsAttemptedSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(highGoalsMissedLabel)
+                    .addComponent(highGoalsMissedSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(spinnersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lowGoalsScoredLabel)
                     .addComponent(lowGoalsScoredSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(spinnersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lowGoalsAttemptedLabel)
-                    .addComponent(lowGoalsAttemptedSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lowGoalsMissedLabel)
+                    .addComponent(lowGoalsMissedSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(spinnersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cyclesLabel)
@@ -383,28 +377,30 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(startingPositionLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(startingPositionSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(matcnNumberLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(matchNumberSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(teamNumberLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(teamNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(scouterLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(scouterTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(commentsScrollPane)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(submitButton)
-                                    .addComponent(cancelButton))))
+                                    .addComponent(cancelButton)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(startingPositionLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(startingPositionSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(matcnNumberLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(matchNumberSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(teamNumberLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(teamNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(scouterLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(scouterTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -446,12 +442,13 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
                     .addComponent(scouterLabel)
                     .addComponent(scouterTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(teamNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(startingPositionSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(startingPositionLabel)))
+                        .addGap(26, 26, 26)
+                        .addComponent(startingPositionLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(startingPositionSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -512,7 +509,7 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
             match.setEventID(EventHandler.getCurrentEvent().getEventID());
             match.setMatchNumber(getMatchNumber());
             match.setTeamNumber(getTeamNumber());
-            match.setAttemptedCatchesFromHP(getAttemptedCatchesFromHP());
+            match.setMissedCatchesFromHP(getMissedCatchesFromHP());
             match.setAutoBallCount(getAutoBallCount());
             match.setAutoBallGoal(getAutoBallGoal());
             match.setBallsCaughtFromHP(getBallsCaughtFromHP());
@@ -522,9 +519,9 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
             match.setCycles(getCycles());
             match.setDefensive(getDefensive());
             match.setFloorPickup(getFloorPickup());
-            match.setHighGoalsAttempted(getHighGoalsAttempted());
+            match.setHighGoalsMissed(getHighGoalsMissed());
             match.setHighGoalsScored(getHighGoalsScored());
-            match.setLowGoalsAttempted(getLowGoalsAttempted());
+            match.setLowGoalsMissed(getLowGoalsMissed());
             match.setLowGoalsScored(getLowGoalsScored());
             match.setScouter(getScouter());
             match.setStability(getStability());
@@ -552,9 +549,9 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
             parsedMatch.setCycles(getCycles());
             parsedMatch.setDefensive(getDefensive());
             parsedMatch.setFloorPickup(getFloorPickup());
-            parsedMatch.setHighGoalsAttempted(getHighGoalsAttempted());
+            parsedMatch.setHighGoalsMissed(getHighGoalsMissed());
             parsedMatch.setHighGoalsScored(getHighGoalsScored());
-            parsedMatch.setLowGoalsAttempted(getLowGoalsAttempted());
+            parsedMatch.setLowGoalsMissed(getLowGoalsMissed());
             parsedMatch.setLowGoalsScored(getLowGoalsScored());
             parsedMatch.setScouter(getScouter());
             parsedMatch.setStability(getStability());
@@ -564,7 +561,7 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
             parsedMatch.setAbleToUnloadAutoBall(isAbleToUnloadAutoBall());
             parsedMatch.setZoneChange(getZoneChange());
             parsedMatch.setAbleToCatch(isAbleToCatch());
-            parsedMatch.setAttemptedCatchesFromHP(getAttemptedCatchesFromHP());
+            parsedMatch.setMissedCatchesFromHP(getMissedCatchesFromHP());
             parsedMatch.setAutoBallCount(getAutoBallCount());
             parsedMatch.setAutoBallGoal(getAutoBallGoal());
             parsedMatch.setBallsCaughtFromHP(getBallsCaughtFromHP());
@@ -598,8 +595,6 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
     private javax.swing.JCheckBox ableToUnloadAutoBallCheckBox;
     private javax.swing.JLabel assistsLabel;
     private javax.swing.JSpinner assistsSpinner;
-    private javax.swing.JSpinner attemptedBallsHPSpinner;
-    private javax.swing.JLabel attemptedCatchesFromHPLabel;
     private javax.swing.JLabel autoBallCountLabel;
     private javax.swing.JLabel autoBallGoalLabel;
     private javax.swing.JSlider autoBallGoalSlider;
@@ -620,16 +615,18 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
     private javax.swing.JSlider defensiveSlider;
     private javax.swing.JLabel floorPickupLabel;
     private javax.swing.JSlider floorPickupSlider;
-    private javax.swing.JLabel highGoalsAttemptedLabel;
-    private javax.swing.JSpinner highGoalsAttemptedSpinner;
+    private javax.swing.JLabel highGoalsMissedLabel;
+    private javax.swing.JSpinner highGoalsMissedSpinner;
     private javax.swing.JLabel highGoalsScoredLabel;
     private javax.swing.JSpinner highGoalsScoredSpinner;
-    private javax.swing.JLabel lowGoalsAttemptedLabel;
-    private javax.swing.JSpinner lowGoalsAttemptedSpinner;
+    private javax.swing.JLabel lowGoalsMissedLabel;
+    private javax.swing.JSpinner lowGoalsMissedSpinner;
     private javax.swing.JLabel lowGoalsScoredLabel;
     private javax.swing.JSpinner lowGoalsScoredSpinner;
     private javax.swing.JSpinner matchNumberSpinner;
     private javax.swing.JLabel matcnNumberLabel;
+    private javax.swing.JSpinner missedBallsHPSpinner;
+    private javax.swing.JLabel missedCatchesFromHPLabel;
     private javax.swing.JLabel scouterLabel;
     private javax.swing.JTextField scouterTextField;
     private javax.swing.JPanel spinnersPanel;
@@ -718,12 +715,12 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
         floorPickupSlider.setValue(floorPickup);
     }
 
-    public int getHighGoalsAttempted() {
-        return (Integer) highGoalsAttemptedSpinner.getValue();
+    public int getHighGoalsMissed() {
+        return (Integer) highGoalsMissedSpinner.getValue();
     }
 
-    private void setHighGoalsAttempted(int highGoalsAttempted) {
-        highGoalsAttemptedSpinner.setValue(highGoalsAttempted);
+    private void setHighGoalsMissed(int highGoalsMissed) {
+        highGoalsMissedSpinner.setValue(highGoalsMissed);
     }
 
     public int getHighGoalsScored() {
@@ -734,12 +731,12 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
         highGoalsScoredSpinner.setValue(highGoalsScored);
     }
 
-    public int getLowGoalsAttempted() {
-        return (Integer) lowGoalsAttemptedSpinner.getValue();
+    public int getLowGoalsMissed() {
+        return (Integer) lowGoalsMissedSpinner.getValue();
     }
 
-    private void setLowGoalsAttempted(int lowGoalsAttempted) {
-        lowGoalsAttemptedSpinner.setValue(lowGoalsAttempted);
+    private void setLowGoalsMissed(int lowGoalsMissed) {
+        lowGoalsMissedSpinner.setValue(lowGoalsMissed);
     }
 
     public int getLowGoalsScored() {
@@ -766,12 +763,12 @@ public class TeamEventMatchInput extends javax.swing.JFrame {
         ballsCaughtHPSpinner.setValue(ballsCaughtFromHP);
     }
 
-    public int getAttemptedCatchesFromHP() {
-        return (Integer) attemptedBallsHPSpinner.getValue();
+    public int getMissedCatchesFromHP() {
+        return (Integer) missedBallsHPSpinner.getValue();
     }
 
-    private void setAttemptedCatchesFromHP(int attemptedBallsFromHP) {
-        attemptedBallsHPSpinner.setValue(attemptedBallsFromHP);
+    private void setMissedCatchesFromHP(int missedBallsFromHP) {
+        missedBallsHPSpinner.setValue(missedBallsFromHP);
     }
 
     public String getScouter() {

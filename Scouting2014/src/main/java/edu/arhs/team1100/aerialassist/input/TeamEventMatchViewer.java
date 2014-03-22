@@ -10,8 +10,6 @@ import java.util.Hashtable;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -35,6 +33,7 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        sortingButtonGroup = new javax.swing.ButtonGroup();
         matchScrollPanel = new javax.swing.JScrollPane();
         matchTable = new javax.swing.JTable();
         addButton = new javax.swing.JButton();
@@ -82,6 +81,9 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
         matchNumberLabel = new javax.swing.JLabel();
         teamNumberSpinner = new javax.swing.JSpinner();
         teamNumberLabel = new javax.swing.JLabel();
+        matchNumberRadioButton = new javax.swing.JRadioButton();
+        teamNumberRadioButton = new javax.swing.JRadioButton();
+        jLabel2 = new javax.swing.JLabel();
         eventButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -410,6 +412,7 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
 
         searchTabbedPane.addTab("Tele-Op", teleopScrollPane);
 
+        showOnlyFromCurrentEvenCheckBox.setSelected(true);
         showOnlyFromCurrentEvenCheckBox.setText("Matched Only From Current Event");
 
         matchNumberSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
@@ -420,6 +423,15 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
 
         teamNumberLabel.setText("Team Number");
 
+        sortingButtonGroup.add(matchNumberRadioButton);
+        matchNumberRadioButton.setSelected(true);
+        matchNumberRadioButton.setText("Match Number");
+
+        sortingButtonGroup.add(teamNumberRadioButton);
+        teamNumberRadioButton.setText("Team Number");
+
+        jLabel2.setText("Sort By:");
+
         javax.swing.GroupLayout overallPanelLayout = new javax.swing.GroupLayout(overallPanel);
         overallPanel.setLayout(overallPanelLayout);
         overallPanelLayout.setHorizontalGroup(
@@ -427,6 +439,9 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
             .addGroup(overallPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(overallPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(teamNumberRadioButton)
+                    .addComponent(jLabel2)
+                    .addComponent(matchNumberRadioButton)
                     .addComponent(showOnlyFromCurrentEvenCheckBox)
                     .addGroup(overallPanelLayout.createSequentialGroup()
                         .addGroup(overallPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -451,7 +466,13 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
                 .addGroup(overallPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(teamNumberSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(teamNumberLabel))
-                .addContainerGap(416, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(matchNumberRadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(teamNumberRadioButton)
+                .addContainerGap(335, Short.MAX_VALUE))
         );
 
         searchTabbedPane.addTab("Overall", overallPanel);
@@ -574,12 +595,13 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
         for (int i = rows - 1; i >= 0; i--) {
             model.removeRow(i);
         }
-
+        if (teamNumberRadioButton.isSelected()) {
+            teamQuicksort(matchesShowing, 0, matchesShowing.size() - 1);
+        }
         for (int i = 0; i < matchesShowing.size(); i++) {
             TeamEventMatch tem = (TeamEventMatch) matchesShowing.get(i);
             model.addRow(new Object[]{tem, tem.getTeamNumber(), EventHandler.getEventFromId(tem.getEventID())});
         }
-
     }
 
     /**
@@ -588,77 +610,92 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
      * @return all the matches that match the search
      */
     public List getMatches() {
-        List allMatches = TeamEventMatchHandler.getMatches();
+        List allMatches;
+        if (getEventID() != 0) {
+            allMatches = TeamEventMatchHandler.getMatchesFromEvent(EventHandler.getCurrentEvent().getEventID());
+        } else {
+            allMatches = TeamEventMatchHandler.getMatches();
+        }
         List foundMatches = new ArrayList();
 
         for (int i = 0; i < allMatches.size(); i++) {
             TeamEventMatch currentMatch = (TeamEventMatch) allMatches.get(i);
-            boolean fits = true;
-            if (currentMatch.getAssists() >= getAssists()
-                    && currentMatch.getAutoBallCount() >= getAutoBallCount()
-                    && currentMatch.getBallsCaughtFromHP() >= getBallsCaughtFromHP()
-                    && currentMatch.getCycles() >= getCycles()
-                    && currentMatch.getDefensive() >= getDefensive()
-                    && currentMatch.getFloorPickup() >= getFloorPickup()
-                    && currentMatch.getHighGoalAccuracy() >= getHighGoalAccuracy()
-                    && currentMatch.getHighGoalsScored() >= getHighGoalsScored()
-                    && currentMatch.getHumanPlayerAccuracy() >= getHumanPlayerAccuracy()
-                    && currentMatch.getLowGoalAccuracy() >= getLowGoalAccuracy()
-                    && currentMatch.getLowGoalsScored() >= getLowGoalsScored()) {
-                if (isAbleToCatch()) {
-                    if (!currentMatch.isAbleToCatch()) {
-                        fits = false;
-                    }
-                }
-                if (isAbleToTrussCatch()) {
-                    if (!currentMatch.isAbleToTrussCatch()) {
-                        fits = false;
-                    }
-                }
-                if (isAbleToTrussToss()) {
-                    if (!currentMatch.isAbleToTrussToss()) {
-                        fits = false;
-                    }
-                }
-                if (isAbleToUnloadAutoBall()) {
-                    if (!currentMatch.isAbleToUnloadAutoBall()) {
-                        fits = false;
-                    }
-                }
-                if (isZoneChange()) {
-                    if (!currentMatch.isZoneChange()) {
-                        fits = false;
-                    }
-                }
-                if (getEventID() != 0) {
-                    if (currentMatch.getEventID() != EventHandler.getCurrentEvent().getEventID()) {
-                        fits = false;
-                    }
-                }
-                if (getMatchNumber() != 0) {
-                    if (currentMatch.getMatchNumber() != getMatchNumber()) {
-                        fits = false;
-                    }
-                }
-                if (getTeamNumber() != 0) {
-                    if (currentMatch.getTeamNumber() != getTeamNumber()) {
-                        fits = false;
-                    }
-                }
 
-                if (getAutoBallGoal() != 0) {
-                    if (currentMatch.getAutoBallGoal() != getAutoBallGoal()) {
-                        fits = false;
-                    }
+            if (getMatchNumber() != 0) {
+                if (currentMatch.getMatchNumber() != getMatchNumber()) {
+                    continue;
                 }
-
-                if (fits) {
-                    foundMatches.add(currentMatch);
-                }
-
             }
-        }
+            if (getTeamNumber() != 0) {
+                if (currentMatch.getTeamNumber() != getTeamNumber()) {
+                    continue;
+                }
+            }
 
+            if (isAbleToTrussCatch()) {
+                if (!currentMatch.isAbleToTrussCatch()) {
+                    continue;
+                }
+            }
+            if (isAbleToTrussToss()) {
+                if (!currentMatch.isAbleToTrussToss()) {
+                    continue;
+                }
+            }
+            if (isAbleToUnloadAutoBall()) {
+                if (!currentMatch.isAbleToUnloadAutoBall()) {
+                    continue;
+                }
+            }
+            if (isZoneChange()) {
+                if (!currentMatch.isZoneChange()) {
+                    continue;
+                }
+            }
+            
+            if (getAutoBallGoal() != 0){
+                if (getAutoBallGoal() != currentMatch.getAutoBallGoal()){
+                    continue;
+                }
+            }
+
+            if (currentMatch.getAssists() < getAssists()) {
+                continue;
+            }
+
+            if (currentMatch.getAutoBallCount() < getAutoBallCount()) {
+                continue;
+            }
+            if (currentMatch.getBallsCaughtFromHP() < getBallsCaughtFromHP()) {
+                continue;
+            }
+            if (currentMatch.getCycles() < getCycles()) {
+                continue;
+            }
+            if (currentMatch.getDefensive() < getDefensive()) {
+                continue;
+            }
+            if (currentMatch.getFloorPickup() < getFloorPickup()) {
+                continue;
+            }
+            if (currentMatch.getHighGoalAccuracy() < getHighGoalAccuracy()) {
+                continue;
+            }
+            if (currentMatch.getHighGoalsScored() < getHighGoalsScored()) {
+                continue;
+            }
+            if (currentMatch.getHumanPlayerAccuracy() < getHumanPlayerAccuracy()) {
+                continue;
+            }
+            if (currentMatch.getLowGoalAccuracy() < getLowGoalAccuracy()) {
+                continue;
+            }
+            if (currentMatch.getLowGoalsScored() < getLowGoalsScored()) {
+                continue;
+            }
+            foundMatches.add(currentMatch);
+
+        }
         return foundMatches;
     }
 
@@ -687,6 +724,49 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
         teamNumberSpinner.setValue(0);
         zoneChangeCheckBox.setSelected(false);
     }
+
+    private int partitionByTeam(List<TeamEventMatch> matches, int start, int end) {
+        int pivot = matches.get(start).getTeamNumber();
+
+        while (start < end) {
+
+            while (matches.get(start).getTeamNumber() < pivot) {
+                start++;
+            }
+
+            while (matches.get(end).getTeamNumber() > pivot) {
+                end--;
+            }
+
+            if (matches.get(start).getTeamNumber() == matches.get(end).getTeamNumber()) {
+                if (matches.get(start).getMatchNumber() > matches.get(end).getMatchNumber()) {
+                    TeamEventMatch temp = matches.get(start);
+                    matches.set(start, matches.get(end));
+                    matches.set(end, temp);
+                }
+                end--;
+
+            } else if (start < end) {
+                TeamEventMatch temp = matches.get(start);
+                matches.set(start, matches.get(end));
+                matches.set(end, temp);
+            }
+
+        }
+
+        return start;
+    }
+
+    private void teamQuicksort(List matches, int start, int end) {
+        if (start < end) {
+
+            int middle = partitionByTeam(matches, start, end);
+            teamQuicksort(matches, start, middle - 1);
+            teamQuicksort(matches, middle + 1, end);
+        }
+
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox ableToCatchCheckBox;
     private javax.swing.JCheckBox ableToTrussCatchCheckBox;
@@ -717,11 +797,13 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
     private javax.swing.JSlider highGoalAccuracySlider;
     private javax.swing.JLabel highGoalsScoredLabel;
     private javax.swing.JSpinner highGoalsScoredSpinner;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lowGoalAccuracyLabel;
     private javax.swing.JSlider lowGoalAccuracySlider;
     private javax.swing.JLabel lowGoalsScoredLabel;
     private javax.swing.JSpinner lowGoalsScoredSpinner;
     private javax.swing.JLabel matchNumberLabel;
+    private javax.swing.JRadioButton matchNumberRadioButton;
     private javax.swing.JSpinner matchNumberSpinner;
     private javax.swing.JScrollPane matchScrollPanel;
     private javax.swing.JTable matchTable;
@@ -729,8 +811,10 @@ public class TeamEventMatchViewer extends javax.swing.JFrame {
     private javax.swing.JButton resetButton;
     private javax.swing.JTabbedPane searchTabbedPane;
     private javax.swing.JCheckBox showOnlyFromCurrentEvenCheckBox;
+    private javax.swing.ButtonGroup sortingButtonGroup;
     private javax.swing.JButton teamButton;
     private javax.swing.JLabel teamNumberLabel;
+    private javax.swing.JRadioButton teamNumberRadioButton;
     private javax.swing.JSpinner teamNumberSpinner;
     private javax.swing.JPanel teleopPanel;
     private javax.swing.JScrollPane teleopScrollPane;
