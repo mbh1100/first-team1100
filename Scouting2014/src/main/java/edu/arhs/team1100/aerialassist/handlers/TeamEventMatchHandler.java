@@ -86,4 +86,13 @@ public class TeamEventMatchHandler {
 
     }
 
+    public static List getMatchesFromTeam(int teamNumber) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        List tem = session.createQuery("from TeamEventMatch where teamNumber = :team").setParameter("team", teamNumber).list();
+        session.getTransaction().commit();
+
+        return tem;
+    }
+
 }
