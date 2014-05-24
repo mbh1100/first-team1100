@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 /**
  *
@@ -32,6 +33,8 @@ public class ManipulatorSubsystem extends PIDSubsystem {
     private final int MAX_DISTANCE = 5000;
     private Talon armMotorOne;
     private Talon armMotorTwo;
+    private DigitalInput LMSWTCHONE;
+    private DigitalInput LMSWTCHTWO;
     boolean isClamped = false;
     private Encoder ec;
     public static final double P = .01;
@@ -41,7 +44,6 @@ public class ManipulatorSubsystem extends PIDSubsystem {
     public static final double PMAX = 1;
     public boolean goingToMiddle;
 
-
     /**
      * Constructs an ISubsystem. Initializes compressor, lift pistons, intake
      * motors. Starts compressor.
@@ -49,6 +51,9 @@ public class ManipulatorSubsystem extends PIDSubsystem {
     public ManipulatorSubsystem() {
         super(P, I, D);
         super.setInputRange(-5000, 5000);
+        LMSWTCHONE = new DigitalInput(13);
+        LMSWTCHTWO = new DigitalInput(14);
+
         armMotorOne = new Talon(RobotMap.M_TALON_LEFT_WHEEL);
         armMotorTwo = new Talon(RobotMap.M_TALON_RIGHT_WHEEL);
         ec = new Encoder(RobotMap.S_EN_ARM_A, RobotMap.S_EN_ARM_B);
@@ -72,10 +77,29 @@ public class ManipulatorSubsystem extends PIDSubsystem {
 
     public void moveArm() throws DriverStationEnhancedIO.EnhancedIOException {
         double speed = OI.getInstance().getXboxController().getAxis(Joystick.AxisType.kY);
-        if (Math.abs(speed) > .2 && Math.abs(getEncoder()) < MAX_DISTANCE) {
-            super.disable();
-            goingToMiddle = false;
-            moveArmSet(-speed);
+        if (speed < 0 && getEncoder() > 3950 || speed > 0 && getEncoder() < -3950) {
+            speed = 0;
+        }
+        if (Math.abs(speed) > .2) {   //&& Math.abs(getEncoder()) < MAX_DISTANCE
+            if (/*getEncoder() > 3850*/ LMSWTCHTWO.get() && speed > 0) {
+                System.out.println("MovingWitchout one");
+                super.disable();
+                goingToMiddle = false;
+                moveArmSet(-speed);
+            }
+            if (/*getEncoder() < -3950 */ LMSWTCHONE.get() && speed < 0) {
+                                System.out.println("MovingWitchout two");
+                super.disable();
+                goingToMiddle = false;
+                moveArmSet(-speed);
+            }
+            if (!LMSWTCHTWO.get() && !LMSWTCHONE.get() && getEncoder() < 3950 && getEncoder() > -3950) {
+                                 System.out.println("MovingWitchout three");
+
+                super.disable();
+                goingToMiddle = false;
+                moveArmSet(-speed);
+            }
         } else {
             moveArmSet(0);
         }
@@ -93,19 +117,22 @@ public class ManipulatorSubsystem extends PIDSubsystem {
         ec.reset();
     }
 
-    public boolean onTargetRemake()
-    {
-        if(Math.abs(super.getSetpoint()-getEncoder()) < 100)return true;
-        else return false;
+    public boolean onTargetRemake() {
+        if (Math.abs(super.getSetpoint() - getEncoder()) < 100) {
+            return true;
+        } else {
+            return false;
+        }
     }
+
     public void setCount(double count) {
         super.setSetpoint(count);
         super.enable();
     }
 
     public void moveArmSet(double speed) {
-        armMotorOne.set(speed);
-        armMotorTwo.set(-speed);
+        armMotorOne.set(speed / 3);
+        armMotorTwo.set(-speed / 3);
     }
 
     public void setFirePositionA() {
@@ -132,18 +159,16 @@ public class ManipulatorSubsystem extends PIDSubsystem {
     }
 
     protected double returnPIDInput() {
-        return ec.get();    
+        return ec.get();
     }
 
     protected void usePIDOutput(double output) {
-        if(this.getSetpoint() > 3500 || goingToMiddle)
-        {
-            armMotorOne.pidWrite((.5)*output);
-            armMotorTwo.pidWrite((.5)*-output);
-        }
-        else{
-        armMotorOne.pidWrite(output/4);
-        armMotorTwo.pidWrite(-output/4);
+        if (this.getSetpoint() > 3500 || goingToMiddle) {
+            armMotorOne.pidWrite((.5) * output);
+            armMotorTwo.pidWrite((.5) * -output);
+        } else {
+            armMotorOne.pidWrite(output / 4);
+            armMotorTwo.pidWrite(-output / 4);
         }
     }
 

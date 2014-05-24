@@ -5,6 +5,7 @@
  */
 package edu.arhs.team1100.aerialassist.autonomous;
 
+import edu.arhs.team1100.aerialassist.commands.drive.CalibrateGyroCommand;
 import edu.arhs.team1100.aerialassist.commands.drive.DriveCommand;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
@@ -43,6 +44,7 @@ public class OneBallAutonomous extends CommandGroup {
     public OneBallAutonomous() throws DriverStationEnhancedIO.EnhancedIOException, InterruptedException {
         //DriveSubsystem.getInstance().resetWheelEncoder();
         //addSequential(new DriveInMecCommand(0.0,0.0,0.0,0.0));
+        addSequential(new CalibrateGyroCommand());
         addSequential(new toggleCompressorCommand());
         addSequential(new ResetCylindersPartBCommand(), .1);
         addParallel(new SetArmFirePositionOneRobotBehindOnePointGoalCommand(), 5);
