@@ -1,14 +1,17 @@
 package edu.arhs.team1100.aerialassist.commands.manipulatorcommands;
 
+import edu.arhs.team1100.aerialassist.OI;
 import edu.arhs.team1100.aerialassist.commands.CommandBase;
 import edu.arhs.team1100.aerialassist.subsystems.ManipulatorSubsystem;
-import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
+import edu.wpi.first.wpilibj.Joystick;
 
 /**
  *
  * @author Team 1100
  */
 public class SetArmMiddleCommand extends CommandBase {
+
+    boolean canceled = false;
 
     /**
      * Constructs a DriveSubsystem object
@@ -23,7 +26,7 @@ public class SetArmMiddleCommand extends CommandBase {
     protected void initialize() {
         ManipulatorSubsystem.getInstance().disable();
         ManipulatorSubsystem.getInstance().setSetpoint(0);
-        ManipulatorSubsystem.getInstance().goingToMiddle = true;
+        ManipulatorSubsystem.getInstance().setGoingToMiddle(true);
         ManipulatorSubsystem.getInstance().enable();
     }
 
@@ -31,6 +34,14 @@ public class SetArmMiddleCommand extends CommandBase {
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
+        try {
+            if (OI.getInstance().getXboxController().getAxis(Joystick.AxisType.kY) != 0) {
+                canceled = true;
+            }
+        } catch (Exception e) {
+
+        }
+
     }
 
     /**
@@ -39,16 +50,21 @@ public class SetArmMiddleCommand extends CommandBase {
      * @return false
      */
     protected boolean isFinished() {
-        return ManipulatorSubsystem.getInstance().onTarget();
+        if (canceled) {
+            return true;
+        } else {
+            return ManipulatorSubsystem.getInstance().onTarget();
+        }
     }
 
     /**
      * Called once after isFinished returns true
      */
     protected void end() {
-        ManipulatorSubsystem.getInstance().goingToMiddle = false;
-       // ManipulatorSubsystem.getInstance().disable();
-       // ManipulatorSubsystem.getInstance().stopArm();
+        ManipulatorSubsystem.getInstance().setGoingToMiddle(false);
+        // ManipulatorSubsystem.getInstance().disable();
+        // ManipulatorSubsystem.getInstance().stopArm();
+        canceled = false;
     }
 
     /**

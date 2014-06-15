@@ -42,8 +42,9 @@ public class ManipulatorSubsystem extends PIDSubsystem {
     public static final double D = 0;
     public static final double PMIN = -1;
     public static final double PMAX = 1;
-    public boolean goingToMiddle;
+    private boolean goingToMiddle;
 
+   
     /**
      * Constructs an ISubsystem. Initializes compressor, lift pistons, intake
      * motors. Starts compressor.
@@ -81,20 +82,20 @@ public class ManipulatorSubsystem extends PIDSubsystem {
             speed = 0;
         }
         if (Math.abs(speed) > .2) {   //&& Math.abs(getEncoder()) < MAX_DISTANCE
-            if (/*getEncoder() > 3850*/ LMSWTCHTWO.get() && speed > 0) {
+            if (/*getEncoder() > 3850*/LMSWTCHTWO.get() && speed > 0) {
                 System.out.println("MovingWitchout one");
                 super.disable();
                 goingToMiddle = false;
                 moveArmSet(-speed);
             }
-            if (/*getEncoder() < -3950 */ LMSWTCHONE.get() && speed < 0) {
-                                System.out.println("MovingWitchout two");
+            if (/*getEncoder() < -3950 */LMSWTCHONE.get() && speed < 0) {
+                System.out.println("MovingWitchout two");
                 super.disable();
                 goingToMiddle = false;
                 moveArmSet(-speed);
             }
             if (!LMSWTCHTWO.get() && !LMSWTCHONE.get() && getEncoder() < 3950 && getEncoder() > -3950) {
-                                 System.out.println("MovingWitchout three");
+                System.out.println("MovingWitchout three");
 
                 super.disable();
                 goingToMiddle = false;
@@ -171,5 +172,10 @@ public class ManipulatorSubsystem extends PIDSubsystem {
             armMotorTwo.pidWrite(-output / 4);
         }
     }
+    
+     public void setGoingToMiddle(boolean goingToMiddle) {
+        this.goingToMiddle = goingToMiddle;
+    }
+
 
 }

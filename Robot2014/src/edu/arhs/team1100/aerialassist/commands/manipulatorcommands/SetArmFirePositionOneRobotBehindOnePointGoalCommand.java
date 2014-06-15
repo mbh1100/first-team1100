@@ -3,15 +3,18 @@ package edu.arhs.team1100.aerialassist.commands.manipulatorcommands;
 import edu.arhs.team1100.aerialassist.OI;
 import edu.arhs.team1100.aerialassist.commands.CommandBase;
 import edu.arhs.team1100.aerialassist.subsystems.ManipulatorSubsystem;
-import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj.DriverStationEnhancedIO;
+import edu.wpi.first.wpilibj.Joystick;
 
 /**
  *
  * @author Team 1100
  */
 public class SetArmFirePositionOneRobotBehindOnePointGoalCommand extends CommandBase {
-    int mod = 1;
+
+    boolean mod = false;
+    boolean canceled = false;
+
     /**
      * Constructs a DriveSubsystem object
      */
@@ -24,13 +27,18 @@ public class SetArmFirePositionOneRobotBehindOnePointGoalCommand extends Command
      */
     protected void initialize() {
         try {
-            if(OI.getInstance().getXboxController().getButtonLeftBumper().get())mod = -1;
+            if (OI.getInstance().getXboxController().getButtonLeftBumper().get()) {
+                mod = true;
+            }
         } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
             ex.printStackTrace();
         }
         ManipulatorSubsystem.getInstance().disable();
-        if(mod == 1)ManipulatorSubsystem.getInstance().setSetpoint(1270);                            
-        else ManipulatorSubsystem.getInstance().setSetpoint(-1360);                            
+        if (mod) {
+            ManipulatorSubsystem.getInstance().setSetpoint(1270);
+        } else {
+            ManipulatorSubsystem.getInstance().setSetpoint(-1360);
+        }
         ManipulatorSubsystem.getInstance().enable();
     }
 
@@ -38,6 +46,13 @@ public class SetArmFirePositionOneRobotBehindOnePointGoalCommand extends Command
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
+        try {
+            if (OI.getInstance().getXboxController().getAxis(Joystick.AxisType.kY) != 0) {
+                canceled = true;
+            }
+        } catch (Exception e) {
+
+        }
     }
 
     /**
@@ -45,16 +60,20 @@ public class SetArmFirePositionOneRobotBehindOnePointGoalCommand extends Command
      *
      * @return false
      */
-    protected boolean isFinished() {     
-        mod = 1;
-        return ManipulatorSubsystem.getInstance().onTarget();
+    protected boolean isFinished() {
+        if (canceled) {
+            return true;
+        } else {
+            return ManipulatorSubsystem.getInstance().onTarget();
+        }
     }
 
     /**
      * Called once after isFinished returns true
      */
     protected void end() {
-                mod = 1;
+        mod = false;
+        canceled = false;
 
         //ManipulatorSubsystem.getInstance().disable();
         //ManipulatorSubsystem.getInstance().stopArm();

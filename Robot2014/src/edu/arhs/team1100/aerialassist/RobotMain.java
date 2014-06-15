@@ -92,7 +92,7 @@ public class RobotMain extends IterativeRobot {
      * Called periodically during autonomous
      */
     public void autonomousPeriodic() {
-        ManipulatorSubsystem.getInstance().goingToMiddle = false;
+        ManipulatorSubsystem.getInstance().setGoingToMiddle(false);
         updateDriverStationLog();
         Scheduler.getInstance().run();
     }
@@ -113,7 +113,7 @@ public class RobotMain extends IterativeRobot {
      * Called periodically during operator control
      */
     public void teleopPeriodic() {
-        ManipulatorSubsystem.getInstance().goingToMiddle = true;
+        ManipulatorSubsystem.getInstance().setGoingToMiddle(true);
         Scheduler.getInstance().run();
         updateDriverStationLog();
 

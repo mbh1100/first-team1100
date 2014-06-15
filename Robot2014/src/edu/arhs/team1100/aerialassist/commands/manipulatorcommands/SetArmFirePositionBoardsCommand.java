@@ -3,16 +3,18 @@ package edu.arhs.team1100.aerialassist.commands.manipulatorcommands;
 import edu.arhs.team1100.aerialassist.OI;
 import edu.arhs.team1100.aerialassist.commands.CommandBase;
 import edu.arhs.team1100.aerialassist.subsystems.ManipulatorSubsystem;
-import edu.arhs.team1100.aerialassist.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj.DriverStationEnhancedIO;
-
+import edu.wpi.first.wpilibj.Joystick;
 
 /**
  *
  * @author Team 1100
  */
 public class SetArmFirePositionBoardsCommand extends CommandBase {
-    int mod = 1;
+
+    int mod = -1;
+    boolean canceled = false;
+
     /**
      * Constructs a DriveSubsystem object
      */
@@ -25,12 +27,14 @@ public class SetArmFirePositionBoardsCommand extends CommandBase {
      */
     protected void initialize() {
         try {
-            if(OI.getInstance().getXboxController().getButtonLeftBumper().get())mod = -1;
+            if (OI.getInstance().getXboxController().getButtonLeftBumper().get()) {
+                mod = 1;
+            }
         } catch (DriverStationEnhancedIO.EnhancedIOException ex) {
             ex.printStackTrace();
         }
         ManipulatorSubsystem.getInstance().disable();
-        ManipulatorSubsystem.getInstance().setSetpoint(mod*300);
+        ManipulatorSubsystem.getInstance().setSetpoint(mod * 300);
         ManipulatorSubsystem.getInstance().enable();
     }
 
@@ -38,6 +42,13 @@ public class SetArmFirePositionBoardsCommand extends CommandBase {
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
+        try {
+            if (OI.getInstance().getXboxController().getAxis(Joystick.AxisType.kY) != 0) {
+                canceled = true;
+            }
+        } catch (Exception e) {
+
+        }
     }
 
     /**
@@ -46,16 +57,19 @@ public class SetArmFirePositionBoardsCommand extends CommandBase {
      * @return false
      */
     protected boolean isFinished() {
-                mod = 1;
-
-        return ManipulatorSubsystem.getInstance().onTarget();
+        if (canceled) {
+            return true;
+        } else {
+            return ManipulatorSubsystem.getInstance().onTarget();
+        }
     }
 
     /**
      * Called once after isFinished returns true
      */
     protected void end() {
-                mod = 1;
+        mod = -1;
+        canceled = false;
 
         //ManipulatorSubsystem.getInstance().disable();
         //ManipulatorSubsystem.getInstance().stopArm();
