@@ -66,23 +66,23 @@ public class OI {
         xbox = new XboxController(RobotMap.C_XBOX_CONTROLLER, 0.1);
 
         //CONTROL ASSIGNMENTS
-        rightStick.getButton(TOGGLE_DRIVE).whenPressed(new ToggleDriveModeCommand());
-        leftStick.getButton(CAMERA_PID).whileHeld(new CameraPIDMecanumCommand());
+        //rightStick.getButton(TOGGLE_DRIVE).whenPressed(new ToggleDriveModeCommand());
+        //leftStick.getButton(CAMERA_PID).whileHeld(new CameraPIDMecanumCommand());
 
         rightStick.getButton(LEG).whenPressed(new ToggleLegCommand());
         leftStick.getButton(CALIBRATE_GYRO).whenPressed(new CalibrateGyroCommand());
-        leftStick.getButton(CAMERA_PID).whileHeld(new CameraPIDMecanumCommand());
+        //leftStick.getButton(CAMERA_PID).whileHeld(new CameraPIDMecanumCommand());
         leftStick.getButton(STOP_DRIVE).whenPressed(new StopDriveCommand(0.1));
 
         recorder = new RecordCommand(20); //interval is 20 ms
-        leftStick.getButton(RECORD).whileHeld(recorder);
-        leftStick.getButton(PLAY_RECORDING).whenPressed(new PlayRecordingCommand(recorder));
-        leftStick.getButton(PRINT_RECORDING).whenPressed(new PrintRecordingCodeCommand(recorder));
+        //leftStick.getButton(RECORD).whileHeld(recorder);
+        //leftStick.getButton(PLAY_RECORDING).whenPressed(new PlayRecordingCommand(recorder));
+        //leftStick.getButton(PRINT_RECORDING).whenPressed(new PrintRecordingCodeCommand(recorder));
 
         xbox.getButtonX().whileHeld(new RapidFireCommandGroup());
         xbox.getButtonRightBumper().whenPressed(new ChangeShooterSpeedCommand(0.1));
         xbox.getButtonLeftBumper().whenPressed(new ChangeShooterSpeedCommand(-0.1));
-        xbox.getButtonY().whileHeld(new CameraPIDTiltShooterCommand());
+        //xbox.getButtonY().whileHeld(new CameraPIDTiltShooterCommand());
         //  xbox.getButtonY().whenReleased(new TiltShooterPositionPIDCommand(RobotMap.DS_FLAT_ANGLE_CH));
         // xbox.getButtonA().whileHeld(new  CameraPIDTiltShooterCommand());
         //xbox.getButtonB().whenPressed(new ToggleLegCommand());

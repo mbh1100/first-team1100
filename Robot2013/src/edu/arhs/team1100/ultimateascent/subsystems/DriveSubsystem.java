@@ -24,6 +24,7 @@ public class DriveSubsystem extends PIDSubsystem {
     public static final double DIRECTION_RIGHT = 90;
     public static final int MODE_CARTESIAN = 0;
     public static final int MODE_POLAR = 1;
+    public static final int MODE_TANK = 2;
     public static final double kJoystickP = 0.02;
     public static final double kJoystickI = 0.0001;
     public static final double kJoystickD = 0.0005;
@@ -38,7 +39,7 @@ public class DriveSubsystem extends PIDSubsystem {
     private Talon frontRightTalon;
     private Talon backLeftTalon;
     private Talon backRightTalon;
-    private int driveMode = MODE_CARTESIAN;
+    private final int driveMode = MODE_TANK;
     private boolean isCameraMode = false;
 
     /**
@@ -81,15 +82,24 @@ public class DriveSubsystem extends PIDSubsystem {
      * drive mode (Polar or Cartesian).
      */
     public void userDrive() {
-        if (driveMode == MODE_CARTESIAN) {
-            userDriveCartesian();
-        } else if (driveMode == MODE_POLAR) {
-            userDrivePolar();
-        } else {
-            Log.log(this, "404: DRIVE MODE NOT FOUND. [W]hat a [T]errible [F]ailure.", driveMode);
-            driveMode = MODE_CARTESIAN;
-            userDriveCartesian();
-        }
+        userDriveTank();
+        /*
+         if (driveMode == MODE_CARTESIAN) {
+         userDriveCartesian();
+         } else if (driveMode == MODE_POLAR) {
+         userDrivePolar();
+         } else {
+         Log.log(this, "404: DRIVE MODE NOT FOUND. [W]hat a [T]errible [F]ailure.", driveMode);
+         //driveMode = MODE_TANK;
+         userDriveCartesian();
+         }*/
+
+    }
+
+    private void userDriveTank() {
+        double leftValue = OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kY);
+        double rightValue = -OI.getInstance().getRightJoystick().getAxis(Joystick.AxisType.kY);
+        drive.tankDrive(leftValue, rightValue);
     }
 
     /**
@@ -110,6 +120,10 @@ public class DriveSubsystem extends PIDSubsystem {
         double angle = -OI.getInstance().getRightJoystick().getAngle();
         double rotation = -OI.getInstance().getLeftJoystick().getAxis(Joystick.AxisType.kX);
         drive.mecanumDrive_Polar(magnitude, angle, rotation);
+    }
+
+    public void drive(double leftValue, double rightValue) {
+        drive.tankDrive(leftValue, rightValue);
     }
 
     /**
@@ -133,19 +147,23 @@ public class DriveSubsystem extends PIDSubsystem {
      * @param mode drive mode to use
      */
     public void driveSimulate(double x, double y, double rot, int mode) {
-        if (mode == MODE_POLAR) {
-            double magnitude = Math.sqrt(x * x + y * y); // --------------------------------- Negative did not work, drives the wrong way
-            double angle = Math.toDegrees(MathUtils.atan2(x, y));
-
-            while (angle < 0) {
-                angle += 360;
-            }
-
-            drive.mecanumDrive_Polar(magnitude, angle, rot);
-        } else if (mode == MODE_CARTESIAN) {
-            drive.mecanumDrive_Cartesian(-x, -y, -rot, driveGyro.getAngle());
+        if (mode == MODE_TANK) {
+            return;
         } else {
-            stop();
+            if (mode == MODE_POLAR) {
+                double magnitude = Math.sqrt(x * x + y * y); // --------------------------------- Negative did not work, drives the wrong way
+                double angle = Math.toDegrees(MathUtils.atan2(x, y));
+
+                while (angle < 0) {
+                    angle += 360;
+                }
+
+                drive.mecanumDrive_Polar(magnitude, angle, rot);
+            } else if (mode == MODE_CARTESIAN) {
+                drive.mecanumDrive_Cartesian(-x, -y, -rot, driveGyro.getAngle());
+            } else {
+                stop();
+            }
         }
     }
 
@@ -153,7 +171,8 @@ public class DriveSubsystem extends PIDSubsystem {
      * Stops the drive movement.
      */
     public void stop() {
-        drive(0, 0, 0);
+        drive(0, 0);
+        //drive(0, 0, 0);
     }
 
     /**
@@ -164,7 +183,7 @@ public class DriveSubsystem extends PIDSubsystem {
     protected double returnPIDInput() {
         if (isCameraMode) {
             double pCenter = Camera.getInstance().getCenterX();
-            Log.log(this, "pCenter:     "+pCenter, Log.LEVEL_DEBUG);      
+            Log.log(this, "pCenter:     " + pCenter, Log.LEVEL_DEBUG);
             return pCenter;
         } else {
             return getGyroAngle();
@@ -199,8 +218,11 @@ public class DriveSubsystem extends PIDSubsystem {
      * Switches the drive mode between Polar and Cartesian.
      */
     public void toggleDriveMode() {
-        driveMode = (driveMode == MODE_CARTESIAN) ? MODE_POLAR : MODE_CARTESIAN;
-        DSLog.log(5, (driveMode == MODE_CARTESIAN) ? "Cartesian" : "Polar");
+        DSLog.log(5, "Tank");/*
+         driveMode = (driveMode == MODE_CARTESIAN) ? MODE_POLAR : MODE_CARTESIAN;
+         DSLog.log(5, (driveMode == MODE_CARTESIAN) ? "Cartesian" : "Polar");
+         */
+
     }
 
     /**

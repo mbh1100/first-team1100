@@ -80,7 +80,7 @@ public class RobotMain extends IterativeRobot {
         //autoCommand = new AutoShootAndReloadCommandGroup();
 
         //Initialize the camera
-        Camera.getInstance().getCenterX();
+        //Camera.getInstance().getCenterX();
 
     }
 
@@ -90,7 +90,7 @@ public class RobotMain extends IterativeRobot {
     public void autonomousInit() {
         //Schedule the autonomous command (example)
         //autonomous.start();
-        autoCommand.start();
+        //autoCommand.start();
 
         Scheduler.getInstance().enable();
         //DSLog.log(5, "auto init");
@@ -113,7 +113,7 @@ public class RobotMain extends IterativeRobot {
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        ShooterWheelSubsystem.getInstance().setSpeed(ShooterWheelSubsystem.SHOOTING_SPEED);
+        //ShooterWheelSubsystem.getInstance().setSpeed(ShooterWheelSubsystem.SHOOTING_SPEED);
         lastTime = System.currentTimeMillis();
         Scheduler.getInstance().enable();
     }
@@ -131,11 +131,12 @@ public class RobotMain extends IterativeRobot {
     }
 
     private void updateDriverStationLog() {
-        DSLog.log(4, "pressure :" + CompressorSubsystem.getInstance().getPressureSwitch());
-         DSLog.log(1, "Drive Mode: " + ((DriveSubsystem.getInstance().getDriveMode() == DriveSubsystem.MODE_POLAR) ? "POLAR" : "CARTESIAN"));
-        DSLog.log(2, "Gyro Angle: " + Log.round(DriveSubsystem.getInstance().getGyroAngle(), 2));
+        DSLog.log(2, "Pressure: " + CompressorSubsystem.getInstance().getPressureSwitch());
+        //DSLog.log(1, "Drive Mode: TANK");
+        //DSLog.log(1, "Drive Mode: " + ((DriveSubsystem.getInstance().getDriveMode() == DriveSubsystem.MODE_POLAR) ? "POLAR" : "CARTESIAN"));
+        //DSLog.log(2, "Gyro Angle: " + Log.round(DriveSubsystem.getInstance().getGyroAngle(), 2));
         //DSLog.log(3, "Rate      : " + rate);
-        DSLog.log(3, "Shooter   : " + MathUtils.round(ShooterWheelSubsystem.getInstance().getSpeed() * 10));
+        DSLog.log(1, "Shooter Speed: " + MathUtils.round(ShooterWheelSubsystem.getInstance().getSpeed() * 10));
 //        if (DriveSubsystem.getInstance().getPIDController().isEnable()) {
 //            DSLog.log(4, DriveSubsystem.getInstance().getCameraMode() ? "Camera PID Mode" : "Gyro PID Mode");
 //        } else {

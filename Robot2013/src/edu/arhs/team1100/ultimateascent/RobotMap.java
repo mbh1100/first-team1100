@@ -35,6 +35,7 @@ public class RobotMap {
     public static final int S_COMPRESSOR_RELAY = 8;
     public static final int S_SOLENOID_SHOOTER_PISTON = 1;
     public static final int S_FRISBEE_LIMIT_SWITCH = 2;
+    public static final int S_RELAY_SHOOTER_PISTON = 1;
     //[L]IFT
     public static final int L_VICTOR_LEFT = 6;
     public static final int L_VICTOR_RIGHT = 5;

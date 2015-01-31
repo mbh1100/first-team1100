@@ -1,8 +1,8 @@
 package edu.arhs.team1100.ultimateascent.subsystems;
 
 import edu.arhs.team1100.ultimateascent.RobotMap;
-import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -13,7 +13,8 @@ public class ShooterPistonSubsystem extends Subsystem {
 
     static ShooterPistonSubsystem instance;
     //private Compressor compressor;
-    private Solenoid shooterPiston;
+    //private Solenoid shooterPiston;
+    private Relay shooterPiston;
     private DigitalInput limitSwitch;
     private boolean lastLimitState;
     private int frisbeeCount = 0;
@@ -23,12 +24,12 @@ public class ShooterPistonSubsystem extends Subsystem {
      * and starts compressor.
      */
     public ShooterPistonSubsystem() {
-      //  compressor = new Compressor(RobotMap.S_COMPRESSOR_PRESSURE_SWITCH, RobotMap.S_COMPRESSOR_RELAY);
-        shooterPiston = new Solenoid(RobotMap.S_SOLENOID_SHOOTER_PISTON);
-
+        //compressor = new Compressor(RobotMap.S_COMPRESSOR_PRESSURE_SWITCH, RobotMap.S_COMPRESSOR_RELAY);
+        //shooterPiston = new Solenoid(RobotMap.S_SOLENOID_SHOOTER_PISTON);
         //limitSwitch = new DigitalInput(RobotMap.S_FRISBEE_LIMIT_SWITCH);
         //compressor.start();
 
+        shooterPiston = new Relay(RobotMap.S_RELAY_SHOOTER_PISTON);
     }
 
     /**
@@ -48,14 +49,14 @@ public class ShooterPistonSubsystem extends Subsystem {
      * Pulls back piston to shoot a disc.
      */
     public void unShoot() {
-        shooterPiston.set(true);
+        shooterPiston.set(Relay.Value.kReverse);
     }
 
     /**
      * Shoots a disc.
      */
     public void shoot() {
-        shooterPiston.set(false);
+        shooterPiston.set(Relay.Value.kOn);
         frisbeeCount--;
     }
 
@@ -65,7 +66,11 @@ public class ShooterPistonSubsystem extends Subsystem {
      * @param state
      */
     public void set(boolean state) {
-        shooterPiston.set(state);
+        if (state) {
+            shooterPiston.set(Relay.Value.kReverse);
+        } else {
+            shooterPiston.set(Relay.Value.kOn);
+        }
     }
 
     /**
@@ -88,7 +93,6 @@ public class ShooterPistonSubsystem extends Subsystem {
     public int getFrisbeeCount() {
         return frisbeeCount;
     }
-
 
     /**
      * Initializes default command
